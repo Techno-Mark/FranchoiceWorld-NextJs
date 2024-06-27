@@ -12,7 +12,7 @@ const Footer = (props: any) => {
             <Link href="/" className="flex items-center">
               <Image
                 src="/footerLogo.svg"
-                className={`h-14 me-3${styles.footerLogo}`}
+                className={`h-14 w-auto me-3${styles.footerLogo}`}
                 alt="Logo"
                 width={100}
                 height={100}

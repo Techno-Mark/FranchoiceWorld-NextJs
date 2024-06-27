@@ -33,7 +33,10 @@ const ListBrandBanner = () => {
           <div className="flex flex-col col-span-2">
             <div className="w-5/6 mx-auto">
               <h3 className={styles.brandTitle}>List Your Brand</h3>
-              <form className={`flex gap-3 flex-col md:flex-row`} onClick={handleListBrand}>
+              <form
+                className={`flex gap-3 flex-col md:flex-row`}
+                onClick={handleListBrand}
+              >
                 <CountryDropdown
                   countries={countries}
                   value={selectedCountry}

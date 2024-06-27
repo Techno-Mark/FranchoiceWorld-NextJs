@@ -34,7 +34,7 @@ const Header = () => {
               href="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
-              <Image src="/logo.svg" className="h-10" alt="Logo" width={100} height={100} />
+              <Image src="/logo.svg" className="w-auto h-10" alt="Logo" width={100} height={100} />
             </Link>
             <button
               data-collapse-toggle="mega-menu-full"
