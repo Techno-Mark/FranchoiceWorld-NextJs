@@ -2,6 +2,42 @@
     color: var(--footer-bg);
 }
 
-.menuItem{
+.menuItem {
     font-size: var(--text-size);
+}
+
+.submenu {
+    position: absolute;
+    background: var(--white-color);
+    width: 100%;
+    min-width: 260px;
+    border-radius: 8px;
+    top: 100%;
+    right: -32px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.submenu li {
+    padding: 0.8rem 1.1rem;
+    font-size: 0.7rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.submenu li:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.submenu li:last-child {
+    border-bottom: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.submenu li a {
+    display: flex;
+    gap: 10px;
+}
+
+.submenu li:hover {
+    background: var(--footer-bg);
+    color: var(--white-color);
 }

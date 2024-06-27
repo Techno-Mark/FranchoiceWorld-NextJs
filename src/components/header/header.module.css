@@ -1,5 +1,6 @@
 .headerContainer {
     width: 100%;
+    overflow: hidden;
 }
 
 .ctaButton {
@@ -9,4 +10,44 @@
     color: var(--white-color);
     font-size: var(--text-size);
     font-weight: 600;
+}
+
+.abc,
+.scrolled .menuLists {
+    display: none;
+}
+
+.scrolled .abc {
+    display: block;
+}
+
+.categoryButton {
+    background: var(--footer-bg);
+    padding: 0.806rem 1.5rem;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    font-size: var(--text-size);
+    font-weight: 600;
+}
+
+@media only screen and (max-width:767px) {
+    .responsiveMenu {
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        background: #fff;
+        right: 0;
+        width: 70vw;
+        transition: all 0.3s;
+        right: -100%;
+    }
+
+    .showMenu {
+        right: 0;
+        padding: 3rem 1rem;
+    }
+
+    .scrolled .abc {
+        display: none;
+    }
 }

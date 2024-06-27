@@ -5,8 +5,8 @@ import CategoriesContent from "./_categoriesContent/categoriesContent";
 const FindFranchise = () => {
   const tabs = [
     { id: "tab1", label: "Categories", content: <CategoriesContent /> },
-    { id: "tab2", label: "Location", content: <div>Content for Tab 2</div> },
-    { id: "tab3", label: "Investment", content: <div>Content for Tab 3</div> },
+    { id: "tab2", label: "Location", content: <CategoriesContent /> },
+    { id: "tab3", label: "Investment", content: <CategoriesContent /> },
   ];
   return (
     <section className={`py-8 md:py-20 ${styles.findFranchise}`}>

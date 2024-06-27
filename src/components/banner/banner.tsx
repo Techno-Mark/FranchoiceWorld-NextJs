@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./banner.module.css";
 const Banner = (props: any) => {
   return (
-    <section className={`relative ${styles.bannerSection}`}>
+    <section id="banner" className={`relative ${styles.bannerSection}`}>
       <Image
         src={props.props.imgUrl}
         alt={props.props.imgAlt}
