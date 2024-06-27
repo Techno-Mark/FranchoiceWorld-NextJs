@@ -28,7 +28,7 @@ const CategoriesContent = () => {
   ];
   return (
     <>
-      <form className="flex space-x-4 flex-col md:flex-row" onSubmit={handelSubmitCategory}>
+      <form className="flex gap-4 flex-col md:flex-row" onSubmit={handelSubmitCategory}>
         <Dropdown
           options={Industry}
           value={selectedIndustry}

@@ -7,8 +7,8 @@ const Footer = (props: any) => {
   return (
     <footer className={`${styles.footerContainer}`}>
       <div className="container mx-auto w-full py-4">
-        <div className="md:flex md:justify-between">
-          <div className="flex flex-col gap-5 text-white">
+        <div className="flex md:justify-between flex-col md:flex-row">
+          <div className="flex flex-col gap-5 text-white order-2 md:order-1 mt-8 md:mt-0">
             <Link href="/" className="flex items-center">
               <Image
                 src="/footerLogo.svg"
@@ -42,7 +42,7 @@ const Footer = (props: any) => {
               </li>
             </ul>
           </div>
-          <div className="grid grid-cols-3 gap-24">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-24 ">
             {props.props.map((x: any) => (
               <div key={x.id}>
                 <h3 className="mb-5 font-medium text-white capitilize text-xl">

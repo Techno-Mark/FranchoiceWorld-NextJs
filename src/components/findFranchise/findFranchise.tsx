@@ -9,13 +9,13 @@ const FindFranchise = () => {
     { id: "tab3", label: "Investment", content: <div>Content for Tab 3</div> },
   ];
   return (
-    <section className={`py-20 ${styles.findFranchise}`}>
+    <section className={`py-8 md:py-20 ${styles.findFranchise}`}>
       <div className="container">
         <div className="text-center">
           <Title title="Find Your Franchise" />
           <Tabs
             titleClassName={styles.franchiseType}
-            contentClassName={`w-11/12 mx-auto ${styles.franchiseContent}`}
+            contentClassName={`w-full md:w-11/12 mx-auto ${styles.franchiseContent}`}
             tabs={tabs}
           />
         </div>

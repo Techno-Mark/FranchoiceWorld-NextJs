@@ -3,7 +3,7 @@ import styles from "./halfbanner.module.css";
 const HalfBanner = () => {
   return (
     <section className={`relative ${styles.halfBanner}`}>
-      <div className="container w-3/4">
+      <div className="container w-full md:w-3/4">
         <div
           className={`bg-white flex item-center justify-center gap-3 text-center text-white p-4  md:py-10 md:px-5 ${styles.halfBannerContent}`}
         >
