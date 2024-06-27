@@ -42,7 +42,7 @@ const Footer = (props: any) => {
               </li>
             </ul>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-24 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-24 order-1 md:order-2">
             {props.props.map((x: any) => (
               <div key={x.id}>
                 <h3 className="mb-5 font-medium text-white capitilize text-xl">

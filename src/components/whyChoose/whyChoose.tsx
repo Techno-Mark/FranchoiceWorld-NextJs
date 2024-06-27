@@ -47,7 +47,7 @@ const WhyChoose: React.FC = () => {
             desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
           />
         </div>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap gap-y-4">
           {cardBox.map(({ chooseImage, chooseTitle, list }, index) => (
             <div key={index} className="px-2 md:px-4 w-1/2 md:w-1/4">
               <Card className="h-full mb-4 md:mb-0">
