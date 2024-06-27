@@ -32,6 +32,22 @@ const StyledSlider = styled(Slider)`
     max-width: 570px;
     margin: 0 auto;
   }
+  @media only screen and (max-width: 767px) {
+    .slick-list {
+      max-width: 300px;
+    }
+    .slick-prev,
+    .slick-next {
+      width: 2rem;
+      height: 2rem;
+    }
+    .slick-prev {
+      left: 0;
+    }
+    .slick-next {
+      right: 0;
+    }
+  }
 `;
 
 const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {

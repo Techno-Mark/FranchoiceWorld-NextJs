@@ -31,7 +31,13 @@
         padding: 1rem;
         border-radius: 0;
     }
-    .brandTitle{
+
+    .brandTitle {
         font-size: 1.8rem;
+    }
+
+    .InputStyle {
+        max-width: 190px;
+        padding: 0.75rem;
     }
 }

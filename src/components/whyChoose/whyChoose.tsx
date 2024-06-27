@@ -49,8 +49,8 @@ const WhyChoose: React.FC = () => {
         </div>
         <div className="flex flex-wrap">
           {cardBox.map(({ chooseImage, chooseTitle, list }, index) => (
-            <div className="px-2 md:px-4 w-1/2 md:w-1/4">
-              <Card key={index} className="h-full">
+            <div key={index} className="px-2 md:px-4 w-1/2 md:w-1/4">
+              <Card className="h-full mb-4 md:mb-0">
                 <Link
                   href="#"
                   className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}

@@ -6,7 +6,7 @@ const AboutFranchoice = () => {
   return (
     <section className={`py-10 md:py-20 ${styles.aboutFranchoice}`}>
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 text-center md:text-left">
           <div className={`pb-6 md:pb-0 ${styles.aboutLeft}`}>
             <Title title="About Franchoice World" />
             <p className="pb-8">

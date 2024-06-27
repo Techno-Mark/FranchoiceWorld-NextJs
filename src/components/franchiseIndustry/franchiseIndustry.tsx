@@ -4,7 +4,7 @@ const FranchiseIndustry = () => {
   return (
     <section className={`py-6 md:py-12 ${styles.franchiseIndustry}`}>
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 text-center md:text-left">
           <div className={`${styles.industryLeft}`}>
             <h3 className="font-normal">Franchise Industry at a Glance</h3>
           </div>

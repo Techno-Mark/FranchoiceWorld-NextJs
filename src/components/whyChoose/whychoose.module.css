@@ -51,3 +51,10 @@
 .cardItems:hover .svgPath {
     fill: var(--highlighted-color);
 }
+
+@media only screen and (max-width:767px) {
+    .chooseTitle {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+}

@@ -31,10 +31,12 @@ const ListBrandBanner = () => {
             />
           </div>
           <div className="flex flex-col col-span-2">
-            <div className="w-5/6 mx-auto">
-              <h3 className={styles.brandTitle}>List Your Brand</h3>
+            <div className="w-full md:w-5/6 mx-auto">
+              <h3 className={`text-center md:text-left ${styles.brandTitle}`}>
+                List Your Brand
+              </h3>
               <form
-                className={`flex gap-3 flex-col md:flex-row`}
+                className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row items-center justify-center`}
                 onClick={handleListBrand}
               >
                 <CountryDropdown

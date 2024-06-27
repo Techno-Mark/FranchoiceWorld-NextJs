@@ -44,7 +44,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <div
-        className="block w-full pl-2 pr-7 py-4 leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedCountry ? (
