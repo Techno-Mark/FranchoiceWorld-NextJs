@@ -21,7 +21,7 @@ const ListBrandBanner = () => {
     <section className="py-8">
       <div className="container">
         <div className={`grid md:grid-cols-3 ${styles.listBrandBanner}`}>
-          <div className="hidden md:block relative">
+          <div className="hidden lg:block relative">
             <Image
               src={"/womenBrandBanner.png"}
               width={250}
@@ -30,13 +30,13 @@ const ListBrandBanner = () => {
               className={`absolute bottom-0 left-0 ${styles.brandWomenImg}`}
             />
           </div>
-          <div className="flex flex-col col-span-2">
-            <div className="w-full md:w-5/6 mx-auto">
-              <h3 className={`text-center md:text-left ${styles.brandTitle}`}>
+          <div className="flex flex-col col-span-3 lg:col-span-2">
+            <div className="w-full lg:w-5/6 mx-auto">
+              <h3 className={`text-center lg:text-left ${styles.brandTitle}`}>
                 List Your Brand
               </h3>
               <form
-                className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row items-center justify-center`}
+                className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row md:items-normal justify-center lg:justify-start`}
                 onClick={handleListBrand}
               >
                 <CountryDropdown

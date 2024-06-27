@@ -97,56 +97,72 @@ const Header = () => {
                 height={100}
               />
             </Link>
-            <button
-              onClick={toggleMenu}
-              data-collapse-toggle="mega-menu-full"
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none z-[2]"
-              aria-controls="mega-menu-full"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {!toggleClass ? (
+            <div className="flex gap-3 md:hidden items-center">
+              <Link href="tel:+910000000000">
                 <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  viewBox="0 0 25 25"
                   fill="none"
-                  viewBox="0 0 17 14"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M1 1h15M1 7h15M1 13h15"
+                    d="M21.3374 3.6597C16.4551 -1.22112 8.54057 -1.21966 3.65972 3.66263C-1.22113 8.54492 -1.21966 16.4594 3.66265 21.3402C8.54496 26.2211 16.4595 26.2196 21.3403 21.3378C23.6846 18.9931 25.001 15.8129 25 12.4975C24.9995 9.18261 23.6821 6.00392 21.3374 3.66019V3.6597ZM18.9307 17.4125C18.9307 17.4125 18.9297 17.4135 18.9292 17.414V17.4101L18.2959 18.0395C17.4771 18.8691 16.2837 19.2104 15.1499 18.9394C14.0078 18.6337 12.9214 18.1469 11.9331 17.498C11.0147 16.9111 10.1641 16.225 9.39555 15.4521C8.68852 14.7504 8.05375 13.9799 7.49955 13.1523C6.8936 12.2617 6.41411 11.2915 6.07475 10.269C5.68559 9.06787 6.00786 7.75049 6.90825 6.86476L7.64994 6.12306C7.856 5.91603 8.19145 5.91506 8.39848 6.1216C8.39897 6.12209 8.39945 6.12258 8.39994 6.12306L10.7417 8.46484C10.9488 8.6709 10.9497 9.00634 10.7432 9.21337L10.7417 9.21484L9.36674 10.5898C8.97221 10.98 8.9224 11.6001 9.25004 12.0483C9.74711 12.7309 10.2979 13.373 10.896 13.9692C11.563 14.6391 12.2881 15.2485 13.0625 15.79C13.5103 16.102 14.1172 16.0497 14.5039 15.665L15.833 14.3149C16.0391 14.1079 16.374 14.1069 16.5816 14.3134L16.583 14.3149L18.9287 16.665C19.1358 16.871 19.1367 17.206 18.9307 17.413V17.4125Z"
+                    fill="#D21F34"
                   />
                 </svg>
-              ) : (
-                <svg
-                  fill="#6b7280"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 94.926 94.926"
-                  xmlSpace="preserve"
-                  stroke="#6b7280"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <g>
-                      <path d="M55.931,47.463L94.306,9.09c0.826-0.827,0.826-2.167,0-2.994L88.833,0.62C88.436,0.224,87.896,0,87.335,0 c-0.562,0-1.101,0.224-1.498,0.62L47.463,38.994L9.089,0.62c-0.795-0.795-2.202-0.794-2.995,0L0.622,6.096 c-0.827,0.827-0.827,2.167,0,2.994l38.374,38.373L0.622,85.836c-0.827,0.827-0.827,2.167,0,2.994l5.473,5.476 c0.397,0.396,0.936,0.62,1.498,0.62s1.1-0.224,1.497-0.62l38.374-38.374l38.374,38.374c0.397,0.396,0.937,0.62,1.498,0.62 s1.101-0.224,1.498-0.62l5.473-5.476c0.826-0.827,0.826-2.167,0-2.994L55.931,47.463z"></path>{" "}
+              </Link>
+              <button
+                onClick={toggleMenu}
+                data-collapse-toggle="mega-menu-full"
+                type="button"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none z-[2]"
+                aria-controls="mega-menu-full"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                {!toggleClass ? (
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 17 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M1 1h15M1 7h15M1 13h15"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    fill="#6b7280"
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 94.926 94.926"
+                    xmlSpace="preserve"
+                    stroke="#6b7280"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <g>
+                        <path d="M55.931,47.463L94.306,9.09c0.826-0.827,0.826-2.167,0-2.994L88.833,0.62C88.436,0.224,87.896,0,87.335,0 c-0.562,0-1.101,0.224-1.498,0.62L47.463,38.994L9.089,0.62c-0.795-0.795-2.202-0.794-2.995,0L0.622,6.096 c-0.827,0.827-0.827,2.167,0,2.994l38.374,38.373L0.622,85.836c-0.827,0.827-0.827,2.167,0,2.994l5.473,5.476 c0.397,0.396,0.936,0.62,1.498,0.62s1.1-0.224,1.497-0.62l38.374-38.374l38.374,38.374c0.397,0.396,0.937,0.62,1.498,0.62 s1.101-0.224,1.498-0.62l5.473-5.476c0.826-0.827,0.826-2.167,0-2.994L55.931,47.463z"></path>{" "}
+                      </g>
                     </g>
-                  </g>
-                </svg>
-              )}
-            </button>
+                  </svg>
+                )}
+              </button>
+            </div>
             <div
               id="mega-menu-full"
               className={`${styles.responsiveMenu} ${
@@ -163,17 +179,17 @@ const Header = () => {
                   </li>
                 ))}
               </ul>
-              <div className={`${styles.abc}`}>
+              <div className={`${styles.stickyCatBtn}`}>
                 <Link href="#" className={`${styles.categoryButton}`}>
                   List Your Brand
                 </Link>
               </div>
-              <div className={`ml-4 ${styles.abc}`}>
+              <div className={`ml-4 ${styles.stickyCatBtn}`}>
                 <Link href="#" className={`${styles.categoryButton}`}>
                   Find Your Franchise
                 </Link>
               </div>
-              <div className="ml-4">
+              <div className="ml-4 hidden md:block">
                 <Link
                   href="tel:+910000000000"
                   className={`flex items-center gap-2 ${styles.ctaButton}`}

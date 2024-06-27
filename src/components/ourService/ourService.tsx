@@ -19,7 +19,7 @@ const OurService = () => {
     },
   ];
   return (
-    <section className={`py-20 ${styles.ourService}`}>
+    <section className={`py-10 md:py-20 ${styles.ourService}`}>
       <div className="container">
         <h3 className="text-3xl font-bold text-white text-center mb-8">
           Our Services

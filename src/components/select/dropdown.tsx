@@ -35,7 +35,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className="relative inline-block w-full" ref={dropdownRef}>
       <div
-        className="flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 justify-between"
+        className="flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 justify-between h-full items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         {value

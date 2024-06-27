@@ -12,13 +12,13 @@
     font-weight: 600;
 }
 
-.abc,
+.stickyCatBtn,
 .scrolled .menuLists {
     display: none;
 }
 
-.scrolled .abc {
-    display: block;
+.scrolled .stickyCatBtn {
+    display: inline-block;
 }
 
 .categoryButton {
@@ -28,9 +28,18 @@
     color: var(--white-color);
     font-size: var(--text-size);
     font-weight: 600;
+    display: inline-block;
 }
 
 @media only screen and (max-width:767px) {
+    .scrolled .menuLists {
+        display: block;
+    }
+
+    .scrolled .stickyCatBtn {
+        display: none;
+    }
+
     .responsiveMenu {
         position: absolute;
         height: 100vh;

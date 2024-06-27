@@ -48,3 +48,10 @@
 .topBrandCard:hover .topBrandButton {
     background: var(--highlighted-color);
 }
+
+@media only screen and (max-width:767px) {
+    .topBrandCard:hover {
+        transform: scale(1);
+        padding: 1rem;
+    }   
+}

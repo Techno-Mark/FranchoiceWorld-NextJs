@@ -41,3 +41,12 @@
     background: var(--footer-bg);
     color: var(--white-color);
 }
+
+@media only screen and (max-width:767px) {
+    .submenu {
+        position: relative;
+        z-index: 1;
+        left: 0;
+        box-shadow: none;
+    }
+}
