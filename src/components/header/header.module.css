@@ -1,6 +1,5 @@
 .headerContainer {
     width: 100%;
-    overflow: hidden;
 }
 
 .ctaButton {
@@ -32,6 +31,10 @@
 }
 
 @media only screen and (max-width:767px) {
+    .headerContainer {
+        overflow: hidden;
+    }
+
     .scrolled .menuLists {
         display: block;
     }
