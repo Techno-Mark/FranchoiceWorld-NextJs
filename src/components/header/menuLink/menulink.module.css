@@ -1,0 +1,7 @@
+.active {
+    color: var(--footer-bg);
+}
+
+.menuItem{
+    font-size: var(--text-size);
+}

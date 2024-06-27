@@ -1,0 +1,11 @@
+.industryLeft h3 {
+    font-size: 4rem;
+    max-width: 366px;
+    line-height: normal;
+}
+
+@media only screen and (max-width:767px) {
+    .industryLeft h3 {
+        font-size: 2.5rem;
+    }
+}

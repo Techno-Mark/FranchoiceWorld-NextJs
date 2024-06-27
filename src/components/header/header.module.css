@@ -1,0 +1,12 @@
+.headerContainer {
+    width: 100%;
+}
+
+.ctaButton {
+    background: var(--highlighted-color);
+    padding: 0.65rem 1.5rem;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    font-size: var(--text-size);
+    font-weight: 600;
+}

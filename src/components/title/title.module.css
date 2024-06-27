@@ -1,0 +1,6 @@
+.title {
+    font-size: 2rem;
+    color: var(--footer-bg);
+    line-height: normal;
+    padding-bottom: 1rem;
+}

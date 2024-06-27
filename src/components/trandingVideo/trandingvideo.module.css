@@ -1,0 +1,25 @@
+.videoThumbnail {
+    height: 180px;
+    object-fit: cover;
+}
+
+.playIcon {
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.trandingVideoCard {
+    box-shadow: none;
+    border: 0.5px solid var(--text-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+}
+
+.trandingVideoCard span {
+    font-size: 10px;
+    padding-top: 9px;
+    font-weight: 500;
+    color: #717171
+}

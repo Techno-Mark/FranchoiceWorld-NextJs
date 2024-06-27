@@ -1,0 +1,15 @@
+.halfBanner {
+    top: -4.2rem;
+}
+
+.halfBannerContent {
+    box-shadow: 0px 5px 24px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 0.5rem;
+}
+
+.categoryButton {
+    padding: 1rem;
+    background: var(--footer-bg);
+    border-radius: 0.5rem;
+    max-width: 270px;
+}

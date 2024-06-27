@@ -1,0 +1,53 @@
+.whyChoose {
+    padding: 1rem 0;
+}
+
+.titlePart {
+    max-width: 545px;
+    margin: 0 auto 3rem;
+}
+
+.cardItems:hover .chooseTitle {
+    color: var(--footer-bg);
+}
+
+.chooseImg {
+    margin-bottom: 1.5rem;
+    height: 4.5rem;
+    width: max-content;
+    object-fit: contain;
+}
+
+.chooseBenifits li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 1rem;
+}
+
+.chooseBenifits li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50px;
+    background: var(--highlighted-color);
+}
+
+.chooseTitle {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.cardItems:hover .knowMore {
+    color: var(--highlighted-color);
+}
+
+.knowMore .svgPath {
+    fill: var(--text-color);
+}
+
+.cardItems:hover .svgPath {
+    fill: var(--highlighted-color);
+}

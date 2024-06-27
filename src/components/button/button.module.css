@@ -1,0 +1,4 @@
+.highlightedBtn{
+    background: var(--highlighted-color);
+    color: var(--white-color);
+}

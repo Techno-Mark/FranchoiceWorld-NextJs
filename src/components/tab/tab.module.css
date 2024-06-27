@@ -1,0 +1,4 @@
+.activeClass {
+    color: var(--highlighted-color);
+    border-bottom-color: var(--highlighted-color);
+}

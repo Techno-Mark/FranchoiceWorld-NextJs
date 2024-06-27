@@ -1,0 +1,15 @@
+.ourService {
+    background: var(--footer-bg);
+}
+
+.serviceBox {
+    background: var(--third-color);
+    border-radius: 1.4rem;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.serviceBox:hover {
+    transform: scale(1.02);
+    border: 2px solid var(--white-color);
+}

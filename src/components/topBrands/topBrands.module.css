@@ -1,0 +1,50 @@
+.topBrandSection {
+    display: block;
+}
+
+.topBrandCard {
+    box-shadow: none;
+    border: 0.5px solid var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s;
+    padding: 1rem;
+}
+
+.topBrandImage {
+    height: 165px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.topBrandCard:hover {
+    transform: scale(1.1);
+    border: none;
+    box-shadow: 0px 7px 29px rgba(23, 73, 138, 0.2);
+    padding: 1.3rem;
+}
+
+.topBrandCategory {
+    font-size: 0.8rem;
+    line-height: normal;
+}
+
+.topBrandTitle {
+    color: var(--footer-bg);
+}
+
+.topBrandDetails {
+    border-top: 0.5px solid var(--text-color);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 1.2rem;
+    margin-top: 0.9rem;
+}
+
+.topBrandDetails li span {
+    font-weight: 700;
+}
+
+.topBrandCard:hover .topBrandButton {
+    background: var(--highlighted-color);
+}

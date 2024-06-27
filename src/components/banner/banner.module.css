@@ -1,0 +1,13 @@
+.bannerImage {
+    width: 100%;
+    height: 480px;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.bannerTitle {
+    color: var(--white-color);
+    font-size: 4.5rem;
+    line-height: normal;
+}
