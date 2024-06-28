@@ -8,6 +8,7 @@
     border-radius: 10px;
     transition: all 0.3s;
     padding: 1rem;
+    transform-origin: top;
 }
 
 .topBrandImage {
@@ -17,7 +18,7 @@
 }
 
 .topBrandCard:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     border: none;
     box-shadow: 0px 7px 29px rgba(23, 73, 138, 0.2);
     padding: 1.3rem;

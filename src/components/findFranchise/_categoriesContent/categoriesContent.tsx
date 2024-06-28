@@ -48,7 +48,7 @@ const CategoriesContent = () => {
           placeholder="Select Service/Product"
         />
          <Button variant="highlighted" type="submit">
-          Submit
+          Search
         </Button>
       </form>
     </>

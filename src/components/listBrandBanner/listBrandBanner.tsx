@@ -1,18 +1,10 @@
 import Image from "next/image";
 import styles from "./listbrandbanner.module.css";
 import CountryDropdown from "../countryDropdown/countryDropdown";
-import { useState } from "react";
+
 import Button from "../button/button";
-const countries = [
-  { code: "+91", name: "India", flag: "https://flagcdn.com/in.svg" },
-  { code: "+1", name: "Canada", flag: "https://flagcdn.com/ca.svg" },
-  { code: "+2", name: "UK", flag: "https://flagcdn.com/gb.svg" },
-  // Add more countries as needed
-];
 const ListBrandBanner = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>(
-    countries[0].code
-  );
+ 
   const handleListBrand = (e: any) => {
     e.preventDefault();
     console.log("BrandList");
@@ -39,15 +31,10 @@ const ListBrandBanner = () => {
                 className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row md:items-normal justify-center lg:justify-start`}
                 onClick={handleListBrand}
               >
-                <CountryDropdown
-                  countries={countries}
-                  value={selectedCountry}
-                  onChange={setSelectedCountry}
-                  placeholder="Select a country"
-                />
+                <CountryDropdown />
                 <input
                   type="number"
-                  placeholder="00000 00000"
+                  placeholder="Enter Mobile No."
                   className={`rounded-md w-full font-medium text-lg ${styles.InputStyle}`}
                   pattern="[0-9](5) [0-9](5)"
                   maxLength={11}

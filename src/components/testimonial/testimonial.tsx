@@ -72,7 +72,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
               <Image
                 src={testimonial.companyLogo}
                 alt={testimonial.author}
-                className="mx-auto mb-4 w-auto h-auto"
+                className="mx-auto mt-5 w-auto h-auto !inline-block"
                 width={100}
                 height={100}
               />

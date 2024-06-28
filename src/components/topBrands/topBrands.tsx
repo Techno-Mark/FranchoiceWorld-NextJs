@@ -27,7 +27,7 @@ interface TopBrandSliderProps {
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    padding: 2rem 0 4rem;
+    padding: 1.2rem 0 4rem;
   }
 `;
 

@@ -1,0 +1,31 @@
+.innerBrandTitle {
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    color: var(--secondary-color);
+    padding-bottom: 1rem;
+}
+
+.innerBrandSubtitle {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    padding-bottom: 3rem;
+    font-weight: 500;
+}
+
+.InputStyle {
+    max-width: 283px;
+    color: var(--text-color);
+    padding: 1rem;
+    outline: none;
+}
+
+.agreePolicy {
+    border-bottom: 0.5px solid var(--text-color);
+}
+
+@media only screen and (max-width:767px) {
+    .InputStyle {
+        max-width: 190px;
+        padding: 0.75rem;
+    }
+}
