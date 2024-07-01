@@ -3,6 +3,7 @@ import styles from "./footer.module.css";
 import { SlSocialInstagram } from "react-icons/sl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
+import { FaXTwitter } from "react-icons/fa6";
 const Footer = (props: any) => {
   return (
     <footer className={`${styles.footerContainer}`}>
@@ -36,6 +37,11 @@ const Footer = (props: any) => {
                 </Link>
               </li>
               <li key="3">
+                <Link href="#">
+                  <FaXTwitter />
+                </Link>
+              </li>
+              <li key="4">
                 <Link href="#">
                   <FaLinkedin />
                 </Link>

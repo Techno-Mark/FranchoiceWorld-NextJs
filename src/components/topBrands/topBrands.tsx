@@ -78,8 +78,8 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
                     src={opportunity.image}
                     alt={opportunity.title}
                     className={`w-full object-cover ${styles.topBrandImage}`}
-                    width={100}
-                    height={100}
+                    width={230}
+                    height={170}
                   />
                   <div className="pt-4">
                     <div className="flex justify-between items-center">
