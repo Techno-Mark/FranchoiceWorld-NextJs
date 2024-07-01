@@ -14,9 +14,9 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
   };
 
   return (
-    <div className="border-b border-gray-200">
+    <div className="border-b border-[rgba(0,0,0,0.12)]">
       <button
-        className="flex justify-between items-center w-full p-4 text-left text-lg font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none"
+        className="flex justify-between items-center w-full p-4 text-left font-medium focus:outline-none"
         onClick={toggleAccordion}
       >
         <span>{title}</span>
@@ -35,7 +35,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
         </svg>
       </button>
       <div
-        className={`overflow-hidden transition-max-height duration-300 ${
+        className={`overflow-hidden transition-max-height duration-300 border-t border-[rgba(0,0,0,0.12)] ${
           isOpen ? "max-h-96" : "max-h-0"
         }`}
       >
