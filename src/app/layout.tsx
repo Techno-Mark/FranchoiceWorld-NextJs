@@ -71,8 +71,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="mainBody">
-        <Header />
-        {children}
+        <main className="flex flex-col min-h-screen">
+          <Header />
+          {children}
+        </main>
         <Footer props={footerItem} />
       </body>
     </html>

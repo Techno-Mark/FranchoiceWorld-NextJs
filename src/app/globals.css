@@ -47,24 +47,6 @@ a {
   padding-right: 15px;
 }
 
-body.menu-open {
-  overflow-y: hidden;
-}
-
-body .headerBg{
-  overflow: visible;
-}
-.headerBg::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-}
-
 @layer base {
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -77,5 +59,24 @@ body .headerBg{
 @media only screen and (max-width:767px) {
   body {
     font-size: 12px;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  body .headerBg {
+    overflow: visible;
+  }
+
+  .headerBg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
   }
 }

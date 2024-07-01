@@ -26,7 +26,7 @@
 
 .categoryButton {
     background: var(--footer-bg);
-    padding: 0.806rem 1.5rem;
+    padding: 0.7rem 1.5rem;
     border-radius: 0.5rem;
     color: var(--white-color);
     font-size: var(--text-size);

@@ -61,7 +61,7 @@ export default function Home() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <>
       {homeData && (
         <>
           <Banner props={homeData.banner} />
@@ -87,6 +87,6 @@ export default function Home() {
           <TrandingVideo items={homeData.trandingVideo.items} />
         </>
       )}
-    </main>
+    </>
   );
 }

@@ -1,0 +1,6 @@
+@supports not (gap: 1rem) {
+    .findForm {
+        margin-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}

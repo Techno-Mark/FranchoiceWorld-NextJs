@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import Dropdown from "@/components/select/dropdown";
 import { useState } from "react";
+import styles from './categoriescontent.module.css'
 
 const CategoriesContent = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
@@ -28,7 +29,7 @@ const CategoriesContent = () => {
   ];
   return (
     <>
-      <form className="flex gap-4 flex-col md:flex-row" onSubmit={handelSubmitCategory}>
+      <form className={`flex gap-[1rem] flex-col md:flex-row ${styles.findForm}`} onSubmit={handelSubmitCategory}>
         <Dropdown
           options={Industry}
           value={selectedIndustry}
