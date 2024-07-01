@@ -42,6 +42,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
     slidesToShow: 4,
     slidesToScroll: 1,
     space: "10px",
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -67,7 +68,9 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
   return (
     <section className={`pt-6 md:pt-12 ${styles.topBrandSection}`}>
       <div className="container mx-auto">
-        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal">{sectionTitle}</h2>
+        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal">
+          {sectionTitle}
+        </h2>
         <StyledSlider {...settings}>
           {items.map((opportunity) => (
             <div key={opportunity.id}>
