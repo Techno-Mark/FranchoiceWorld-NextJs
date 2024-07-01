@@ -10,7 +10,7 @@ import Image from "next/image";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface BusinessOpportunity {
-  id: number;
+  id?: number;
   title: string;
   category: string;
   image: string;
