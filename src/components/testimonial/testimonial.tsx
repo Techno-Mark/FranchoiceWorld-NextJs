@@ -68,11 +68,11 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
         <StyledSlider {...settings}>
           {testimonials.map((testimonial, index) => (
             <div key={index} className="p-2">
-              <p className="my-4 inline-block">{testimonial.message}</p>
+              <p className="my-4">{testimonial.message}</p>
               <Image
                 src={testimonial.companyLogo}
                 alt={testimonial.author}
-                className="mx-auto mt-5 w-auto max-w-72 object-contain"
+                className="mx-auto mt-5 w-auto h-[50px] object-contain"
                 width={100}
                 height={100}
               />

@@ -53,7 +53,6 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          centerMode: true,
         },
       },
       {
@@ -68,7 +67,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
   return (
     <section className={`pt-6 md:pt-12 ${styles.topBrandSection}`}>
       <div className="container mx-auto">
-        <h2 className="text-2xl ml-3 font-bold leading-normal">{sectionTitle}</h2>
+        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal">{sectionTitle}</h2>
         <StyledSlider {...settings}>
           {items.map((opportunity) => (
             <div key={opportunity.id}>
