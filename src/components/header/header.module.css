@@ -37,6 +37,7 @@
 @media only screen and (max-width:767px) {
     .headerContainer {
         overflow: hidden;
+        display: inline-block;
     }
 
     .scrolled .menuLists {

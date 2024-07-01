@@ -34,7 +34,7 @@ const TrandingVideo: React.FC<TrandingVideoProps> = (props) => {
             <>
               <Card
                 key={video.id}
-                className={`mb-4 md:mb-0 !ml-0 !mr-5 last:!mr-0 ${styles.trandingVideoCard}`}
+                className={`mb-4 md:mb-0 !mx-0 md:!mr-5 last:!mr-0 ${styles.trandingVideoCard}`}
               >
                 <Link href={video.videoUrl} target="_blank">
                   <div className="relative">
