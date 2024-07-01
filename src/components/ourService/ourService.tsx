@@ -24,7 +24,7 @@ const OurService = () => {
         <h3 className="text-3xl font-bold text-white text-center mb-8">
           Our Services
         </h3>
-        <ul className="flex gap-4 flex-col md:flex-row ">
+        <ul className="flex gap-4 flex-col md:flex-row">
           {serviceItem.map((x) => (
             <>
               <li
@@ -36,6 +36,7 @@ const OurService = () => {
                   alt={x.serviceText}
                   width={73}
                   height={73}
+                  className={styles.serviceIcn}
                 />
                 <h4 className="text-white font-semibold text-lg w-2/5">
                   {x.serviceText}

@@ -13,3 +13,15 @@
     transform: scale(1.02);
     border: 2px solid var(--white-color);
 }
+
+@media only screen and (max-width:767px) {
+    .serviceBox {
+        max-width: 240px;
+        margin: 0 auto;
+    }
+
+    .serviceIcn {
+        width: 47px;
+        height: 47px;
+    }
+}

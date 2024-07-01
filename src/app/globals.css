@@ -79,4 +79,9 @@ a {
     background: rgba(0, 0, 0, 0.5);
     top: 0;
   }
+
+  .container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }

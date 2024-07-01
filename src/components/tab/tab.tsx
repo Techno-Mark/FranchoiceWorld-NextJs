@@ -21,7 +21,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={`w-full`}>
-      <div className={`flex gap-12 tabTitle ${titleClassName}`}>
+      <div className={`flex gap-8 md:gap-12 tabTitle ${titleClassName}`}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
