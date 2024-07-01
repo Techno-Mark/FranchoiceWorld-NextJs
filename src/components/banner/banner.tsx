@@ -10,7 +10,7 @@ const Banner = (props: any) => {
         width={2000}
         height={500}
       />
-      <div className="container absolute top-1/2 left-0 right-0 transform translate-y-[-50%]">
+      <div className="container absolute top-9 left-0 right-0 transform md:translate-y-[-50%] md:top-1/2">
         <h3 className={`w-7/12 font-bold ${styles.bannerTitle}`}>
           {props.props.bannerTitle}
         </h3>

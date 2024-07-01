@@ -4,6 +4,10 @@
     line-height: normal;
 }
 
+.industryRight {
+    color: #717171;
+}
+
 @media only screen and (max-width:767px) {
     .industryLeft h3 {
         font-size: 2.5rem;

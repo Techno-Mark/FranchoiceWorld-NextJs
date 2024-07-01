@@ -18,12 +18,12 @@
     }
 
     .bannerTitle {
-        font-size: 1.5rem;
+        font-size: 1.9rem;
         width: 100%;
         text-align: center;
     }
 
     .bannerImage {
-        height: 300px;
+        height: 330px;
     }
 }
