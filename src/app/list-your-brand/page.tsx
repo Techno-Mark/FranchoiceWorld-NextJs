@@ -1,4 +1,6 @@
+import Faq from "@/components/faq/faq";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import ListingSimpleSteps from "@/components/listingSimpleSteps/listingSimpleSteps";
 import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 
 function ListYourBrand() {
@@ -35,11 +37,13 @@ function ListYourBrand() {
   return (
     <>
       <InnerListBrandBanner />
+      <ListingSimpleSteps />
       <TrandingVideo
         desc={trandingVideo.desc}
         desc2={trandingVideo.desc2}
         items={trandingVideo.items}
       />
+      <Faq />
     </>
   );
 }

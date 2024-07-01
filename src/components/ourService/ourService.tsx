@@ -10,7 +10,7 @@ const OurService = () => {
     {
       id: "second",
       serviceIcon: "/franchiseAdvisor.svg",
-      serviceText: "Franchise Advisor",
+      serviceText: "Franchise Advisory",
     },
     {
       id: "third",

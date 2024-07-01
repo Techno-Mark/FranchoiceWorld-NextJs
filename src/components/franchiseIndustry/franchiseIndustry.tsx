@@ -24,7 +24,7 @@ const FranchiseIndustry = () => {
               Franchoice World is here to help you discover and nurture your
               ideal franchise brand for growth.
             </p>
-            <Button variant="highlighted">Learn More</Button>
+            <Button variant="highlighted">Know More</Button>
           </div>
         </div>
       </div>

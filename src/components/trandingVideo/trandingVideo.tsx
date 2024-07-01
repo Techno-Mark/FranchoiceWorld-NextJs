@@ -41,8 +41,8 @@ const TrandingVideo: React.FC<TrandingVideoProps> = (props) => {
                     <Image
                       src={video.videoThumbnail}
                       alt="Thumbnail"
-                      width={100}
-                      height={100}
+                      width={330}
+                      height={200}
                       className={`w-full ${styles.videoThumbnail}`}
                     />
                     <FaCirclePlay
