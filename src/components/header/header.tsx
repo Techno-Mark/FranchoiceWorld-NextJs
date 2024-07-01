@@ -68,7 +68,7 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMenuOpen]);
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
     const headerElement = document.querySelector("header");

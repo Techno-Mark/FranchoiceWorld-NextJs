@@ -63,7 +63,7 @@
     }
 
     .responsiveMenu {
-        position: absolute;
+        position: fixed;
         height: 100vh;
         top: 0;
         background: #fff;
