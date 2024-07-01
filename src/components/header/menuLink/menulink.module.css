@@ -63,4 +63,8 @@
         left: 0;
         box-shadow: none;
     }
+
+    .menuItem {
+        font-size: 14px;
+    }
 }

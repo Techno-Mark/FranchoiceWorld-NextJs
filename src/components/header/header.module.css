@@ -34,6 +34,20 @@
     display: inline-block;
 }
 
+@media only screen and (max-width:991px) {
+
+    .categoryButton,
+    .ctaButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 14px;
+    }
+
+    .ctaButton {
+        width: 64px;
+        font-size: 0;
+    }
+}
+
 @media only screen and (max-width:767px) {
     .headerContainer {
         overflow: hidden;
@@ -62,9 +76,5 @@
     .showMenu {
         right: 0;
         padding: 3rem 1rem;
-    }
-
-    .scrolled .abc {
-        display: none;
     }
 }

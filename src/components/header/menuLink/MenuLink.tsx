@@ -19,7 +19,7 @@ const MenuLink = ({ item }: any) => {
           <div className={styles.menuItem}>
             <button
               onClick={toggleSubmenu}
-              className={`py-2 px-3 capitalize inline-block flex gap-2 items-center ${styles.menuItem} ${styles.menuButton}`}
+              className={`p-2 xl:px-3 capitalize inline-block flex gap-1 lg:gap-2 items-center ${styles.menuItem} ${styles.menuButton}`}
             >
               {item.name}
               <svg
@@ -61,7 +61,7 @@ const MenuLink = ({ item }: any) => {
         <>
           <Link
             href={item.path}
-            className={`py-2 px-3 capitalize inline-block w-full ${
+            className={`p-2 xl:px-3 capitalize inline-block w-full ${
               styles.menuItem
             } ${pathname === item.path && `font-bold ${styles.active}`}`}
           >
