@@ -1,5 +1,6 @@
 import Faq from "@/components/faq/faq";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import ListBrandBanner from "@/components/listBrandBanner/listBrandBanner";
 import ListingSimpleSteps from "@/components/listingSimpleSteps/listingSimpleSteps";
 import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 
@@ -44,6 +45,7 @@ function ListYourBrand() {
         items={trandingVideo.items}
       />
       <Faq />
+      <ListBrandBanner />
     </>
   );
 }

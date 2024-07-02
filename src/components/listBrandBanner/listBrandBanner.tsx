@@ -1,13 +1,12 @@
+"use client";
 import Image from "next/image";
 import styles from "./listbrandbanner.module.css";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 
 import Button from "../button/button";
 const ListBrandBanner = () => {
- 
   const handleListBrand = (e: any) => {
     e.preventDefault();
-    console.log("BrandList");
   };
   return (
     <section className="py-8">
