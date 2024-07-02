@@ -68,7 +68,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
         <StyledSlider {...settings}>
           {testimonials.map((testimonial, index) => (
             <div key={index} className="p-2">
-              <p className={`my-4 ${styles.testimonialText}`}>{testimonial.message}</p>
+              <p className={`my-4 font-medium ${styles.testimonialText}`}>{testimonial.message}</p>
               <Image
                 src={testimonial.companyLogo}
                 alt={testimonial.author}

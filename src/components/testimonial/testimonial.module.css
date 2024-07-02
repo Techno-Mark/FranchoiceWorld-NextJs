@@ -1,8 +1,10 @@
 .testimonial {
     display: block;
+    color: #717171;
+
 }
 
-@media only screen and (max-width:480px) {
+@media only screen and (max-width: 480px) {
     .testimonialText {
         max-width: 243px;
         margin: 0 auto;
