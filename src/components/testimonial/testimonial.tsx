@@ -39,6 +39,7 @@ const StyledSlider = styled(Slider)`
     }
     .slick-prev,
     .slick-next {
+      top: 80px;
       width: 2rem;
       height: 2rem;
     }

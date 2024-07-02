@@ -31,5 +31,6 @@
 
     .bannerImage {
         height: 330px;
+        object-position: 97%;
     }
 }
