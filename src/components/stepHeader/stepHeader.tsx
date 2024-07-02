@@ -10,80 +10,14 @@ import { useEffect, useState } from "react";
 function StepHeader() {
   const menuItems = [
     {
-      name: "Home",
-      path: "/",
-    },
-    {
-      name: "About Us",
-      path: "/about",
-    },
-    {
-      name: "Services",
-      path: "/services",
-      submenu: [
-        {
-          name: "Brand Owner",
-          path: "/services/brand-owner",
-          icons: "/brandOwner.svg",
-        },
-        {
-          name: "Investor",
-          path: "/services/investor",
-          icons: "/investor.svg",
-        },
-        {
-          name: "Independent Franchise Partner",
-          path: "/services/franchise-partner",
-          icons: "/independentPartner.svg",
-        },
-        {
-          name: "Real Estate Developer",
-          path: "/services/real-estate-developer",
-          icons: "/realestate.svg",
-        },
-      ],
-    },
-    {
-      name: "Knowledge Center",
-      path: "/knowledge_center",
-    },
-    {
-      name: "Contact Us",
+      name: "For Assistance?",
       path: "/contact_us",
     },
   ];
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [toggleClass, setToggleClass] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const banner = document.querySelector("#banner") as HTMLElement;
-      const bannerHeight = banner?.offsetHeight || 0;
-      if (window.scrollY > bannerHeight) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isMenuOpen]);
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-    const headerElement = document.querySelector("header");
-    headerElement?.classList.toggle("headerBg", !isMenuOpen);
-    document.body.classList.toggle("menu-open", !isMenuOpen);
-    setToggleClass(!isMenuOpen);
-  };
+  
   return (
     <header
-      className={`sticky top-0 z-10 py-4 bg-white ${styles.headerContainer} ${
-        isScrolled ? styles.scrolled : ""
-      }`}
+      className={`sticky top-0 z-10 py-4 bg-white ${styles.headerContainer}`}
     >
       <div className="container">
         <nav className="bg-white border-gray-200">
@@ -115,64 +49,11 @@ function StepHeader() {
                   />
                 </svg>
               </Link>
-              <button
-                onClick={toggleMenu}
-                data-collapse-toggle="mega-menu-full"
-                type="button"
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none z-[2]"
-                aria-controls="mega-menu-full"
-                aria-expanded="false"
-              >
-                <span className="sr-only">Open main menu</span>
-                {!toggleClass ? (
-                  <svg
-                    className="w-5 h-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 17 14"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M1 1h15M1 7h15M1 13h15"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    fill="#6b7280"
-                    width="24"
-                    height="24"
-                    version="1.1"
-                    id="Capa_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                    viewBox="0 0 94.926 94.926"
-                    xmlSpace="preserve"
-                    stroke="#6b7280"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <g>
-                        <path d="M55.931,47.463L94.306,9.09c0.826-0.827,0.826-2.167,0-2.994L88.833,0.62C88.436,0.224,87.896,0,87.335,0 c-0.562,0-1.101,0.224-1.498,0.62L47.463,38.994L9.089,0.62c-0.795-0.795-2.202-0.794-2.995,0L0.622,6.096 c-0.827,0.827-0.827,2.167,0,2.994l38.374,38.373L0.622,85.836c-0.827,0.827-0.827,2.167,0,2.994l5.473,5.476 c0.397,0.396,0.936,0.62,1.498,0.62s1.1-0.224,1.497-0.62l38.374-38.374l38.374,38.374c0.397,0.396,0.937,0.62,1.498,0.62 s1.101-0.224,1.498-0.62l5.473-5.476c0.826-0.827,0.826-2.167,0-2.994L55.931,47.463z"></path>{" "}
-                      </g>
-                    </g>
-                  </svg>
-                )}
-              </button>
+             
             </div>
             <div
               id="mega-menu-full"
-              className={`${styles.responsiveMenu} ${
-                isMenuOpen ? styles.showMenu : ""
-              } items-center justify-between font-medium w-full md:flex md:w-auto`}
+              className={`${styles.responsiveMenu} items-center justify-between font-medium w-full md:flex md:w-auto`}
             >
               <ul className="flex flex-col items-center md:flex-row gap-6 md:gap-0">
                 {menuItems.map((menu) => (
