@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
+import styles from "./countryDropdown.module.css";
 
 const countries = [
   { code: "+91", name: "India", flag: "https://flagcdn.com/in.svg" },
@@ -11,11 +12,16 @@ const countries = [
 
 const CountryDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<string>(countries[0].code);
+  const [selectedCountry, setSelectedCountry] = useState<string>(
+    countries[0].code
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -27,12 +33,16 @@ const CountryDropdown: React.FC = () => {
     };
   }, []);
 
-  const selectedCountryData = countries.find((country) => country.code === selectedCountry);
+  const selectedCountryData = countries.find(
+    (country) => country.code === selectedCountry
+  );
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <div
-        className="block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none"
+        className={`block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none ${
+          isOpen && styles.selectCountryDrop
+        }`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (
@@ -44,7 +54,9 @@ const CountryDropdown: React.FC = () => {
               width={20}
               height={20}
             />
-            <span className="ml-auto font-medium text-lg">({selectedCountryData.code})</span>
+            <span className="ml-auto font-medium text-lg">
+              ({selectedCountryData.code})
+            </span>
           </div>
         ) : (
           "Select a country"
