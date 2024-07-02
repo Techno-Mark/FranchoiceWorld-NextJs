@@ -1,0 +1,3 @@
+.selectCountryDrop:focus {
+    border-color: var(--secondary-color);
+}
