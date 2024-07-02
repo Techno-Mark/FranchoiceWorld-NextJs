@@ -4,7 +4,57 @@ import { SlSocialInstagram } from "react-icons/sl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
-const Footer = (props: any) => {
+const footerItem = [
+  {
+    id: "11",
+    title: "Company",
+    child: [
+      {
+        id: 1,
+        name: "About us",
+        path: "/about",
+      },
+      {
+        id: 2,
+        name: "Services",
+        path: "/services",
+      },
+      {
+        id: 3,
+        name: "Knowledge Center",
+        path: "/knowledge_center",
+      },
+      {
+        id: 4,
+        name: "Contact Us",
+        path: "/contact_us",
+      },
+    ],
+  },
+  {
+    id: "22",
+    title: "Support",
+    child: [
+      {
+        name: "Help Center",
+        path: "/help_center",
+      },
+      {
+        name: "Terms of service",
+        path: "/terms_of_service",
+      },
+      {
+        name: "Legal",
+        path: "/legal",
+      },
+      {
+        name: "Privacy policy",
+        path: "/privacy-policy",
+      },
+    ],
+  },
+];
+const Footer = () => {
   return (
     <footer className={`${styles.footerContainer}`}>
       <div className="container mx-auto w-full py-4">
@@ -49,7 +99,7 @@ const Footer = (props: any) => {
             </ul>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-24 order-1 md:order-2">
-            {props.props.map((x: any) => (
+            {footerItem?.map((x: any) => (
               <div key={x.id}>
                 <h3 className="mb-5 font-medium text-white capitilize text-xl">
                   {x.title}
