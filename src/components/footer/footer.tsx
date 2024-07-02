@@ -5,7 +5,7 @@ import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 const footerItem = [
-  {
+  { 
     id: "11",
     title: "Company",
     child: [
