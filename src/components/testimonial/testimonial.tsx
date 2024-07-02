@@ -38,14 +38,15 @@ const StyledSlider = styled(Slider)`
     }
     .slick-prev,
     .slick-next {
+      top: 80px;
       width: 2rem;
       height: 2rem;
     }
     .slick-prev {
-      left: 0;
+      left:25px;
     }
     .slick-next {
-      right: 0;
+      right: 25px;
     }
   }
 `;
@@ -68,7 +69,9 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
         <StyledSlider {...settings}>
           {testimonials.map((testimonial, index) => (
             <div key={index} className="p-2">
-              <p className={`my-4 font-medium ${styles.testimonialText}`}>{testimonial.message}</p>
+              <p className={`my-4 font-medium ${styles.testimonialText}`}>
+                {testimonial.message}
+              </p>
               <Image
                 src={testimonial.companyLogo}
                 alt={testimonial.author}

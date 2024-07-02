@@ -1,0 +1,79 @@
+.headerContainer {
+    width: 100%;
+}
+
+.ctaButton {
+    background: var(--highlighted-color);
+    padding: 0.65rem 1.5rem;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    font-size: var(--text-size);
+    font-weight: 600;
+}
+
+.stickyCatBtn,
+.scrolled .menuLists {
+    display: none;
+}
+
+.scrolled {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.scrolled .stickyCatBtn {
+    display: inline-block;
+}
+
+.categoryButton {
+    background: var(--footer-bg);
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    font-size: var(--text-size);
+    font-weight: 600;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 991px) {
+    .categoryButton,
+    .ctaButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 14px;
+    }
+
+    .ctaButton {
+        width: 64px;
+        font-size: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .headerContainer {
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .scrolled .menuLists {
+        display: block;
+    }
+
+    .scrolled .stickyCatBtn {
+        display: none;
+    }
+
+    .responsiveMenu {
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        background: #fff;
+        right: 0;
+        width: 70vw;
+        transition: all 0.3s;
+        right: -100%;
+    }
+
+    .showMenu {
+        right: 0;
+        padding: 3rem 1rem;
+    }
+}
