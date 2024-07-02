@@ -11,7 +11,7 @@ const Banner = (props: any) => {
         height={500}
       />
       <div className="container absolute top-9 left-0 right-0 transform md:translate-y-[-50%] md:top-1/2">
-        <h3 className={`w-7/12 font-bold ${styles.bannerTitle}`}>
+        <h3 className={`pt-1 md:pt-0 w-7/12 font-bold ${styles.bannerTitle}`}>
           {props.props.bannerTitle}
         </h3>
       </div>

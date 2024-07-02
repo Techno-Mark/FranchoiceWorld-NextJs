@@ -27,6 +27,7 @@ const StyledSlider = styled(Slider)`
     opacity: 0.5;
     width: 2.5rem;
     height: 2.5rem;
+    top: 33%;
   }
   .slick-list {
     max-width: 570px;
@@ -43,10 +44,10 @@ const StyledSlider = styled(Slider)`
       height: 2rem;
     }
     .slick-prev {
-      left:25px;
+      left: 15px;
     }
     .slick-next {
-      right: 25px;
+      right: 15px;
     }
   }
 `;
