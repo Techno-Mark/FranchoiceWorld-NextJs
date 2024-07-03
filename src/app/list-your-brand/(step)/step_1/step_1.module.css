@@ -6,12 +6,6 @@
     object-position: bottom;
 }
 
-.listBannerTitle {
-    color: var(--white-color);
-    font-size: 4.5rem;
-    line-height: normal;
-}
-
 .halfBanner {
     top: -4.2rem;
 }
@@ -28,11 +22,9 @@
     padding-bottom: 0.5rem;
 }
 
-
 .formPart {
     max-width: 800px;
     margin: 0 auto 3rem;
-    
 }
 
 
@@ -43,16 +35,6 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .listBannerSection .container {
-        top: 25%;
-    }
-
-    .listBannerTitle {
-        font-size: 1.9rem;
-        width: 100%;
-        text-align: center;
-    }
-
     .listBannerImage {
         height: 330px;
         object-position: 97%;
@@ -69,7 +51,4 @@
     .description {
         font-size: 13px;
     }
-}
-
-@media only screen and (max-width: 767px) {
 }

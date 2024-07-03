@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import styles from "./listBrandBanner.module.css";
+
+import styles from "./step_2.module.css";
 import Title from "@/components/title/title";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
@@ -25,12 +25,6 @@ interface FormValues {
 
 function SecondStep() {
   const router = useRouter();
-
-  const props = {
-    imgUrl: "/listStep/listYourBrand.png",
-    imgAlt: "Banner image",
-    bannerTitle: "Welcome to the World of Franchising",
-  };
 
   const Industry = [
     { value: "option1", label: "Option 1" },
@@ -92,25 +86,6 @@ function SecondStep() {
 
   return (
     <>
-      <section
-        id="listBrandBanner"
-        className={`relative ${styles.listBannerSection}`}
-      >
-        <Image
-          src={props.imgUrl}
-          alt={props.imgAlt}
-          className={styles.listBannerImage}
-          width={2000}
-          height={500}
-        />
-        <div className="container absolute top-9 left-0 right-0 transform md:translate-y-[-50%] md:top-1/2">
-          <h3
-            className={`pt-1 md:pt-0 w-7/12 font-bold ${styles.listBannerTitle}`}
-          >
-            Hello
-          </h3>
-        </div>
-      </section>
       <section className={`relative ${styles.halfBanner}`}>
         <div className="container w-full md:w-3/4">
           <div

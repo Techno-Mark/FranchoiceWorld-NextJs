@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import styles from "./listBrandBanner.module.css";
-import Title from "@/components/title/title";
-import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
-import { useRouter } from "next/navigation";
+import Title from "@/components/title/title";
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
+import styles from "./step_1.module.css";
 
 function FirstStep() {
   const router = useRouter();
@@ -46,25 +44,6 @@ function FirstStep() {
 
   return (
     <>
-      <section
-        id="listBrandBanner"
-        className={`relative ${styles.listBannerSection}`}
-      >
-        <Image
-          src={props.imgUrl}
-          alt={props.imgAlt}
-          className={styles.listBannerImage}
-          width={2000}
-          height={500}
-        />
-        <div className="container absolute top-9 left-0 right-0 transform md:translate-y-[-50%] md:top-1/2">
-          <h3
-            className={`pt-1 md:pt-0 w-7/12 font-bold ${styles.listBannerTitle}`}
-          >
-            Hello
-          </h3>
-        </div>
-      </section>
       <section className={`relative ${styles.halfBanner}`}>
         <div className="container w-full md:w-3/4">
           <div
