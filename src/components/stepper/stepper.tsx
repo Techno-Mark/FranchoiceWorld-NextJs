@@ -3,14 +3,22 @@ import Image from "next/image";
 import styles from "./stepper.module.css";
 
 interface StepProps {
-  icon: string;
+  icon?: string;
   title: string;
   description?: string;
   active?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
-const Stepper: React.FC<StepProps> = ({ icon, title, description, active, className }) => {
+const Stepper: React.FC<StepProps> = ({
+  icon,
+  title,
+  description,
+  active,
+  className,
+  children,
+}) => {
   return (
     <div
       className={`flex flex-row md:flex-wrap md:flex-col items-center text-center ${className} ${
@@ -18,13 +26,16 @@ const Stepper: React.FC<StepProps> = ({ icon, title, description, active, classN
       }`}
     >
       <div className="mb-2">
-        <Image
-          src={icon}
-          alt={title}
-          width={70}
-          height={70}
-          className={styles.stepIcon}
-        />
+        {icon && (
+          <Image
+            src={icon}
+            alt={title}
+            width={70}
+            height={70}
+            className={styles.stepIcon}
+          />
+        )}
+        {children}
       </div>
       <div className="w-[201px] text-left ml-2">
         <h3 className={`font-bold ${styles.stepTitle}`}>{title}</h3>
