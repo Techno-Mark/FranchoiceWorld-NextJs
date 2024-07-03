@@ -52,11 +52,8 @@ function SecondStep() {
 
   const handleSelectChange = (name: string | undefined, value: string) => {
     if (name) {
-      console.log("Hello");
-
       setFormData((prev) => ({ ...prev, [name]: value }));
     } else {
-      console.log("Value changed:", value);
       // Handle the case where name is not provided
     }
   };
