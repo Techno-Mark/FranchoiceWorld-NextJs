@@ -40,9 +40,9 @@ const CountryDropdown: React.FC = () => {
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <div
-        className={`block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none ${
-          isOpen && styles.selectCountryDrop
-        }`}
+        className={`block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white rounded-md cursor-pointer ${
+          styles.selectCountryDrop
+        } ${isOpen ? styles.openCountryDrop : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (

@@ -9,11 +9,12 @@ interface AccordionItem {
 
 interface AccordionGroupProps {
   items: AccordionItem[];
+  className?:string;
 }
 
-const AccordionGroup: React.FC<AccordionGroupProps> = ({ items }) => {
+const AccordionGroup: React.FC<AccordionGroupProps> = ({ items, className }) => {
   return (
-    <div>
+    <div className={className}>
       {items.map((item, index) => (
         <Accordion key={index} title={item.title} content={item.content} />
       ))}

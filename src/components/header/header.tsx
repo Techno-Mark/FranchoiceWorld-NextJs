@@ -4,6 +4,7 @@ import styles from "./header.module.css";
 import MenuLink from "./menuLink/MenuLink";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 const Header = () => {
   const menuItems = [
     {
@@ -52,23 +53,33 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toggleClass, setToggleClass] = useState(false);
+  const [listBrand, setListBrand] = useState(false);
+
+  const pathname = usePathname();
+  const checkPath = () => {
+    if (pathname === "/list-your-brand") {
+      setListBrand(true);
+    }
+  };
+
+  const handleScroll = () => {
+    const banner = document.querySelector("#banner") as HTMLElement;
+    const bannerHeight = banner?.offsetHeight || 0;
+    if (window.scrollY > bannerHeight) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const banner = document.querySelector("#banner") as HTMLElement;
-      const bannerHeight = banner?.offsetHeight || 0;
-      if (window.scrollY > bannerHeight) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    checkPath();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isMenuOpen]);
+
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
     const headerElement = document.querySelector("header");
@@ -76,11 +87,12 @@ const Header = () => {
     document.body.classList.toggle("menu-open", !isMenuOpen);
     setToggleClass(!isMenuOpen);
   };
+
   return (
     <header
       className={`sticky top-0 z-10 py-4 bg-white ${styles.headerContainer} ${
-        isScrolled ? styles.scrolled : ""
-      }`}
+        listBrand && styles.listBrandHeader
+      } ${isScrolled ? styles.scrolled : ""}`}
     >
       <div className="container">
         <nav className="bg-white border-gray-200">
@@ -171,26 +183,30 @@ const Header = () => {
                 isMenuOpen ? styles.showMenu : ""
               } items-center justify-between font-medium w-full md:flex md:w-auto`}
             >
-              <ul className="flex flex-col items-center md:flex-row gap-6 md:gap-0">
-                {menuItems.map((menu) => (
-                  <li
-                    className={`relative w-full md:w-auto ${styles.menuLists}`}
-                    key={menu.name}
-                  >
-                    <MenuLink item={menu} key={menu.name} />
-                  </li>
-                ))}
-              </ul>
-              <div className={`${styles.stickyCatBtn}`}>
-                <Link href="#" className={`${styles.categoryButton}`}>
-                  List Your Brand
-                </Link>
-              </div>
-              <div className={`ml-4 ${styles.stickyCatBtn}`}>
-                <Link href="#" className={`${styles.categoryButton}`}>
-                  Find Your Franchise
-                </Link>
-              </div>
+              {!listBrand && (
+                <>
+                  <ul className="flex flex-col items-center md:flex-row gap-6 md:gap-0">
+                    {menuItems.map((menu) => (
+                      <li
+                        className={`relative w-full md:w-auto ${styles.menuLists}`}
+                        key={menu.name}
+                      >
+                        <MenuLink item={menu} key={menu.name} />
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={`${styles.stickyCatBtn}`}>
+                    <Link href="#" className={`${styles.categoryButton}`}>
+                      List Your Brand
+                    </Link>
+                  </div>
+                  <div className={`ml-4 ${styles.stickyCatBtn}`}>
+                    <Link href="#" className={`${styles.categoryButton}`}>
+                      Find Your Franchise
+                    </Link>
+                  </div>
+                </>
+              )}
               <div className="ml-4 hidden md:block">
                 <Link
                   href="tel:+910000000000"

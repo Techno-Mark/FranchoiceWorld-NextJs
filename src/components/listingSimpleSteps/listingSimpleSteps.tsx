@@ -27,7 +27,7 @@ const steps = [
 
 const ListingSimpleSteps = () => {
   return (
-    <section className="py-6">
+    <section className="pt-6 pb-12">
       <div className="container">
         <div className="text-center w-3/5 mx-auto pb-4">
           <Title
@@ -37,7 +37,7 @@ const ListingSimpleSteps = () => {
         </div>
         <div className="flex justify-between items-center space-x-4">
           {steps.map((step, index) => (
-            <div className="relative w-[220px]" key={index}>
+            <div className="relative w-full max-w-[180px]" key={index}>
               <Stepper
                 icon={step.icon}
                 title={step.title}
@@ -45,7 +45,7 @@ const ListingSimpleSteps = () => {
               />
               {index < steps.length - 1 && (
                 <div
-                  className={`h-px bg-gray-300 w-3/4 absolute ${styles.stepDivider}`}
+                  className={`h-px bg-gray-300 w-1/2 md:w-full absolute ${styles.stepDivider}`}
                 />
               )}
             </div>
