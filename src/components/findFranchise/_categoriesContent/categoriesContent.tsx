@@ -7,6 +7,7 @@ const CategoriesContent = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSector, setSelectedSector] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
+  
   const handelSubmitCategory = (e: any) => {
     e.preventDefault();
 

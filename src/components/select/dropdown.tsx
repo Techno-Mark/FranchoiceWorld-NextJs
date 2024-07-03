@@ -3,14 +3,14 @@ import React, { useState, useRef, useEffect } from "react";
 interface DropdownProps {
   options: { value: string; label: string }[];
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   placeholder?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
-  onChange,
+  onChange = () => {},
   placeholder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
