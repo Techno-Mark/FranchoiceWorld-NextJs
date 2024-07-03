@@ -4,20 +4,19 @@ import Title from "@/components/title/title";
 import Stepper from "@/components/stepper/stepper";
 const steps = [
   {
-    icon: "/listStep/step1.gif",
+    children: <>1</>,
     title: "Confidential Information",
+    active: true,
   },
   {
-    icon: "/listStep/step2.gif",
-    title: "Essential Details",
+    children: <>2</>,
+    title: "Confidential Information",
+    active: true,
   },
   {
-    icon: "/listStep/step3.gif",
-    title: "Investment Details",
-  },
-  {
-    icon: "/listStep/step4.gif",
-    title: "Upload Brochures, Logos, and More",
+    children: <>3</>,
+    title: "Confidential Information",
+    active: true,
   },
 ];
 function StepLayout({ children }: { children: React.ReactNode }) {
@@ -43,7 +42,7 @@ function StepLayout({ children }: { children: React.ReactNode }) {
               <div className="relative md:max-w-[180px]" key={index}>
                 <Stepper
                   className={styles.stepperClass}
-                  icon={step.icon}
+                  children={step.children}
                   title={step.title}
                 />
                 {index < steps.length - 1 && (
