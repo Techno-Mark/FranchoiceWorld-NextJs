@@ -1,5 +1,5 @@
 "use client";
-
+import React, { ChangeEvent } from "react";
 import Image from "next/image";
 import styles from "./listBrandBanner.module.css";
 import Title from "@/components/title/title";
@@ -9,6 +9,7 @@ import Button from "@/components/button/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Dropdown from "@/components/select/dropdown";
+import TextArea from "@/components/Fields/TextArea";
 
 function SecondStep() {
   const router = useRouter();
@@ -27,26 +28,31 @@ function SecondStep() {
 
   const [formData, setFormData] = useState({
     brandName: "",
-    phoneNumber: "",
     selectedIndustry: "",
-    email: "",
-    companyName: "",
-    websiteUrl: "",
+    subCategory: "",
+    serviceProduct: "",
+    yearFounded: "",
+    locationHeadquarters: "",
+    outlets: "",
+    description: "",
+    sellingProposition: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (formData: FormData) => {
-    const formObject = Object.fromEntries(formData.entries());
-    // const mergedData = {
-    //   ...formObject,
-    //   selectedIndustry: formData.selectedIndustry,
-    // };
+  const handleSubmit = (formSubmitData: FormData) => {
+    const formObject = Object.fromEntries(formSubmitData.entries());
+    const mergedData = {
+      ...formObject,
+      ...formData,
+    };
 
-    // console.log("Form submitted:", mergedData);
+    console.log("Form submitted:", mergedData);
     // router.push("/list-your-brand/step_2");
   };
 
@@ -56,6 +62,12 @@ function SecondStep() {
     } else {
       // Handle the case where name is not provided
     }
+  };
+
+  const handleBackButton = () => {
+    console.log("Back");
+
+    router.push("/list-your-brand/step_1");
   };
 
   return (
@@ -102,62 +114,113 @@ function SecondStep() {
                     className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
                   <div>
                     <Dropdown
-                      // name="selectedIndustry"
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.subCategory ? "justify-between" : "justify-end"
+                      }`}
+                      name="subCategory"
                       options={Industry}
-                      value={formData.selectedIndustry}
-                      // onChange={handleSelectChange}
-                      placeholder="Select Industries"
+                      value={formData.subCategory}
+                      label="Sub-Category"
+                      required
+                      onChange={handleSelectChange}
                     />
                   </div>
-                  <div className="w-full  px-3 mb-6 md:mb-0">
-                    <label className="block font-medium leading-5 text-sm mb-2">
-                      Phone Number
-                    </label>
-                    <div className="flex">
-                      <div>
-                        <CountryDropdown />
-                      </div>
-                      <div className="w-full">
-                        <input
-                          type="number"
-                          placeholder="Enter Mobile No."
-                          className=" block w-full border  border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
-                          pattern="[0-9](5) [0-9](5)"
-                          maxLength={11}
-                          required
-                        />
-                      </div>
-                    </div>
+                  <div>
+                    <Dropdown
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.selectedIndustry ? "justify-between" : "justify-end"
+                      }`}
+                      name="selectedIndustry"
+                      options={Industry}
+                      value={formData.selectedIndustry}
+                      label="Industry"
+                      required
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  <div>
+                    <Dropdown
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.serviceProduct ? "justify-between" : "justify-end"
+                      }`}
+                      name="serviceProduct"
+                      options={Industry}
+                      value={formData.serviceProduct}
+                      label="Service/Product"
+                      required
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  <div>
+                    <Dropdown
+                      name="yearFounded"
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.yearFounded ? "justify-between" : "justify-end"
+                      }`}
+                      options={Industry}
+                      value={formData.yearFounded}
+                      label="Year Founded"
+                      required
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  <div>
+                    <Dropdown
+                      name="locationHeadquarters"
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.locationHeadquarters ? "justify-between" : "justify-end"
+                      }`}
+                      options={Industry}
+                      value={formData.locationHeadquarters}
+                      label="Location of Headquarters"
+                      required
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  <div>
+                    <Dropdown
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                        formData.outlets ? "justify-between" : "justify-end"
+                      }`}
+                      name="outlets"
+                      options={Industry}
+                      value={formData.outlets}
+                      label="Current Number of Locations/Outlets"
+                      required
+                      onChange={handleSelectChange}
+                    />
                   </div>
                 </div>
                 <div>
-                  <InputField
-                    id="grid-email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    label="Email"
+                  <TextArea
+                    id="description"
+                    name="description"
+                    label="Description"
+                    value={formData.description}
                     onChange={handleChange}
+                    placeholder="Your Message"
                     required={true}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                    rows={4}
+                    className=" block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
                   />
                 </div>
                 <div>
-                  <InputField
-                    id="grid-company-name"
-                    name="companyName"
-                    type="text"
-                    label="Company Name"
-                    value={formData.companyName}
+                  <TextArea
+                    id="description"
+                    name="sellingProposition"
+                    label="Unique Selling Proposition (USP)"
+                    value={formData.sellingProposition}
                     onChange={handleChange}
+                    placeholder="Your Message"
                     required={true}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                    rows={4}
+                    className=" block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
                   />
                 </div>
-                <div>
+                {/* <div>
                   <InputField
                     id="grid-website-url"
                     name="websiteUrl"
@@ -168,9 +231,12 @@ function SecondStep() {
                     onChange={handleChange}
                     className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
                   />
-                </div>
+                </div> */}
                 <div className="flex justify-between">
-                  <Button className="border border-customBorder rounded-lg">
+                  <Button
+                    className="border border-customBorder rounded-lg"
+                    onClick={handleBackButton}
+                  >
                     <div className="flex whitespace-nowrap p-2 gap-2 items-center">
                       <svg
                         width="19"

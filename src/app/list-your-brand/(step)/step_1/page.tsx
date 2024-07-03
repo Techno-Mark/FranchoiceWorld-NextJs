@@ -6,8 +6,9 @@ import Title from "@/components/title/title";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function FirstStep() {
   const router = useRouter();
@@ -18,24 +19,30 @@ function FirstStep() {
     bannerTitle: "Welcome to the World of Franchising",
   };
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    companyName: "",
-    websiteUrl: "",
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      companyName: "",
+      websiteUrl: "",
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string().required("Full Name is required"),
+      phoneNumber: Yup.string().required("Phone Number is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      companyName: Yup.string().required("Company Name is required"),
+      websiteUrl: Yup.string()
+        .url("Invalid URL")
+        .required("Website URL is required"),
+    }),
+    onSubmit: (values) => {
+      console.log("Form submitted:", values);
+      router.push("/list-your-brand/step_2");
+    },
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (formData: FormData) => {
-    const formObject = Object.fromEntries(formData.entries());
-    console.log("Form submitted:", formObject);
-    router.push("/list-your-brand/step_2");
-  };
 
   return (
     <>
@@ -68,7 +75,7 @@ function FirstStep() {
                 title="Your Details Stay Secure With Us"
                 desc="Enter Your Confidential Information"
               />
-              <form action={handleSubmit} className="mt-16 ">
+              <form onSubmit={formik.handleSubmit} className="mt-16 ">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <div className="w-full mb-6 md:mb-0">
                     <InputField
@@ -76,28 +83,49 @@ function FirstStep() {
                       name="fullName"
                       type="text"
                       label="Full Name"
-                      value={formData.fullName}
-                      onChange={handleChange}
+                      value={formik.values.fullName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       required={true}
-                      className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                      className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
+                        formik.touched.fullName && formik.errors.fullName
+                          ? "border-red-500 mb-0.5"
+                          : "mb-3"
+                      }`}
                     />
+                    {formik.touched.fullName && formik.errors.fullName && (
+                      <div className="text-red-500 font-medium mb-2">
+                        {formik.errors.fullName}
+                      </div>
+                    )}
                   </div>
                   <div className="w-full  px-3 mb-6 md:mb-0">
-                    <div className="flex">
-                      <div></div>
-                      <div className="w-full flex">
+                    <div>
+                      <div className="w-full ">
                         {/* <CountryDropdown /> */}
-                        
+
                         <InputField
                           id="grid-phoneNumber"
                           name="phoneNumber"
-                          type="number"
-                          value={formData.phoneNumber}
+                          type="text"
+                          value={formik.values.phoneNumber}
                           label="Phone Number"
-                          onChange={handleChange}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           required={true}
-                          className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                          className={`block w-full border border-[#73727366] rounded-lg py-2 px-4   focus:bg-white focus:border-[#73727366] ${
+                            formik.touched.phoneNumber &&
+                            formik.errors.phoneNumber
+                              ? "border-red-500 mb-0.5"
+                              : "mb-8"
+                          }`}
                         />
+                        {formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber && (
+                            <div className="text-red-500 font-medium mb-2">
+                              {formik.errors.phoneNumber}
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -107,12 +135,22 @@ function FirstStep() {
                     id="grid-email"
                     name="email"
                     type="email"
-                    value={formData.email}
+                    value={formik.values.email}
                     label="Email"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required={true}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                    className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                      formik.touched.email && formik.errors.email
+                        ? "border-red-500 mb-0.5"
+                        : "mb-8"
+                    }`}
                   />
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="text-red-500 font-medium mb-2">
+                      {formik.errors.email}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <InputField
@@ -120,11 +158,21 @@ function FirstStep() {
                     name="companyName"
                     type="text"
                     label="Company Name"
-                    value={formData.companyName}
-                    onChange={handleChange}
+                    value={formik.values.companyName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required={true}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                    className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
+                      formik.touched.companyName && formik.errors.companyName
+                        ? "border-red-500 mb-0.5"
+                        : "mb-8"
+                    }`}
                   />
+                  {formik.touched.companyName && formik.errors.companyName && (
+                    <div className="text-red-500 font-medium mb-2">
+                      {formik.errors.companyName}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <InputField
@@ -132,14 +180,24 @@ function FirstStep() {
                     name="websiteUrl"
                     type="url"
                     label="WebSite URL"
-                    value={formData.websiteUrl}
+                    value={formik.values.websiteUrl}
                     required={true}
-                    onChange={handleChange}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className={`block w-full border border-[#73727366] rounded-lg py-2 px-4   focus:bg-white focus:border-[#73727366] ${
+                      formik.touched.websiteUrl && formik.errors.websiteUrl
+                        ? "border-red-500 mb-0.5"
+                        : "mb-12"
+                    }`}
                   />
+                  {formik.touched.websiteUrl && formik.errors.websiteUrl && (
+                    <div className="text-red-500 font-medium mb-12">
+                      {formik.errors.websiteUrl}
+                    </div>
+                  )}
                 </div>
                 <div className="flex justify-between">
-                  <Button className="border border-customBorder rounded-lg">
+                  <Button className="border border-customBorder rounded-lg pointer-events-none opacity-60">
                     <div className="flex whitespace-nowrap p-2 gap-2 items-center">
                       <svg
                         width="19"

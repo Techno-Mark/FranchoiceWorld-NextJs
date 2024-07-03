@@ -7,7 +7,19 @@ const CategoriesContent = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSector, setSelectedSector] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
-  
+
+  const handleDropdownChange = (
+    setter: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    return (name: string | undefined, value: string) => {
+      setter(value);
+    };
+  };
+
+  const handleIndustryChange = handleDropdownChange(setSelectedIndustry);
+  const handleSectorChange = handleDropdownChange(setSelectedSector);
+  const handleProductChange = handleDropdownChange(setSelectedProduct);
+
   const handelSubmitCategory = (e: any) => {
     e.preventDefault();
 
@@ -35,21 +47,22 @@ const CategoriesContent = () => {
         onSubmit={handelSubmitCategory}
       >
         <Dropdown
+          name="selectedIndustry"
           options={Industry}
           value={selectedIndustry}
-          onChange={setSelectedIndustry}
+          onChange={handleIndustryChange}
           placeholder="Select Industries"
         />
         <Dropdown
           options={Sector}
           value={selectedSector}
-          onChange={setSelectedSector}
+          onChange={handleSectorChange}
           placeholder="Select Sector"
         />
         <Dropdown
           options={Product}
           value={selectedProduct}
-          onChange={setSelectedProduct}
+          onChange={handleProductChange}
           placeholder="Select Service/Product"
         />
         <Button

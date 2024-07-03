@@ -1,14 +1,15 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, FocusEvent } from "react";
 
 interface InputFieldProps {
   id: string;
-  name?:string;
+  name?: string;
   type: string;
   label?: string;
   value?: string;
   required?: boolean;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   className?: string;
 }
 
@@ -21,10 +22,11 @@ const InputField: React.FC<InputFieldProps> = ({
   required = false,
   placeholder,
   onChange,
+  onBlur,
   className,
 }) => {
   return (
-    <div className="mb-4">
+    <div >
       <label
         htmlFor={id}
         className="block mb-2 text-sm font-medium text-gray-700"
@@ -41,6 +43,7 @@ const InputField: React.FC<InputFieldProps> = ({
         required={required}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
