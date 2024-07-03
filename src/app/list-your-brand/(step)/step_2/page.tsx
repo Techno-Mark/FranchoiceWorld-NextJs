@@ -1,15 +1,27 @@
 "use client";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Image from "next/image";
 import styles from "./listBrandBanner.module.css";
 import Title from "@/components/title/title";
-import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Dropdown from "@/components/select/dropdown";
 import TextArea from "@/components/Fields/TextArea";
+import { Formik, Form, Field, FieldProps, FormikHelpers } from "formik";
+import * as Yup from "yup";
+
+interface FormValues {
+  brandName: string;
+  selectedIndustry: string;
+  subCategory: string;
+  serviceProduct: string;
+  yearFounded: string;
+  locationHeadquarters: string;
+  outlets: string;
+  description: string;
+  sellingProposition: string;
+}
 
 function SecondStep() {
   const router = useRouter();
@@ -26,7 +38,7 @@ function SecondStep() {
     { value: "option3", label: "Option 3" },
   ];
 
-  const [formData, setFormData] = useState({
+  const initialValues: FormValues = {
     brandName: "",
     selectedIndustry: "",
     subCategory: "",
@@ -36,39 +48,47 @@ function SecondStep() {
     outlets: "",
     description: "",
     sellingProposition: "",
+  };
+
+  const validationSchema = Yup.object({
+    brandName: Yup.string().required("Brand Name is required"),
+    selectedIndustry: Yup.string().required("Industry is required"),
+    subCategory: Yup.string().required("Sub-Category is required"),
+    serviceProduct: Yup.string().required("Service/Product is required"),
+    yearFounded: Yup.string().required("Year Founded is required"),
+    locationHeadquarters: Yup.string().required(
+      "Location of Headquarters is required"
+    ),
+    outlets: Yup.string().required(
+      "Current Number of Locations/Outlets is required"
+    ),
+    description: Yup.string().required("Description is required"),
+    sellingProposition: Yup.string().required(
+      "Unique Selling Proposition is required"
+    ),
   });
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  const handleSubmit = (
+    values: typeof initialValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    // Mark all fields as touched to trigger validation
+    Object.keys(values).forEach((fieldName) => {
+      setFieldTouched(fieldName, true);
+    });
 
-  const handleSubmit = (formSubmitData: FormData) => {
-    const formObject = Object.fromEntries(formSubmitData.entries());
-    const mergedData = {
-      ...formObject,
-      ...formData,
-    };
+    // Call your submission logic here
+    console.log("Form submitted:", values);
 
-    console.log("Form submitted:", mergedData);
-    // router.push("/list-your-brand/step_2");
-  };
-
-  const handleSelectChange = (name: string | undefined, value: string) => {
-    if (name) {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    } else {
-      // Handle the case where name is not provided
-    }
+    // After submission logic, reset submitting state
+    setSubmitting(false);
   };
 
   const handleBackButton = () => {
-    console.log("Back");
-
     router.push("/list-your-brand/step_1");
   };
+
+  const getIn = <T extends object>(obj: T, key: string): any =>
+    key.split(".").reduce((o, k) => (o || {})[k], obj as any);
 
   return (
     <>
@@ -101,182 +121,163 @@ function SecondStep() {
                 title="Showcase Your Brand's Identity"
                 desc="Essential Details Required"
               />
-              <form action={handleSubmit} className="mt-16 ">
-                <div className="w-full mb-6 md:mb-0">
-                  <InputField
-                    id="grid-brand-name"
-                    name="brandName"
-                    type="text"
-                    label="Brand Name"
-                    value={formData.brandName}
-                    onChange={handleChange}
-                    required={true}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
-                  <div>
-                    <Dropdown
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.subCategory ? "justify-between" : "justify-end"
-                      }`}
-                      name="subCategory"
-                      options={Industry}
-                      value={formData.subCategory}
-                      label="Sub-Category"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  <div>
-                    <Dropdown
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.selectedIndustry ? "justify-between" : "justify-end"
-                      }`}
-                      name="selectedIndustry"
-                      options={Industry}
-                      value={formData.selectedIndustry}
-                      label="Industry"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  <div>
-                    <Dropdown
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.serviceProduct ? "justify-between" : "justify-end"
-                      }`}
-                      name="serviceProduct"
-                      options={Industry}
-                      value={formData.serviceProduct}
-                      label="Service/Product"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  <div>
-                    <Dropdown
-                      name="yearFounded"
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.yearFounded ? "justify-between" : "justify-end"
-                      }`}
-                      options={Industry}
-                      value={formData.yearFounded}
-                      label="Year Founded"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  <div>
-                    <Dropdown
-                      name="locationHeadquarters"
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.locationHeadquarters ? "justify-between" : "justify-end"
-                      }`}
-                      options={Industry}
-                      value={formData.locationHeadquarters}
-                      label="Location of Headquarters"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  <div>
-                    <Dropdown
-                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                        formData.outlets ? "justify-between" : "justify-end"
-                      }`}
-                      name="outlets"
-                      options={Industry}
-                      value={formData.outlets}
-                      label="Current Number of Locations/Outlets"
-                      required
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <TextArea
-                    id="description"
-                    name="description"
-                    label="Description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    placeholder="Your Message"
-                    required={true}
-                    rows={4}
-                    className=" block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
-                  />
-                </div>
-                <div>
-                  <TextArea
-                    id="description"
-                    name="sellingProposition"
-                    label="Unique Selling Proposition (USP)"
-                    value={formData.sellingProposition}
-                    onChange={handleChange}
-                    placeholder="Your Message"
-                    required={true}
-                    rows={4}
-                    className=" block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
-                  />
-                </div>
-                {/* <div>
-                  <InputField
-                    id="grid-website-url"
-                    name="websiteUrl"
-                    type="url"
-                    label="WebSite URL"
-                    value={formData.websiteUrl}
-                    required={true}
-                    onChange={handleChange}
-                    className=" block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3  focus:bg-white focus:border-[#73727366]"
-                  />
-                </div> */}
-                <div className="flex justify-between">
-                  <Button
-                    className="border border-customBorder rounded-lg"
-                    onClick={handleBackButton}
-                  >
-                    <div className="flex whitespace-nowrap p-2 gap-2 items-center">
-                      <svg
-                        width="19"
-                        height="19"
-                        viewBox="0 0 19 19"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.48872 0.547607C14.4059 0.547607 18.4761 4.54785 18.4761 9.46502C18.4761 14.3822 14.4059 18.4524 9.48872 18.4524C4.57156 18.4524 0.571314 14.3822 0.571314 9.46502C0.571314 4.54785 4.57156 0.547607 9.48872 0.547607ZM6.27423 9.92236L11.0425 14.6907C11.2721 14.9203 11.6443 14.9203 11.8739 14.6907L12.526 14.0385C12.7556 13.8089 12.7556 13.4368 12.526 13.2072L9.24225 9.92341C8.98973 9.67089 8.99145 9.2609 9.24613 9.01054L12.519 5.79276C12.7519 5.56377 12.7534 5.18886 12.5225 4.95791L11.8713 4.3067C11.6427 4.07813 11.2725 4.07698 11.0426 4.30411L6.27706 9.01051C6.02335 9.26107 6.02209 9.67022 6.27423 9.92236Z"
-                          fill="#737273"
-                          fill-opacity="0.3"
-                        />
-                      </svg>{" "}
-                      Back
+              <Formik<FormValues>
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ errors, touched, setFieldValue }) => (
+                  <Form className="mt-16">
+                    <div className="w-full mb-6 md:mb-0">
+                      <Field
+                        as={InputField}
+                        id="brandName"
+                        name="brandName"
+                        type="text"
+                        label="Brand Name"
+                        required={true}
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 mb-3 focus:bg-white focus:border-[#73727366] ${
+                          getIn(errors, "brandName") &&
+                          getIn(touched, "brandName")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                      />
+                      {getIn(errors, "brandName") &&
+                        getIn(touched, "brandName") && (
+                          <div className="text-red-500 text-sm">
+                            {getIn(errors, "brandName")}
+                          </div>
+                        )}
                     </div>
-                  </Button>
-                  <Button
-                    variant="highlighted"
-                    type="submit"
-                    className="border rounded-lg"
-                  >
-                    <div className="flex whitespace-nowrap p-2 gap-2 items-center">
-                      Next{" "}
-                      <svg
-                        width="19"
-                        height="19"
-                        viewBox="0 0 19 19"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.52068 0.380981C4.60351 0.380981 0.533325 4.38123 0.533325 9.29839C0.533325 14.2156 4.60351 18.2857 9.52068 18.2857C14.4378 18.2857 18.4381 14.2156 18.4381 9.29839C18.4381 4.38123 14.4378 0.380981 9.52068 0.380981ZM12.7352 9.75573L7.96688 14.5241C7.7373 14.7536 7.36511 14.7536 7.13553 14.5241L6.48337 13.8719C6.25379 13.6423 6.25379 13.2701 6.48337 13.0406L9.76715 9.75678C10.0197 9.50426 10.018 9.09427 9.76326 8.84392L6.49044 5.62613C6.25753 5.39715 6.25596 5.02223 6.4869 4.79129L7.13812 4.14007C7.36668 3.91151 7.73688 3.91035 7.96684 4.13748L12.7323 8.84388C12.9861 9.09445 12.9873 9.5036 12.7352 9.75573Z"
-                          fill="white"
-                        />
-                      </svg>
+                    <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
+                      {[
+                        "subCategory",
+                        "selectedIndustry",
+                        "serviceProduct",
+                        "yearFounded",
+                        "locationHeadquarters",
+                        "outlets",
+                      ].map((field) => (
+                        <div key={field}>
+                          <Field name={field}>
+                            {({ field, form }: FieldProps) => (
+                              <>
+                                <Dropdown
+                                  className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+                                    field.value
+                                      ? "justify-between"
+                                      : "justify-end"
+                                  } ${
+                                    getIn(errors, field.name) &&
+                                    getIn(touched, field.name)
+                                      ? "border-red-500"
+                                      : ""
+                                  }`}
+                                  options={Industry}
+                                  label={
+                                    field.name.charAt(0).toUpperCase() +
+                                    field.name
+                                      .slice(1)
+                                      .replace(/([A-Z])/g, " $1")
+                                  }
+                                  required
+                                  value={field.value}
+                                  onChange={(name, value) => {
+                                    if (name) {
+                                      form.setFieldValue(name, value);
+                                    }
+                                  }}
+                                  onBlur={(name) =>
+                                    form.setFieldTouched(name, true)
+                                  }
+                                  name={field.name}
+                                />
+                                {getIn(errors, field.name) &&
+                                  getIn(touched, field.name) && (
+                                    <div className="text-red-500 text-sm">
+                                      {getIn(errors, field.name)}
+                                    </div>
+                                  )}
+                              </>
+                            )}
+                          </Field>
+                        </div>
+                      ))}
                     </div>
-                  </Button>
-                </div>
-              </form>
+                    {["description", "sellingProposition"].map((field) => (
+                      <div key={field}>
+                        <Field
+                          as={TextArea}
+                          id={field}
+                          name={field}
+                          label={
+                            field === "sellingProposition"
+                              ? "Unique Selling Proposition (USP)"
+                              : "Description"
+                          }
+                          placeholder="Your Message"
+                          required={true}
+                          rows={4}
+                          className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3 focus:bg-white focus:border-[#73727366] ${
+                            getIn(errors, field) && getIn(touched, field)
+                              ? "border-red-500"
+                              : ""
+                          }`}
+                        />
+                        {getIn(errors, field) && getIn(touched, field) && (
+                          <div className="text-red-500 text-sm">
+                            {getIn(errors, field)}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <div className="flex justify-between">
+                      <Button
+                        className="border border-customBorder rounded-lg"
+                        onClick={handleBackButton}
+                        type="button"
+                      >
+                        <div className="flex whitespace-nowrap p-2 gap-2 items-center">
+                          <svg
+                            width="19"
+                            height="19"
+                            viewBox="0 0 19 19"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.48872 0.547607C14.4059 0.547607 18.4761 4.54785 18.4761 9.46502C18.4761 14.3822 14.4059 18.4524 9.48872 18.4524C4.57156 18.4524 0.571314 14.3822 0.571314 9.46502C0.571314 4.54785 4.57156 0.547607 9.48872 0.547607ZM6.27423 9.92236L11.0425 14.6907C11.2721 14.9203 11.6443 14.9203 11.8739 14.6907L12.526 14.0386C12.7557 13.809 12.7557 13.4368 12.526 13.2072L8.72967 9.46502L12.4719 5.66864C12.7015 5.43906 12.7015 5.06687 12.4719 4.83729L11.8198 4.18518C11.5902 3.9556 11.218 3.9556 10.9884 4.18518L6.27423 8.89935C6.04465 9.12893 6.04465 9.5011 6.27423 9.73068Z"
+                              fill="black"
+                            />
+                          </svg>
+                          <span>Back</span>
+                        </div>
+                      </Button>
+                      <Button
+                        type="submit"
+                        className="border border-customBorder rounded-lg"
+                      >
+                        <div className="flex whitespace-nowrap p-2 gap-2 items-center">
+                          <span>Save & Continue</span>
+                          <svg
+                            width="19"
+                            height="19"
+                            viewBox="0 0 19 19"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.48872 0.547607C4.57156 0.547607 0.501314 4.54785 0.501314 9.46502C0.501314 14.3822 4.57156 18.4524 9.48872 18.4524C14.4059 18.4524 18.4761 14.3822 18.4761 9.46502C18.4761 4.54785 14.4059 0.547607 9.48872 0.547607ZM12.7032 9.00785L7.93491 4.23949C7.70533 4.00991 7.33315 4.00991 7.10357 4.23949L6.45146 4.8916C6.22188 5.12118 6.22188 5.49336 6.45146 5.72294L10.2478 9.46502L6.50567 13.2614C6.27609 13.491 6.27609 13.8631 6.50567 14.0927L7.15778 14.7448C7.38736 14.9744 7.75953 14.9744 7.98911 14.7448L12.7032 10.0306C12.9328 9.80101 12.9328 9.42884 12.7032 9.19926Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </div>
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>
