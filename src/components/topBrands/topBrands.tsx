@@ -37,7 +37,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
 }) => {
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -59,7 +59,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1.5,
+          slidesToShow: 1.3,
         },
       },
     ],
@@ -68,13 +68,13 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
   return (
     <section className={`pt-6 md:pt-12 ${styles.topBrandSection}`}>
       <div className="container mx-auto">
-        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal">
+        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal text-center md:text-left">
           {sectionTitle}
         </h2>
         <StyledSlider {...settings}>
           {items.map((opportunity) => (
             <div key={opportunity.id}>
-              <Card className={`mx-1 md:mx-3 ${styles.topBrandCard}`}>
+              <Card className={`mx-3 ${styles.topBrandCard}`}>
                 <div className="bg-white overflow-hidden">
                   <Image
                     src={opportunity.image}

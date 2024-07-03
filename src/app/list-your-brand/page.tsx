@@ -45,8 +45,8 @@ function ListYourBrand() {
         items={trandingVideo.items}
       />
       <Faq />
-      <div className="py-4 md:py-12">
-        <ListBrandBanner />
+      <div className="pt-4 md:py-12">
+        <ListBrandBanner className="pb-0" />
       </div>
     </>
   );

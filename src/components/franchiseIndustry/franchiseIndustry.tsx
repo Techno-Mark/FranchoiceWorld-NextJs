@@ -6,7 +6,9 @@ const FranchiseIndustry = () => {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 text-center md:text-left">
           <div className={`${styles.industryLeft}`}>
-            <h3 className="font-normal">Franchise Industry at a Glance</h3>
+            <h3 className="font-normal mb-4 md:mb-0">
+              Franchise Industry at a Glance
+            </h3>
           </div>
           <div className={`${styles.industryRight}`}>
             <p className="pb-4 font-medium">

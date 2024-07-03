@@ -1,16 +1,19 @@
 "use client";
 import Image from "next/image";
-import styles from "./listbrandbanner.module.css";
-import CountryDropdown from "../countryDropdown/countryDropdown";
-
 import Button from "../button/button";
-const ListBrandBanner = () => {
+import CountryDropdown from "../countryDropdown/countryDropdown";
+import styles from "./listbrandbanner.module.css";
+
+interface listBrandProps {
+  className?: String;
+}
+const ListBrandBanner: React.FC<listBrandProps> = ({ className }) => {
   const handleListBrand = (e: any) => {
     e.preventDefault();
   };
   return (
-    <section className="py-8">
-      <div className="container">
+    <section className={`py-8 ${className}`}>
+      <div className="container !px-0 md:!px-[12px] lg:!px-[15px]">
         <div className={`grid md:grid-cols-3 ${styles.listBrandBanner}`}>
           <div className="hidden lg:block relative">
             <Image
@@ -34,11 +37,14 @@ const ListBrandBanner = () => {
                 <input
                   type="number"
                   placeholder="Enter Mobile No."
-                  className={`rounded-md w-full font-medium text-lg ${styles.InputStyle}`}
+                  className={`rounded-md w-full font-medium text-sm md:text-lg ${styles.InputStyle}`}
                   pattern="[0-9](5) [0-9](5)"
                   maxLength={11}
                 />
-                <Button variant="highlighted" className="rounded-md">
+                <Button
+                  variant="highlighted"
+                  className="py-3 mt-2 md:mt-0 rounded-md"
+                >
                   <div className="flex whitespace-nowrap gap-2 items-center">
                     Start Now{" "}
                     <svg

@@ -6,10 +6,14 @@ const AboutFranchoice = () => {
   return (
     <section className={`py-10 md:py-20 ${styles.aboutFranchoice}`}>
       <div className="container">
-      <div className="block md:hidden text-center"><Title title="About Franchoice World" /></div>
+        <div className="block md:hidden text-center">
+          <Title title="About Franchoice World" />
+        </div>
         <div className="flex flex-col-reverse md:flex-row gap-6 text-center md:text-left">
           <div className={`pb-6 md:pb-0 w-full md:w-1/2 ${styles.aboutLeft}`}>
-            <div className="hidden md:block"><Title title="About Franchoice World" /></div>
+            <div className="hidden md:block">
+              <Title title="About Franchoice World" />
+            </div>
             <p className="pb-8">
               Welcome to Franchoice World, by Gyaata and Pacific Group of
               Companies. Our mission is to empower brands to achieve expansive
@@ -19,7 +23,9 @@ const AboutFranchoice = () => {
             </p>
             <Button variant="highlighted">Learn More</Button>
           </div>
-          <div className={` w-full flex justify-center md:justify-end md:w-1/2 ${styles.aboutRight}`}>
+          <div
+            className={`w-full flex justify-center md:justify-end md:w-1/2 mt-4 md:mt-0 ${styles.aboutRight}`}
+          >
             <Image
               className={`w-full ${styles.aboutImage}`}
               src="/about.jpg"
