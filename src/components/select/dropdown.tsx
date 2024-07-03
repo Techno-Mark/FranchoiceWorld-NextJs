@@ -5,10 +5,12 @@ interface DropdownProps {
   required?: boolean;
   name?: string;
   options: { value: string; label: string }[];
-  value: string;
+  value?: string;
   onChange?: (name: string | undefined, value: string) => void;
+  onBlur?: (name: string) => void;
   placeholder?: string;
   className?: string;
+  error?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -17,11 +19,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   required = false,
   options,
   value,
-  onChange = () => {},
+  onChange,
+  onBlur,
   placeholder,
   className,
+  error,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -30,6 +35,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       !dropdownRef.current.contains(event.target as Node)
     ) {
       setIsOpen(false);
+      if (!value) {
+        setIsTouched(true);
+        // onBlur(name);
+      }
     }
   };
 
@@ -38,7 +47,15 @@ const Dropdown: React.FC<DropdownProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [value]);
+
+  const handleSelect = (selectedValue: string) => {
+    if (name && onChange) {
+      onChange(name, selectedValue); // Ensure name and onChange are defined before calling
+    }
+    setIsOpen(false);
+    setIsTouched(true);
+  };
 
   return (
     <div className="relative inline-block w-full" ref={dropdownRef}>
@@ -50,21 +67,16 @@ const Dropdown: React.FC<DropdownProps> = ({
       )}
       <div
         className={`${
-          className
-            ? className
-            : `flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
-                placeholder
-                  ? "justify-between"
-                  : value
-                  ? "justify-between"
-                  : "justify-end"
-              }`
-        } `}
+          className ||
+          `flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center ${
+            value ? "justify-between" : "justify-end"
+          }`
+        } ${error && isTouched ? "border-red-500" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {value
           ? options.find((option) => option.value === value)?.label
-          : placeholder}
+          : placeholder || ""}
         <div className="flex items-center pl-2 pointer-events-none">
           <svg
             className="w-4 h-4 text-gray-500"
@@ -89,15 +101,15 @@ const Dropdown: React.FC<DropdownProps> = ({
               className={`px-4 py-2 cursor-pointer hover:bg-gray-200 ${
                 option.value === value ? "bg-gray-100 font-bold" : ""
               }`}
-              onClick={() => {
-                onChange(name, option.value);
-                setIsOpen(false);
-              }}
+              onClick={() => handleSelect(option.value)}
             >
               {option.label}
             </li>
           ))}
         </ul>
+      )}
+      {error && isTouched && (
+        <div className="text-red-500 text-sm mt-1">{error}</div>
       )}
     </div>
   );
