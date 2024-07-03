@@ -11,11 +11,10 @@ import Link from "next/link";
 const InnerListBrandBanner = () => {
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted");
   };
 
   return (
-    <section className={`py-8 md:py-16 ${styles.innerListBrandBanner}`}>
+    <section className={`py-8 md:py-20 ${styles.innerListBrandBanner}`}>
       <div className="container">
         <div className="flex items-center flex-wrap lg:flex-nowrap gap-8">
           <div className={`w-full ${styles.listBrandBannerText}`}>
@@ -37,7 +36,7 @@ const InnerListBrandBanner = () => {
                 pattern="[0-9]{5} [0-9]{5}"
                 maxLength={11}
               />
-              <Button variant="highlighted">
+              <Button variant="highlighted" className="rounded-md">
                 <div className="flex whitespace-nowrap gap-2 items-center">
                   Start Now{" "}
                   <svg

@@ -19,6 +19,10 @@
     outline: none;
 }
 
+.InputStyle:focus {
+    border: 1.31px solid var(--secondary-color)
+}
+
 .agreePolicy {
     border-bottom: 0.5px solid var(--text-color);
 }

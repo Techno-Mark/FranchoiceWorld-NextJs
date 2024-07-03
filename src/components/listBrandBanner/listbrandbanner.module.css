@@ -25,8 +25,9 @@
     padding: 1rem;
     outline: none;
 }
-.InputStyle:focus{
-    border-color: var(--secondary-color);
+
+.InputStyle:focus {
+    border: 1.31px solid var(--secondary-color)
 }
 
 @media only screen and (max-width:767px) {
@@ -46,7 +47,7 @@
 }
 
 @media only screen and (max-width:374px) {
-    .InputStyle{
+    .InputStyle {
         max-width: 153px;
         font-size: 15px;
     }

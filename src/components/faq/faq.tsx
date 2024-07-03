@@ -65,11 +65,13 @@ const items = [
 
 const Faq: React.FC = () => {
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-4 md:pt-6 md:pb-10">
       <Title title="FAQs" />
       <p>Let us answer some of your most common queries.</p>
-      <p className="pb-4 md:pb-10 border-b border-[rgba(0,0,0,0.12)]">Feel free to contact us in case of any more questions!</p>
-      <AccordionGroup items={items} />
+      <p className="pb-4 md:pb-10 border-b border-[rgba(0,0,0,0.12)] w-full md:w-5/6">
+        Feel free to contact us in case of any more questions!
+      </p>
+      <AccordionGroup items={items} className="w-full md:w-5/6" />
     </div>
   );
 };

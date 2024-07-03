@@ -1,10 +1,5 @@
 "use client";
-
-import { getData } from "@/api/home";
 import Banner from "@/components/banner/banner";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import Loading from "./loading";
 import HalfBanner from "@/components/halfBanner/halfBanner";
 import WhyChoose from "@/components/whyChoose/whyChoose";
 import FindFranchise from "@/components/findFranchise/findFranchise";
@@ -16,21 +11,21 @@ import OurService from "@/components/ourService/ourService";
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
 
-interface HomeData {
-  banner: any[];
-  opportunity: {
-    sectionTitle: "";
-    items: [];
-  };
-  international: {
-    sectionTitle: "";
-    items: [];
-  };
-  testimonials: any[];
-  trandingVideo: {
-    items: [];
-  };
-}
+// interface HomeData {
+//   banner: any[];
+//   opportunity: {
+//     sectionTitle: "";
+//     items: [];
+//   };
+//   international: {
+//     sectionTitle: "";
+//     items: [];
+//   };
+//   testimonials: any[];
+//   trandingVideo: {
+//     items: [];
+//   };
+// }
 const opportunity = {
   sectionTitle: "Top Business Opportunities",
   items: [

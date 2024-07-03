@@ -1,3 +1,7 @@
-.selectCountryDrop:focus {
+.selectCountryDrop {
+    border: 1px solid #C9C9C9;
+}
+
+.openCountryDrop {
     border-color: var(--secondary-color);
 }
