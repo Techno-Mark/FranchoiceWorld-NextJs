@@ -7,11 +7,16 @@ interface StepProps {
   title: string;
   description?: string;
   active?: boolean;
+  className?: string;
 }
 
-const Stepper: React.FC<StepProps> = ({ icon, title, description, active }) => {
+const Stepper: React.FC<StepProps> = ({ icon, title, description, active, className }) => {
   return (
-    <div className={`flex flex-col items-center text-center ${active && styles.active}`}>
+    <div
+      className={`flex flex-row md:flex-wrap md:flex-col items-center text-center ${className} ${
+        active && styles.active
+      }`}
+    >
       <div className="mb-2">
         <Image
           src={icon}
@@ -21,8 +26,10 @@ const Stepper: React.FC<StepProps> = ({ icon, title, description, active }) => {
           className={styles.stepIcon}
         />
       </div>
-      <h3 className={`font-bold ${styles.stepTitle}`}>{title}</h3>
-      {description && <p className="text-gray-600">{description}</p>}
+      <div className="w-[201px] text-left ml-2">
+        <h3 className={`font-bold ${styles.stepTitle}`}>{title}</h3>
+        {description && <p className="text-gray-600">{description}</p>}
+      </div>
     </div>
   );
 };

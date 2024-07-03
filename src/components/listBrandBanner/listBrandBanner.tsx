@@ -38,7 +38,7 @@ const ListBrandBanner = () => {
                   pattern="[0-9](5) [0-9](5)"
                   maxLength={11}
                 />
-                <Button variant="highlighted">
+                <Button variant="highlighted" className="rounded-md">
                   <div className="flex whitespace-nowrap gap-2 items-center">
                     Start Now{" "}
                     <svg

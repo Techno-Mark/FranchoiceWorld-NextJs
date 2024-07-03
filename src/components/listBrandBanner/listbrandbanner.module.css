@@ -41,8 +41,9 @@
     }
 
     .InputStyle {
+        padding: 0.4rem;
         max-width: 190px;
-        padding: 0.75rem;
+        font-size: 11px;
     }
 }
 

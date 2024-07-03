@@ -5,6 +5,16 @@
 
 @media only screen and (max-width:767px) {
     .stepDivider {
-        left: 80%;
+        width: 30%;
+        top: auto;
+        bottom: 45px;
+        left: 0;
+        transform: rotate(90deg);
+        height: 1.5px;
+    }
+
+    .stepperClass {
+        justify-content: center;
+        margin-bottom: 5rem;
     }
 }

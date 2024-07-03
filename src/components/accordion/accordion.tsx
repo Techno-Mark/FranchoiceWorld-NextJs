@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import styles from "./accordion.module.css";
 interface AccordionProps {
   title: string;
   content: React.ReactNode;
@@ -19,7 +19,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
         className="flex justify-between items-center w-full p-4 text-left font-medium focus:outline-none"
         onClick={toggleAccordion}
       >
-        <span>{title}</span>
+        <span className={`pr-3 md:pr-0 ${styles.accordianTitle}`}>{title}</span>
         <svg
           className={`w-5 h-5 transform transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""

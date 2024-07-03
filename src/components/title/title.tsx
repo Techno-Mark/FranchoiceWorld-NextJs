@@ -10,7 +10,7 @@ const Title: React.FC<TitleProps> = ({ title, desc }) => {
   return (
     <>
       <h3 className={`font-bold ${styles.title}`}>{title}</h3>
-      {desc && <p className={`px-5 ${styles.description}`}>{desc}</p>}
+      {desc && <p className={`px-0 md:px-5 ${styles.description}`}>{desc}</p>}
     </>
   );
 };

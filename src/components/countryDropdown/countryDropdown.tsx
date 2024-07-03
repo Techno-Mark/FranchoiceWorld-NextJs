@@ -10,7 +10,13 @@ const countries = [
   // Add more countries as needed
 ];
 
-const CountryDropdown: React.FC = () => {
+interface CountryDropdownProps {
+  variant?: "small" | "formDropdown" | "regular";
+}
+
+const CountryDropdown: React.FC<CountryDropdownProps> = ({
+  variant = "regular",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<string>(
     countries[0].code
@@ -37,12 +43,24 @@ const CountryDropdown: React.FC = () => {
     (country) => country.code === selectedCountry
   );
 
+  const getVariantClasses = () => {
+    switch (variant) {
+      case "small":
+        return "pl-1 pr-4 py-2 text-sm";
+      case "formDropdown":
+        return "pl-2 pr-6 py-3 md:pr-7 md:py-4 text-base";
+      case "regular":
+      default:
+        return "pl-2 py-3 pr-7 md:py-5 text-sm md:text-lg";
+    }
+  };
+
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <div
-        className={`block w-full pl-2 pr-6 py-3 md:pr-7 md:py-4 leading-tight bg-white rounded-md cursor-pointer ${
-          styles.selectCountryDrop
-        } ${isOpen ? styles.openCountryDrop : ""}`}
+        className={`relative block w-full leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none ${getVariantClasses()} ${
+          isOpen && styles.selectCountryDrop
+        }`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (
@@ -50,20 +68,20 @@ const CountryDropdown: React.FC = () => {
             <Image
               src={selectedCountryData.flag}
               alt={selectedCountryData.name}
-              className="w-6 h-4 mr-2"
+              className="w-4 h-3 md:w-6 md:h-4 mr-1 md:mr-2"
               width={20}
               height={20}
             />
-            <span className="ml-auto font-medium text-lg">
+            <span className="ml-auto font-medium text-[11px] md:text-md">
               ({selectedCountryData.code})
             </span>
           </div>
         ) : (
           "Select a country"
         )}
-        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+        <div className="absolute inset-y-0 right-0 flex items-center px-1 md:px-2 pointer-events-none">
           <svg
-            className="w-4 h-4 text-gray-500"
+            className="w-3 h-3 md:w-4 md:h-4 text-gray-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

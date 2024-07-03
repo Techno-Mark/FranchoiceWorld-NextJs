@@ -25,7 +25,7 @@ const InnerListBrandBanner = () => {
               Put your brand in the spotlight!
             </h4>
             <form
-              className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
+              className={`flex gap-2 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown />
@@ -37,7 +37,7 @@ const InnerListBrandBanner = () => {
                 maxLength={11}
               />
               <Button variant="highlighted" className="rounded-md">
-                <div className="flex whitespace-nowrap gap-2 items-center">
+                <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-md">
                   Start Now{" "}
                   <svg
                     width="19"
