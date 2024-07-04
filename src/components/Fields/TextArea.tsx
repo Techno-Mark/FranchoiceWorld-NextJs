@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, FocusEvent } from "react";
 
 interface TextAreaProps {
   id: string;
@@ -8,6 +8,7 @@ interface TextAreaProps {
   required?: boolean;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   className?: string;
   rows?: number;
 }
@@ -20,11 +21,12 @@ const TextArea: React.FC<TextAreaProps> = ({
   required = false,
   placeholder,
   onChange,
+  onBlur,
   className,
   rows = 4, // Default to 4 rows
 }) => {
   return (
-    <div className="mb-4">
+    <div>
       {label && (
         <label
           htmlFor={id}
@@ -42,6 +44,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         required={required}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         rows={rows}
       />
     </div>

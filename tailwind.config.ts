@@ -20,6 +20,7 @@ const config: Config = {
       },
       colors: {
         "customBorder": "rgba(115, 114, 115, 0.5)",
+        "footer-bg":"rgba(23, 73, 138, 1)",
       },
     },
   },

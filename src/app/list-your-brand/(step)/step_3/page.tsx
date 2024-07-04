@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import styles from "./step_2.module.css";
+import styles from "./step_3.module.css";
 import Title from "@/components/title/title";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
@@ -14,17 +14,17 @@ import Select from "@/components/select/Select";
 import MultiSelect from "@/components/select/MultiSelect";
 
 interface FormValues {
-  brandName: string;
-  selectedIndustry: string;
-  subCategory: string;
-  serviceProduct: string;
-  yearFounded: string;
-  locationHeadquarters: string;
-  outlets: string;
-  description: string;
-  sellingProposition: string;
-  state: [];
-  cities: [];
+  areaRequired: string;
+  investmentRange: string;
+  franchiseFee: string;
+  salesModel: string;
+  returnInvestment: string;
+  unitFranchise: string;
+  providedFranchisees: [];
+  othersApplicable: string;
+  franchiseAgreement: string;
+  longFranchise: string;
+  termRenewable: string;
 }
 
 function SecondStep() {
@@ -37,38 +37,46 @@ function SecondStep() {
   ];
 
   const initialValues: FormValues = {
-    brandName: "",
-    selectedIndustry: "",
-    subCategory: "",
-    serviceProduct: "",
-    yearFounded: "",
-    locationHeadquarters: "",
-    outlets: "",
-    description: "",
-    sellingProposition: "",
-    state: [],
-    cities: [],
+    areaRequired: "",
+    investmentRange: "",
+    franchiseFee: "",
+    salesModel: "",
+    returnInvestment: "",
+    unitFranchise: "",
+    providedFranchisees: [],
+    othersApplicable: "",
+    franchiseAgreement: "",
+    longFranchise: "",
+    termRenewable: "",
   };
 
   const validationSchema = Yup.object({
-    brandName: Yup.string().required("Brand Name is required"),
-    selectedIndustry: Yup.string().required("Industry is required"),
-    subCategory: Yup.string().required("Sub-Category is required"),
-    serviceProduct: Yup.string().required("Service/Product is required"),
-    yearFounded: Yup.string().required("Year Founded is required"),
-    locationHeadquarters: Yup.string().required(
-      "Location of Headquarters is required"
+    areaRequired: Yup.string().required("Area Required is required"),
+    investmentRange: Yup.string().required(
+      "Total Initial Investment Range is required"
     ),
-    outlets: Yup.string().required(
-      "Current Number of Locations/Outlets is required"
+    franchiseFee: Yup.string().required("Franchise Fee is required"),
+    salesModel: Yup.string().required("Sales and Revenue Model is required"),
+    returnInvestment: Yup.string().required(
+      "Anticipated % Return on Investment (ROI) is required"
     ),
-    description: Yup.string().required("Description is required"),
-    sellingProposition: Yup.string().required(
-      "Unique Selling Proposition is required"
+    unitFranchise: Yup.string().required(
+      "Likely Payback Period for a Unit Franchise is required"
     ),
-    state: Yup.array().min(1, "Please select at least one option"),
-    cities: Yup.array().min(1, "Please select at least one option"),
+    providedFranchisees: Yup.array().min(
+      1,
+      "Please select at least one option"
+    ),
+
+    franchiseAgreement: Yup.string().required(
+      "Do you have a franchise agreement? is required"
+    ),
+    longFranchise: Yup.string().required(
+      "How long is the franchise for? is required"
+    ),
+    termRenewable: Yup.string().required("Is the term renewable? is required"),
   });
+
   const handleSubmit = (
     values: typeof initialValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
@@ -80,36 +88,48 @@ function SecondStep() {
 
     // Call your submission logic here
     console.log("Form submitted:", values);
-    router.push("/list-your-brand/step_3");
+    // router.push("/list-your-brand/step_4");
 
     // After submission logic, reset submitting state
     setSubmitting(false);
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_1");
+    router.push("/list-your-brand/step_2");
   };
-
-  const label = [
-    "Industry",
-    "Sub-Category",
-    "Service/Product",
-    "Year Founded",
-    "Location of Headquarters",
-    "Current Number of Locations/Outlets",
-  ];
-
-  const fields = [
-    "selectedIndustry",
-    "subCategory",
-    "serviceProduct",
-    "yearFounded",
-    "locationHeadquarters",
-    "outlets",
-  ];
 
   const getIn = <T extends object>(obj: T, key: string): any =>
     key.split(".").reduce((o, k) => (o || {})[k], obj as any);
+
+  const label = [
+    "Area Required",
+    "Total Initial Investment Range",
+    "Franchise Fee",
+    "Sales and Revenue Model",
+    "Anticipated % Return on Investment (ROI)",
+    "Likely Payback Period for a Unit Franchise",
+  ];
+
+  const fields = [
+    "areaRequired",
+    "investmentRange",
+    "franchiseFee",
+    "salesModel",
+    "returnInvestment",
+    "unitFranchise",
+  ];
+
+  const multiselectLabel = [
+    "Do you have a franchise agreement?",
+    "How long is the franchise for?",
+    "Is the term renewable?",
+  ];
+
+  const multiselectFields = [
+    "franchiseAgreement",
+    "longFranchise",
+    "termRenewable",
+  ];
 
   return (
     <>
@@ -120,8 +140,8 @@ function SecondStep() {
           >
             <div className={`${styles.formPart} px-3`}>
               <Title
-                title="Showcase Your Brand's Identity"
-                desc="Essential Details Required"
+                title="What It Takes to Join Your Franchise"
+                desc="Investment Details Needed"
               />
               <Formik<FormValues>
                 initialValues={initialValues}
@@ -130,28 +150,6 @@ function SecondStep() {
               >
                 {({ errors, touched, setFieldValue }) => (
                   <Form className="mt-16">
-                    <div className="w-full mb-6 md:mb-0">
-                      <Field
-                        as={InputField}
-                        id="brandName"
-                        name="brandName"
-                        type="text"
-                        label="Brand Name"
-                        required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
-                          getIn(errors, "brandName") &&
-                          getIn(touched, "brandName")
-                            ? "border-red-500 mb-0.5"
-                            : "mb-8"
-                        }`}
-                      />
-                      {getIn(errors, "brandName") &&
-                        getIn(touched, "brandName") && (
-                          <div className="text-red-500 font-medium mb-2">
-                            {getIn(errors, "brandName")}
-                          </div>
-                        )}
-                    </div>
                     <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
                       {fields.map((field, index) => (
                         <div className="w-full" key={field}>
@@ -181,63 +179,65 @@ function SecondStep() {
                         </div>
                       ))}
                     </div>
-                    {["description", "sellingProposition"].map((field) => (
-                      <div key={field}>
-                        <Field
-                          as={TextArea}
-                          id={field}
-                          name={field}
-                          label={
-                            field === "sellingProposition"
-                              ? "Unique Selling Proposition (USP)"
-                              : "Description"
-                          }
-                          placeholder="Your Message"
-                          required={true}
-                          rows={4}
-                          className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
-                            getIn(errors, field) && getIn(touched, field)
-                              ? "border-red-500 mb-0.5"
-                              : "mb-8"
-                          }`}
-                        />
-                        {getIn(errors, field) && getIn(touched, field) && (
+                    <div className="w-full mb-6 md:mb-0">
+                      <Field
+                        as={MultiSelect}
+                        name="providedFranchisees"
+                        label="Support Provided to Franchisees"
+                        className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
+                          getIn(errors, "providedFranchisees") &&
+                          getIn(touched, "providedFranchisees")
+                            ? "border-red-500 mb-0.5"
+                            : ""
+                        }`}
+                        options={Industry}
+                      />
+                      {getIn(errors, "providedFranchisees") &&
+                        getIn(touched, "providedFranchisees") && (
                           <div className="text-red-500 font-medium mb-2">
-                            {getIn(errors, field)}
+                            {getIn(errors, "providedFranchisees")}
                           </div>
                         )}
-                      </div>
-                    ))}
-                    {["state", "cities"].map((field) => (
-                      <div key={field}>
-                        <Field name={field}>
-                          {({ field, form }: FieldProps) => (
-                            <>
-                              <MultiSelect
-                                name={field.name}
-                                className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
-                                  getIn(errors, field.name) &&
-                                  getIn(touched, field.name)
-                                    ? "border-red-500 mb-0.5"
-                                    : ""
-                                }`}
-                                label={
-                                  field.name.charAt(0).toUpperCase() +
-                                  field.name.slice(1).replace(/([A-Z])/g, " $1")
-                                }
-                                options={Industry}
-                              />
-                              {getIn(errors, field.name) &&
-                                getIn(touched, field.name) && (
-                                  <div className="text-red-500 font-medium mb-2">
-                                    {getIn(errors, field.name)}
-                                  </div>
-                                )}
-                            </>
-                          )}
-                        </Field>
-                      </div>
-                    ))}
+                    </div>
+                    <div className="w-full mb-6 md:mb-0">
+                      <Field
+                        as={TextArea}
+                        name="othersApplicable"
+                        label="Others if applicable"
+                        placeholder="Your Message"
+                        rows={3}
+                        className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3 focus:bg-white focus:border-[#73727366]`}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
+                      {multiselectFields.map((field, index) => (
+                        <div key={field}>
+                          <Field name={field}>
+                            {({ field, form }: FieldProps) => (
+                              <>
+                                <Select
+                                  name={field.name}
+                                  className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                                    getIn(errors, field.name) &&
+                                    getIn(touched, field.name)
+                                      ? "border-red-500 mb-0.5"
+                                      : ""
+                                  }`}
+                                  label={multiselectLabel[index]}
+                                  options={Industry}
+                                />
+                                {getIn(errors, field.name) &&
+                                  getIn(touched, field.name) && (
+                                    <div className="text-red-500 font-medium mb-2">
+                                      {getIn(errors, field.name)}
+                                    </div>
+                                  )}
+                              </>
+                            )}
+                          </Field>
+                        </div>
+                      ))}
+                    </div>
                     <div className="flex justify-between">
                       <Button className="border border-customBorder rounded-lg">
                         <div className="flex whitespace-nowrap p-2 gap-2 items-center">

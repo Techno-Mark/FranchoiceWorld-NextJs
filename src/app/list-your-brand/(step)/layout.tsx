@@ -5,7 +5,7 @@ import Stepper from "@/components/stepper/stepper";
 const steps = [
   {
     children: <>1</>,
-    title: "Confidential Information",
+    title: "Enter Your Confidential Information",
     active: true,
   },
   {
@@ -22,7 +22,7 @@ const steps = [
 function StepLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <section className={`relative pb-20 ${styles.stepBanner}`}>
+      <section className={`relative pb-36 ${styles.stepBanner}`}>
         <Image
           className="absolute top-0 left-0 w-full h-full object-cover z-[-2]"
           src="/listStep/listYourBrand.png"
