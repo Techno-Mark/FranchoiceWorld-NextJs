@@ -49,25 +49,30 @@ const WhyChoose: React.FC = () => {
         </div>
         <div className="flex flex-wrap gap-y-4">
           {cardBox.map(({ chooseImage, chooseTitle, list }, index) => (
-            <div key={index} className="px-2 md:px-4 w-1/2 lg:w-1/4">
+            <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
               <Card className="h-full mb-4 md:mb-0">
                 <Link
                   href="#"
                   className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
                 >
-                  <Image
-                    className={styles.chooseImg}
-                    src={chooseImage}
-                    alt={chooseTitle}
-                    width={100} // Adjust width and height accordingly
-                    height={100} // Adjust width and height accordingly
-                  />
-                  <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
-                  <ul className={styles.chooseBenifits}>
-                    {list.map((benefit, idx) => (
-                      <li key={idx}>{benefit}</li>
-                    ))}
-                  </ul>
+                  <div className="flex justify-start md:justify-between flex-col h-full">
+                    <div>
+                      <Image
+                        className={styles.chooseImg}
+                        src={chooseImage}
+                        alt={chooseTitle}
+                        width={60}
+                        height={60}
+                      />
+                      <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
+                    </div>
+                    <ul className={styles.chooseBenifits}>
+                      {list.map((benefit, idx) => (
+                        <li key={idx}>{benefit}</li>
+                      ))}
+                    </ul>
+                  </div>
+
                   <div
                     className={`flex items-center gap-2 font-bold ${styles.knowMore}`}
                   >
