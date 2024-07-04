@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={`${baseStyles} ${variantStyle}  ${className}`}
+      className={`${baseStyles} ${variantStyle} ${className}`}
       onClick={onClick}
     >
       {children}

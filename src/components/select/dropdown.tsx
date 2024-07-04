@@ -66,10 +66,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         </label>
       )}
       <div
-        className={`${
-          className ||
-          `flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center justify-between`
-        } ${error && isTouched ? "border-red-500" : ""}`}
+        className={`flex w-full px-4 py-3 leading-tight bg-white rounded-md cursor-pointer focus:outline-none h-full items-center justify-between shadow-md ${className}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {value

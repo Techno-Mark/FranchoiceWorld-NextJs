@@ -1,13 +1,12 @@
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import styles from "./testimonial.module.css"; // Create and import your CSS module for styling
-import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import styled from "styled-components";
-import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
-import Title from "../title/title";
 import Image from "next/image";
+import React from "react";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import styled from "styled-components";
+import Title from "../title/title";
+import styles from "./testimonial.module.css";
 
 interface Testimonials {
   message: string;
@@ -76,9 +75,9 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
               <Image
                 src={testimonial.companyLogo}
                 alt={testimonial.author}
-                className="mx-auto mt-5 w-auto h-[50px] object-contain"
-                width={100}
-                height={50}
+                className={`mx-auto mt-5 object-contain ${styles.companyLogo}`}
+                width={176}
+                height={80}
               />
             </div>
           ))}
