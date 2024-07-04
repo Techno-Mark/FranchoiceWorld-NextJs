@@ -48,6 +48,7 @@ const ListBrandBanner: React.FC<listBrandProps> = ({ className }) => {
                   <div className="flex whitespace-nowrap gap-2 items-center">
                     Start Now{" "}
                     <svg
+                    className={styles.arrowIcn}
                       width="19"
                       height="19"
                       viewBox="0 0 19 19"
