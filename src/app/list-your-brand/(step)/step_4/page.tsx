@@ -14,69 +14,30 @@ import Select from "@/components/select/Select";
 import MultiSelect from "@/components/select/MultiSelect";
 import StepLayout from "../layout";
 import FileUpload from "@/components/Uploader/FileUpload";
+import ImageUpload from "@/components/Uploader/ImageUpload";
 
 interface FormValues {
-  areaRequired: string;
-  investmentRange: string;
-  franchiseFee: string;
-  salesModel: string;
-  returnInvestment: string;
-  unitFranchise: string;
-  providedFranchisees: [];
-  othersApplicable: string;
-  franchiseAgreement: string;
-  longFranchise: string;
-  termRenewable: string;
+  // ... other fields ...
+  brochure: File[];
+  logo: File[];
+  multipleLogos: File[];
 }
 
-function SecondStep() {
+function FourthStep() {
   const router = useRouter();
 
-  const Industry = [
-    { value: "1", label: "Option 1" },
-    { value: "2", label: "Option 2" },
-    { value: "3", label: "Option 3" },
-  ];
-
   const initialValues: FormValues = {
-    areaRequired: "",
-    investmentRange: "",
-    franchiseFee: "",
-    salesModel: "",
-    returnInvestment: "",
-    unitFranchise: "",
-    providedFranchisees: [],
-    othersApplicable: "",
-    franchiseAgreement: "",
-    longFranchise: "",
-    termRenewable: "",
+    brochure: [],
+    logo: [],
+    multipleLogos: [],
   };
 
   const validationSchema = Yup.object({
-    areaRequired: Yup.string().required("Area Required is required"),
-    investmentRange: Yup.string().required(
-      "Total Initial Investment Range is required"
-    ),
-    franchiseFee: Yup.string().required("Franchise Fee is required"),
-    salesModel: Yup.string().required("Sales and Revenue Model is required"),
-    returnInvestment: Yup.string().required(
-      "Anticipated % Return on Investment (ROI) is required"
-    ),
-    unitFranchise: Yup.string().required(
-      "Likely Payback Period for a Unit Franchise is required"
-    ),
-    providedFranchisees: Yup.array().min(
-      1,
-      "Please select at least one option"
-    ),
-
-    franchiseAgreement: Yup.string().required(
-      "Do you have a franchise agreement? is required"
-    ),
-    longFranchise: Yup.string().required(
-      "How long is the franchise for? is required"
-    ),
-    termRenewable: Yup.string().required("Is the term renewable? is required"),
+    brochure: Yup.array().min(1, "Brochure is required"),
+    logo: Yup.array().min(1, "Logo is required"),
+    multipleLogos: Yup.array()
+      .min(1, "At least one logo is required")
+      .max(5, "Maximum 5 logos allowed"),
   });
 
   const handleSubmit = (
@@ -153,7 +114,32 @@ function SecondStep() {
                 {({ errors, touched, setFieldValue }) => (
                   <Form className="mt-16">
                     <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
-                      <FileUpload />
+                      <div>
+                        <FileUpload
+                          label="Upload Brochure"
+                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
+                          descClass="text-xs mt-5 font-customBorder font-medium"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <ImageUpload
+                          label="upload Logo"
+                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
+                          descClass="text-xs mt-5 font-customBorder font-medium"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <ImageUpload
+                          label="upload Logo"
+                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
+                          descClass="text-xs mt-5 font-customBorder font-medium"
+                          required
+                          multiple
+                          maxFiles={5}
+                        />
+                      </div>
                     </div>
 
                     <div className="flex justify-between">
@@ -209,4 +195,4 @@ function SecondStep() {
   );
 }
 
-export default SecondStep;
+export default FourthStep;
