@@ -3,7 +3,9 @@
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
+import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import Title from "@/components/title/title";
+// import { updateStepProgress } from "@/utills/stepProgress";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
@@ -32,6 +34,7 @@ function FirstStep() {
     }),
     onSubmit: (values) => {
       console.log("Form submitted:", values);
+      // updateStepProgress("/list-your-brand/step_2");
       router.push("/list-your-brand/step_2");
     },
   });
@@ -69,26 +72,31 @@ function FirstStep() {
             )}
           </div>
           <div className="w-full pl-2 mb-3">
-            <InputField
-              id="grid-phoneNumber"
-              name="phoneNumber"
-              type="text"
-              value={formik.values.phoneNumber}
-              label="Phone Number"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              required={true}
-              className={` ${
-                formik.touched.phoneNumber && formik.errors.phoneNumber
-                  ? "border-red-500 mb-0.5"
-                  : "mb-3"
-              }`}
-            />
-            {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-              <div className="text-red-500 font-medium mb-4">
-                {formik.errors.phoneNumber}
+            <label
+              className="block mb-2 font-medium text-[var(--text-color)]"
+              htmlFor="phoneNumber"
+            >
+              Phone Number <span className="text-red-500 ml-1">*</span>
+            </label>
+            <div className="flex">
+              <div className="w-[100px] pb-3">
+                <CountryDropdown
+                  variant="small"
+                  className="!border-[rgba(115,114,115,0.4)]"
+                  disabled={true}
+                />
               </div>
-            )}
+              <InputField
+                id="grid-phoneNumber"
+                name="phoneNumber"
+                disabled={true}
+                type="text"
+                value={formik.values.phoneNumber || "0000000000"}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={`mb-3`}
+              />
+            </div>
           </div>
         </div>
         <div className="inline-block w-full mb-3">
@@ -157,15 +165,7 @@ function FirstStep() {
             </div>
           )}
         </div>
-        <div className="flex justify-between">
-          {/* <Button
-            variant="secondary"
-            className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
-            onClick={handleBackButton}
-          >
-            <ArrowIcon color="rgba(115, 114, 115, 0.3)" className="mr-2" />
-            Back
-          </Button> */}
+        <div className="flex justify-end">
           <Button
             variant="highlighted"
             type="submit"

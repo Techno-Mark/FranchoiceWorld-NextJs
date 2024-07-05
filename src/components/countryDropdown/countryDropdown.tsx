@@ -12,10 +12,14 @@ const countries = [
 
 interface CountryDropdownProps {
   variant?: "small" | "formDropdown" | "regular";
+  className?: string;
+  disabled?: boolean;
 }
 
 const CountryDropdown: React.FC<CountryDropdownProps> = ({
   variant = "regular",
+  className,
+  disabled,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<string>(
@@ -56,30 +60,48 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
   };
 
   return (
-    <div className="relative inline-block" ref={dropdownRef}>
+    <div className="relative inline-block h-full" ref={dropdownRef}>
       <div
-        className={`relative block w-full leading-tight bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none ${getVariantClasses()} ${
+        className={`relative flex h-full w-full leading-tight border border-gray-300 rounded-md cursor-pointer focus:outline-none ${getVariantClasses()} ${
           isOpen && styles.selectCountryDrop
-        }`}
-        onClick={() => setIsOpen(!isOpen)}
+        } ${
+          disabled && "pointer-event-none bg-[rgba(115,114,115,0.2)]"
+        } ${className}`}
+        onClick={() => !disabled && setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (
           <div className="flex items-center">
             <Image
               src={selectedCountryData.flag}
               alt={selectedCountryData.name}
-              className="w-4 h-3 md:w-6 md:h-4 mr-1 md:mr-2"
+              className={`w-3 h-2 md:w-4 md:h-3 mr-1 object-contain ${
+                variant === "regular"
+                  ? "w-4 h-3 md:w-6 md:h-4 mr-1 md:mr-2"
+                  : ""
+              }`}
               width={20}
               height={20}
             />
-            <span className={`ml-auto font-medium text-[11px] ${variant=== "regular" ? "md:text-lg": "md:text-md"}`}>
+            <span
+              className={`ml-auto font-medium text-[11px] ${
+                variant === "regular" ? "md:text-lg" : "md:text-md"
+              }`}
+            >
               ({selectedCountryData.code})
             </span>
           </div>
         ) : (
           "Select a country"
         )}
-        <div className="absolute inset-y-0 right-0 flex items-center px-1 md:px-2 pointer-events-none h-full">
+        <div
+          className={`absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none h-full ${
+            variant === "regular"
+              ? "md:px-2"
+              : variant === "small"
+              ? "md:px-0"
+              : ""
+          }`}
+        >
           <svg
             className="w-3 h-3 md:w-4 md:h-4 text-gray-500"
             fill="none"

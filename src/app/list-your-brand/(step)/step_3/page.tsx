@@ -156,7 +156,7 @@ function SecondStep() {
                         <>
                           <Select
                             name={field.name}
-                            className={`flex w-full px-4 py-3 leading-tight bg-white rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                               getIn(errors, field.name) &&
                               getIn(touched, field.name)
                                 ? "border-red-500 mb-0.5"
@@ -177,7 +177,7 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              <div className="w-full mb-6 md:mb-0">
+              <div className="w-full mb-3 md:mb-6">
                 <Field
                   as={MultiSelect}
                   name="providedFranchisees"
@@ -197,7 +197,7 @@ function SecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full mb-6 md:mb-0">
+              <div className="w-full mb-3 md:mb-6">
                 <Field
                   as={TextArea}
                   name="othersApplicable"

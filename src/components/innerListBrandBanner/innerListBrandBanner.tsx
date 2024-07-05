@@ -1,16 +1,22 @@
 "use client";
 
+import { updateStepProgress } from "@/utills/stepProgress";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import { GoCheckCircle } from "react-icons/go";
 import Button from "../button/button";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import styles from "./innerlistbrandbanner.module.css";
-import { GoCheckCircle } from "react-icons/go";
-import Link from "next/link";
 
 const InnerListBrandBanner = () => {
+  const router = useRouter();
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
+    updateStepProgress("/list-your-brand/step_1");
+    router.push("/list-your-brand/step_1");
+    console.log(e.target);
   };
 
   return (
