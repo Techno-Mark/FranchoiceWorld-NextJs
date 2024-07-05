@@ -1,19 +1,16 @@
 "use client";
-import React from "react";
 
-import styles from "./step_2.module.css";
-import Title from "@/components/title/title";
-import InputField from "@/components/Fields/InputField";
-import Button from "@/components/button/button";
-import { useRouter } from "next/navigation";
-import Dropdown from "@/components/select/dropdown";
-import TextArea from "@/components/Fields/TextArea";
-import { Formik, Form, Field, FieldProps, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import Select from "@/components/select/Select";
-import MultiSelect from "@/components/select/MultiSelect";
-import StepLayout from "../layout";
 import ArrowIcon from "@/assets/icons/arrowIcon";
+import InputField from "@/components/Fields/InputField";
+import TextArea from "@/components/Fields/TextArea";
+import Button from "@/components/button/button";
+import MultiSelect from "@/components/select/MultiSelect";
+import Select from "@/components/select/Select";
+import Title from "@/components/title/title";
+import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import { useRouter } from "next/navigation";
+import * as Yup from "yup";
+import styles from "./step_2.module.css";
 
 interface FormValues {
   brandName: string;
@@ -129,7 +126,7 @@ function SecondStep() {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
-              <div className="w-full mb-6 md:mb-0">
+              <div className="w-full mb-3 md:mb-6">
                 <Field
                   as={InputField}
                   id="brandName"
@@ -140,7 +137,7 @@ function SecondStep() {
                   className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
                     getIn(errors, "brandName") && getIn(touched, "brandName")
                       ? "border-red-500 mb-0.5"
-                      : "mb-8"
+                      : ""
                   }`}
                 />
                 {getIn(errors, "brandName") && getIn(touched, "brandName") && (
@@ -149,21 +146,86 @@ function SecondStep() {
                   </div>
                 )}
               </div>
-              <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field, index) => (
-                  <div className="w-full" key={field}>
+                  <div
+                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    key={field}
+                  >
                     <Field name={field}>
                       {({ field, form }: FieldProps) => (
                         <>
                           <Select
                             name={field.name}
-                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center justify-between ${
+                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                               getIn(errors, field.name) &&
                               getIn(touched, field.name)
                                 ? "border-red-500 mb-0.5"
                                 : ""
                             }`}
                             label={label[index]}
+                            options={Industry}
+                          />
+                          {getIn(errors, field.name) &&
+                            getIn(touched, field.name) && (
+                              <div className="text-red-500 font-medium">
+                                {getIn(errors, field.name)}
+                              </div>
+                            )}
+                        </>
+                      )}
+                    </Field>
+                  </div>
+                ))}
+              </div>
+              {["description", "sellingProposition"].map((field) => (
+                <div className="w-full mb-3 md:mb-6" key={field}>
+                  <Field
+                    as={TextArea}
+                    id={field}
+                    name={field}
+                    label={
+                      field === "sellingProposition"
+                        ? "Unique Selling Proposition (USP)"
+                        : "Description"
+                    }
+                    placeholder="Your Message"
+                    required={true}
+                    rows={4}
+                    className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+                      getIn(errors, field) && getIn(touched, field)
+                        ? "border-red-500 mb-0.5"
+                        : ""
+                    }`}
+                  />
+                  {getIn(errors, field) && getIn(touched, field) && (
+                    <div className="text-red-500 font-medium mb-2">
+                      {getIn(errors, field)}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                {["state", "cities"].map((field) => (
+                  <div
+                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    key={field}
+                  >
+                    <Field name={field}>
+                      {({ field, form }: FieldProps) => (
+                        <>
+                          <MultiSelect
+                            name={field.name}
+                            className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
+                              getIn(errors, field.name) &&
+                              getIn(touched, field.name)
+                                ? "border-red-500 mb-0.5"
+                                : ""
+                            }`}
+                            label={
+                              field.name.charAt(0).toUpperCase() +
+                              field.name.slice(1).replace(/([A-Z])/g, " $1")
+                            }
                             options={Industry}
                           />
                           {getIn(errors, field.name) &&
@@ -178,67 +240,10 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              {["description", "sellingProposition"].map((field) => (
-                <div key={field}>
-                  <Field
-                    as={TextArea}
-                    id={field}
-                    name={field}
-                    label={
-                      field === "sellingProposition"
-                        ? "Unique Selling Proposition (USP)"
-                        : "Description"
-                    }
-                    placeholder="Your Message"
-                    required={true}
-                    rows={4}
-                    className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
-                      getIn(errors, field) && getIn(touched, field)
-                        ? "border-red-500 mb-0.5"
-                        : "mb-8"
-                    }`}
-                  />
-                  {getIn(errors, field) && getIn(touched, field) && (
-                    <div className="text-red-500 font-medium mb-2">
-                      {getIn(errors, field)}
-                    </div>
-                  )}
-                </div>
-              ))}
-              {["state", "cities"].map((field) => (
-                <div key={field}>
-                  <Field name={field}>
-                    {({ field, form }: FieldProps) => (
-                      <>
-                        <MultiSelect
-                          name={field.name}
-                          className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
-                            getIn(errors, field.name) &&
-                            getIn(touched, field.name)
-                              ? "border-red-500 mb-0.5"
-                              : ""
-                          }`}
-                          label={
-                            field.name.charAt(0).toUpperCase() +
-                            field.name.slice(1).replace(/([A-Z])/g, " $1")
-                          }
-                          options={Industry}
-                        />
-                        {getIn(errors, field.name) &&
-                          getIn(touched, field.name) && (
-                            <div className="text-red-500 font-medium mb-2">
-                              {getIn(errors, field.name)}
-                            </div>
-                          )}
-                      </>
-                    )}
-                  </Field>
-                </div>
-              ))}
               <div className="flex justify-between">
                 <Button
                   variant="secondary"
-                  className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
                   onClick={handleBackButton}
                 >
                   <ArrowIcon
@@ -250,7 +255,7 @@ function SecondStep() {
                 <Button
                   variant="highlighted"
                   type="submit"
-                  className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
                 >
                   Next
                   <ArrowIcon color="white" className="rotate-180 ml-2" />

@@ -1,5 +1,6 @@
 "use client";
 
+import ArrowIcon from "@/assets/icons/arrowIcon";
 import TextArea from "@/components/Fields/TextArea";
 import Button from "@/components/button/button";
 import MultiSelect from "@/components/select/MultiSelect";
@@ -9,7 +10,6 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
-import ArrowIcon from "@/assets/icons/arrowIcon";
 
 interface FormValues {
   areaRequired: string;
@@ -145,15 +145,18 @@ function SecondStep() {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
-              <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field, index) => (
-                  <div className="w-full" key={field}>
+                  <div
+                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    key={field}
+                  >
                     <Field name={field}>
                       {({ field, form }: FieldProps) => (
                         <>
                           <Select
                             name={field.name}
-                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center justify-between ${
+                            className={`flex w-full px-4 py-3 leading-tight bg-white rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                               getIn(errors, field.name) &&
                               getIn(touched, field.name)
                                 ? "border-red-500 mb-0.5"
@@ -164,7 +167,7 @@ function SecondStep() {
                           />
                           {getIn(errors, field.name) &&
                             getIn(touched, field.name) && (
-                              <div className="text-red-500 font-medium mb-2">
+                              <div className="text-red-500 font-medium">
                                 {getIn(errors, field.name)}
                               </div>
                             )}
@@ -204,9 +207,12 @@ function SecondStep() {
                   className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3 focus:bg-white focus:border-[#73727366]`}
                 />
               </div>
-              <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2">
                 {multiselectFields.map((field, index) => (
-                  <div key={field}>
+                  <div
+                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    key={field}
+                  >
                     <Field name={field}>
                       {({ field, form }: FieldProps) => (
                         <>
@@ -236,7 +242,7 @@ function SecondStep() {
               <div className="flex justify-between">
                 <Button
                   variant="secondary"
-                  className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
                   onClick={handleBackButton}
                 >
                   <ArrowIcon
@@ -248,7 +254,7 @@ function SecondStep() {
                 <Button
                   variant="highlighted"
                   type="submit"
-                  className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
                 >
                   Next
                   <ArrowIcon color="white" className="rotate-180 ml-2" />
