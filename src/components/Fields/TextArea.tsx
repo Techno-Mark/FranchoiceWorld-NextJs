@@ -11,6 +11,7 @@ interface TextAreaProps {
   onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   className?: string;
   rows?: number;
+  disabled?: boolean;
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -23,7 +24,8 @@ const TextArea: React.FC<TextAreaProps> = ({
   onChange,
   onBlur,
   className,
-  rows = 4, // Default to 4 rows
+  rows = 4,
+  disabled,
 }) => {
   return (
     <div>
@@ -37,11 +39,12 @@ const TextArea: React.FC<TextAreaProps> = ({
         </label>
       )}
       <textarea
-        className={className}
+        className={`block w-full border border-[rgba(115, 114, 115, 0.4)] rounded-lg py-2 px-4 focus:outline-none font-medium ${
+          disabled && "pointer-event-none bg-[rgba(115,114,115,0.2)]"
+        } ${className}`}
         id={id}
         name={name}
         value={value}
-        required={required}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}

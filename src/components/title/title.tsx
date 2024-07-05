@@ -5,19 +5,31 @@ interface TitleProps {
   title: string;
   desc?: string;
   varient?: "white" | "blue";
+  descClass?: string;
+  titleClass?: string;
 }
 
-const Title: React.FC<TitleProps> = ({ title, desc, varient = "blue" }) => {
+const Title: React.FC<TitleProps> = ({
+  title,
+  desc,
+  varient = "blue",
+  descClass,
+  titleClass,
+}) => {
   return (
     <>
       <h3
-        className={`font-bold ${styles.title} ${
+        className={`font-bold ${styles.title} ${titleClass} ${
           varient === "white" ? "!text-white" : ""
         }`}
       >
         {title}
       </h3>
-      {desc && <p className={`px-0 md:px-5 ${styles.description}`}>{desc}</p>}
+      {desc && (
+        <p className={`px-0 md:px-5 ${styles.description} ${descClass}`}>
+          {desc}
+        </p>
+      )}
     </>
   );
 };

@@ -1,13 +1,4 @@
 .cardBox {
     background: var(--white-bg);
-    border-radius: 1.4rem;
     box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 2rem 1.5rem 1.5rem;
-}
-
-@media only screen and (max-width:767px) {
-    .cardBox {
-        padding: 1rem;
-        border-radius: 0.9rem;
-    }
 }

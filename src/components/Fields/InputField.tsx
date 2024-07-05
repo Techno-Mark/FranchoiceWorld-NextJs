@@ -11,6 +11,7 @@ interface InputFieldProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -24,28 +25,33 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   onBlur,
   className,
+  disabled,
 }) => {
   return (
-    <div >
-      <label
-        htmlFor={id}
-        className="block mb-2 text-sm font-medium text-gray-700"
-      >
-        {label}
-        {required && label && <span className="text-red-500 ml-1">*</span>}
-      </label>
+    <>
+      {label && (
+        <label
+          htmlFor={id}
+          className="block mb-2 font-medium text-[var(--text-color)]"
+        >
+          {label}
+          {required && label && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
       <input
-        className={className}
+        className={`block w-full border border-[rgba(115, 114, 115, 0.4)] rounded-lg py-2 px-4 focus:outline-none font-medium ${
+          disabled && "pointer-event-none bg-[rgba(115,114,115,0.2)]"
+        } ${className}`}
         id={id}
         name={name}
         type={type}
         value={value}
-        required={required}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
       />
-    </div>
+    </>
   );
 };
 

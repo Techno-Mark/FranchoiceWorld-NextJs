@@ -40,9 +40,9 @@ function ListYourBrand() {
       <InnerListBrandBanner />
       <ListingSimpleSteps />
       <TrandingVideo
+        items={trandingVideo.items}
         desc={trandingVideo.desc}
         desc2={trandingVideo.desc2}
-        items={trandingVideo.items}
       />
       <Faq />
       <div className="pt-4 md:py-12">

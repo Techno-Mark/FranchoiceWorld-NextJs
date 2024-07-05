@@ -33,7 +33,7 @@ const ListBrandBanner: React.FC<listBrandProps> = ({ className }) => {
                 className={`flex gap-3 flex-wrap md:flex-nowrap md:flex-row md:items-normal justify-center lg:justify-start`}
                 onClick={handleListBrand}
               >
-                <CountryDropdown />
+                <CountryDropdown className="bg-white" />
                 <input
                   type="number"
                   placeholder="Enter Mobile No."
