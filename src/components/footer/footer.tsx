@@ -62,7 +62,7 @@ const Footer = () => {
           <div className="flex flex-col gap-5 text-white order-2 md:order-1 mt-8 md:mt-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/footerLogo.svg"
+                src="/images/footerLogo.svg"
                 className={`h-14 w-auto me-3${styles.footerLogo}`}
                 alt="Logo"
                 width={100}

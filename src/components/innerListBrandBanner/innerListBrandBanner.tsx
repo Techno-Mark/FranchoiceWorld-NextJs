@@ -1,6 +1,6 @@
 "use client";
 
-import { updateStepProgress } from "@/utills/stepProgress";
+// import { updateStepProgress } from "@/utills/stepProgress";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ const InnerListBrandBanner = () => {
   const router = useRouter();
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
-    updateStepProgress("/list-your-brand/step_1");
+    // updateStepProgress("/list-your-brand/step_1");
     router.push("/list-your-brand/step_1");
     console.log(e.target);
   };
@@ -99,7 +99,7 @@ const InnerListBrandBanner = () => {
           <div className={`w-full`}>
             <Image
               className={`w-full object-contain max-w-[461px] ml-auto`}
-              src="/innerListBrandBanner.png"
+              src="/images/innerListBrandBanner.png"
               alt="List your Brand"
               width={300}
               height={200}

@@ -30,7 +30,7 @@ const opportunity = {
   sectionTitle: "Top Business Opportunities",
   items: [
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -39,7 +39,7 @@ const opportunity = {
       favorite: false,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -48,7 +48,7 @@ const opportunity = {
       favorite: true,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -57,7 +57,7 @@ const opportunity = {
       favorite: false,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -71,7 +71,7 @@ const international = {
   sectionTitle: "Top International Brands",
   items: [
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -80,7 +80,7 @@ const international = {
       favorite: false,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -89,7 +89,7 @@ const international = {
       favorite: true,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -98,7 +98,7 @@ const international = {
       favorite: false,
     },
     {
-      image: "/bussinessImage.jpg",
+      image: "/images/bussinessImage.jpg",
       title: "Froozo",
       category: "F&B",
       investmentRange: "₹30L - 50L",
@@ -113,25 +113,25 @@ const testimonials = [
     message:
       "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
     author: "Connplex",
-    companyLogo: "/testimonial/connplex.jpg",
+    companyLogo: "/images/testimonial/connplex.jpg",
   },
   {
     message:
       "Choosing Gyaata to expand our franchises was one of the best decisions we made. Their dedicated and creative team enhanced our brand reputation and run result-driven lead generation campaigns. We saw significant growth within a short span of time. If you are looking for your brand's franchise growth, this is the one!",
     author: "Molly Moo",
-    companyLogo: "/testimonial/mollymoo.jpg",
+    companyLogo: "/images/testimonial/mollymoo.jpg",
   },
   {
     message:
       "Gyaata has proven to be a game-changer in our brand growth with its impeccable advertising services. Their strategic approach and innovative campaigns have effectively elevated the brand's visibility in the domestic and international market— truly a reliable partner for those seeking impactful and result-driven marketing solutions.",
     author: "Satvam",
-    companyLogo: "/testimonial/satvam.jpg",
+    companyLogo: "/images/testimonial/satvam.jpg",
   },
   {
     message:
       "We have worked with Gyaata to market and sell our franchise program, they are consistent and fair in their lead generation activity and bridge the gap in finding the right partner. We believe we have found a good lead generating partner in Gyaata. Highly recommendable and referable.",
     author: "Satvam",
-    companyLogo: "/testimonial/tcr.jpg",
+    companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
 const trandingVideo = {
@@ -142,7 +142,7 @@ const trandingVideo = {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/banner.jpg",
+      videoThumbnail: "/images/banner.jpg",
     },
     {
       id: "2",
@@ -150,7 +150,7 @@ const trandingVideo = {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/banner.jpg",
+      videoThumbnail: "/images/banner.jpg",
     },
     {
       id: "3",
@@ -158,12 +158,12 @@ const trandingVideo = {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/banner.jpg",
+      videoThumbnail: "/images/banner.jpg",
     },
   ],
 };
 const banner = {
-  imgUrl: "/banner.jpg",
+  imgUrl: "/images/banner.jpg",
   imgAlt: "Banner image",
   bannerTitle: "Welcome to the World of Franchising",
 };

@@ -4,17 +4,17 @@ const OurService = () => {
   const serviceItem = [
     {
       id: "first",
-      serviceIcon: "/franchiseListing.svg",
+      serviceIcon: "/images/franchiseListing.svg",
       serviceText: "Franchise Listing",
     },
     {
       id: "second",
-      serviceIcon: "/franchiseAdvisor.svg",
+      serviceIcon: "/images/franchiseAdvisor.svg",
       serviceText: "Franchise Advisory",
     },
     {
       id: "third",
-      serviceIcon: "/franchiseGrowth.svg",
+      serviceIcon: "/images/franchiseGrowth.svg",
       serviceText: "Franchise Growth",
     },
   ];

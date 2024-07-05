@@ -108,7 +108,7 @@ const Header = () => {
                   className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
                   <Image
-                    src="/logo.svg"
+                    src="/images/logo.svg"
                     className="w-auto h-10"
                     alt="Logo"
                     width={100}

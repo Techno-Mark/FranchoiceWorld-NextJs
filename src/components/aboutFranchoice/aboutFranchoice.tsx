@@ -28,7 +28,7 @@ const AboutFranchoice = () => {
           >
             <Image
               className={`w-full ${styles.aboutImage}`}
-              src="/about.jpg"
+              src="/images/about.jpg"
               alt="About"
               width={600}
               height={250}

@@ -17,7 +17,7 @@ const ListBrandBanner: React.FC<listBrandProps> = ({ className }) => {
         <div className={`grid md:grid-cols-3 ${styles.listBrandBanner}`}>
           <div className="hidden lg:block relative">
             <Image
-              src={"/womenBrandBanner.png"}
+              src={"/images/womenBrandBanner.png"}
               width={250}
               height={250}
               alt="List Brand"
