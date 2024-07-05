@@ -51,7 +51,7 @@ const StepLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <section className={`relative pb-36 ${styles.stepBanner}`}>
         <Image
           className="absolute top-0 left-0 w-full h-full object-cover z-[-2]"
-          src="/listStep/listYourBrand.png"
+          src="/images/listStep/listYourBrand.png"
           alt="stepBanner"
           width={1920}
           height={700}

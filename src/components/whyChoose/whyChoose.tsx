@@ -13,25 +13,25 @@ interface CardItem {
 
 const cardBox: CardItem[] = [
   {
-    chooseImage: "/brandOwner.svg",
+    chooseImage: "/images/brandOwner.svg",
     hoverImage: "/brandOwner_gray.svg",
     chooseTitle: "Brand Owner",
     list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
   },
   {
-    chooseImage: "/investor.svg",
+    chooseImage: "/images/investor.svg",
     hoverImage: "/investor_gray.svg",
     chooseTitle: "Investor",
     list: ["Personalized Matching", "Expert Guidance", "Extensive Network"],
   },
   {
-    chooseImage: "/independentPartner.svg",
+    chooseImage: "/images/independentPartner.svg",
     hoverImage: "/independentPartner_gray.svg",
     chooseTitle: "Independent Franchise Partner",
     list: ["Brand Recognition", "Operational Support", "Risk Mitigation"],
   },
   {
-    chooseImage: "/realestate.svg",
+    chooseImage: "/images/realestate.svg",
     hoverImage: "/realestate_gray.svg",
     chooseTitle: "Real Estate Developer",
     list: [

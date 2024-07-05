@@ -99,7 +99,7 @@ const InnerListBrandBanner = () => {
           <div className={`w-full`}>
             <Image
               className={`w-full object-contain max-w-[461px] ml-auto`}
-              src="/innerListBrandBanner.png"
+              src="/images/innerListBrandBanner.png"
               alt="List your Brand"
               width={300}
               height={200}

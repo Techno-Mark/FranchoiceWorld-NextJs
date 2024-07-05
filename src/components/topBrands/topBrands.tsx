@@ -7,7 +7,7 @@ import styles from "./topBrands.module.css";
 import styled from "styled-components";
 import Button from "../button/button";
 import Image from "next/image";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+// import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface BusinessOpportunity {
   id?: number;
