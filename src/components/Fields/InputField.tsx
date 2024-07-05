@@ -26,26 +26,25 @@ const InputField: React.FC<InputFieldProps> = ({
   className,
 }) => {
   return (
-    <div >
+    <>
       <label
         htmlFor={id}
-        className="block mb-2 text-sm font-medium text-gray-700"
+        className="block mb-2 font-medium text-[var(--text-color)]"
       >
         {label}
         {required && label && <span className="text-red-500 ml-1">*</span>}
       </label>
       <input
-        className={className}
+        className={`block w-full border border-[rgba(115, 114, 115, 0.4)] rounded-lg py-2 px-4 focus:outline-none ${className}`}
         id={id}
         name={name}
         type={type}
         value={value}
-        required={required}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
       />
-    </div>
+    </>
   );
 };
 

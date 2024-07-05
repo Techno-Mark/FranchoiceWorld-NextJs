@@ -98,11 +98,11 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
                         </h4>
                       </div>
 
-                      {opportunity.favorite ? (
+                      {/* {opportunity.favorite ? (
                         <FaHeart className="text-[#D21F34]" size={20} />
                       ) : (
                         <FaRegHeart className="text-gray-500" size={20} />
-                      )}
+                      )} */}
                     </div>
                     <ul className={styles.topBrandDetails}>
                       <li className="flex justify-between">
@@ -119,7 +119,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
                     </ul>
                     <Button
                       variant="secondary"
-                      className={`w-full ${styles.topBrandButton}`}
+                      className={`w-full text-bold ${styles.topBrandButton}`}
                     >
                       Know More
                     </Button>

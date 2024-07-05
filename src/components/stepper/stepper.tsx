@@ -9,6 +9,7 @@ interface StepProps {
   active?: boolean;
   className?: string;
   children?: React.ReactNode;
+  titleClass?: string;
 }
 
 const Stepper: React.FC<StepProps> = ({
@@ -18,6 +19,7 @@ const Stepper: React.FC<StepProps> = ({
   active,
   className,
   children,
+  titleClass,
 }) => {
   return (
     <div
@@ -37,8 +39,10 @@ const Stepper: React.FC<StepProps> = ({
         )}
         {children}
       </div>
-      <div className="w-[201px] text-left ml-2">
-        <h3 className={`font-bold ${styles.stepTitle}`}>{title}</h3>
+      <div className="w-[201px] text-center max-w-full">
+        <h3 className={`font-bold ${styles.stepTitle} ${titleClass}`}>
+          {title}
+        </h3>
         {description && <p className="text-gray-600">{description}</p>}
       </div>
     </div>
