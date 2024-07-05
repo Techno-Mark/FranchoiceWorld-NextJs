@@ -37,9 +37,10 @@ const InnerListBrandBanner = () => {
                 maxLength={11}
               />
               <Button variant="highlighted" className="rounded-md">
-                <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-md">
+                <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-base">
                   Start Now{" "}
                   <svg
+                    className={styles.arrowIcn}
                     width="19"
                     height="19"
                     viewBox="0 0 19 19"

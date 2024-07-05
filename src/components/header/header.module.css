@@ -11,6 +11,10 @@
     font-weight: 600;
 }
 
+.ctaButton:hover {
+    background: var(--highlighted-hover);
+}
+
 .stickyCatBtn,
 .scrolled .menuLists {
     display: none;
@@ -33,6 +37,10 @@
     font-size: var(--text-size);
     font-weight: 600;
     display: inline-block;
+}
+
+.categoryButton:hover {
+    background: var(--footer-hover);
 }
 
 @media only screen and (max-width:991px) {

@@ -51,7 +51,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
         return "pl-2 pr-6 py-3 md:pr-7 md:py-4 text-base";
       case "regular":
       default:
-        return "pl-2 py-3 pr-7 md:py-5 text-sm md:text-lg";
+        return "pl-2 py-3 pr-7 md:py-4 text-sm md:text-xl";
     }
   };
 
@@ -72,14 +72,14 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
               width={20}
               height={20}
             />
-            <span className="ml-auto font-medium text-[11px] md:text-md">
+            <span className={`ml-auto font-medium text-[11px] ${variant=== "regular" ? "md:text-lg": "md:text-md"}`}>
               ({selectedCountryData.code})
             </span>
           </div>
         ) : (
           "Select a country"
         )}
-        <div className="absolute inset-y-0 right-0 flex items-center px-1 md:px-2 pointer-events-none">
+        <div className="absolute inset-y-0 right-0 flex items-center px-1 md:px-2 pointer-events-none h-full">
           <svg
             className="w-3 h-3 md:w-4 md:h-4 text-gray-500"
             fill="none"

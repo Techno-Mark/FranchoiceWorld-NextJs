@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  variant,
+  variant = "primary",
   onClick,
   children,
   type = "button",
@@ -16,8 +16,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const baseStyles = "px-4 py-2 font-bold rounded outline-none";
   const variantStyles = {
-    primary: "bg-blue-500 text-white hover:bg-blue-600 ",
-    secondary: "bg-gray-500 text-white hover:bg-gray-600",
+    primary: "bg-[var(--footer-bg)] text-white hover:bg-[var(--footer-hover)]",
+    secondary: "bg-[var(--secondary-color)] text-white",
     highlighted: `${styles.highlightedBtn}`,
   };
 
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={`${baseStyles} ${variantStyle}  ${className}`}
+      className={`${baseStyles} ${variantStyle} ${className}`}
       onClick={onClick}
     >
       {children}

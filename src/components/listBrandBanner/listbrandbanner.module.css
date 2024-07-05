@@ -30,6 +30,12 @@
     border: 1.31px solid var(--secondary-color)
 }
 
+.arrowIcn {
+    position: relative;
+    left: 0;
+    animation: moveRight .8s infinite;
+}
+
 @media only screen and (max-width:767px) {
     .listBrandBanner {
         padding: 1rem;
@@ -51,5 +57,19 @@
     .InputStyle {
         max-width: 153px;
         font-size: 15px;
+    }
+}
+
+@keyframes moveRight {
+    0% {
+        left: 0
+    }
+
+    50% {
+        left: -4px
+    }
+
+    to {
+        left: 0
     }
 }

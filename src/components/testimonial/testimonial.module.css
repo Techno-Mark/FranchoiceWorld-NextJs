@@ -1,7 +1,12 @@
 .testimonial {
     display: block;
     color: #717171;
+}
 
+.companyLogo {
+    width: 176px;
+    height: 80px;
+    object-position: center;
 }
 
 @media only screen and (max-width: 480px) {

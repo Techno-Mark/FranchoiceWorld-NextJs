@@ -22,8 +22,6 @@ const CategoriesContent = () => {
 
   const handelSubmitCategory = (e: any) => {
     e.preventDefault();
-
-    console.log("submitForm", e);
   };
   const Industry = [
     { value: "option1", label: "Option 1" },
@@ -43,31 +41,37 @@ const CategoriesContent = () => {
   return (
     <>
       <form
-        className={`flex gap-[1rem] flex-col md:flex-row ${styles.findForm}`}
+        className={`flex flex-col md:flex-row ${styles.findForm}`}
         onSubmit={handelSubmitCategory}
       >
-        <Dropdown
-          name="selectedIndustry"
-          options={Industry}
-          value={selectedIndustry}
-          onChange={handleIndustryChange}
-          placeholder="Select Industries"
-        />
-        <Dropdown
-          options={Sector}
-          value={selectedSector}
-          onChange={handleSectorChange}
-          placeholder="Select Sector"
-        />
-        <Dropdown
-          options={Product}
-          value={selectedProduct}
-          onChange={handleProductChange}
-          placeholder="Select Service/Product"
-        />
+        <div className="mb-5 md:mb-0 md:mr-3 w-full">
+          <Dropdown
+            name="selectedIndustry"
+            options={Industry}
+            value={selectedIndustry}
+            onChange={handleIndustryChange}
+            placeholder="Select Industries"
+          />
+        </div>
+        <div className="mb-5 md:mb-0 md:mr-3 w-full">
+          <Dropdown
+            options={Sector}
+            value={selectedSector}
+            onChange={handleSectorChange}
+            placeholder="Select Sector"
+          />
+        </div>
+        <div className="mb-5 md:mb-0 md:mr-3 w-full">
+          <Dropdown
+            options={Product}
+            value={selectedProduct}
+            onChange={handleProductChange}
+            placeholder="Select Service/Product"
+          />
+        </div>
         <Button
           variant="highlighted"
-          className={`${styles.search_btn}`}
+          className={`px-4 md:px-6 rounded-md ${styles.search_btn}`}
           type="submit"
         >
           Search

@@ -1,4 +1,8 @@
-.highlightedBtn{
+.highlightedBtn {
     background: var(--highlighted-color);
     color: var(--white-color);
+}
+
+.highlightedBtn:hover {
+    background: var(--highlighted-hover);
 }
