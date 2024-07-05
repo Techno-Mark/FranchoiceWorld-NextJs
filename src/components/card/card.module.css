@@ -1,4 +1,4 @@
 .cardBox {
-    background: var(--white-bg);
+    background: var(--white-color);
     box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.1);
 }
