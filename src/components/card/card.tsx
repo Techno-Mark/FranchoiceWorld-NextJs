@@ -6,7 +6,7 @@ const Card = ({
   className?: string;
   children: React.ReactNode;
 }) => {
-  return <div className={`${className} ${styles.cardBox}`}>{children}</div>;
+  return <div className={`${styles.cardBox} ${className}`}>{children}</div>;
 };
 
 export default Card;
