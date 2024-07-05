@@ -158,13 +158,14 @@ function FirstStep() {
           )}
         </div>
         <div className="flex justify-between">
-          <Button
+          {/* <Button
             variant="secondary"
             className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
+            onClick={handleBackButton}
           >
             <ArrowIcon color="rgba(115, 114, 115, 0.3)" className="mr-2" />
             Back
-          </Button>
+          </Button> */}
           <Button
             variant="highlighted"
             type="submit"
