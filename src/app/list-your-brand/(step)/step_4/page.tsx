@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 
 import styles from "./step_4.module.css";
 import Title from "@/components/title/title";
@@ -15,12 +15,14 @@ import MultiSelect from "@/components/select/MultiSelect";
 import StepLayout from "../layout";
 import FileUpload from "@/components/Uploader/FileUpload";
 import ImageUpload from "@/components/Uploader/ImageUpload";
+import ArrowIcon from "@/assets/icons/arrowIcon";
+import VideoUpload from "@/components/Uploader/VideoUpload";
 
 interface FormValues {
-  // ... other fields ...
   brochure: File[];
   logo: File[];
   multipleLogos: File[];
+  video?: File[];
 }
 
 function FourthStep() {
@@ -30,167 +32,196 @@ function FourthStep() {
     brochure: [],
     logo: [],
     multipleLogos: [],
+    video: [],
   };
 
+  const FILE_SIZE = 5 * 1024 * 1024;
+  const SUPPORTED_IMAGE_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+  const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/mov", "video/avi"];
+
   const validationSchema = Yup.object({
-    brochure: Yup.array().min(1, "Brochure is required"),
-    logo: Yup.array().min(1, "Logo is required"),
+    brochure: Yup.array()
+      .min(1, "Brochure is required")
+      .test("fileSize", "File size is too large", (value) =>
+        value && value[0] ? value[0].size <= FILE_SIZE : true
+      ),
+    logo: Yup.array()
+      .min(1, "Logo is required")
+      .test("fileSize", "File size is too large", (value) =>
+        value && value[0] ? value[0].size <= FILE_SIZE : true
+      )
+      .test("fileFormat", "Unsupported file format", (value) =>
+        value && value[0]
+          ? SUPPORTED_IMAGE_FORMATS.includes(value[0].type)
+          : true
+      ),
     multipleLogos: Yup.array()
       .min(1, "At least one logo is required")
-      .max(5, "Maximum 5 logos allowed"),
+      .max(5, "Maximum 5 logos allowed")
+      .test("fileSize", "Files are too large", (value) =>
+        value ? value.every((file) => file.size <= FILE_SIZE) : true
+      )
+      .test("fileFormat", "Unsupported file format", (value) =>
+        value
+          ? value.every((file) => SUPPORTED_IMAGE_FORMATS.includes(file.type))
+          : true
+      ),
+    video: Yup.array()
+      .test(
+        "fileSize",
+        "File size is too large",
+        (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 5 : true) // 25 MB for video
+      )
+      .test("fileFormat", "Unsupported file format", (value) =>
+        value && value[0]
+          ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
+          : true
+      ),
   });
 
   const handleSubmit = (
-    values: typeof initialValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
+    values: FormValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {
     // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
-      setFieldTouched(fieldName, true);
+      setFieldTouched(fieldName as keyof FormValues, true);
     });
 
-    // Call your submission logic here
-    console.log("Form submitted:", values);
-    // router.push("/list-your-brand/step_4");
+    const formData = new FormData();
 
-    // After submission logic, reset submitting state
-    setSubmitting(false);
+    // Append files to formData
+    values.brochure.forEach((file) => {
+      formData.append(`brochure`, file);
+    });
+
+    values.logo.forEach((file) => {
+      formData.append(`logo`, file);
+    });
+
+    values.multipleLogos.forEach((file) => {
+      formData.append(`multipleLogos`, file);
+    });
+
+    if (values.video) {
+      values.video.forEach((file) => {
+        formData.append(`video`, file);
+      });
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_2");
+    router.push("/list-your-brand/step_3");
   };
-
-  const getIn = <T extends object>(obj: T, key: string): any =>
-    key.split(".").reduce((o, k) => (o || {})[k], obj as any);
-
-  const label = [
-    "Area Required",
-    "Total Initial Investment Range",
-    "Franchise Fee",
-    "Sales and Revenue Model",
-    "Anticipated % Return on Investment (ROI)",
-    "Likely Payback Period for a Unit Franchise",
-  ];
-
-  const fields = [
-    "areaRequired",
-    "investmentRange",
-    "franchiseFee",
-    "salesModel",
-    "returnInvestment",
-    "unitFranchise",
-  ];
-
-  const multiselectLabel = [
-    "Do you have a franchise agreement?",
-    "How long is the franchise for?",
-    "Is the term renewable?",
-  ];
-
-  const multiselectFields = [
-    "franchiseAgreement",
-    "longFranchise",
-    "termRenewable",
-  ];
 
   return (
     <>
-      <section className={`relative ${styles.halfBanner}`}>
-        <div className="container w-full md:w-3/4">
-          <div
-            className={`bg-white gap-3 p-4  md:py-10 md:px-5 ${styles.halfBannerContent}`}
-          >
-            <div className={`${styles.formPart} px-3`}>
-              <Title
-                title="Visualize Your Brand"
-                desc="Upload Brochures,Logos, and More"
-              />
-              <Formik<FormValues>
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ errors, touched, setFieldValue }) => (
-                  <Form className="mt-16">
-                    <div className="grid grid-cols-1 gap-2 mb-2 md:grid-cols-2">
-                      <div>
-                        <FileUpload
-                          label="Upload Brochure"
-                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
-                          descClass="text-xs mt-5 font-customBorder font-medium"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <ImageUpload
-                          label="upload Logo"
-                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
-                          descClass="text-xs mt-5 font-customBorder font-medium"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <ImageUpload
-                          label="upload Logo"
-                          desc="Formats accepted are .pdf .png annd .jpeg Not more then 25 MB."
-                          descClass="text-xs mt-5 font-customBorder font-medium"
-                          required
-                          multiple
-                          maxFiles={5}
-                        />
-                      </div>
+      <div className={`${styles.formPart} px-3`}>
+        <Title
+          title="Visualize Your Brand"
+          desc="Upload Brochures,Logos, and More"
+        />
+        <Formik<FormValues>
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, setFieldValue }) => (
+            <Form className="mt-16">
+              <div className="grid grid-cols-1 gap-5 mb-2 md:grid-cols-2">
+                <div>
+                  <FileUpload
+                    label="Upload Brochure"
+                    desc="Formats accepted are .pdf .png and .jpeg Not more then 25 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    required
+                    name="brochure"
+                    onChange={(files) => {
+                      // Ensure files is always an array
+                      const fileArray = Array.isArray(files)
+                        ? files
+                        : files
+                        ? [files]
+                        : [];
+                      setFieldValue("brochure", fileArray);
+                    }}
+                  />
+                  {errors.brochure && touched.brochure && (
+                    <div className="text-red-500">
+                      {errors.brochure as ReactNode}
                     </div>
-
-                    <div className="flex justify-between">
-                      <Button className="border border-customBorder rounded-lg">
-                        <div className="flex whitespace-nowrap p-2 gap-2 items-center">
-                          <svg
-                            width="19"
-                            height="19"
-                            viewBox="0 0 19 19"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.48872 0.547607C14.4059 0.547607 18.4761 4.54785 18.4761 9.46502C18.4761 14.3822 14.4059 18.4524 9.48872 18.4524C4.57156 18.4524 0.571314 14.3822 0.571314 9.46502C0.571314 4.54785 4.57156 0.547607 9.48872 0.547607ZM6.27423 9.92236L11.0425 14.6907C11.2721 14.9203 11.6443 14.9203 11.8739 14.6907L12.526 14.0385C12.7556 13.8089 12.7556 13.4368 12.526 13.2072L9.24225 9.92341C8.98973 9.67089 8.99145 9.2609 9.24613 9.01054L12.519 5.79276C12.7519 5.56377 12.7534 5.18886 12.5225 4.95791L11.8713 4.3067C11.6427 4.07813 11.2725 4.07698 11.0426 4.30411L6.27706 9.01051C6.02335 9.26107 6.02209 9.67022 6.27423 9.92236Z"
-                              fill="#737273"
-                              fill-opacity="0.3"
-                            />
-                          </svg>{" "}
-                          Back
-                        </div>
-                      </Button>
-                      <Button
-                        variant="highlighted"
-                        type="submit"
-                        className="border rounded-lg"
-                      >
-                        <div className="flex whitespace-nowrap p-2 gap-2 items-center">
-                          Next{" "}
-                          <svg
-                            width="19"
-                            height="19"
-                            viewBox="0 0 19 19"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.52068 0.380981C4.60351 0.380981 0.533325 4.38123 0.533325 9.29839C0.533325 14.2156 4.60351 18.2857 9.52068 18.2857C14.4378 18.2857 18.4381 14.2156 18.4381 9.29839C18.4381 4.38123 14.4378 0.380981 9.52068 0.380981ZM12.7352 9.75573L7.96688 14.5241C7.7373 14.7536 7.36511 14.7536 7.13553 14.5241L6.48337 13.8719C6.25379 13.6423 6.25379 13.2701 6.48337 13.0406L9.76715 9.75678C10.0197 9.50426 10.018 9.09427 9.76326 8.84392L6.49044 5.62613C6.25753 5.39715 6.25596 5.02223 6.4869 4.79129L7.13812 4.14007C7.36668 3.91151 7.73688 3.91035 7.96684 4.13748L12.7323 8.84388C12.9861 9.09445 12.9873 9.5036 12.7352 9.75573Z"
-                              fill="white"
-                            />
-                          </svg>
-                        </div>
-                      </Button>
+                  )}
+                </div>
+                <div>
+                  <ImageUpload
+                    label="upload Logo"
+                    desc="Formats accepted are .png and .jpeg Not more then 5 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    required
+                    name="logo"
+                    onChange={(files) => setFieldValue("logo", files)}
+                  />
+                  {errors.logo && touched.logo && (
+                    <div className="text-red-500">
+                      {errors.logo as ReactNode}
                     </div>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-            {/* <Select /> */}
-          </div>
-        </div>
-      </section>
+                  )}
+                </div>
+                <div>
+                  <ImageUpload
+                    label="upload Brand Images"
+                    desc="Formats accepted are .png and .jpeg Not more then 5 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    required
+                    multiple
+                    maxFiles={5}
+                    name="multipleLogos"
+                    onChange={(files) => setFieldValue("multipleLogos", files)}
+                  />
+                  {errors.multipleLogos && touched.multipleLogos && (
+                    <div className="text-red-500">
+                      {errors.multipleLogos as ReactNode}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <VideoUpload
+                    label="upload Video (Optional)"
+                    desc="Formats accepted are .MP4, MOV, AVI Not more then 25 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    name="video"
+                    onChange={(files) => setFieldValue("video", files)}
+                  />
+                  {errors.video && touched.video && (
+                    <div className="text-red-500">{errors.video}</div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <Button
+                  variant="secondary"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
+                  onClick={handleBackButton}
+                >
+                  <ArrowIcon
+                    color="rgba(115, 114, 115, 0.3)"
+                    className="mr-2"
+                  />
+                  Back
+                </Button>
+                <Button
+                  variant="highlighted"
+                  type="submit"
+                  className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
+                >
+                  Next
+                  <ArrowIcon color="white" className="rotate-180 ml-2" />
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </>
   );
 }
