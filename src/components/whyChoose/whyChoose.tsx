@@ -56,7 +56,7 @@ const WhyChoose: React.FC = () => {
           {cardBox.map(
             ({ chooseImage, chooseTitle, list, hoverImage }, index) => (
               <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
-                <Card className="h-full mb-4 md:mb-0">
+                <Card className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard}`}>
                   <Link
                     href="#"
                     className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
