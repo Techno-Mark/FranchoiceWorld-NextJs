@@ -66,10 +66,12 @@ const items = [
 const Faq: React.FC = () => {
   return (
     <div className="container mx-auto py-4 md:pt-6 md:pb-10">
-      <Title title="FAQs" />
-      <p>Let us answer some of your most common queries.</p>
-      <p className="pb-4 md:pb-10 border-b border-[rgba(0,0,0,0.12)] w-full md:w-5/6">
-        Feel free to contact us in case of any more questions!
+      <Title title="FAQs" titleClass="!pb-2" />
+      <p className="text-[14px] md:text-[18px] font-medium pb-4 md:pb-10 border-b border-[rgba(0,0,0,0.12)] md:w-5/6">
+        Let us answer some of your most common queries.{" "}
+        <span className="text-[14px] md:text-[18px] font-medium md:block">
+          Feel free to contact us in case of any more questions!
+        </span>
       </p>
       <AccordionGroup items={items} className="w-full md:w-5/6" />
     </div>

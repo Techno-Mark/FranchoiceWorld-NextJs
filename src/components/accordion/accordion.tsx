@@ -17,17 +17,18 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
   return (
     <div className="border-b border-[rgba(0,0,0,0.12)]">
       <button
-        className="flex justify-between items-center w-full p-4 text-left font-medium focus:outline-none"
+        className="flex justify-between items-center w-full py-4 text-left font-medium focus:outline-none"
         onClick={toggleAccordion}
       >
         <span className={`pr-3 md:pr-0 ${styles.accordianTitle}`}>{title}</span>
         <PiCaretDownBold
+          color="var(--footer-bg)"
           className={`text-lg transition-all ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
       <div
-        className={`overflow-hidden transition-max-height duration-300 border-t border-[rgba(0,0,0,0.12)] ${
-          isOpen ? "max-h-96" : "max-h-0"
+        className={`overflow-hidden transition-max-height duration-300 ${
+          isOpen ? "max-h-96 border-t border-[rgba(0,0,0,0.12)]" : "max-h-0"
         }`}
       >
         <div className="p-4">{content}</div>
