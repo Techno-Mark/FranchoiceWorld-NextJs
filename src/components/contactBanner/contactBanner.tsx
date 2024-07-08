@@ -1,26 +1,19 @@
 "use client";
-import styles from "./contactBanner.module.css";
-import Title from "../title/title";
+import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
 import { GoCheckCircle } from "react-icons/go";
+import * as Yup from "yup";
+import InputField from "../Fields/InputField";
 import Card from "../card/card";
 import CountryDropdown from "../countryDropdown/countryDropdown";
-import InputField from "../Fields/InputField";
-import {
-  ErrorMessage,
-  Field,
-  Form,
-  Formik,
-  FormikHelpers,
-  getIn,
-  useFormik,
-} from "formik";
-
-import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import TextArea from "../Fields/TextArea";
-import Select from "../select/Select";
-import Button from "../button/button";
+import Title from "../title/title";
+import styles from "./contactBanner.module.css";
+// import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Checkbox from "../Fields/CheckBox";
+import TextArea from "../Fields/TextArea";
+import Button from "../button/button";
+import Select from "../select/Select";
+
 interface FormValues {
   fullName: string;
   phoneNumber: string;
@@ -28,20 +21,30 @@ interface FormValues {
   companyName: string;
   information: string;
   who: string;
-  acceptTerms: string;
+  acceptTerms: boolean;
 }
+const whoOption = [
+  { label: "Brand", value: "Brand" },
+  { label: "Investor", value: "Investor" },
+  {
+    label: "Independent Franchise Partner",
+    value: "Independent Franchise Partner",
+  },
+  { label: "Real Estate Developer", value: "Real Estate Developer" },
+];
 const ContactBanner = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const initialValues = {
+  const initialValues: FormValues = {
     fullName: "",
     phoneNumber: "",
     email: "",
     companyName: "",
     information: "",
     who: "",
-    acceptTerms: "",
+    acceptTerms: false,
   };
+
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
     phoneNumber: Yup.string().required("Phone Number is required"),
@@ -57,149 +60,147 @@ const ContactBanner = () => {
   });
 
   const handleSubmit = (
-    values: typeof initialValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
+    values: FormValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
 
-    // Call your submission logic here
     console.log("Form submitted:", values);
-    // router.push("/list-your-brand/step_4");
-
-    // After submission logic, reset submitting state
     setSubmitting(false);
   };
 
   return (
-    <>
-      <section className={`relative py-10 md:py-20 ${styles.contactBanner}`}>
-        <div className="container">
-          <div className="flex flex-col md:flex-row">
-            <div className={`w-full md:w-1/2 ${styles.contactContent}`}>
-              <div className="max-w-[467px] w-full">
-                <Title
-                  varient="white"
-                  title="Contact Our Team"
-                  titleClass="!pb-2"
-                />
-                <p className="text-white text-base font-bold mb-4.5 md:mb-10">
-                  We are here to answer your queries, help you navigate the
-                  franchising journey, and be at your assistance at all times.
-                </p>
-                <ul className="text-white text-base">
-                  <li className="flex items-baseline pb-4">
-                    <GoCheckCircle size={14} className="w-6 mr-2" />
-                    <span className="w-11/12">
-                      List and grow your brand through thriving franchises.
-                    </span>
-                  </li>
-                  <li className="flex items-baseline pb-4">
-                    <GoCheckCircle size={14} className="w-6 mr-2" />
-                    <span className="w-11/12">
-                      Get quality advisory service from brand audit and
-                      development to competitive and franchise model assessment,
-                      and industry insights.
-                    </span>
-                  </li>
-                  <li className="flex items-baseline pb-4">
-                    <GoCheckCircle size={14} className="w-6 mr-2" />
-                    <span className="w-11/12">
-                      Avail comprehensive services for planning, marketing,
-                      sales, and after sales under one roof.
-                    </span>
-                  </li>
-                </ul>
-              </div>
+    <section
+      className={`relative py-10 md:py-20 md:mb-32 lg:mb-44 ${styles.contactBanner}`}
+    >
+      <div className="container">
+        <div className="flex flex-col md:flex-row">
+          <div className={`w-full md:w-1/2 ${styles.contactContent}`}>
+            <div className="max-w-[467px] w-full">
+              <Title
+                varient="white"
+                title="Contact Our Team"
+                titleClass="!pb-2"
+              />
+              <p className="text-white text-[12px] md:text-[16px] font-bold mb-5 md:mb-10">
+                We are here to answer your queries, help you navigate the
+                franchising journey, and be at your assistance at all times.
+              </p>
+              <ul className="text-white">
+                <li className="flex items-baseline pb-4 md:font-medium text-[12px] md:text-[16px]">
+                  <GoCheckCircle size={14} className="mr-2" />
+                  <span className="w-11/12">
+                    List and grow your brand through thriving franchises.
+                  </span>
+                </li>
+                <li className="flex items-baseline pb-4 md:font-medium text-[12px] md:text-[16px]">
+                  <GoCheckCircle size={14} className="mr-2" />
+                  <span className="w-11/12">
+                    Get quality advisory service from brand audit and
+                    development to competitive and franchise model assessment,
+                    and industry insights.
+                  </span>
+                </li>
+                <li className="flex items-baseline pb-4 md:font-medium text-[12px] md:text-[16px]">
+                  <GoCheckCircle size={14} className="mr-2" />
+                  <span className="w-11/12">
+                    Avail comprehensive services for planning, marketing, sales,
+                    and after sales under one roof.
+                  </span>
+                </li>
+              </ul>
             </div>
-            <Formik<FormValues>
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ errors, touched, setFieldValue }) => (
-                <Form className="w-full md:w-1/2 relative">
-                  <Card
-                    className={`bg-white rounded-lg p-8 ${styles.contactForm}`}
-                  >
-                    <div className="flex flex-col md:flex-row">
-                      <div className="w-full pr-1 mb-3">
-                        <Field
-                          as={InputField}
-                          id="grid-first-name"
-                          name="fullName"
-                          type="text"
-                          label="Full name"
-                          required={true}
-                          className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
-                            getIn(errors, "fullName") &&
-                            getIn(touched, "fullName")
-                              ? "border-red-500 mb-0.5"
-                              : ""
-                          }`}
-                        />
-                        {getIn(errors, "fullName") &&
-                          getIn(touched, "fullName") && (
-                            <div className="text-red-500 font-medium mb-2">
-                              {getIn(errors, "fullName")}
-                            </div>
-                          )}
-                      </div>
-                      <div className="w-full pl-1 mb-3">
-                        <Field
-                          as={InputField}
-                          id="grid-company-name"
-                          name="companyName"
-                          type="text"
-                          label="Company Name"
-                          required={true}
-                          className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
-                            getIn(errors, "companyName") &&
-                            getIn(touched, "companyName")
-                              ? "border-red-500 mb-0.5"
-                              : ""
-                          }`}
-                        />
-                        {getIn(errors, "companyName") &&
-                          getIn(touched, "companyName") && (
-                            <div className="text-red-500 font-medium mb-2">
-                              {getIn(errors, "companyName")}
-                            </div>
-                          )}
-                      </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row">
-                      <div className="w-full pr-1 mb-3">
-                        <Field
-                          as={InputField}
-                          id="grid-email"
-                          name="email"
-                          type="email"
-                          label="Email ID"
-                          required={true}
-                          className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
-                            getIn(errors, "email") && getIn(touched, "email")
-                              ? "border-red-500 mb-0.5"
-                              : ""
-                          }`}
-                        />
-                        {getIn(errors, "email") && getIn(touched, "email") && (
-                          <div className="text-red-500 font-medium mb-2">
-                            {getIn(errors, "email")}
+          </div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, setFieldValue }) => (
+              <Form className="w-full md:w-1/2 relative">
+                <Card
+                  className={`bg-white rounded-lg p-8 md:absolute w-full mt-6 md:mt-0 left-0 top-0 ${styles.contactForm}`}
+                >
+                  <div className="flex flex-col md:flex-row">
+                    <div className="w-full pr-1 mb-3">
+                      <Field
+                        as={InputField}
+                        id="grid-first-name"
+                        name="fullName"
+                        type="text"
+                        label="Full name"
+                        required={true}
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                          getIn(errors, "fullName") &&
+                          getIn(touched, "fullName")
+                            ? "border-red-500 mb-0.5"
+                            : ""
+                        }`}
+                      />
+                      {getIn(errors, "fullName") &&
+                        getIn(touched, "fullName") && (
+                          <div className="text-red-500 font-medium">
+                            {getIn(errors, "fullName")}
                           </div>
                         )}
-                      </div>
-                      <div className="w-full pl-1 mb-3">
-                        <label
-                          className="block mb-2 font-medium text-[var(--text-color)]"
-                          htmlFor="phoneNumber"
-                        >
-                          Phone Number{" "}
-                          <span className="text-red-500 ml-1">*</span>
-                        </label>
+                    </div>
+                    <div className="w-full pl-1 mb-3">
+                      <Field
+                        as={InputField}
+                        id="grid-company-name"
+                        name="companyName"
+                        type="text"
+                        label="Company Name"
+                        required={true}
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                          getIn(errors, "companyName") &&
+                          getIn(touched, "companyName")
+                            ? "border-red-500 mb-0.5"
+                            : ""
+                        }`}
+                      />
+                      {getIn(errors, "companyName") &&
+                        getIn(touched, "companyName") && (
+                          <div className="text-red-500 font-medium">
+                            {getIn(errors, "companyName")}
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                  <div className="flex flex-col md:flex-row">
+                    <div className="w-full pr-1 mb-3">
+                      <Field
+                        as={InputField}
+                        id="grid-email"
+                        name="email"
+                        type="email"
+                        label="Email ID"
+                        required={true}
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                          getIn(errors, "email") && getIn(touched, "email")
+                            ? "border-red-500 mb-0.5"
+                            : ""
+                        }`}
+                      />
+                      {getIn(errors, "email") && getIn(touched, "email") && (
+                        <div className="text-red-500 font-medium">
+                          {getIn(errors, "email")}
+                        </div>
+                      )}
+                    </div>
+                    <div className="w-full pl-1 mb-3">
+                      <label
+                        className="block mb-2 font-medium text-[var(--text-color)]"
+                        htmlFor="phoneNumber"
+                      >
+                        Phone Number{" "}
+                        <span className="text-red-500 ml-1">*</span>
+                      </label>
+                      <div className="flex flex-col">
                         <div className="flex">
-                          <div className="w-[100px] pb-3 pr-1">
+                          <div className="w-[100px] text-[12px] text-semibold">
                             <CountryDropdown
                               variant="small"
                               className="!border-[rgba(115,114,115,0.4)]"
@@ -211,81 +212,111 @@ const ContactBanner = () => {
                             name="phoneNumber"
                             type="number"
                             required={true}
-                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:bg-white focus:border-[#73727366] ${
                               getIn(errors, "phoneNumber") &&
                               getIn(touched, "phoneNumber")
                                 ? "border-red-500 mb-0.5"
                                 : ""
                             }`}
                           />
-                          {getIn(errors, "phoneNumber") &&
-                            getIn(touched, "phoneNumber") && (
-                              <div className="text-red-500 font-medium mb-2">
-                                {getIn(errors, "phoneNumber")}
-                              </div>
-                            )}
                         </div>
+                        {getIn(errors, "phoneNumber") &&
+                          getIn(touched, "phoneNumber") && (
+                            <div className="text-red-500 font-medium">
+                              {getIn(errors, "phoneNumber")}
+                            </div>
+                          )}
                       </div>
                     </div>
-                    <div className="w-full mb-3 md:mb-6">
-                      <Field
-                        as={Select}
-                        name="who"
-                        label="Who am I?"
-                        className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
-                          getIn(errors, "who") && getIn(touched, "who")
-                            ? "border-red-500 mb-0.5"
-                            : ""
-                        }`}
-                        options={[]}
-                      />
-                      {getIn(errors, "who") && getIn(touched, "who") && (
-                        <div className="text-red-500 font-medium mb-2">
-                          {getIn(errors, "who")}
+                  </div>
+                  <div className="w-full mb-3 md:mb-6">
+                    <Field
+                      as={Select}
+                      name="who"
+                      label="Who am I?"
+                      className={`flex items-center justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                        getIn(errors, "who") && getIn(touched, "who")
+                          ? "border-red-500 mb-0.5"
+                          : ""
+                      }`}
+                      options={whoOption}
+                    />
+                    {getIn(errors, "who") && getIn(touched, "who") && (
+                      <div className="text-red-500 font-medium">
+                        {getIn(errors, "who")}
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full mb-3 md:mb-6">
+                    <Field
+                      as={TextArea}
+                      id="grid-information"
+                      name="information"
+                      label="Information"
+                      required={false}
+                      className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                        getIn(errors, "information") &&
+                        getIn(touched, "information")
+                          ? "border-red-500 mb-0.5"
+                          : ""
+                      }`}
+                    />
+                    {getIn(errors, "information") &&
+                      getIn(touched, "information") && (
+                        <div className="text-red-500 font-medium">
+                          {getIn(errors, "information")}
                         </div>
                       )}
-                    </div>
-                    <div className="w-full mb-3">
+                  </div>
+                  <div className="mb-3 md:mb-6">
+                    <div className="flex items-center">
                       <Field
-                        as={TextArea}
-                        id="information"
-                        name="information"
-                        label="Is there any other information you would like to share with us?"
-                        placeholder="Your Message"
-                        rows={4}
-                        className="block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none"
-                      />
-                    </div>
-                    <div className="w-full mb-3">
-                      <Field
-                        id="acceptTerms"
+                        as={Checkbox}
+                        id="grid-accept-terms"
                         name="acceptTerms"
-                        label="Accept Terms and Conditions"
-                        component={Checkbox}
-                        checked
-                        formik={true}
+                        className={`${
+                          getIn(errors, "acceptTerms") &&
+                          getIn(touched, "acceptTerms")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                        defaultChecked={true}
                       />
-                      <ErrorMessage
-                        name="acceptTerms"
-                        component="div"
-                        className="error"
-                      />
+                      <label
+                        htmlFor="grid-accept-terms"
+                        className="font-semibold text-[12px]"
+                      >
+                        I agree to the{" "}
+                        <Link className="underline" href="#">
+                          Terms & Conditions
+                        </Link>{" "}
+                        and{" "}
+                        <Link className="underline" href="#">
+                          Privacy Policy
+                        </Link>
+                      </label>
                     </div>
-                    <Button
-                      variant="highlighted"
-                      type="submit"
-                      className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
-                    >
-                      Submit
-                    </Button>
-                  </Card>
-                </Form>
-              )}
-            </Formik>
-          </div>
+                    {getIn(errors, "acceptTerms") &&
+                      getIn(touched, "acceptTerms") && (
+                        <div className="text-sm text-red-500 font-medium my-1">
+                          {getIn(errors, "acceptTerms")}
+                        </div>
+                      )}
+                  </div>
+                  <Button
+                    variant="highlighted"
+                    type="submit"
+                    className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
+                  >
+                    Submit
+                  </Button>
+                </Card>
+              </Form>
+            )}
+          </Formik>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
