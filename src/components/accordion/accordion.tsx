@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./accordion.module.css";
+import { PiCaretDown, PiCaretDownBold } from "react-icons/pi";
 interface AccordionProps {
   title: string;
   content: React.ReactNode;
@@ -20,19 +21,9 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
         onClick={toggleAccordion}
       >
         <span className={`pr-3 md:pr-0 ${styles.accordianTitle}`}>{title}</span>
-        <svg
-          className={`w-5 h-5 transform transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 15a1 1 0 01-.7-.3l-5-5a1 1 0 011.4-1.4l4.3 4.29 4.3-4.29a1 1 0 011.4 1.4l-5 5a1 1 0 01-.7.3z"
-            clipRule="evenodd"
-          />
-        </svg>
+        <PiCaretDownBold
+          className={`text-lg transition-all ${isOpen ? "rotate-180" : ""}`}
+        />
       </button>
       <div
         className={`overflow-hidden transition-max-height duration-300 border-t border-[rgba(0,0,0,0.12)] ${
