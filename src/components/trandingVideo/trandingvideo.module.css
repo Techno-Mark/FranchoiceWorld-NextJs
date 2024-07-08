@@ -13,8 +13,8 @@
     border: 0.5px solid var(--text-color);
     border-radius: 10px;
     padding: 1rem;
-    margin-left: 0.7rem;
-    margin-right: 0.7rem;
+    /* margin-left: 0.7rem; */
+    margin-right: 1rem;
 }
 
 .trandingVideoCard span {
