@@ -8,67 +8,108 @@ import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface FormValues {
+  phoneNumber: string;
+  countryCode: string;
   brandName: string;
-  selectedIndustry: string;
-  subCategory: string;
-  serviceProduct: string;
-  yearFounded: string;
-  locationHeadquarters: string;
-  outlets: string;
-  description: string;
-  sellingProposition: string;
+  industry: number | null;
+  subCategory: number | null;
+  service: number | null;
+  yearFounded: number | null;
+  headquartersLocation: number | null;
+  numberOfLocations: number | null;
+  brandDescription: string;
+  usp: string;
   state: [];
-  cities: [];
+  city: [];
 }
 
 function SecondStep() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const Industry = [
-    { value: "1", label: "Option 1" },
-    { value: "2", label: "Option 2" },
-    { value: "3", label: "Option 3" },
+    { value: 1, label: "Option 1" },
+    { value: 2, label: "Option 2" },
+    { value: 3, label: "Option 3" },
   ];
 
+  const phoneNumber = searchParams.get("phoneNumber") || "";
+  const countryCode = searchParams.get("countryCode") || "";
+  const [formValues, setFormValues] = useState<FormValues>();
+
   const initialValues: FormValues = {
+    phoneNumber: phoneNumber,
+    countryCode: countryCode,
     brandName: "",
-    selectedIndustry: "",
-    subCategory: "",
-    serviceProduct: "",
-    yearFounded: "",
-    locationHeadquarters: "",
-    outlets: "",
-    description: "",
-    sellingProposition: "",
+    industry: formValues.industry,
+    subCategory: null,
+    service: null,
+    yearFounded: null,
+    headquartersLocation: null,
+    numberOfLocations: null,
+    brandDescription: "",
+    usp: "",
     state: [],
-    cities: [],
+    city: [],
   };
+
+  console.log("🚀 ~ ThirdStep ~ formValues:", formValues);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const phoneNumber = searchParams.get("phoneNumber") || "";
+      const countryCode = searchParams.get("countryCode") || "";
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber,
+            countryCode,
+          }
+        );
+        const data = response.data?.ResponseData;
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          brandName: data?.brandName || "",
+          industry: data?.industry || null,
+          email: data?.email || "",
+          companyName: data?.companyName || "",
+          websiteURL: data?.websiteURL || "",
+          // Add other fields as needed
+        }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [searchParams]);
 
   const validationSchema = Yup.object({
     brandName: Yup.string().required("Brand Name is required"),
-    selectedIndustry: Yup.string().required("Industry is required"),
+    industry: Yup.number().required("Industry is required"),
     subCategory: Yup.string().required("Sub-Category is required"),
-    serviceProduct: Yup.string().required("Service/Product is required"),
+    service: Yup.string().required("Service/Product is required"),
     yearFounded: Yup.string().required("Year Founded is required"),
-    locationHeadquarters: Yup.string().required(
+    headquartersLocation: Yup.string().required(
       "Location of Headquarters is required"
     ),
-    outlets: Yup.string().required(
+    numberOfLocations: Yup.string().required(
       "Current Number of Locations/Outlets is required"
     ),
-    description: Yup.string().required("Description is required"),
-    sellingProposition: Yup.string().required(
-      "Unique Selling Proposition is required"
-    ),
+    brandDescription: Yup.string().required("Description is required"),
+    usp: Yup.string().required("Unique Selling Proposition is required"),
     state: Yup.array().min(1, "Please select at least one option"),
-    cities: Yup.array().min(1, "Please select at least one option"),
+    city: Yup.array().min(1, "Please select at least one option"),
   });
-  const handleSubmit = (
+  const handleSubmit = async (
     values: typeof initialValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
   ) => {
@@ -77,16 +118,34 @@ function SecondStep() {
       setFieldTouched(fieldName, true);
     });
 
-    // Call your submission logic here
-    console.log("Form submitted:", values);
-    router.push("/list-your-brand/step_3");
-
-    // After submission logic, reset submitting state
-    setSubmitting(false);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        {
+          ...values,
+          phoneNumber: values.phoneNumber,
+          countryCode: values.countryCode,
+        }
+      );
+      console.log("Form submitted successfully:", response.data);
+      router.push(
+        `/list-your-brand/step_3?phoneNumber=${encodeURIComponent(
+          values.phoneNumber
+        )}&countryCode=${encodeURIComponent(values.countryCode)}`
+      );
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_1");
+    router.push(
+      `/list-your-brand/step_1?phoneNumber=${encodeURIComponent(
+        phoneNumber
+      )}&countryCode=${encodeURIComponent(countryCode)}`
+    );
   };
 
   const label = [
@@ -99,16 +158,46 @@ function SecondStep() {
   ];
 
   const fields = [
-    "selectedIndustry",
+    "industry",
     "subCategory",
-    "serviceProduct",
+    "service",
     "yearFounded",
-    "locationHeadquarters",
-    "outlets",
+    "headquartersLocation",
+    "numberOfLocations",
   ];
 
   const getIn = <T extends object>(obj: T, key: string): any =>
     key.split(".").reduce((o, k) => (o || {})[k], obj as any);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const phoneNumber = searchParams.get("phoneNumber") || "";
+      const countryCode = searchParams.get("countryCode") || "";
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber,
+            countryCode,
+          }
+        );
+        const data = response.data?.ResponseData;
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          brandName: data?.brandName || "",
+          industry: data?.industry || 0,
+          companyName: data?.companyName || "",
+          websiteURL: data?.websiteURL || "",
+          // Add other fields as needed
+        }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call fetchData when component mounts or when phoneNumber or countryCode changes
+    fetchData();
+  }, [searchParams, setFormValues]);
 
   return (
     <>
@@ -120,11 +209,11 @@ function SecondStep() {
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, setFieldValue }) => (
+          {({ errors, touched }) => (
             <Form className="mt-16">
               <div className="w-full mb-3 md:mb-6">
                 <Field
@@ -178,14 +267,14 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              {["description", "sellingProposition"].map((field) => (
+              {["brandDescription", "usp"].map((field) => (
                 <div className="w-full mb-3 md:mb-6" key={field}>
                   <Field
                     as={TextArea}
                     id={field}
                     name={field}
                     label={
-                      field === "sellingProposition"
+                      field === "usp"
                         ? "Unique Selling Proposition (USP)"
                         : "Description"
                     }
@@ -206,7 +295,7 @@ function SecondStep() {
                 </div>
               ))}
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {["state", "cities"].map((field) => (
+                {["state", "city"].map((field) => (
                   <div
                     className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
                     key={field}

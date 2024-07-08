@@ -5,7 +5,7 @@ import styles from "./step_4.module.css";
 import Title from "@/components/title/title";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Dropdown from "@/components/select/dropdown";
 import TextArea from "@/components/Fields/TextArea";
 import { Formik, Form, Field, FieldProps, FormikHelpers } from "formik";
@@ -17,22 +17,35 @@ import FileUpload from "@/components/Uploader/FileUpload";
 import ImageUpload from "@/components/Uploader/ImageUpload";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import VideoUpload from "@/components/Uploader/VideoUpload";
+import axios from "axios";
 
 interface FormValues {
+  phoneNumber: string;
+  countryCode: string;
   brochure: File[];
   logo: File[];
-  multipleLogos: File[];
+  brandImages: File[];
   video?: File[];
+  terms?: boolean;
+  purposeCheck?: boolean;
 }
 
 function FourthStep() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const phoneNumber = searchParams.get("phoneNumber") || "";
+  const countryCode = searchParams.get("countryCode") || "";
 
   const initialValues: FormValues = {
+    phoneNumber: phoneNumber,
+    countryCode: countryCode,
     brochure: [],
     logo: [],
-    multipleLogos: [],
+    brandImages: [],
     video: [],
+    terms: true,
+    purposeCheck: true,
   };
 
   const FILE_SIZE = 5 * 1024 * 1024;
@@ -55,7 +68,7 @@ function FourthStep() {
           ? SUPPORTED_IMAGE_FORMATS.includes(value[0].type)
           : true
       ),
-    multipleLogos: Yup.array()
+    brandImages: Yup.array()
       .min(1, "At least one logo is required")
       .max(5, "Maximum 5 logos allowed")
       .test("fileSize", "Files are too large", (value) =>
@@ -79,7 +92,7 @@ function FourthStep() {
       ),
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {
@@ -99,8 +112,8 @@ function FourthStep() {
       formData.append(`logo`, file);
     });
 
-    values.multipleLogos.forEach((file) => {
-      formData.append(`multipleLogos`, file);
+    values.brandImages.forEach((file) => {
+      formData.append(`brandImages`, file);
     });
 
     if (values.video) {
@@ -108,10 +121,39 @@ function FourthStep() {
         formData.append(`video`, file);
       });
     }
+
+    formData.append("phoneNumber", values.phoneNumber);
+    formData.append("countryCode", values.countryCode);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert("done");
+      router.push(
+        `/list-your-brand/step_4?phoneNumber=${encodeURIComponent(
+          values.phoneNumber
+        )}&countryCode=${encodeURIComponent(values.countryCode)}`
+      );
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_3");
+    router.push(
+      `/list-your-brand/step_3?phoneNumber=${encodeURIComponent(
+        phoneNumber
+      )}&countryCode=${encodeURIComponent(countryCode)}`
+    );
   };
 
   return (
@@ -120,13 +162,15 @@ function FourthStep() {
         <Title
           title="Visualize Your Brand"
           desc="Upload Brochures,Logos, and More"
+          descClass="md:!px-0"
+          titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, setFieldValue }) => (
+          {({ errors, touched, setFieldValue, values }) => (
             <Form className="mt-16">
               <div className="grid grid-cols-1 gap-5 mb-2 md:grid-cols-2">
                 <div>
@@ -147,7 +191,7 @@ function FourthStep() {
                     }}
                   />
                   {errors.brochure && touched.brochure && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 font-medium mb-4 mt-2">
                       {errors.brochure as ReactNode}
                     </div>
                   )}
@@ -162,7 +206,7 @@ function FourthStep() {
                     onChange={(files) => setFieldValue("logo", files)}
                   />
                   {errors.logo && touched.logo && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 font-medium mb-4 mt-2">
                       {errors.logo as ReactNode}
                     </div>
                   )}
@@ -175,12 +219,12 @@ function FourthStep() {
                     required
                     multiple
                     maxFiles={5}
-                    name="multipleLogos"
-                    onChange={(files) => setFieldValue("multipleLogos", files)}
+                    name="brandImages"
+                    onChange={(files) => setFieldValue("brandImages", files)}
                   />
-                  {errors.multipleLogos && touched.multipleLogos && (
-                    <div className="text-red-500">
-                      {errors.multipleLogos as ReactNode}
+                  {errors.brandImages && touched.brandImages && (
+                    <div className="text-red-500 font-medium mb-4 mt-2">
+                      {errors.brandImages as ReactNode}
                     </div>
                   )}
                 </div>
@@ -193,11 +237,91 @@ function FourthStep() {
                     onChange={(files) => setFieldValue("video", files)}
                   />
                   {errors.video && touched.video && (
-                    <div className="text-red-500">{errors.video}</div>
+                    <div className="text-red-500 font-medium mb-4 ">
+                      {errors.video}
+                    </div>
                   )}
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="font-semibold mt-24 text-[rgba(23,73,138,1)]">
+                Agree and Submit Your Information
+              </div>
+              <div className="flex items-center mt-5 mb-3">
+                <div className="relative w-4 h-4 mr-2">
+                  <input
+                    type="checkbox"
+                    name="terms"
+                    checked={values.terms}
+                    onChange={() => setFieldValue("terms", !values.terms)}
+                    id="terms"
+                    className="opacity-0 absolute inset-0 w-full h-full z-10 cursor-pointer"
+                  />
+                  <div
+                    className={`absolute inset-0 border-2 rounded flex justify-center items-center ${
+                      values.terms
+                        ? "bg-blue-500 border-blue-500"
+                        : "border-gray-400"
+                    }`}
+                  >
+                    {values.terms && (
+                      <svg
+                        className="fill-current w-3 h-3 text-white pointer-events-none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label
+                  htmlFor="terms"
+                  className="select-none text-xs font-semibold text-[rgba(115,114,115,1)] cursor-pointer"
+                >
+                  I agree to the{" "}
+                  <span className="underline">Terms & Conditions</span>
+                </label>
+              </div>
+              <div className="flex items-center mt-5 mb-3">
+                <div className="relative w-4 h-4 mr-2">
+                  <input
+                    type="checkbox"
+                    name="purposeCheck"
+                    checked={values.purposeCheck}
+                    onChange={() =>
+                      setFieldValue("purposeCheck", !values.purposeCheck)
+                    }
+                    id="purposeCheck"
+                    className="opacity-0 absolute inset-0 w-full h-full z-10 cursor-pointer"
+                  />
+                  <div
+                    className={`absolute inset-0 border-2 rounded flex justify-center items-center ${
+                      values.purposeCheck
+                        ? "bg-blue-500 border-blue-500"
+                        : "border-gray-400"
+                    }`}
+                  >
+                    {values.purposeCheck && (
+                      <svg
+                        className="fill-current w-3 h-3 text-white pointer-events-none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label
+                  htmlFor="purposeCheck"
+                  className="select-none text-xs font-semibold text-[rgba(115,114,115,1)] cursor-pointer"
+                >
+                  I hereby consent to the future processing my data for
+                  marketing and operational purposes.
+                </label>
+              </div>
+              <div className="font-medium text-xs mb-9">
+                Please note that we do not sell your data to any third party.
+              </div>
+              <div className="flex justify-between mt-9">
                 <Button
                   variant="secondary"
                   className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"

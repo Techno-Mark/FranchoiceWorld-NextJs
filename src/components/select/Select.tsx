@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
 
 interface SelectProps {
-  options: { value: string; label: string }[];
+  options: { value: number; label: string }[];
   name: string;
   label?: string;
   className?: string;
@@ -40,7 +40,7 @@ const Select: React.FC<SelectProps> = ({
     };
   }, [selectRef, helpers, isOpen]);
 
-  const handleOptionClick = (option: { value: string; label: string }) => {
+  const handleOptionClick = (option: { value: number; label: string }) => {
     helpers.setValue(option.value);
     setIsOpen(false);
     setIsTouched(true);
@@ -53,7 +53,8 @@ const Select: React.FC<SelectProps> = ({
   const showError = (isTouched || submitCount > 0) && meta.error;
 
   const selectedLabel =
-    options.find((option) => option.value === field.value)?.label || "";
+    options.find((option) => option.value === field.value)?.label ||
+    "Select an option";
 
   return (
     <div className="relative inline-block w-full">
@@ -93,7 +94,7 @@ const Select: React.FC<SelectProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg`">
+          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg">
             {options.map((option, index) => (
               <div
                 key={index}
@@ -108,9 +109,9 @@ const Select: React.FC<SelectProps> = ({
           </div>
         )}
       </div>
-      {/* {showError && (
+      {showError && (
         <div className="text-red-500 text-sm mt-1">{meta.error}</div>
-      )} */}
+      )}
     </div>
   );
 };

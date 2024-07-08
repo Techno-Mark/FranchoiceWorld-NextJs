@@ -3,7 +3,7 @@ import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
 
 interface MultiSelectProps {
-  options: { value: string; label: string }[];
+  options: { value: number; label: string }[];
   name: string;
   label?: string;
   className?: string;
@@ -42,10 +42,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     };
   }, [selectRef, helpers, isOpen]);
 
-  const handleOptionClick = (option: { value: string; label: string }) => {
+  const handleOptionClick = (option: { value: number; label: string }) => {
     const currentValue = field.value || [];
     const newValue = currentValue.includes(option.value)
-      ? currentValue.filter((item: string) => item !== option.value)
+      ? currentValue.filter((item: number) => item !== option.value)
       : [...currentValue, option.value];
     helpers.setValue(newValue);
     setIsTouched(true);
@@ -90,7 +90,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          {(field.value || []).map((selectedOption: string) => {
+          {(field.value || []).map((selectedOption: number) => {
             const option = options.find((opt) => opt.value === selectedOption);
             return (
               <div

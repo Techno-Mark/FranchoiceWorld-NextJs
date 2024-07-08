@@ -7,11 +7,15 @@ import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface FormValues {
+  phoneNumber: string;
+  countryCode: string;
   areaRequired: string;
   investmentRange: string;
   franchiseFee: string;
@@ -25,8 +29,9 @@ interface FormValues {
   termRenewable: string;
 }
 
-function SecondStep() {
+function ThirdStep() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const Industry = [
     { value: "1", label: "Option 1" },
@@ -34,7 +39,12 @@ function SecondStep() {
     { value: "3", label: "Option 3" },
   ];
 
+  const phoneNumber = searchParams.get("phoneNumber") || "";
+  const countryCode = searchParams.get("countryCode") || "";
+
   const initialValues: FormValues = {
+    phoneNumber: phoneNumber,
+    countryCode: countryCode,
     areaRequired: "",
     investmentRange: "",
     franchiseFee: "",
@@ -47,6 +57,30 @@ function SecondStep() {
     longFranchise: "",
     termRenewable: "",
   };
+
+  const [formValues, setFormValues] = useState(initialValues);
+  console.log("🚀 ~ ThirdStep ~ formValues:", formValues)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const phoneNumber = searchParams.get("phoneNumber") || "";
+      const countryCode = searchParams.get("countryCode") || "";
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber,
+            countryCode,
+          }
+        );
+        setFormValues(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [searchParams]);
 
   const validationSchema = Yup.object({
     areaRequired: Yup.string().required("Area Required is required"),
@@ -75,7 +109,7 @@ function SecondStep() {
     termRenewable: Yup.string().required("Is the term renewable? is required"),
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: typeof initialValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
   ) => {
@@ -84,16 +118,33 @@ function SecondStep() {
       setFieldTouched(fieldName, true);
     });
 
-    // Call your submission logic here
-    console.log("Form submitted:", values);
-    // router.push("/list-your-brand/step_4");
-
-    // After submission logic, reset submitting state
-    setSubmitting(false);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        {
+          ...values,
+          phoneNumber: values.phoneNumber,
+          countryCode: values.countryCode,
+        }
+      );
+      router.push(
+        `/list-your-brand/step_4?phoneNumber=${encodeURIComponent(
+          values.phoneNumber
+        )}&countryCode=${encodeURIComponent(values.countryCode)}`
+      );
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_2");
+    router.push(
+      `/list-your-brand/step_2?phoneNumber=${encodeURIComponent(
+        phoneNumber
+      )}&countryCode=${encodeURIComponent(countryCode)}`
+    );
   };
 
   const getIn = <T extends object>(obj: T, key: string): any =>
@@ -139,7 +190,7 @@ function SecondStep() {
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -268,4 +319,4 @@ function SecondStep() {
   );
 }
 
-export default SecondStep;
+export default ThirdStep;
