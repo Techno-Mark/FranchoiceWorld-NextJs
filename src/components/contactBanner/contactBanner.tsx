@@ -5,13 +5,22 @@ import { GoCheckCircle } from "react-icons/go";
 import Card from "../card/card";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import InputField from "../Fields/InputField";
-import { Field, Form, Formik, FormikHelpers, getIn, useFormik } from "formik";
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik,
+  FormikHelpers,
+  getIn,
+  useFormik,
+} from "formik";
 
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import TextArea from "../Fields/TextArea";
 import Select from "../select/Select";
 import Button from "../button/button";
+import Checkbox from "../Fields/CheckBox";
 interface FormValues {
   fullName: string;
   phoneNumber: string;
@@ -19,6 +28,7 @@ interface FormValues {
   companyName: string;
   information: string;
   who: string;
+  acceptTerms: string;
 }
 const ContactBanner = () => {
   const router = useRouter();
@@ -30,6 +40,7 @@ const ContactBanner = () => {
     companyName: "",
     information: "",
     who: "",
+    acceptTerms: "",
   };
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
@@ -39,13 +50,16 @@ const ContactBanner = () => {
       .required("Email is required"),
     companyName: Yup.string().required("Company Name is required"),
     who: Yup.string().required("This field is required"),
+    acceptTerms: Yup.boolean().oneOf(
+      [true],
+      "You must accept the terms and conditions"
+    ),
   });
 
   const handleSubmit = (
     values: typeof initialValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
   ) => {
-    // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
@@ -195,7 +209,7 @@ const ContactBanner = () => {
                             as={InputField}
                             id="grid-phoneNumber"
                             name="phoneNumber"
-                            type="text"
+                            type="number"
                             required={true}
                             className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
                               getIn(errors, "phoneNumber") &&
@@ -240,6 +254,21 @@ const ContactBanner = () => {
                         placeholder="Your Message"
                         rows={4}
                         className="block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none"
+                      />
+                    </div>
+                    <div className="w-full mb-3">
+                      <Field
+                        id="acceptTerms"
+                        name="acceptTerms"
+                        label="Accept Terms and Conditions"
+                        component={Checkbox}
+                        checked
+                        formik={true}
+                      />
+                      <ErrorMessage
+                        name="acceptTerms"
+                        component="div"
+                        className="error"
                       />
                     </div>
                     <Button
