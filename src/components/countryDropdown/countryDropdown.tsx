@@ -14,14 +14,21 @@ interface CountryDropdownProps {
   variant?: "small" | "formDropdown" | "regular";
   className?: string;
   disabled?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const CountryDropdown: React.FC<CountryDropdownProps> = ({
   variant = "regular",
   className,
   disabled,
+  value,
+  onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [internalValue, setInternalValue] = useState<string>(
+    value || countries[0].code
+  );
   const [selectedCountry, setSelectedCountry] = useState<string>(
     countries[0].code
   );
@@ -44,8 +51,17 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
   }, []);
 
   const selectedCountryData = countries.find(
-    (country) => country.code === selectedCountry
+    (country) => country.code === (value || internalValue)
   );
+
+  const handleCountrySelect = (countryCode: string) => {
+    if (onChange) {
+      onChange(countryCode);
+    } else {
+      setInternalValue(countryCode);
+    }
+    setIsOpen(false);
+  };
 
   const getVariantClasses = () => {
     switch (variant) {
@@ -123,12 +139,11 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
             <li
               key={country.code}
               className={`flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 ${
-                country.code === selectedCountry ? "bg-gray-100 font-bold" : ""
+                country.code === (value || internalValue)
+                  ? "bg-gray-100 font-bold"
+                  : ""
               }`}
-              onClick={() => {
-                setSelectedCountry(country.code);
-                setIsOpen(false);
-              }}
+              onClick={() => handleCountrySelect(country.code)}
             >
               <Image
                 src={country.flag}

@@ -11,82 +11,247 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useListBrand } from "@/contexts/ListBrandContext";
+import { updateStepProgress } from "@/utills/stepProgress";
 
 interface FormValues {
+  phoneNumber: string | null;
+  countryCode: string | null;
   brandName: string;
-  selectedIndustry: string;
-  subCategory: string;
-  serviceProduct: string;
-  yearFounded: string;
-  locationHeadquarters: string;
-  outlets: string;
-  description: string;
-  sellingProposition: string;
+  industry: number | null;
+  subCategory: number | null;
+  service: number | null;
+  yearFounded: number | null;
+  headquartersLocation: number | null;
+  numberOfLocations: number | null;
+  brandDescription: string;
+  usp: string;
   state: [];
-  cities: [];
+  city: [];
+}
+
+interface OptionType {
+  value: number;
+  label: string;
+}
+
+interface OptionsMapType {
+  [key: string]: OptionType[];
 }
 
 function SecondStep() {
   const router = useRouter();
+  const [mobileNumber, setMobileNumber] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
+  const [categorieOptions, setCategorieOptions] = useState<OptionType[]>([]);
 
-  const Industry = [
-    { value: "1", label: "Option 1" },
-    { value: "2", label: "Option 2" },
-    { value: "3", label: "Option 3" },
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMobileNumber(localStorage.getItem("mobileNumber"));
+      setSelectedCountry(localStorage.getItem("selectedCountry"));
+    }
+  }, []);
+
+  const Services = [
+    { value: 1, label: "Kids Wear" },
+    { value: 2, label: "Corporate Training" },
+    { value: 3, label: "Tea and Coffee Chain" },
   ];
 
-  const initialValues: FormValues = {
-    brandName: "",
-    selectedIndustry: "",
-    subCategory: "",
-    serviceProduct: "",
-    yearFounded: "",
-    locationHeadquarters: "",
-    outlets: "",
-    description: "",
-    sellingProposition: "",
-    state: [],
-    cities: [],
+  const YearFounded = [
+    { value: 1, label: "1999" },
+    { value: 2, label: "2002" },
+    { value: 3, label: "2004" },
+  ];
+
+  const Locations = [
+    { value: 1, label: "Delhi" },
+    { value: 2, label: "Ahmedabad" },
+    { value: 3, label: "Rajkot" },
+  ];
+
+  const NumberOfLocations = [
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "5" },
+  ];
+
+  const state = [
+    { value: 1, label: "Andhra Pradesh" },
+    { value: 2, label: "Arunachal Pradesh" },
+    { value: 3, label: "Assam" },
+    { value: 4, label: "Bihar" },
+    { value: 5, label: "Chhattisgarh" },
+    { value: 6, label: "Goa" },
+  ];
+
+  const Cities = [
+    { value: 1, label: "Agra" },
+    { value: 2, label: "Ahmedabad" },
+    { value: 3, label: "Aizwal" },
+    { value: 4, label: "Ajmer" },
+    { value: 5, label: "Allahabad" },
+    { value: 6, label: "Alleppey" },
+  ];
+
+  const OptionMap: OptionsMapType = {
+    industry: industryOptions,
+    subCategory: categorieOptions,
+    service: Services,
+    yearFounded: YearFounded,
+    headquartersLocation: Locations,
+    numberOfLocations: NumberOfLocations,
+    state: state,
+    city: Cities,
   };
+
+  const [formValues, setFormValues] = useState<FormValues>({
+    phoneNumber: mobileNumber,
+    countryCode: selectedCountry,
+    brandName: "",
+    industry: null,
+    subCategory: null,
+    service: null,
+    yearFounded: null,
+    headquartersLocation: null,
+    numberOfLocations: null,
+    brandDescription: "",
+    usp: "",
+    state: [],
+    city: [],
+  });
+
+  const fetchIndustryTypes = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/industry-types`
+      );
+      const industryTypes = response.data?.ResponseData;
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedIndustryTypes = industryTypes.map((industry: any) => ({
+        value: industry.id,
+        label: industry.name,
+      }));
+
+      setIndustryOptions(formattedIndustryTypes);
+    } catch (error) {
+      console.error("Error fetching industry types:", error);
+    }
+  };
+
+  const fetchCategoriesTypes = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/categories`
+      );
+      const categoriesTypes = response.data?.ResponseData;
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedcategoriesTypes = categoriesTypes.map(
+        (categorie: any) => ({
+          value: categorie.id,
+          label: categorie.name,
+        })
+      );
+
+      setCategorieOptions(formattedcategoriesTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchIndustryTypes();
+    fetchCategoriesTypes();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber: mobileNumber,
+            countryCode: selectedCountry,
+          }
+        );
+        const data = response.data?.ResponseData;
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          brandName: data?.brandName || "",
+          industry: data?.industry || null,
+          subCategory: data?.subCategory || null,
+          service: data?.service || null,
+          yearFounded: data?.yearFounded || null,
+          headquartersLocation: data?.headquartersLocation || null,
+          numberOfLocations: data?.numberOfLocations || null,
+          brandDescription: data?.brandDescription || "",
+          usp: data?.brandDescription || "",
+          state: data?.state || [],
+          city: data?.city || [],
+          // Add other fields as needed
+        }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    }
+  }, [mobileNumber, selectedCountry]);
 
   const validationSchema = Yup.object({
     brandName: Yup.string().required("Brand Name is required"),
-    selectedIndustry: Yup.string().required("Industry is required"),
-    subCategory: Yup.string().required("Sub-Category is required"),
-    serviceProduct: Yup.string().required("Service/Product is required"),
-    yearFounded: Yup.string().required("Year Founded is required"),
-    locationHeadquarters: Yup.string().required(
-      "Location of Headquarters is required"
-    ),
-    outlets: Yup.string().required(
-      "Current Number of Locations/Outlets is required"
-    ),
-    description: Yup.string().required("Description is required"),
-    sellingProposition: Yup.string().required(
-      "Unique Selling Proposition is required"
-    ),
+    industry: Yup.number().nullable().required("Industry is required"),
+    subCategory: Yup.number().nullable().required("Sub-Category is required"),
+    service: Yup.number().nullable().required("Service/Product is required"),
+    yearFounded: Yup.number().nullable().required("Year Founded is required"),
+    headquartersLocation: Yup.number()
+      .nullable()
+      .required("Location of Headquarters is required"),
+    numberOfLocations: Yup.number()
+      .nullable()
+      .required("Current Number of Locations/Outlets is required"),
+    brandDescription: Yup.string().required("Description is required"),
+    usp: Yup.string().required("Unique Selling Proposition is required"),
     state: Yup.array().min(1, "Please select at least one option"),
     cities: Yup.array().min(1, "Please select at least one option"),
   });
-  const handleSubmit = (
-    values: typeof initialValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
+
+  const handleSubmit = async (
+    values: typeof formValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
     // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
 
-    // Call your submission logic here
-    console.log("Form submitted:", values);
-    router.push("/list-your-brand/step_3");
-
-    // After submission logic, reset submitting state
-    setSubmitting(false);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        {
+          ...values,
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+        }
+      );
+      updateStepProgress("/list-your-brand/step_3");
+      router.push(`/list-your-brand/step_3`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_1");
+    router.push(`/list-your-brand/step_1`);
   };
 
   const label = [
@@ -120,9 +285,10 @@ function SecondStep() {
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          enableReinitialize={true}
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
@@ -147,7 +313,7 @@ function SecondStep() {
                 )}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {fields.map((field, index) => (
+                {fields.map((field: string, index: number) => (
                   <div
                     className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
                     key={field}
@@ -164,7 +330,7 @@ function SecondStep() {
                                 : ""
                             }`}
                             label={label[index]}
-                            options={Industry}
+                            options={OptionMap[field.name] || []}
                           />
                           {getIn(errors, field.name) &&
                             getIn(touched, field.name) && (
@@ -226,7 +392,7 @@ function SecondStep() {
                               field.name.charAt(0).toUpperCase() +
                               field.name.slice(1).replace(/([A-Z])/g, " $1")
                             }
-                            options={Industry}
+                            options={OptionMap[field.name] || []}
                           />
                           {getIn(errors, field.name) &&
                             getIn(touched, field.name) && (

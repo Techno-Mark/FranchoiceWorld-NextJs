@@ -4,12 +4,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { GoCheckCircle } from "react-icons/go";
 import Button from "../button/button";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import styles from "./innerlistbrandbanner.module.css";
-
 interface InnerBannerProps {
   props: {
     bannerImage: string;
@@ -22,9 +21,14 @@ interface InnerBannerProps {
 }
 
 const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("+91");
   const router = useRouter();
+
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
+    localStorage.setItem("mobileNumber", mobileNumber);
+    localStorage.setItem("selectedCountry", selectedCountry);
     // updateStepProgress("/list-your-brand/step_1");
     router.push(props.submitURL);
     console.log(e.target);
@@ -43,16 +47,22 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
-              <CountryDropdown />
+              <CountryDropdown
+                value={selectedCountry} // Optional: remove if you don't want to control it
+                onChange={setSelectedCountry}
+              />
               <input
                 type="number"
                 placeholder="Enter Mobile No."
                 className={`rounded-md w-full font-medium text-lg bg-white border border-gray-300 cursor-pointer focus:outline-none ${styles.InputStyle}`}
                 pattern="[0-9]{5} [0-9]{5}"
                 maxLength={11}
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
               />
               <Button
                 variant="highlighted"
+                type="submit"
                 className="rounded-md !px-2 md:!px-4"
               >
                 <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-base">

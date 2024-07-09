@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
 
 interface SelectProps {
-  options: { value: string; label: string }[];
+  options: { value: number; label: string }[];
   name: string;
   label?: string;
   className?: string;
@@ -40,7 +40,7 @@ const Select: React.FC<SelectProps> = ({
     };
   }, [selectRef, helpers, isOpen]);
 
-  const handleOptionClick = (option: { value: string; label: string }) => {
+  const handleOptionClick = (option: { value: number; label: string }) => {
     helpers.setValue(option.value);
     setIsOpen(false);
     setIsTouched(true);
