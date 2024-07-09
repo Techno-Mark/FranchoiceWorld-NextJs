@@ -5,18 +5,65 @@ import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import Title from "@/components/title/title";
-// import { updateStepProgress } from "@/utills/stepProgress";
+import { updateStepProgress } from "@/utills/stepProgress";
+import axios from "axios";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 function FirstStep() {
   const router = useRouter();
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // This runs only on the client side
+    setMobileNumber(localStorage.getItem("mobileNumber") || "");
+    setSelectedCountry(localStorage.getItem("selectedCountry") || "");
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      updateStepProgress("/list-your-brand/step_1");
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber: mobileNumber,
+            countryCode: selectedCountry,
+          }
+        );
+        const data = response.data?.ResponseData;
+
+        formik.setValues({
+          fullName: data.fullName || "",
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+          email: data.email || "",
+          companyName: data.companyName || "",
+          websiteURL: data.websiteURL || "",
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    } else {
+      setIsLoading(false);
+    }
+  }, [mobileNumber, selectedCountry]);
 
   const formik = useFormik({
     initialValues: {
       fullName: "",
-      phoneNumber: "",
+      phoneNumber: mobileNumber,
+      countryCode: selectedCountry,
       email: "",
       companyName: "",
       websiteUrl: "",
@@ -32,12 +79,23 @@ function FirstStep() {
         .url("Invalid URL")
         .required("Website URL is required"),
     }),
-    onSubmit: (values) => {
-      console.log("Form submitted:", values);
-      // updateStepProgress("/list-your-brand/step_2");
-      router.push("/list-your-brand/step_2");
+    onSubmit: async (values) => {
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+          values
+        );
+        updateStepProgress("/list-your-brand/step_2");
+        router.push(`/list-your-brand/step_2`);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
     },
   });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

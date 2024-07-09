@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
+import { ListBrandProvider } from "@/contexts/ListBrandContext";
 
 export const metadata: Metadata = {
   title: {
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="mainBody">
+        <ListBrandProvider>
         <main className="flex flex-col min-h-screen">
           <Header />
           {children}
         </main>
         <Footer />
+        </ListBrandProvider>
       </body>
     </html>
   );

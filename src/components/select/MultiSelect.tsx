@@ -23,6 +23,12 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
 
+  const fieldValue = Array.isArray(field.value)
+    ? field.value
+    : field.value
+    ? [field.value]
+    : [];
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -42,13 +48,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     };
   }, [selectRef, helpers, isOpen]);
 
-  const handleOptionClick = (option: { value: string; label: string }) => {
-    const currentValue = field.value || [];
-    const newValue = currentValue.includes(option.value)
-      ? currentValue.filter((item: string) => item !== option.value)
-      : [...currentValue, option.value];
+  const handleOptionClick = (option: { value: number; label: string }) => {
+    const newValue = fieldValue.includes(option.value)
+      ? fieldValue.filter((item: number) => item !== option.value)
+      : [...fieldValue, option.value];
     helpers.setValue(newValue);
-    setIsTouched(true);
   };
 
   const toggleDropdown = () => {
@@ -90,15 +94,18 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          {(field.value || []).map((selectedOption: string) => {
-            const option = options.find((opt) => opt.value === selectedOption);
-            return (
-              <div
-                key={selectedOption}
-                className="bg-footer-bg text-white font-bold rounded-lg px-3 py-1 m-1 text-sm flex items-center"
-              >
-                {option?.label}
-                {/* <button
+          {(Array.isArray(field.value) ? field.value : []).map(
+            (selectedOption: number) => {
+              const option = options.find(
+                (opt) => opt.value === selectedOption
+              );
+              return (
+                <div
+                  key={selectedOption}
+                  className="bg-footer-bg text-white font-bold rounded-lg px-3 py-1 m-1 text-sm flex items-center"
+                >
+                  {option?.label}
+                  {/* <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -108,9 +115,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 >
                   ×
                 </button> */}
-              </div>
-            );
-          })}
+                </div>
+              );
+            }
+          )}
           <div className="flex items-center ml-auto pl-2 pointer-events-none">
             <svg
               className={`w-4 h-4 text-footer-bg transition-transform duration-200 ${
@@ -171,13 +179,18 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                     <div className="relative mr-2">
                       <input
                         type="checkbox"
-                        checked={(field.value || []).includes(option.value)}
+                        checked={
+                          Array.isArray(field.value)
+                            ? field.value.includes(option.value)
+                            : false
+                        }
                         onChange={() => {}}
                         className="opacity-0 absolute h-4 w-4 rounded"
                       />
                       <div
                         className={`border-2 rounded-sm h-4 w-4 flex flex-shrink-0 justify-center items-center mr-2 ${
-                          (field.value || []).includes(option.value)
+                          Array.isArray(field.value) &&
+                          field.value.includes(option.value)
                             ? "bg-footer-bg border-footer-bg text-footer-bg"
                             : "border-gray-400"
                         }`}

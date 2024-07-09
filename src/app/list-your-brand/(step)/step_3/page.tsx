@@ -10,90 +10,119 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useListBrand } from "@/contexts/ListBrandContext";
+import { updateStepProgress } from "@/utills/stepProgress";
 
 interface FormValues {
-  areaRequired: string;
-  investmentRange: string;
-  franchiseFee: string;
-  salesModel: string;
-  returnInvestment: string;
-  unitFranchise: string;
-  providedFranchisees: [];
+  phoneNumber: string | null;
+  countryCode: string | null;
+  areaRequired: number | null;
+  investmentRange: number | null;
+  franchiseFee: number | null;
+  salesRevenueModel: number | null;
+  roi: number | null;
+  paybackPeriod: number | null;
+  supportProvided: [];
+
   othersApplicable: string;
-  franchiseAgreement: string;
-  longFranchise: string;
-  termRenewable: string;
+  franchiseAgreement: number | null;
+  franchiseDuration: number | null;
+  isRenewable: number | null;
 }
 
 function SecondStep() {
   const router = useRouter();
+  const [mobileNumber, setMobileNumber] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMobileNumber(localStorage.getItem("mobileNumber"));
+      setSelectedCountry(localStorage.getItem("selectedCountry"));
+    }
+  }, []);
 
   const Industry = [
-    { value: "1", label: "Option 1" },
-    { value: "2", label: "Option 2" },
-    { value: "3", label: "Option 3" },
+    { value: 1, label: "Option 1" },
+    { value: 2, label: "Option 2" },
+    { value: 3, label: "Option 3" },
   ];
 
-  const initialValues: FormValues = {
-    areaRequired: "",
-    investmentRange: "",
-    franchiseFee: "",
-    salesModel: "",
-    returnInvestment: "",
-    unitFranchise: "",
-    providedFranchisees: [],
+  const [formValues, setFormValues] = useState<FormValues>({
+    phoneNumber: mobileNumber,
+    countryCode: selectedCountry,
+    areaRequired: null,
+    investmentRange: null,
+    franchiseFee: null,
+    salesRevenueModel: null,
+    roi: null,
+    paybackPeriod: null,
+    supportProvided: [],
     othersApplicable: "",
-    franchiseAgreement: "",
-    longFranchise: "",
-    termRenewable: "",
-  };
-
-  const validationSchema = Yup.object({
-    areaRequired: Yup.string().required("Area Required is required"),
-    investmentRange: Yup.string().required(
-      "Total Initial Investment Range is required"
-    ),
-    franchiseFee: Yup.string().required("Franchise Fee is required"),
-    salesModel: Yup.string().required("Sales and Revenue Model is required"),
-    returnInvestment: Yup.string().required(
-      "Anticipated % Return on Investment (ROI) is required"
-    ),
-    unitFranchise: Yup.string().required(
-      "Likely Payback Period for a Unit Franchise is required"
-    ),
-    providedFranchisees: Yup.array().min(
-      1,
-      "Please select at least one option"
-    ),
-
-    franchiseAgreement: Yup.string().required(
-      "Do you have a franchise agreement? is required"
-    ),
-    longFranchise: Yup.string().required(
-      "How long is the franchise for? is required"
-    ),
-    termRenewable: Yup.string().required("Is the term renewable? is required"),
+    franchiseAgreement: null,
+    franchiseDuration: null,
+    isRenewable: null,
   });
 
-  const handleSubmit = (
-    values: typeof initialValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<typeof initialValues>
+  const validationSchema = Yup.object({
+    areaRequired: Yup.number().nullable().required("Area Required is required"),
+    investmentRange: Yup.number()
+      .nullable()
+      .required("Total Initial Investment Range is required"),
+    franchiseFee: Yup.number().nullable().required("Franchise Fee is required"),
+    salesRevenueModel: Yup.number()
+      .nullable()
+      .required("Sales and Revenue Model is required"),
+    roi: Yup.number()
+      .nullable()
+      .required("Anticipated % Return on Investment (ROI) is required"),
+    paybackPeriod: Yup.number()
+      .nullable()
+      .required("Likely Payback Period for a Unit Franchise is required"),
+    supportProvided: Yup.array().min(1, "Please select at least one option"),
+
+    franchiseAgreement: Yup.number()
+      .nullable()
+      .required("Do you have a franchise agreement? is required"),
+    franchiseDuration: Yup.number()
+      .nullable()
+      .required("How long is the franchise for? is required"),
+    isRenewable: Yup.number()
+      .nullable()
+      .required("Is the term renewable? is required"),
+  });
+
+  const handleSubmit = async (
+    values: typeof formValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
     // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
 
-    // Call your submission logic here
-    console.log("Form submitted:", values);
-    // router.push("/list-your-brand/step_4");
-
-    // After submission logic, reset submitting state
-    setSubmitting(false);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        {
+          ...values,
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+        }
+      );
+      updateStepProgress("/list-your-brand/step_4");
+      router.push(`/list-your-brand/step_4`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
-    router.push("/list-your-brand/step_2");
+    router.push(`/list-your-brand/step_2`);
   };
 
   const getIn = <T extends object>(obj: T, key: string): any =>
@@ -112,9 +141,9 @@ function SecondStep() {
     "areaRequired",
     "investmentRange",
     "franchiseFee",
-    "salesModel",
-    "returnInvestment",
-    "unitFranchise",
+    "salesRevenueModel",
+    "roi",
+    "paybackPeriod",
   ];
 
   const multiselectLabel = [
@@ -125,9 +154,44 @@ function SecondStep() {
 
   const multiselectFields = [
     "franchiseAgreement",
-    "longFranchise",
-    "termRenewable",
+    "franchiseDuration",
+    "isRenewable",
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber: mobileNumber,
+              countryCode: selectedCountry,
+          }
+        );
+        const data = response.data?.ResponseData;
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          areaRequired: data?.areaRequired || null,
+          investmentRange: data?.investmentRange || null,
+          franchiseFee: data?.franchiseFee || null,
+          salesRevenueModel: data?.salesRevenueModel || null,
+          roi: data?.roi || null,
+          paybackPeriod: data?.paybackPeriod || null,
+          supportProvided: data?.supportProvided || [],
+          otherApplicable: data?.otherApplicable || "",
+          franchiseAgreement: data?.franchiseAgreement || null,
+          franchiseDuration: data?.franchiseDuration || null,
+          isRenewable: data?.isRenewable || null,
+        }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    }
+  }, [mobileNumber, selectedCountry]);
 
   return (
     <>
@@ -142,6 +206,9 @@ function SecondStep() {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          enableReinitialize={true}
+          validateOnChange={true}
+          validateOnBlur={true}
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
@@ -180,27 +247,27 @@ function SecondStep() {
               <div className="w-full mb-3 md:mb-6">
                 <Field
                   as={MultiSelect}
-                  name="providedFranchisees"
+                  name="supportProvided"
                   label="Support Provided to Franchisees"
                   className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
-                    getIn(errors, "providedFranchisees") &&
-                    getIn(touched, "providedFranchisees")
+                    getIn(errors, "supportProvided") &&
+                    getIn(touched, "supportProvided")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                   options={Industry}
                 />
-                {getIn(errors, "providedFranchisees") &&
-                  getIn(touched, "providedFranchisees") && (
+                {getIn(errors, "supportProvided") &&
+                  getIn(touched, "supportProvided") && (
                     <div className="text-red-500 font-medium mb-2">
-                      {getIn(errors, "providedFranchisees")}
+                      {getIn(errors, "supportProvided")}
                     </div>
                   )}
               </div>
               <div className="w-full mb-3 md:mb-6">
                 <Field
                   as={TextArea}
-                  name="othersApplicable"
+                  name="otherApplicable"
                   label="Others if applicable"
                   placeholder="Your Message"
                   rows={3}

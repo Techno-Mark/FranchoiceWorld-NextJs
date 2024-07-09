@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Button from "../button/button";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
+import VideoIcon from "@/assets/icons/videoIcon"; // You'll need to create this icon
 
 interface VideoUploadProps {
   label?: string;
@@ -11,8 +12,8 @@ interface VideoUploadProps {
   descClass?: string;
   multiple?: boolean;
   maxFiles?: number;
-  name: string; // Added name prop
-  onChange: (files: File[]) => void; // Added onChange prop
+  name: string;
+  onChange: (files: File[]) => void;
   accept?: string;
 }
 
@@ -24,11 +25,11 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   descClass,
   multiple = false,
   maxFiles = 1,
-  name, // Added name prop
-  onChange, // Added onChange prop
+  name,
+  onChange,
   accept,
 }) => {
-  const [videos, setVideos] = useState<{ file: File; preview: string }[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,18 +56,12 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
 
   const handleVideoUpload = (files: File[]) => {
     const videoFiles = files.filter((file) => file.type.startsWith("video/"));
-    const newVideos = videoFiles
-      .slice(0, maxFiles - videos.length)
-      .map((file) => ({
-        file,
-        preview: URL.createObjectURL(file),
-      }));
+    const newVideos = videoFiles.slice(0, maxFiles - videos.length);
 
     const updatedVideos = [...videos, ...newVideos].slice(0, maxFiles);
     setVideos(updatedVideos);
 
-    // Call the onChange prop with the updated files
-    onChange(updatedVideos.map((vid) => vid.file));
+    onChange(updatedVideos);
   };
 
   const handleButtonClick = () => {
@@ -82,9 +77,17 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   const handleRemoveVideo = (index: number) => {
     const updatedVideos = videos.filter((_, i) => i !== index);
     setVideos(updatedVideos);
+    onChange(updatedVideos);
+  };
 
-    // Call the onChange prop with the updated files
-    onChange(updatedVideos.map((vid) => vid.file));
+  const truncateFileName = (name: string, maxLength: number) => {
+    if (name.length <= maxLength) return name;
+    const extension = name.split(".").pop();
+    const nameWithoutExtension = name.substring(0, name.lastIndexOf("."));
+    return `${nameWithoutExtension.substring(
+      0,
+      maxLength - 3 - (extension?.length || 0)
+    )}...${extension}`;
   };
 
   return (
@@ -142,12 +145,10 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
               key={index}
               className="px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg"
             >
-              <video
-                src={video.preview}
-                controls
-                className="w-20 h-14 object-cover"
-              />
-              <div className="font-bold text-xs">{video.file.name}</div>
+              <VideoIcon className="w-10 h-10" />
+              <div className="font-bold text-xs">
+                {truncateFileName(video.name, 15)}
+              </div>
               <button onClick={() => handleRemoveVideo(index)}>
                 <CloseIcon />
               </button>

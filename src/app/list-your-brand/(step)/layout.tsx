@@ -5,7 +5,7 @@ import Title from "@/components/title/title";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import styles from "./steps.module.css";
-// import { getStepProgress } from "@/utills/stepProgress";
+import { getStepProgress } from "@/utills/stepProgress";
 
 const StepLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();
@@ -18,14 +18,14 @@ const StepLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     "/list-your-brand/step_4",
   ];
 
-  // useEffect(() => {
-  // const allowedSteps = getStepProgress();
-  // if (!allowedSteps.includes(pathname)) {
-  //   const lastAllowedStep =
-  //     allowedSteps[allowedSteps.length - 1] || stepPaths[0];
-  //   router.replace(lastAllowedStep);
-  // }
-  // }, [pathname, router]);
+  useEffect(() => {
+  const allowedSteps = getStepProgress();
+  if (!allowedSteps.includes(pathname)) {
+    const lastAllowedStep =
+      allowedSteps[allowedSteps.length - 1] || stepPaths[0];
+    router.replace(lastAllowedStep);
+  }
+  }, [pathname, router]);
 
   const steps = stepPaths.map((path, index) => ({
     children: (
