@@ -1,15 +1,21 @@
+"use client";
 import Tabs from "../tab/tab";
 import Title from "../title/title";
 import styles from "./findfranchise.module.css";
 import CategoriesContent from "./_categoriesContent/categoriesContent";
-const FindFranchise = () => {
+interface FranchiseProps {
+  dark?: boolean;
+}
+const FindFranchise: React.FC<FranchiseProps> = ({ dark }) => {
   const tabs = [
     { id: "tab1", label: "Categories", content: <CategoriesContent /> },
     { id: "tab2", label: "Location", content: <CategoriesContent /> },
     { id: "tab3", label: "Investment", content: <CategoriesContent /> },
   ];
   return (
-    <section className={`py-8 md:py-20 ${styles.findFranchise}`}>
+    <section
+      className={`py-8 md:py-20 ${styles.findFranchise} ${dark && styles.dark}`}
+    >
       <div className="container">
         <div className="text-center">
           <Title title="Find Your Franchise" />

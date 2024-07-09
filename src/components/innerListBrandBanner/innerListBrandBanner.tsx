@@ -10,12 +10,23 @@ import Button from "../button/button";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import styles from "./innerlistbrandbanner.module.css";
 
-const InnerListBrandBanner = () => {
+interface InnerBannerProps {
+  props: {
+    bannerImage: string;
+    submitURL: string;
+    SectionTitle: string;
+    desc?: string;
+    items: string[];
+    noborder?: boolean;
+  };
+}
+
+const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   const router = useRouter();
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
     // updateStepProgress("/list-your-brand/step_1");
-    router.push("/list-your-brand/step_1");
+    router.push(props.submitURL);
     console.log(e.target);
   };
 
@@ -25,11 +36,9 @@ const InnerListBrandBanner = () => {
         <div className="flex items-center flex-wrap lg:flex-nowrap gap-8">
           <div className={`w-full ${styles.listBrandBannerText}`}>
             <h3 className={`font-extrabold ${styles.innerBrandTitle}`}>
-              List Your Brand
+              {props.SectionTitle}
             </h3>
-            <h4 className={styles.innerBrandSubtitle}>
-              Put your brand in the spotlight!
-            </h4>
+            <h4 className={styles.innerBrandSubtitle}>{props.desc}</h4>
             <form
               className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
@@ -65,26 +74,18 @@ const InnerListBrandBanner = () => {
               </Button>
             </form>
             <ul className="pt-12 pb-8">
-              <li className="flex items-center gap-2.5 pb-4">
-                <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold w-[calc(100%-20px)]">
-                  Gain access to a broad audience of potential franchisees.
-                </span>
-              </li>
-              <li className="flex items-center gap-2.5 pb-4">
-                <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold w-[calc(100%-20px)]">
-                  Receive pre-screened, highly qualified leads from individuals.
-                </span>
-              </li>
-              <li className="flex items-center gap-2.5 pb-4">
-                <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold w-[calc(100%-20px)]">
-                  Navigate expansion challenges and achieve sustainable growth.
-                </span>
-              </li>
+              {props.items.map((x) => (
+                <li className="flex items-center gap-2.5 pb-4">
+                  <GoCheckCircle size={20} className="text-[#33A6D1]" />
+                  <span className="font-bold w-[calc(100%-20px)]">{x}</span>
+                </li>
+              ))}
             </ul>
-            <p className={`pb-6 md:pb-12 ${styles.agreePolicy}`}>
+            <p
+              className={`pb-6 md:pb-12 ${styles.agreePolicy} ${
+                props.noborder ? "!border-b-0" : ""
+              }`}
+            >
               By continuing, you agree to our{" "}
               <Link className="underline decoration-current" href="#">
                 Terms of Use
@@ -102,7 +103,7 @@ const InnerListBrandBanner = () => {
           <div className={`w-full`}>
             <Image
               className={`w-full object-contain max-w-[461px] ml-auto`}
-              src="/images/innerListBrandBanner.png"
+              src={props.bannerImage}
               alt="List your Brand"
               width={461}
               height={378}
