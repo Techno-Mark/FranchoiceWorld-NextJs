@@ -66,7 +66,7 @@ function FirstStep() {
       countryCode: selectedCountry,
       email: "",
       companyName: "",
-      websiteUrl: "",
+      websiteURL: "",
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Full Name is required"),
@@ -204,22 +204,22 @@ function FirstStep() {
         <div className="inline-block w-full mb-3">
           <InputField
             id="grid-website-url"
-            name="websiteUrl"
+            name="websiteURL"
             type="url"
             label="WebSite URL"
-            value={formik.values.websiteUrl}
+            value={formik.values.websiteURL}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
             className={`${
-              formik.touched.websiteUrl && formik.errors.websiteUrl
+              formik.touched.websiteURL && formik.errors.websiteURL
                 ? "border-red-500 mb-0.5"
                 : "mb-4"
             }`}
           />
-          {formik.touched.websiteUrl && formik.errors.websiteUrl && (
+          {formik.touched.websiteURL && formik.errors.websiteURL && (
             <div className="text-red-500 font-medium mb-12">
-              {formik.errors.websiteUrl}
+              {formik.errors.websiteURL}
             </div>
           )}
         </div>

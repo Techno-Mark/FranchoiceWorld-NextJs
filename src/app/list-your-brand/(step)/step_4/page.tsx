@@ -95,7 +95,7 @@ function FourthStep() {
       ),
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {

@@ -20,16 +20,16 @@ interface FormValues {
   phoneNumber: string | null;
   countryCode: string | null;
   brandName: string;
-  selectedIndustry: string;
-  subCategory: string;
-  serviceProduct: string;
-  yearFounded: string;
-  locationHeadquarters: string;
-  outlets: string;
-  description: string;
-  sellingProposition: string;
+  industry: number | null;
+  subCategory: number | null;
+  service: number | null;
+  yearFounded: number | null;
+  headquartersLocation: number | null;
+  numberOfLocations: number | null;
+  brandDescription: string;
+  usp: string;
   state: [];
-  cities: [];
+  city: [];
 }
 
 interface OptionType {
@@ -151,10 +151,12 @@ function SecondStep() {
       const categoriesTypes = response.data?.ResponseData;
 
       // Convert the fetched data to the format expected by your Select component
-      const formattedcategoriesTypes = categoriesTypes.map((categorie: any) => ({
-        value: categorie.id,
-        label: categorie.name,
-      }));
+      const formattedcategoriesTypes = categoriesTypes.map(
+        (categorie: any) => ({
+          value: categorie.id,
+          label: categorie.name,
+        })
+      );
 
       setCategorieOptions(formattedcategoriesTypes);
     } catch (error) {
@@ -164,7 +166,7 @@ function SecondStep() {
 
   useEffect(() => {
     fetchIndustryTypes();
-    fetchCategoriesTypes()
+    fetchCategoriesTypes();
   }, []);
 
   useEffect(() => {
@@ -283,7 +285,7 @@ function SecondStep() {
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           enableReinitialize={true}

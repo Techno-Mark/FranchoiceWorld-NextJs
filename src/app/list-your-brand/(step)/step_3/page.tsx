@@ -203,7 +203,7 @@ function SecondStep() {
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           enableReinitialize={true}

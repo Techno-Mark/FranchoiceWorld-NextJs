@@ -3,7 +3,7 @@ import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
 
 interface MultiSelectProps {
-  options: { value: string; label: string }[];
+  options: { value: number; label: string }[];
   name: string;
   label?: string;
   className?: string;
