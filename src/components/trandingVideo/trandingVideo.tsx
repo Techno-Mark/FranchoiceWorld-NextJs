@@ -52,9 +52,10 @@ const TrandingVideo: React.FC<TrandingVideoProps> = (props) => {
           Trending Videos
         </h2>
         {props.desc ? (
-          <div className="pt-2 pb-4 text-center md:text-left">
+          <div className="font-medium pt-2 pb-4 text-center md:text-left">
             <p className="leading-normal">
-              {props.desc} {props.desc2 && <span>{props.desc2}</span>}
+              {props.desc}{" "}
+              {props.desc2 && <span className="md:hidden">{props.desc2}</span>}
             </p>
             {props.desc2 && (
               <p className="leading-normal hidden md:block">{props.desc2}</p>

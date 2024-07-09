@@ -1,5 +1,5 @@
 .stepDivider {
-    top: 20%;
+    top: 35px;
     left: 90%;
 }
 
@@ -14,7 +14,6 @@
     }
 
     .stepperClass {
-        justify-content: center;
         margin-bottom: 5rem;
     }
 }

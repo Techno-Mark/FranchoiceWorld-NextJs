@@ -35,7 +35,7 @@ const InnerListBrandBanner = () => {
               Put your brand in the spotlight!
             </h4>
             <form
-              className={`flex gap-2 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
+              className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown
@@ -54,7 +54,7 @@ const InnerListBrandBanner = () => {
               <Button
                 variant="highlighted"
                 type="submit"
-                className="rounded-md"
+                className="rounded-md !px-2 md:!px-4"
               >
                 <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-base">
                   Start Now{" "}
@@ -77,19 +77,19 @@ const InnerListBrandBanner = () => {
             <ul className="pt-12 pb-8">
               <li className="flex items-center gap-2.5 pb-4">
                 <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold">
+                <span className="font-bold w-[calc(100%-20px)]">
                   Gain access to a broad audience of potential franchisees.
                 </span>
               </li>
               <li className="flex items-center gap-2.5 pb-4">
                 <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold">
+                <span className="font-bold w-[calc(100%-20px)]">
                   Receive pre-screened, highly qualified leads from individuals.
                 </span>
               </li>
               <li className="flex items-center gap-2.5 pb-4">
                 <GoCheckCircle size={20} className="text-[#33A6D1]" />
-                <span className="font-bold">
+                <span className="font-bold w-[calc(100%-20px)]">
                   Navigate expansion challenges and achieve sustainable growth.
                 </span>
               </li>
@@ -114,8 +114,8 @@ const InnerListBrandBanner = () => {
               className={`w-full object-contain max-w-[461px] ml-auto`}
               src="/images/innerListBrandBanner.png"
               alt="List your Brand"
-              width={300}
-              height={200}
+              width={461}
+              height={378}
             />
           </div>
         </div>

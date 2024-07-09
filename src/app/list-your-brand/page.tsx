@@ -15,7 +15,7 @@ function ListYourBrand() {
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/banner.jpg",
+        videoThumbnail: "/images/banner.jpg",
       },
       {
         id: "2",
@@ -23,7 +23,7 @@ function ListYourBrand() {
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/banner.jpg",
+        videoThumbnail: "/images/banner.jpg",
       },
       {
         id: "3",
@@ -31,7 +31,7 @@ function ListYourBrand() {
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/banner.jpg",
+        videoThumbnail: "/images/banner.jpg",
       },
     ],
   };
