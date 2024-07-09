@@ -74,8 +74,8 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               </Button>
             </form>
             <ul className="pt-12 pb-8">
-              {props.items.map((x) => (
-                <li className="flex items-center gap-2.5 pb-4">
+              {props.items.map((x, index) => (
+                <li key={index} className="flex items-center gap-2.5 pb-4">
                   <GoCheckCircle size={20} className="text-[#33A6D1]" />
                   <span className="font-bold w-[calc(100%-20px)]">{x}</span>
                 </li>
