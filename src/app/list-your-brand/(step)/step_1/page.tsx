@@ -22,11 +22,46 @@ function FirstStep() {
     // This runs only on the client side
     setMobileNumber(localStorage.getItem("mobileNumber") || "");
     setSelectedCountry(localStorage.getItem("selectedCountry") || "");
-  }, []);
+  }, [mobileNumber, selectedCountry]);
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: mobileNumber,
+      countryCode: selectedCountry,
+      email: "",
+      companyName: "",
+      websiteURL: "",
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string().required("Full Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      companyName: Yup.string().required("Company Name is required"),
+      websiteURL: Yup.string()
+        .url("Invalid URL")
+        .required("Website URL is required"),
+    }),
+    onSubmit: async (values) => {
+      console.log("values", values);
+
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+          values
+        );
+        updateStepProgress("/list-your-brand/step_2");
+        router.push(`/list-your-brand/step_2`);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
-      updateStepProgress("/list-your-brand/step_1");
+      // updateStepProgress("/list-your-brand/step_1");
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
@@ -54,44 +89,8 @@ function FirstStep() {
 
     if (mobileNumber && selectedCountry) {
       fetchData();
-    } else {
-      setIsLoading(false);
     }
   }, [mobileNumber, selectedCountry]);
-
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      phoneNumber: mobileNumber,
-      countryCode: selectedCountry,
-      email: "",
-      companyName: "",
-      websiteURL: "",
-    },
-    validationSchema: Yup.object({
-      fullName: Yup.string().required("Full Name is required"),
-      phoneNumber: Yup.string().required("Phone Number is required"),
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      companyName: Yup.string().required("Company Name is required"),
-      websiteUrl: Yup.string()
-        .url("Invalid URL")
-        .required("Website URL is required"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
-          values
-        );
-        updateStepProgress("/list-your-brand/step_2");
-        router.push(`/list-your-brand/step_2`);
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
-    },
-  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -149,9 +148,7 @@ function FirstStep() {
                 name="phoneNumber"
                 disabled={true}
                 type="text"
-                value={formik.values.phoneNumber || "0000000000"}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                value={mobileNumber}
                 className={`mb-3`}
               />
             </div>

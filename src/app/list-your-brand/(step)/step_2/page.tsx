@@ -45,8 +45,12 @@ function SecondStep() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
   const [categorieOptions, setCategorieOptions] = useState<OptionType[]>([]);
+  const [subCategorieOptions, setSubCategorieOptions] = useState<OptionType[]>(
+    []
+  );
+
+  const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -98,8 +102,8 @@ function SecondStep() {
   ];
 
   const OptionMap: OptionsMapType = {
-    industry: industryOptions,
-    subCategory: categorieOptions,
+    industry: categorieOptions,
+    subCategory: subCategorieOptions,
     service: Services,
     yearFounded: YearFounded,
     headquartersLocation: Locations,
@@ -124,25 +128,6 @@ function SecondStep() {
     city: [],
   });
 
-  const fetchIndustryTypes = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/industry-types`
-      );
-      const industryTypes = response.data?.ResponseData;
-
-      // Convert the fetched data to the format expected by your Select component
-      const formattedIndustryTypes = industryTypes.map((industry: any) => ({
-        value: industry.id,
-        label: industry.name,
-      }));
-
-      setIndustryOptions(formattedIndustryTypes);
-    } catch (error) {
-      console.error("Error fetching industry types:", error);
-    }
-  };
-
   const fetchCategoriesTypes = async () => {
     try {
       const response = await axios.get(
@@ -164,8 +149,35 @@ function SecondStep() {
     }
   };
 
+  const fetchSubCategoriesTypes = async (industryId: number | null) => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/subcategories`,
+        { categoryId: industryId }
+      );
+      const categoriesTypes = response.data?.ResponseData;
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedSubCategoriesTypes = categoriesTypes.map(
+        (categorie: any) => ({
+          value: categorie.id,
+          label: categorie.name,
+        })
+      );
+
+      setSubCategorieOptions(formattedSubCategoriesTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchIndustryTypes();
+    if (selectedIndustry != null) {
+      fetchSubCategoriesTypes(selectedIndustry)
+    }
+  }, []);
+
+  useEffect(() => {
     fetchCategoriesTypes();
   }, []);
 
@@ -220,7 +232,7 @@ function SecondStep() {
     brandDescription: Yup.string().required("Description is required"),
     usp: Yup.string().required("Unique Selling Proposition is required"),
     state: Yup.array().min(1, "Please select at least one option"),
-    cities: Yup.array().min(1, "Please select at least one option"),
+    city: Yup.array().min(1, "Please select at least one option"),
   });
 
   const handleSubmit = async (
@@ -264,12 +276,12 @@ function SecondStep() {
   ];
 
   const fields = [
-    "selectedIndustry",
+    "industry",
     "subCategory",
-    "serviceProduct",
+    "service",
     "yearFounded",
-    "locationHeadquarters",
-    "outlets",
+    "headquartersLocation",
+    "numberOfLocations",
   ];
 
   const getIn = <T extends object>(obj: T, key: string): any =>
@@ -329,6 +341,11 @@ function SecondStep() {
                                 ? "border-red-500 mb-0.5"
                                 : ""
                             }`}
+                            onChange={(value) => {
+                              if (field.name === "industry")
+                                setSelectedIndustry(value);
+                            }}
+                            
                             label={label[index]}
                             options={OptionMap[field.name] || []}
                           />
@@ -344,14 +361,14 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              {["description", "sellingProposition"].map((field) => (
+              {["brandDescription", "usp"].map((field) => (
                 <div className="w-full mb-3 md:mb-6" key={field}>
                   <Field
                     as={TextArea}
                     id={field}
                     name={field}
                     label={
-                      field === "sellingProposition"
+                      field === "usp"
                         ? "Unique Selling Proposition (USP)"
                         : "Description"
                     }
@@ -372,7 +389,7 @@ function SecondStep() {
                 </div>
               ))}
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {["state", "cities"].map((field) => (
+                {["state", "city"].map((field) => (
                   <div
                     className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
                     key={field}

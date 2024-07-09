@@ -6,6 +6,7 @@ interface SelectProps {
   name: string;
   label?: string;
   className?: string;
+  onChange?: (value: number) => void; // New optional onChange prop
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -13,6 +14,7 @@ const Select: React.FC<SelectProps> = ({
   name,
   label,
   className,
+  onChange, // Add onChange to destructured props
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -44,6 +46,11 @@ const Select: React.FC<SelectProps> = ({
     helpers.setValue(option.value);
     setIsOpen(false);
     setIsTouched(true);
+
+    // Call onChange if provided
+    if (onChange) {
+      onChange(option.value);
+    }
   };
 
   const toggleDropdown = () => {
