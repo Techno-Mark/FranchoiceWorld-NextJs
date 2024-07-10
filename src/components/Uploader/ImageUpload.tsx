@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "../button/button";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
@@ -9,11 +9,11 @@ interface ImageUploadProps {
   className?: string;
   desc?: string;
   descClass?: string;
+  name: string;
+  onChange: (files: File[]) => void;
+  existingFiles?: any[];
   multiple?: boolean;
   maxFiles?: number;
-  name: string; // Added name prop
-  onChange: (files: File[]) => void; // Added onChange prop
-  accept?:string
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -22,15 +22,25 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   className,
   desc,
   descClass,
-  multiple = false,
-  maxFiles = 1,
-  name, // Added name prop
-  onChange, // Added onChange prop
-  accept,
+  name,
+  onChange,
+  existingFiles = [],
+  multiple = true,
+  maxFiles = Infinity,
 }) => {
-  const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
+  const [files, setFiles] = useState<{ file: File; preview: string }[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (existingFiles.length > 0) {
+      const existingImages = existingFiles.map((file) => ({
+        file: file,
+        preview: URL.createObjectURL(file),
+      }));
+      setFiles(existingImages);
+    }
+  }, [existingFiles]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -44,59 +54,64 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files);
-    handleImageUpload(files);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    handleFiles(droppedFiles);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    handleImageUpload(files);
+    const selectedFiles = Array.from(e.target.files || []);
+    selectedFiles.forEach((file, index) => {
+      console.log(`Selected image ${index + 1} type:`, file.type);
+    });
+    handleFiles(selectedFiles);
   };
 
-  const handleImageUpload = (files: File[]) => {
-    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+  const handleFiles = (newFiles: File[]) => {
+    const imageFiles = newFiles.filter((file) =>
+      file.type.startsWith("image/")
+    );
     const newImages = imageFiles
-      .slice(0, maxFiles - images.length)
+      .slice(0, maxFiles - files.length)
       .map((file) => ({
         file,
         preview: URL.createObjectURL(file),
       }));
 
-    const updatedImages = [...images, ...newImages].slice(0, maxFiles);
-    setImages(updatedImages);
-
-    // Call the onChange prop with the updated files
-    onChange(updatedImages.map((img) => img.file));
+    const updatedFiles = [...files, ...newImages].slice(0, maxFiles);
+    setFiles(updatedFiles);
+    onChange(updatedFiles.map((img) => img.file));
   };
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
-  const getUpdatedLabel = () => {
-    if (!label) return "";
-    if (!multiple || maxFiles <= 1) return label;
-    return `${label} (${images.length}/${maxFiles})`;
+  const handleRemoveFile = (index: number) => {
+    const updatedFiles = files.filter((_, i) => i !== index);
+    setFiles(updatedFiles);
+    onChange(updatedFiles.map((img) => img.file));
   };
 
-  const handleRemoveImage = (index: number) => {
-    const updatedImages = images.filter((_, i) => i !== index);
-    setImages(updatedImages);
-
-    // Call the onChange prop with the updated files
-    onChange(updatedImages.map((img) => img.file));
+  const truncateFileName = (name: string, maxLength: number) => {
+    if (name.length <= maxLength) return name;
+    const extension = name.split(".").pop();
+    const nameWithoutExtension = name.substring(0, name.lastIndexOf("."));
+    return `${nameWithoutExtension.substring(
+      0,
+      maxLength - 3 - (extension?.length || 0)
+    )}...${extension}`;
   };
 
   return (
     <div className={className}>
       {label && (
         <label className="block mb-2 text-sm font-semibold text-footer-bg">
-          {getUpdatedLabel()}
+          {label}{" "}
+          {multiple && maxFiles < Infinity && `(${files.length}/${maxFiles})`}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-
-      {images.length < maxFiles && (
+      {files.length < maxFiles && (
         <>
           <div
             className={`relative bg-[#E5F0FA99] min-h-[188px] flex flex-col justify-center items-center border-2 border-customBorder border-dashed rounded-lg ${
@@ -108,13 +123,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           >
             <input
               type="file"
-              accept="image/*"
-              multiple={multiple}
+              id="image-upload"
               className="hidden"
               ref={fileInputRef}
               onChange={handleFileChange}
+              accept="image/*"
               name={name}
-              
+              multiple={multiple}
             />
             <div className="text-center min-w-[198px] h-[128px]">
               <div className="flex justify-center">
@@ -128,30 +143,35 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 className="font-semibold rounded-lg"
                 onClick={handleButtonClick}
               >
-                Upload File{multiple ? "s" : ""}
+                Upload Image{multiple ? "s" : ""}
               </Button>
             </div>
           </div>
           <div className={descClass}>{desc}</div>
         </>
       )}
-
-      {images.length > 0 && (
+      {files.length > 0 && (
         <div className="mt-4 space-y-2">
-          {images.map((image, index) => (
+          {files.map((file, index) => (
             <div
               key={index}
               className="px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg"
             >
-              <img
-                src={image.preview}
-                alt={`Uploaded ${index + 1}`}
-                className="w-20 h-14 object-cover"
-              />
-              <div className="font-bold text-xs">{image.file.name}</div>
-              <button onClick={() => handleRemoveImage(index)}>
-                <CloseIcon />
-              </button>
+              <div className="flex items-center">
+                <img
+                  src={file.preview}
+                  alt={`Uploaded ${index + 1}`}
+                  className="w-20 h-14 object-cover mr-2"
+                />
+              </div>
+              <div className="font-bold text-xs">
+                {truncateFileName(file.file.name, 15)}
+              </div>
+              <div>
+                <button onClick={() => handleRemoveFile(index)}>
+                  <CloseIcon />
+                </button>
+              </div>
             </div>
           ))}
         </div>

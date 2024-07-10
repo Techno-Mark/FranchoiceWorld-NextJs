@@ -26,7 +26,7 @@ interface FormValues {
   countryCode: string | null;
   brochure: File[];
   logo: File[];
-  multipleLogos: File[];
+  brandImages: File[];
   video?: File[];
 }
 
@@ -34,7 +34,7 @@ function FourthStep() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("mobileNumber"));
@@ -42,14 +42,14 @@ function FourthStep() {
     }
   }, []);
 
-  const initialValues: FormValues = {
+  const [formValues, setFormValues] = useState<FormValues>({
     phoneNumber: mobileNumber,
     countryCode: selectedCountry,
     brochure: [],
     logo: [],
-    multipleLogos: [],
+    brandImages: [],
     video: [],
-  };
+  });
 
   const FILE_SIZE = 5 * 1024 * 1024;
   const SUPPORTED_IMAGE_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
@@ -71,7 +71,7 @@ function FourthStep() {
           ? SUPPORTED_IMAGE_FORMATS.includes(value[0].type)
           : true
       ),
-    multipleLogos: Yup.array()
+    brandImages: Yup.array()
       .min(1, "At least one logo is required")
       .max(5, "Maximum 5 logos allowed")
       .test("fileSize", "Files are too large", (value) =>
@@ -96,9 +96,10 @@ function FourthStep() {
   });
 
   const handleSubmit = async (
-    values: FormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
+    values: typeof formValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
+    setIsSubmitting(true);
     // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName as keyof FormValues, true);
@@ -115,8 +116,8 @@ function FourthStep() {
       formData.append(`logo`, file);
     });
 
-    values.multipleLogos.forEach((file) => {
-      formData.append(`multipleLogos`, file);
+    values.brandImages.forEach((file) => {
+      formData.append(`brandImages`, file);
     });
 
     if (values.video) {
@@ -138,14 +139,115 @@ function FourthStep() {
           },
         }
       );
-      updateStepProgress("/app/thankyou");
-      router.push(`/app/thankyou`);
+      updateStepProgress("/thankyou");
+      router.push(`/thankyou`);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
       setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
+
+  const createFileFromPath = async (filePath: string, fileName: string) => {
+    try {
+      const response = await fetch(filePath);
+      const blob = await response.blob();
+
+      // Determine the MIME type based on the file extension
+      const fileExtension = fileName.split(".").pop()?.toLowerCase();
+      let mimeType = blob.type;
+
+      if (fileExtension) {
+        switch (fileExtension) {
+          case "pdf":
+            mimeType = "application/pdf";
+            break;
+          case "jpg":
+          case "jpeg":
+            mimeType = "image/jpeg";
+            break;
+          case "png":
+            mimeType = "image/png";
+            break;
+          case "mp4":
+            mimeType = "video/mp4";
+            break;
+          case "mov":
+            mimeType = "video/quicktime";
+            break;
+          case "avi":
+            mimeType = "video/x-msvideo";
+            break;
+        }
+      }
+
+      return new File([blob], fileName, { type: mimeType });
+    } catch (error) {
+      console.error("Error creating file from path:", error);
+      return null;
+    }
+  };
+
+  const extractFileName = (path: any) => {
+    if (!path) return null;
+    const parts = path.split("/");
+    const fullFileName = parts[parts.length - 1];
+    const fileNameParts = fullFileName.split("-");
+    return fileNameParts.slice(1).join("-"); // This removes the timestamp prefix
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+          {
+            phoneNumber: mobileNumber,
+            countryCode: selectedCountry,
+          }
+        );
+        const data = response.data?.ResponseData;
+
+        // Create File objects from paths
+        const brochureFile = data.brochure
+          ? await createFileFromPath(
+              data.brochure,
+              extractFileName(data.brochure)
+            )
+          : null;
+        const logoFile = data.logo
+          ? await createFileFromPath(data.logo, extractFileName(data.logo))
+          : null;
+        const videoFile = data.video
+          ? await createFileFromPath(data.video, extractFileName(data.video))
+          : null;
+
+        // Create File objects for brandImages
+        const brandImageFiles = await Promise.all(
+          (data.brandImages || []).map((path: any, index: any) =>
+            createFileFromPath(path, `brandImage${index + 1}.jpg`)
+          )
+        );
+
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          phoneNumber: data.phoneNumber || null,
+          countryCode: data.countryCode || null,
+          brochure: brochureFile ? [brochureFile] : [],
+          logo: logoFile ? [logoFile] : [],
+          brandImages: brandImageFiles.filter(Boolean),
+          video: videoFile ? [videoFile] : [],
+        }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    }
+  }, [mobileNumber, selectedCountry]);
 
   const handleBackButton = () => {
     router.push(`/list-your-brand/step_3`);
@@ -159,9 +261,10 @@ function FourthStep() {
           desc="Upload Brochures,Logos, and More"
         />
         <Formik<FormValues>
-          initialValues={initialValues}
+          initialValues={formValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          enableReinitialize={true}
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
@@ -173,15 +276,11 @@ function FourthStep() {
                     descClass="text-xs mt-5 font-customBorder font-medium"
                     required
                     name="brochure"
-                    onChange={(files) => {
-                      // Ensure files is always an array
-                      const fileArray = Array.isArray(files)
-                        ? files
-                        : files
-                        ? [files]
-                        : [];
+                    onChange={(file) => {
+                      const fileArray = file ? [file] : [];
                       setFieldValue("brochure", fileArray);
                     }}
+                    existingFiles={formValues.brochure}
                   />
                   {errors.brochure && touched.brochure && (
                     <div className="text-red-500">
@@ -197,6 +296,8 @@ function FourthStep() {
                     required
                     name="logo"
                     onChange={(files) => setFieldValue("logo", files)}
+                    existingFiles={formValues.logo}
+                    maxFiles={1}
                   />
                   {errors.logo && touched.logo && (
                     <div className="text-red-500">
@@ -212,12 +313,12 @@ function FourthStep() {
                     required
                     multiple
                     maxFiles={5}
-                    name="multipleLogos"
-                    onChange={(files) => setFieldValue("multipleLogos", files)}
+                    name="brandImages"
+                    onChange={(files) => setFieldValue("brandImages", files)}
                   />
-                  {errors.multipleLogos && touched.multipleLogos && (
+                  {errors.brandImages && touched.brandImages && (
                     <div className="text-red-500">
-                      {errors.multipleLogos as ReactNode}
+                      {errors.brandImages as ReactNode}
                     </div>
                   )}
                 </div>
@@ -228,6 +329,7 @@ function FourthStep() {
                     descClass="text-xs mt-5 font-customBorder font-medium"
                     name="video"
                     onChange={(files) => setFieldValue("video", files)}
+                    existingVideos={formValues.video}
                   />
                   {errors.video && touched.video && (
                     <div className="text-red-500">{errors.video}</div>
@@ -251,8 +353,36 @@ function FourthStep() {
                   type="submit"
                   className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
                 >
-                  Next
-                  <ArrowIcon color="white" className="rotate-180 ml-2" />
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Next
+                      <ArrowIcon color="white" className="rotate-180 ml-2" />
+                    </>
+                  )}
                 </Button>
               </div>
             </Form>

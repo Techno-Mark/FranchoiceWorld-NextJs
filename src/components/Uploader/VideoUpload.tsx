@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "../button/button";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
-import VideoIcon from "@/assets/icons/videoIcon"; // You'll need to create this icon
+import VideoIcon from "@/assets/icons/videoIcon";
 
 interface VideoUploadProps {
   label?: string;
@@ -10,10 +10,11 @@ interface VideoUploadProps {
   className?: string;
   desc?: string;
   descClass?: string;
-  multiple?: boolean;
-  maxFiles?: number;
   name: string;
   onChange: (files: File[]) => void;
+  existingVideos?: any[];
+  multiple?: boolean;
+  maxFiles?: number;
   accept?: string;
 }
 
@@ -23,15 +24,22 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   className,
   desc,
   descClass,
-  multiple = false,
-  maxFiles = 1,
   name,
   onChange,
-  accept,
+  existingVideos = [],
+  multiple = false,
+  maxFiles = 1,
+  accept = "video/*",
 }) => {
   const [videos, setVideos] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (existingVideos.length > 0) {
+      setVideos(existingVideos);
+    }
+  }, [existingVideos]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -45,13 +53,13 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files);
-    handleVideoUpload(files);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    handleVideoUpload(droppedFiles);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    handleVideoUpload(files);
+    const selectedFiles = Array.from(e.target.files || []);
+    handleVideoUpload(selectedFiles);
   };
 
   const handleVideoUpload = (files: File[]) => {
@@ -60,18 +68,11 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
 
     const updatedVideos = [...videos, ...newVideos].slice(0, maxFiles);
     setVideos(updatedVideos);
-
     onChange(updatedVideos);
   };
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
-  };
-
-  const getUpdatedLabel = () => {
-    if (!label) return "";
-    if (!multiple || maxFiles <= 1) return label;
-    return `${label} (${videos.length}/${maxFiles})`;
   };
 
   const handleRemoveVideo = (index: number) => {
@@ -94,12 +95,11 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
     <div className={className}>
       {label && (
         <label className="block mb-2 text-sm font-semibold text-footer-bg">
-          {getUpdatedLabel()}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {label} {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
 
-      {videos.length < maxFiles && (
+      {videos.length < maxFiles ? (
         <>
           <div
             className={`relative bg-[#E5F0FA99] min-h-[188px] flex flex-col justify-center items-center border-2 border-customBorder border-dashed rounded-lg ${
@@ -136,22 +136,24 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
           </div>
           <div className={descClass}>{desc}</div>
         </>
-      )}
-
-      {videos.length > 0 && (
+      ) : (
         <div className="mt-4 space-y-2">
           {videos.map((video, index) => (
             <div
               key={index}
               className="px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg"
             >
-              <VideoIcon className="w-10 h-10" />
+              <div className="flex items-center">
+                <VideoIcon className="mr-2" />
+              </div>
               <div className="font-bold text-xs">
                 {truncateFileName(video.name, 15)}
               </div>
-              <button onClick={() => handleRemoveVideo(index)}>
-                <CloseIcon />
-              </button>
+              <div>
+                <button onClick={() => handleRemoveVideo(index)}>
+                  <CloseIcon />
+                </button>
+              </div>
             </div>
           ))}
         </div>

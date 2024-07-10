@@ -9,9 +9,10 @@ const ThankYou = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/"); 
-    localStorage.removeItem("mobileNumber")
-    localStorage.removeItem("selectedCountry")
+    router.push("/");
+    localStorage.removeItem("mobileNumber");
+    localStorage.removeItem("selectedCountry");
+    localStorage.removeItem("completedSteps");
   };
   const icon = "/images/thanks/thankyou.gif";
 

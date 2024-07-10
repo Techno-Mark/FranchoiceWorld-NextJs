@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./FileUpload.css";
 import Button from "../button/button";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
-import PdfIcon from "@/assets/icons/pdfIcon"; // Assume you have this icon
+import PdfIcon from "@/assets/icons/pdfIcon";
 
 interface FileUploadProps {
   label?: string;
@@ -13,6 +13,7 @@ interface FileUploadProps {
   descClass?: string;
   name: string;
   onChange: (file: File | null) => void;
+  existingFiles?: any[]; // This should be an array of file objects
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
@@ -23,11 +24,19 @@ const FileUpload: React.FC<FileUploadProps> = ({
   descClass,
   name,
   onChange,
+  existingFiles = [],
 }) => {
-  const [fileName, setFileName] = useState("");
-  const [fileType, setFileType] = useState("");
+  const [files, setFiles] = useState<{ name: string; url: string }[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (existingFiles.length > 0 && existingFiles[0]) {
+      // Assuming the file name is stored in a 'name' property
+      const fileName = existingFiles[0].name || "Existing File";
+      setFiles([{ name: fileName, url: "#" }]);
+    }
+  }, [existingFiles]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -41,22 +50,22 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFile(files[0]);
+    const droppedFiles = e.dataTransfer.files;
+    if (droppedFiles.length > 0) {
+      handleFile(droppedFiles[0]);
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      handleFile(files[0]);
+    const selectedFiles = e.target.files;
+    if (selectedFiles && selectedFiles.length > 0) {
+      handleFile(selectedFiles[0]);
     }
   };
 
   const handleFile = (file: File) => {
-    setFileName(file.name);
-    setFileType(file.type);
+    const newFile = { name: file.name, url: URL.createObjectURL(file) };
+    setFiles([newFile]);
     onChange(file);
   };
 
@@ -65,8 +74,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const handleRemoveFile = () => {
-    setFileName("");
-    setFileType("");
+    setFiles([]);
     onChange(null);
   };
 
@@ -88,7 +96,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      {!fileName ? (
+      {files.length === 0 ? (
         <>
           <div
             className={`relative bg-[#E5F0FA99] min-h-[188px] flex flex-col justify-center items-center border-2 border-customBorder border-dashed rounded-lg ${
@@ -126,18 +134,25 @@ const FileUpload: React.FC<FileUploadProps> = ({
           <div className={descClass}>{desc}</div>
         </>
       ) : (
-        <div className="mt-4 space-y-2 px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg">
-          <div className="flex items-center">
-            {fileType === "application/pdf" && <PdfIcon className="mr-2" />}
-          </div>
-          <div className="font-bold text-xs">
-            {truncateFileName(fileName, 15)}
-          </div>
-          <div>
-            <button onClick={handleRemoveFile}>
-              <CloseIcon />
-            </button>
-          </div>
+        <div className="mt-4 space-y-2">
+          {files.map((file, index) => (
+            <div
+              key={index}
+              className="px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg"
+            >
+              <div className="flex items-center">
+                <PdfIcon className="mr-2" />
+              </div>
+              <div className="font-bold text-xs">
+                {truncateFileName(file.name, 15)}
+              </div>
+              <div>
+                <button onClick={handleRemoveFile}>
+                  <CloseIcon />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
