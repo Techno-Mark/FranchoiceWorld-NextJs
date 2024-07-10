@@ -1,3 +1,4 @@
+"use client";
 import Faq from "@/components/faq/faq";
 import FindFranchise from "@/components/findFranchise/findFranchise";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";

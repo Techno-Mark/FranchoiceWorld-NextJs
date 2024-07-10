@@ -1,3 +1,4 @@
+"use client"
 import Banner from "@/components/banner/banner";
 import HalfBanner from "@/components/halfBanner/halfBanner";
 import WhyChoose from "@/components/whyChoose/whyChoose";

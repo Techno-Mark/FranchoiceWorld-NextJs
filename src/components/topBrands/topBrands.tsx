@@ -1,13 +1,12 @@
-"use client";
+import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Card from "../card/card";
-import styles from "./topBrands.module.css";
+import "slick-carousel/slick/slick.css";
 import styled from "styled-components";
 import Button from "../button/button";
-import Image from "next/image";
+import Card from "../card/card";
+import styles from "./topBrands.module.css";
 // import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface BusinessOpportunity {
