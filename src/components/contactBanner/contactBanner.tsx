@@ -306,7 +306,7 @@ const ContactBanner = () => {
                   <Button
                     variant="highlighted"
                     type="submit"
-                    className="rounded-md w-full justify-center text-base font-semibold flex items-center !py-4 !px-5"
+                    className="rounded-md w-full justify-center text-base font-semibold flex items-center !py-2 !px-5"
                   >
                     Submit
                   </Button>
