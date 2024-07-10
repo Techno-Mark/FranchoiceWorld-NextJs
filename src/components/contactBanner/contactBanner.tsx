@@ -192,7 +192,7 @@ const ContactBanner = () => {
                     </div>
                     <div className="w-full pl-1 mb-3">
                       <label
-                        className="block mb-2 font-medium text-[var(--text-color)]"
+                        className="block mb-2 font-semibold text-[rgba(115,114,115,1)]"
                         htmlFor="phoneNumber"
                       >
                         Phone Number{" "}
@@ -234,7 +234,7 @@ const ContactBanner = () => {
                       as={Select}
                       name="who"
                       label="Who am I?"
-                      className={`flex items-center justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                      className={`flex  justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
                         getIn(errors, "who") && getIn(touched, "who")
                           ? "border-red-500 mb-0.5"
                           : ""
@@ -252,7 +252,7 @@ const ContactBanner = () => {
                       as={TextArea}
                       id="grid-information"
                       name="information"
-                      label="Information"
+                      label="Is there any other information you would like yo share with us?"
                       required={false}
                       className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
                         getIn(errors, "information") &&
@@ -306,7 +306,7 @@ const ContactBanner = () => {
                   <Button
                     variant="highlighted"
                     type="submit"
-                    className="rounded-md text-base font-semibold flex items-center !py-4 !px-5"
+                    className="rounded-md w-full justify-center text-base font-semibold flex items-center !py-4 !px-5"
                   >
                     Submit
                   </Button>

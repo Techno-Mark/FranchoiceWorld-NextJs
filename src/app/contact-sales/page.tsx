@@ -6,7 +6,7 @@ const ContactSales = () => {
   return (
     <>
       <ContactBanner />
-      <GetInTouch />
+      <GetInTouch location="Ahmedabad | Mumbai"/>
     </>
   );
 };

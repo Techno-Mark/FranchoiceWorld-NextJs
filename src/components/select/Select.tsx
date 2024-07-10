@@ -65,7 +65,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className="relative inline-block w-full">
       <label
-        className="block mb-2 text-sm font-medium text-gray-700"
+        className="block mb-2 text-sm font-semibold text-[rgba(115,114,115,1)]"
         htmlFor={name}
       >
         {label}
@@ -80,7 +80,15 @@ const Select: React.FC<SelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          <span>{selectedLabel}</span>
+          <span>
+            {selectedLabel ? (
+              selectedLabel
+            ) : (
+              <span className="text-[rgba(17,23,29,0.6)] font-medium text-xs">
+                Please select an option
+              </span>
+            )}
+          </span>
           <div className="flex items-center pl-2 pointer-events-none">
             <svg
               className={`w-4 h-4 text-footer-bg transition-transform duration-200 ${
