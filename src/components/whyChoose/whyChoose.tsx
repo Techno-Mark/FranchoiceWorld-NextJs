@@ -7,42 +7,19 @@ import styles from "./whychoose.module.css";
 interface CardItem {
   chooseImage: string;
   chooseTitle: string;
-  hoverImage: string;
-  list: string[];
+  desc?: string;
+  list?: string[];
 }
 
-const cardBox: CardItem[] = [
-  {
-    chooseImage: "/images/brandOwner.svg",
-    hoverImage: "/brandOwner_gray.svg",
-    chooseTitle: "Brand Owner",
-    list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
-  },
-  {
-    chooseImage: "/images/investor.svg",
-    hoverImage: "/investor_gray.svg",
-    chooseTitle: "Investor",
-    list: ["Personalized Matching", "Expert Guidance", "Extensive Network"],
-  },
-  {
-    chooseImage: "/images/independentPartner.svg",
-    hoverImage: "/independentPartner_gray.svg",
-    chooseTitle: "Independent Franchise Partner",
-    list: ["Brand Recognition", "Operational Support", "Risk Mitigation"],
-  },
-  {
-    chooseImage: "/images/realestate.svg",
-    hoverImage: "/realestate_gray.svg",
-    chooseTitle: "Real Estate Developer",
-    list: [
-      "Diversified Revenue Stream",
-      "Steady Demand",
-      "Long-term Lease Agreements",
-    ],
-  },
-];
+interface WhyChooseProps {
+  cardBox: CardItem[];
+  hideKnowMore?: boolean;
+}
 
-const WhyChoose: React.FC = () => {
+const WhyChoose: React.FC<WhyChooseProps> = ({
+  cardBox,
+  hideKnowMore = false,
+}) => {
   return (
     <section className={styles.whyChoose}>
       <div className="container">
@@ -53,32 +30,38 @@ const WhyChoose: React.FC = () => {
           />
         </div>
         <div className="flex flex-wrap gap-y-4">
-          {cardBox.map(
-            ({ chooseImage, chooseTitle, list, hoverImage }, index) => (
-              <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
-                <Card className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard}`}>
-                  <Link
-                    href="#"
-                    className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
+          {cardBox.map(({ chooseImage, chooseTitle, list, desc }, index) => (
+            <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
+              <Card className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard}`}>
+                <Link
+                  href="#"
+                  className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
+                >
+                  <div
+                    className={`flex justify-start ${
+                      !hideKnowMore && "md:justify-between"
+                    } flex-col h-full`}
                   >
-                    <div className="flex justify-start md:justify-between flex-col h-full">
-                      <div>
-                        <Image
-                          className={styles.chooseImg}
-                          src={chooseImage}
-                          alt={chooseTitle}
-                          width={60}
-                          height={60}
-                        />
-                        <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
-                      </div>
+                    <div>
+                      <Image
+                        className={styles.chooseImg}
+                        src={chooseImage}
+                        alt={chooseTitle}
+                        width={60}
+                        height={60}
+                      />
+                      <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
+                    </div>
+                    {desc && <p className="text-medium pb-4">{desc}</p>}
+                    {list && (
                       <ul className={styles.chooseBenifits}>
                         {list.map((benefit, idx) => (
                           <li key={idx}>{benefit}</li>
                         ))}
                       </ul>
-                    </div>
-
+                    )}
+                  </div>
+                  {!hideKnowMore && (
                     <div
                       className={`flex items-center gap-2 font-bold ${styles.knowMore}`}
                     >
@@ -96,11 +79,11 @@ const WhyChoose: React.FC = () => {
                         />
                       </svg>
                     </div>
-                  </Link>
-                </Card>
-              </div>
-            )
-          )}
+                  )}
+                </Link>
+              </Card>
+            </div>
+          ))}
         </div>
       </div>
     </section>

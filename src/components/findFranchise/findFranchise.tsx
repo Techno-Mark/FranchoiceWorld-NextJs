@@ -6,7 +6,7 @@ import CategoriesContent from "./_categoriesContent/categoriesContent";
 interface FranchiseProps {
   dark?: boolean;
 }
-const FindFranchise: React.FC<FranchiseProps> = ({ dark }) => {
+const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
   const tabs = [
     { id: "tab1", label: "Categories", content: <CategoriesContent /> },
     { id: "tab2", label: "Location", content: <CategoriesContent /> },
@@ -18,11 +18,15 @@ const FindFranchise: React.FC<FranchiseProps> = ({ dark }) => {
     >
       <div className="container">
         <div className="text-center">
-          <Title title="Find Your Franchise" />
+          <Title
+            title="Find Your Franchise"
+            varient={dark ? "white" : "blue"}
+          />
           <Tabs
             titleClassName={styles.franchiseType}
             contentClassName={`w-full md:w-11/12 mx-auto ${styles.franchiseContent}`}
             tabs={tabs}
+            dark={dark}
           />
         </div>
       </div>

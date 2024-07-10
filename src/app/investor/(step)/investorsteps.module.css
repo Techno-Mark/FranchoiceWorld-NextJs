@@ -1,0 +1,30 @@
+.stepBanner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--footer-bg);
+    opacity: 0.9;
+    z-index: -1;
+}
+
+.stepperClass {
+    color: white;
+}
+
+.stepDivider {
+    top: 16%;
+    left: 75%;
+}
+
+.halfBanner {
+    top: -4.2rem;
+}
+
+.formPart {
+    max-width: 956px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+}
