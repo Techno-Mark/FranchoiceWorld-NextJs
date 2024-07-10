@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Banner from "@/components/banner/banner";
 import HalfBanner from "@/components/halfBanner/halfBanner";
 import WhyChoose from "@/components/whyChoose/whyChoose";
@@ -167,6 +167,36 @@ const banner = {
   imgAlt: "Banner image",
   bannerTitle: "Welcome to the World of Franchising",
 };
+const cardBox = [
+  {
+    chooseImage: "/images/brandOwner.svg",
+    hoverImage: "/brandOwner_gray.svg",
+    chooseTitle: "Brand Owner",
+    list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
+  },
+  {
+    chooseImage: "/images/investor.svg",
+    hoverImage: "/investor_gray.svg",
+    chooseTitle: "Investor",
+    list: ["Personalized Matching", "Expert Guidance", "Extensive Network"],
+  },
+  {
+    chooseImage: "/images/independentPartner.svg",
+    hoverImage: "/independentPartner_gray.svg",
+    chooseTitle: "Independent Franchise Partner",
+    list: ["Brand Recognition", "Operational Support", "Risk Mitigation"],
+  },
+  {
+    chooseImage: "/images/realestate.svg",
+    hoverImage: "/realestate_gray.svg",
+    chooseTitle: "Real Estate Developer",
+    list: [
+      "Diversified Revenue Stream",
+      "Steady Demand",
+      "Long-term Lease Agreements",
+    ],
+  },
+];
 export default function Home() {
   // const [homeData, setHomeData] = useState<HomeData | null>(null);
   // const [loading, setLoading] = useState<boolean>(true);
@@ -199,7 +229,7 @@ export default function Home() {
     <>
       <Banner props={banner} />
       <HalfBanner />
-      <WhyChoose />
+      <WhyChoose cardBox={cardBox} />
       <FindFranchise />
       <ListBrandBanner />
       <TopBrandSlider

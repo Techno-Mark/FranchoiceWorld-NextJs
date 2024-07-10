@@ -10,12 +10,14 @@ interface TabsProps {
   tabs: Tab[];
   titleClassName?: string;
   contentClassName?: string;
+  dark?: boolean;
 }
 
 const Tabs: React.FC<TabsProps> = ({
   tabs,
   titleClassName,
   contentClassName,
+  dark,
 }) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0].id);
 
@@ -30,7 +32,7 @@ const Tabs: React.FC<TabsProps> = ({
               activeTab === tab.id
                 ? `${styles.activeClass}`
                 : "border-transparent"
-            }`}
+            } ${dark && `!text-white ${styles.darkActive}`}`}
           >
             {tab.label}
           </button>

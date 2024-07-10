@@ -2,3 +2,7 @@
     color: var(--highlighted-color);
     border-bottom-color: var(--highlighted-color);
 }
+
+.activeClass.darkActive {
+    border-bottom-color: var(--white-color);
+}
