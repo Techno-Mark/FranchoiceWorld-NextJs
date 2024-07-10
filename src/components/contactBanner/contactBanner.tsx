@@ -42,7 +42,7 @@ const ContactBanner = () => {
     companyName: "",
     information: "",
     who: "",
-    acceptTerms: false,
+    acceptTerms: true,
   };
 
   const validationSchema = Yup.object({

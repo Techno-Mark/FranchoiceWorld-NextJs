@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useField } from "formik";
 import styles from "./checkbox.module.css";
-import { BsCheck2, BsCheckLg } from "react-icons/bs";
+import { BsCheckLg } from "react-icons/bs";
 
 interface CheckboxProps {
   id: string;
@@ -27,11 +27,24 @@ const Checkbox: React.FC<CheckboxProps> = ({
   formik = false,
 }) => {
   const [field, , helpers] = useField({ name, type: "checkbox", value });
-  React.useEffect(() => {
-    if (defaultChecked) {
-      helpers.setValue(true);
+  const [isChecked, setIsChecked] = useState(defaultChecked || false);
+
+  useEffect(() => {
+    if (formik) {
+      helpers.setValue(isChecked);
     }
-  }, [defaultChecked, helpers]);
+  }, [isChecked, formik, helpers]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCheckedState = e.target.checked;
+    setIsChecked(newCheckedState);
+    if (formik) {
+      field.onChange(e);
+    } else if (onChange) {
+      onChange(e);
+    }
+  };
+
   return (
     <div className={className}>
       <div className={`flex items-center ${className}`}>
@@ -42,12 +55,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
             id={id}
             name={name}
             value={value}
-            checked={formik ? field.checked : defaultChecked}
-            onChange={formik ? field.onChange : onChange}
+            checked={isChecked}
+            onChange={handleChange}
             onBlur={formik ? field.onBlur : onBlur}
           />
           <div className={styles.checkmark}>
-            {value && <BsCheckLg color="white" size={12} />}
+            {isChecked && <BsCheckLg color="white" size={12} />}
           </div>
         </div>
         <label className="ml-2" htmlFor={id}>
