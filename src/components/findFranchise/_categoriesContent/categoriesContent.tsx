@@ -44,7 +44,7 @@ const CategoriesContent = () => {
         className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
         onSubmit={handelSubmitCategory}
       >
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
             className="text-[16px]"
             name="selectedIndustry"
@@ -54,7 +54,7 @@ const CategoriesContent = () => {
             placeholder="Select Industries"
           />
         </div>
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
             className="text-[16px]"
             options={Sector}
@@ -63,7 +63,7 @@ const CategoriesContent = () => {
             placeholder="Select Sector"
           />
         </div>
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
             className="text-[16px]"
             options={Product}

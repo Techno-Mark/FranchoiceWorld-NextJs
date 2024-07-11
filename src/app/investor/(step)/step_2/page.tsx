@@ -1,25 +1,29 @@
 "use client";
+import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import Button from "@/components/button/button";
+import Checkbox from "@/components/Fields/CheckBox";
+import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
-import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
+import { updateStepProgress } from "@/utills/stepProgress";
+import { Form, Formik, FormikHelpers, getIn } from "formik";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
-import MultiSelect from "@/components/select/MultiSelect";
-import Checkbox from "@/components/Fields/CheckBox";
-import { useRouter } from "next/navigation";
 
 interface FormValues {
-  industryType: string;
-  availableCapital: string;
-  soonInvest: string;
-  loan: boolean;
-  lookingFor: string;
-  bussinessState: string[];
-  bussinessCity: string[];
-  ownPropety: boolean;
+  countryCode: string | null;
+  phoneNumber: string | null;
+  industryType: number | null;
+  availableCapital: number | null;
+  likeToInvest: number | null;
+  needForLoan: boolean;
+  lookingFor: number | null;
+  lookingForState: number[] | null;
+  lookingForCity: number[] | null;
+  ownProperty: boolean;
 }
 
 const industry = [
@@ -65,48 +69,93 @@ const city = [
 
 function InvestorSecondStep() {
   const router = useRouter();
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [mobileNumber, setMobileNumber] = useState<string | null>("");
+  const [selectedCountry, setSelectedCountry] = useState<string | null>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMobileNumber(localStorage.getItem("mobileNumber"));
+      setSelectedCountry(localStorage.getItem("selectedCountry"));
+    }
+  }, []);
+
+  const [formValues, setFormValues] = useState<FormValues>({
+    countryCode: selectedCountry,
+    phoneNumber: mobileNumber,
+    industryType: null,
+    availableCapital: null,
+    needForLoan: true,
+    likeToInvest: null,
+    lookingFor: null,
+    lookingForState: null,
+    lookingForCity: null,
+    ownProperty: true,
+  });
+
   const handleBackButton = () => {
     router.push(`/investor/step_1`);
   };
-  const initialValues: FormValues = {
-    industryType: "",
-    availableCapital: "",
-    soonInvest: "",
-    loan: true,
-    lookingFor: "",
-    bussinessState: [],
-    bussinessCity: [],
-    ownPropety: true,
-  };
 
   const validationSchema = Yup.object({
-    industryType: Yup.string().required("Industry is required"),
-    availableCapital: Yup.string().required("Available Capital is required"),
-    soonInvest: Yup.string().required("Investment Time is required"),
-    lookingFor: Yup.string().required("Looking For is required"),
-    bussinessState: Yup.array().required("State is required"),
-    bussinessCity: Yup.array().required("City is required"),
+    industryType: Yup.number().required("Industry is required"),
+    availableCapital: Yup.number().required("Available Capital is required"),
+    likeToInvest: Yup.number().required("Investment Time is required"),
+    lookingFor: Yup.number().required("Looking For is required"),
+    lookingForState: Yup.number().required("State is required"),
+    lookingForCity: Yup.number().required("City is required"),
   });
 
-  const handleSubmit = (
-    values: FormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
+  const handleSubmit = async (
+    values: typeof formValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
+    let params = {
+      ...values,
+      phoneNumber: mobileNumber,
+      countryCode: selectedCountry,
+    };
+    try {
+      const response = await CreateInvestorData(params);
+      if (response.ResponseStatus === "success") {
+        updateStepProgress("");
+        router.push(`/thankyou`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-    console.log("Form submitted:", values);
-    setSubmitting(false);
+  const fetchData = async () => {
+    updateStepProgress("/investor/step_1");
+    try {
+      let params = {
+        phoneNumber: mobileNumber,
+        countryCode: selectedCountry,
+      };
+      const response = await getInvestorData(params);
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        fullName: response?.fullName || "",
+        email: response?.email || "",
+        city: response?.city || null,
+        pincode: response?.pincode || "",
+        investmentRange: response?.investmentRange || null,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    // This runs only on the client side
-    setMobileNumber(localStorage.getItem("mobileNumber") || "");
-    setSelectedCountry(localStorage.getItem("selectedCountry") || "");
-  }, []);
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    }
+  }, [mobileNumber, selectedCountry]);
 
   return (
     <>
@@ -117,16 +166,16 @@ function InvestorSecondStep() {
         titleClass="md:!pb-2.5"
       />
       <Formik
-        initialValues={initialValues}
+        initialValues={formValues}
         validationSchema={validationSchema}
+        enableReinitialize={true}
         onSubmit={handleSubmit}
       >
         {({ errors, touched, setFieldValue }) => (
           <Form className="md:mt-16">
             <div className="flex flex-col md:flex-row">
               <div className="w-full pr-2 mb-3 md:mb-6">
-                <Field
-                  as={Select}
+                <Select
                   name="industryType"
                   label="Industry Type"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
@@ -145,8 +194,7 @@ function InvestorSecondStep() {
                   )}
               </div>
               <div className="w-full pl-2 mb-3 md:mb-6">
-                <Field
-                  as={Select}
+                <Select
                   name="availableCapital"
                   label="Available Capital"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
@@ -167,21 +215,21 @@ function InvestorSecondStep() {
             </div>
             <div className="flex flex-col md:flex-row">
               <div className="w-full pr-2 mb-3 md:mb-6">
-                <Field
-                  as={Select}
-                  name="soonInvest"
+                <Select
+                  name="likeToInvest"
                   label="How soon would you like to invest?"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
-                    getIn(errors, "soonInvest") && getIn(touched, "soonInvest")
+                    getIn(errors, "likeToInvest") &&
+                    getIn(touched, "likeToInvest")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                   options={investSoon}
                 />
-                {getIn(errors, "soonInvest") &&
-                  getIn(touched, "soonInvest") && (
+                {getIn(errors, "likeToInvest") &&
+                  getIn(touched, "likeToInvest") && (
                     <div className="text-red-500 font-medium">
-                      {getIn(errors, "soonInvest")}
+                      {getIn(errors, "likeToInvest")}
                     </div>
                   )}
               </div>
@@ -192,7 +240,7 @@ function InvestorSecondStep() {
                     <input
                       id="loanYes"
                       type="radio"
-                      name="loan"
+                      name="needForLoan"
                       className={`mr-2 ${styles.RadioBox}`}
                       value={1}
                       checked
@@ -202,7 +250,7 @@ function InvestorSecondStep() {
                   <div className="flex">
                     <input
                       id="loanNo"
-                      name="loan"
+                      name="needForLoan"
                       type="radio"
                       className={`mr-2 ${styles.RadioBox}`}
                       value={0}
@@ -214,8 +262,7 @@ function InvestorSecondStep() {
             </div>
             <div className="flex flex-col md:flex-row">
               <div className="w-full pr-2 mb-3 md:mb-6">
-                <Field
-                  as={Select}
+                <Select
                   name="lookingFor"
                   label="Looking For"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
@@ -233,44 +280,42 @@ function InvestorSecondStep() {
                   )}
               </div>
               <div className="w-full pl-2 mb-3 md:mb-6">
-                <Field
-                  as={MultiSelect}
-                  name="bussinessState"
+                <MultiSelect
+                  name="lookingForState"
                   label="Looking For Business in (State)"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
-                    getIn(errors, "bussinessState") &&
-                    getIn(touched, "bussinessState")
+                    getIn(errors, "lookingForState") &&
+                    getIn(touched, "lookingForState")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                   options={state}
                 />
-                {getIn(errors, "bussinessState") &&
-                  getIn(touched, "bussinessState") && (
+                {getIn(errors, "lookingForState") &&
+                  getIn(touched, "lookingForState") && (
                     <div className="text-red-500 font-medium">
-                      {getIn(errors, "bussinessState")}
+                      {getIn(errors, "lookingForState")}
                     </div>
                   )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
               <div className="w-full pr-2 mb-3 md:mb-6">
-                <Field
-                  as={MultiSelect}
-                  name="bussinessCity"
+                <MultiSelect
+                  name="lookingForCity"
                   label="Looking For Business in (City)"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
-                    getIn(errors, "bussinessCity") &&
-                    getIn(touched, "bussinessCity")
+                    getIn(errors, "lookingForCity") &&
+                    getIn(touched, "lookingForCity")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                   options={city}
                 />
-                {getIn(errors, "bussinessCity") &&
-                  getIn(touched, "bussinessCity") && (
+                {getIn(errors, "lookingForCity") &&
+                  getIn(touched, "lookingForCity") && (
                     <div className="text-red-500 font-medium">
-                      {getIn(errors, "bussinessCity")}
+                      {getIn(errors, "lookingForCity")}
                     </div>
                   )}
               </div>
@@ -283,7 +328,7 @@ function InvestorSecondStep() {
                     <input
                       id="ownYes"
                       type="radio"
-                      name="ownPropety"
+                      name="ownProperty"
                       className={`mr-2 ${styles.RadioBox}`}
                       value={1}
                       checked
@@ -293,7 +338,7 @@ function InvestorSecondStep() {
                   <div className="flex">
                     <input
                       id="ownNo"
-                      name="ownPropety"
+                      name="ownProperty"
                       type="radio"
                       className={`mr-2 ${styles.RadioBox}`}
                       value={0}
