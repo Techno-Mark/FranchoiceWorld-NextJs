@@ -37,7 +37,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   return (
     <section className={`py-8 md:py-20 ${styles.innerListBrandBanner}`}>
       <div className="container">
-        <div className="flex items-center flex-wrap lg:flex-nowrap gap-8">
+        <div className="flex items-start flex-wrap lg:flex-nowrap gap-8">
           <div className={`w-full ${styles.listBrandBannerText}`}>
             <h3 className={`font-extrabold ${styles.innerBrandTitle}`}>
               {props.SectionTitle}
@@ -92,7 +92,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               ))}
             </ul>
             <p
-              className={`pb-6 md:pb-12 ${styles.agreePolicy} ${
+              className={`pb-6 md:pb-12 text-[12px] ${styles.agreePolicy} ${
                 props.noborder ? "!border-b-0" : ""
               }`}
             >
