@@ -1,0 +1,4 @@
+.RadioBox:checked~label {
+    color: #24A0ED;
+    font-weight: 600;
+}
