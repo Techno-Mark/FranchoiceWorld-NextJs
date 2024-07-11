@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import styles from "./investorsteps.module.css";
 import { getStepProgress } from "@/utills/stepProgress";
+import Faq from "@/components/faq/faq";
 
 const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -55,13 +56,13 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
               varient="white"
             />
           </div>
-          <div className="flex flex-col md:flex-row justify-between w-full md:w-4/5 mx-auto">
+          <div className="flex flex-col md:flex-row justify-between w-full md:w-1/3 mx-auto">
             {steps.map((step, index) => (
-              <div className="relative md:max-w-[170px]" key={index}>
+              <div className="relative md:max-w-[155px]" key={index}>
                 <Stepper
                   className={`${styles.stepperClass}`}
                   title={step.title}
-                  titleClass={`!text-white w-full w-4/5 mx-auto ${
+                  titleClass={`!text-white w-full md:w-[110px] mx-auto ${
                     stepPaths.indexOf(pathname) >= index
                       ? "opacity-100"
                       : "opacity-50"
@@ -88,6 +89,7 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
           </div>
         </div>
       </section>
+      <Faq />
     </div>
   );
 };
