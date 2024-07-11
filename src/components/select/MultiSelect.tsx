@@ -7,6 +7,7 @@ interface MultiSelectProps {
   name: string;
   label?: string;
   className?: string;
+  onChange?: (selectedValues: number[]) => void;
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
@@ -14,6 +15,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   name,
   label,
   className,
+  onChange,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -53,6 +55,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       ? fieldValue.filter((item: number) => item !== option.value)
       : [...fieldValue, option.value];
     helpers.setValue(newValue);
+
+    // Call the onChange prop if it exists
+    if (onChange) {
+      onChange(newValue);
+    }
   };
 
   const toggleDropdown = () => {

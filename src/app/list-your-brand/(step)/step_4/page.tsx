@@ -20,6 +20,8 @@ import VideoUpload from "@/components/Uploader/VideoUpload";
 import axios from "axios";
 import { useListBrand } from "@/contexts/ListBrandContext";
 import { updateStepProgress } from "@/utills/stepProgress";
+import Link from "next/link";
+import Checkbox from "@/components/Fields/CheckBox";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -28,6 +30,7 @@ interface FormValues {
   logo: File[];
   brandImages: File[];
   video?: File[];
+  acceptTerms: boolean;
 }
 
 function FourthStep() {
@@ -49,6 +52,7 @@ function FourthStep() {
     logo: [],
     brandImages: [],
     video: [],
+    acceptTerms: true,
   });
 
   const FILE_SIZE = 5 * 1024 * 1024;
@@ -93,6 +97,9 @@ function FourthStep() {
           ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
           : true
       ),
+    acceptTerms: Yup.boolean()
+      .oneOf([true], "You must accept the Terms & Conditions.")
+      .required("You must accept the Terms & Conditions."),
   });
 
   const handleSubmit = async (
@@ -300,7 +307,7 @@ function FourthStep() {
                     maxFiles={1}
                   />
                   {errors.logo && touched.logo && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 font-medium">
                       {errors.logo as ReactNode}
                     </div>
                   )}
@@ -317,7 +324,7 @@ function FourthStep() {
                     onChange={(files) => setFieldValue("brandImages", files)}
                   />
                   {errors.brandImages && touched.brandImages && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 font-medium">
                       {errors.brandImages as ReactNode}
                     </div>
                   )}
@@ -332,7 +339,61 @@ function FourthStep() {
                     existingVideos={formValues.video}
                   />
                   {errors.video && touched.video && (
-                    <div className="text-red-500">{errors.video}</div>
+                    <div className="text-red-500 font-medium">
+                      {errors.video}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="py-24">
+                <span className="text-[rgba(23,73,138,1)] font-semibold text-sm">
+                  Agree and Submit Your Information
+                </span>
+                <div className="flex py-5">
+                  <Field
+                    as={Checkbox}
+                    id="acceptTerms"
+                    name="acceptTerms"
+                    defaultChecked={true}
+                  />
+                  <label
+                    htmlFor="acceptTerms"
+                    className="font-semibold text-[12px]"
+                  >
+                    I agree to the{" "}
+                    <Link className="underline" href="#">
+                      Terms & Conditions.
+                    </Link>
+                  </label>
+                </div>
+                <div className="flex">
+                  <Field
+                    as={Checkbox}
+                    id="grid-accept-terms"
+                    name="acceptTerms"
+                    defaultChecked={true}
+                  />
+                  <label
+                    htmlFor="grid-accept-terms"
+                    className="font-semibold text-[12px]"
+                  >
+                    I hereby consent to the future processing of my data for
+                    marketing and operational purposes.
+                  </label>
+                </div>
+                <div>
+                  <label
+                    className="text-xs text-[rgba(115,114,115,1)]"
+                    htmlFor=""
+                  >
+                    Please note that we don not sell your data to any third
+                    party.
+                  </label>
+                  {errors.acceptTerms && touched.acceptTerms && (
+                    <div className="text-red-500 font-medium">
+                      {errors.acceptTerms}
+                    </div>
                   )}
                 </div>
               </div>

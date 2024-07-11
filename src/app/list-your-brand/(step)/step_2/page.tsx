@@ -15,6 +15,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useListBrand } from "@/contexts/ListBrandContext";
 import { updateStepProgress } from "@/utills/stepProgress";
+import {
+  getCity,
+  getIndustry,
+  getService,
+  getSubCategory,
+} from "@/api/dropdown";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -50,8 +56,12 @@ function SecondStep() {
   const [subCategorieOptions, setSubCategorieOptions] = useState<OptionType[]>(
     []
   );
+  const [serviceOptions, setServiceOptions] = useState<OptionType[]>([]);
+  const [stateOptions, setStateOptions] = useState<OptionType[]>([]);
+  const [cityOptions, setCityOptions] = useState<OptionType[]>([]);
 
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
+  const [selectedState, setSelectedState] = useState<any[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,12 +69,6 @@ function SecondStep() {
       setSelectedCountry(localStorage.getItem("selectedCountry"));
     }
   }, []);
-
-  const Services = [
-    { value: 1, label: "Kids Wear" },
-    { value: 2, label: "Corporate Training" },
-    { value: 3, label: "Tea and Coffee Chain" },
-  ];
 
   const YearFounded = [
     { value: 1, label: "1999" },
@@ -84,33 +88,15 @@ function SecondStep() {
     { value: 3, label: "5" },
   ];
 
-  const state = [
-    { value: 1, label: "Andhra Pradesh" },
-    { value: 2, label: "Arunachal Pradesh" },
-    { value: 3, label: "Assam" },
-    { value: 4, label: "Bihar" },
-    { value: 5, label: "Chhattisgarh" },
-    { value: 6, label: "Goa" },
-  ];
-
-  const Cities = [
-    { value: 1, label: "Agra" },
-    { value: 2, label: "Ahmedabad" },
-    { value: 3, label: "Aizwal" },
-    { value: 4, label: "Ajmer" },
-    { value: 5, label: "Allahabad" },
-    { value: 6, label: "Alleppey" },
-  ];
-
   const OptionMap: OptionsMapType = {
     industry: categorieOptions,
     subCategory: subCategorieOptions,
-    service: Services,
+    service: serviceOptions,
     yearFounded: YearFounded,
     headquartersLocation: Locations,
     numberOfLocations: NumberOfLocations,
-    state: state,
-    city: Cities,
+    state: stateOptions,
+    city: cityOptions,
   };
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -131,19 +117,12 @@ function SecondStep() {
 
   const fetchCategoriesTypes = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/categories`
-      );
-      const categoriesTypes = response.data?.ResponseData;
-
+      const response = await getIndustry("/dropdown/categories");
       // Convert the fetched data to the format expected by your Select component
-      const formattedcategoriesTypes = categoriesTypes.map(
-        (categorie: any) => ({
-          value: categorie.id,
-          label: categorie.name,
-        })
-      );
-
+      const formattedcategoriesTypes = response.map((categorie: any) => ({
+        value: categorie.id,
+        label: categorie.name,
+      }));
       setCategorieOptions(formattedcategoriesTypes);
     } catch (error) {
       console.error("Error fetching categories types:", error);
@@ -152,21 +131,67 @@ function SecondStep() {
 
   const fetchSubCategoriesTypes = async (industryId: number | null) => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/dropdown/subcategories`,
-        { categoryId: industryId }
-      );
-      const categoriesTypes = response.data?.ResponseData;
+      const response = await getSubCategory("/dropdown/subcategories", {
+        categoryId: industryId,
+      });
 
       // Convert the fetched data to the format expected by your Select component
-      const formattedSubCategoriesTypes = categoriesTypes.map(
-        (categorie: any) => ({
-          value: categorie.id,
-          label: categorie.name,
-        })
-      );
+      const formattedSubCategoriesTypes = response.map((categorie: any) => ({
+        value: categorie.id,
+        label: categorie.name,
+      }));
 
       setSubCategorieOptions(formattedSubCategoriesTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchServiceTypes = async (industryId: number | null) => {
+    try {
+      const response = await getService("/dropdown/services", {
+        sectorId: industryId,
+      });
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedServicesTypes = response.map((service: any) => ({
+        value: service.id,
+        label: service.name,
+      }));
+
+      setServiceOptions(formattedServicesTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchState = async () => {
+    try {
+      const response = await getIndustry("/dropdown/states");
+      // Convert the fetched data to the format expected by your Select component
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchCity = async (cityId: any[]) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: cityId,
+      });
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+
+      setCityOptions(formattedCity);
     } catch (error) {
       console.error("Error fetching categories types:", error);
     }
@@ -175,11 +200,16 @@ function SecondStep() {
   useEffect(() => {
     if (selectedIndustry != null) {
       fetchSubCategoriesTypes(selectedIndustry);
+      fetchServiceTypes(selectedIndustry);
     }
-  }, [selectedIndustry]);
+    if (selectedCountry != null) {
+      fetchCity(selectedState);
+    }
+  }, [selectedIndustry, selectedState]);
 
   useEffect(() => {
     fetchCategoriesTypes();
+    fetchState();
   }, []);
 
   useEffect(() => {
@@ -210,6 +240,8 @@ function SecondStep() {
         }));
 
         fetchSubCategoriesTypes(data?.industry);
+        fetchServiceTypes(data?.industry);
+        fetchCity(data?.state);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -413,6 +445,10 @@ function SecondStep() {
                               field.name.charAt(0).toUpperCase() +
                               field.name.slice(1).replace(/([A-Z])/g, " $1")
                             }
+                            onChange={(value) => {
+                              if (field.name === "state")
+                                setSelectedState(value);
+                            }}
                             options={OptionMap[field.name] || []}
                           />
                           {getIn(errors, field.name) &&
@@ -426,6 +462,8 @@ function SecondStep() {
                     </Field>
                   </div>
                 ))}
+
+               
               </div>
               <div className="flex justify-between">
                 <Button

@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="mainBody">
         <ListBrandProvider>
-        <main className="flex flex-col min-h-screen">
-          <Header />
-          {children}
-        </main>
-        <Footer />
+          <main className="flex flex-col min-h-screen">
+            <Header />
+            {children}
+          </main>
+          <Footer />
         </ListBrandProvider>
       </body>
     </html>
