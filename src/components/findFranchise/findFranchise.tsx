@@ -24,7 +24,8 @@ const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
           />
           <Tabs
             titleClassName={styles.franchiseType}
-            contentClassName={`w-full md:w-11/12 mx-auto ${styles.franchiseContent}`}
+            mainClassName="w-full md:w-11/12 mx-auto"
+            contentClassName={`w-full ${styles.franchiseContent}`}
             tabs={tabs}
             dark={dark}
           />
