@@ -10,6 +10,7 @@ interface TabsProps {
   tabs: Tab[];
   titleClassName?: string;
   contentClassName?: string;
+  mainClassName?: string;
   dark?: boolean;
 }
 
@@ -17,13 +18,14 @@ const Tabs: React.FC<TabsProps> = ({
   tabs,
   titleClassName,
   contentClassName,
+  mainClassName,
   dark,
 }) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0].id);
 
   return (
-    <div className={`w-full`}>
-      <div className={`flex gap-6 md:gap-12 tabTitle ${titleClassName}`}>
+    <div className={mainClassName}>
+      <div className={`flex gap-6 md:gap-20 tabTitle ${titleClassName}`}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
