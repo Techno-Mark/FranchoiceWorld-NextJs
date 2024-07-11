@@ -1,25 +1,28 @@
 "use client";
 
+import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
-// import { updateStepProgress } from "@/utills/stepProgress";
+import { updateStepProgress } from "@/utills/stepProgress";
 import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 interface FormValues {
-  fullName: string;
-  phoneNumber: string;
-  email: string;
-  cities: string;
-  pinCode: string;
-  investmentRange: string;
+  fullName: string | null;
+  email: string | null;
+  countryCode: string | null;
+  phoneNumber: string | null;
+  city: number | null;
+  pincode: string | null;
+  investmentRange: number | null;
 }
+
 const Cities = [
   { value: 1, label: "Agra" },
   { value: 2, label: "Ahmedabad" },
@@ -37,85 +40,84 @@ const investmentRange = [
   { value: 5, label: "10,00,000 - 15,00,000" },
   { value: 6, label: "More then 15,00,000" },
 ];
+
 function InvestorFirstStep() {
   const router = useRouter();
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [mobileNumber, setMobileNumber] = useState<string | null>("");
+  const [selectedCountry, setSelectedCountry] = useState<string | null>("");
 
-  const initialValues: FormValues = {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMobileNumber(localStorage.getItem("mobileNumber"));
+      setSelectedCountry(localStorage.getItem("selectedCountry"));
+    }
+  }, []);
+
+  const [formValues, setFormValues] = useState<FormValues>({
     fullName: "",
-    phoneNumber: "",
     email: "",
-    cities: "",
-    pinCode: "",
-    investmentRange: "",
-  };
+    countryCode: selectedCountry,
+    phoneNumber: mobileNumber,
+    city: null,
+    pincode: "",
+    investmentRange: null,
+  });
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
-    phoneNumber: Yup.string().required("Phone Number is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    cities: Yup.string().required("City is required"),
-    pinCode: Yup.string().required("Pin Code is required"),
-    investmentRange: Yup.string().required("Pin Code is required"),
+    city: Yup.number().required("City is required"),
+    pincode: Yup.string().required("Pin Code is required"),
+    investmentRange: Yup.number().required("Investment Range is required"),
   });
 
-  const handleSubmit = (
-    values: FormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
+  const handleSubmit = async (
+    values: typeof formValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
+    setSubmitting(true);
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
-    console.log("Form submitted:", values);
-    setSubmitting(false);
+    try {
+      const response = await CreateInvestorData(values);
+      updateStepProgress("/investor/step_2");
+      router.push(`/investor/step_2`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const fetchData = async () => {
+    updateStepProgress("/investor/step_1");
+    try {
+      let params = {
+        phoneNumber: mobileNumber,
+        countryCode: selectedCountry,
+      };
+      const response = await getInvestorData(params);
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        fullName: response?.fullName || "",
+        email: response?.email || "",
+        city: response?.city || null,
+        pincode: response?.pincode || "",
+        investmentRange: response?.investmentRange || null,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    // This runs only on the client side
-    setMobileNumber(localStorage.getItem("mobileNumber") || "");
-    setSelectedCountry(localStorage.getItem("selectedCountry") || "");
-  }, []);
-  // const fetchData = async () => {
-  //   // updateStepProgress("/investor/step_1");
-  //   try {
-  //     let params = {
-  //       data: {
-  //         phoneNumber: mobileNumber,
-  //         countryCode: selectedCountry,
-  //       },
-  //     };
-  //     const response = await getInvestorData(params);
-  //     console.log("resp", response);
-
-  //     // formik.setValues({
-  //     //   fullName: response.fullName || "",
-  //     //   phoneNumber: mobileNumber,
-  //     //   countryCode: selectedCountry,
-  //     //   email: data.email || "",
-  //     //   companyName: data.companyName || "",
-  //     //   websiteURL: data.websiteURL || "",
-  //     // });
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (mobileNumber && selectedCountry) {
-  //     fetchData();
-  //   } else {
-  //     setIsLoading(false);
-  //   }
-  // }, [mobileNumber, selectedCountry]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+    if (mobileNumber && selectedCountry) {
+      fetchData();
+    }
+  }, [mobileNumber, selectedCountry]);
 
   return (
     <>
@@ -126,8 +128,9 @@ function InvestorFirstStep() {
         titleClass="md:!pb-2.5"
       />
       <Formik
-        initialValues={initialValues}
+        initialValues={formValues}
         validationSchema={validationSchema}
+        enableReinitialize={true}
         onSubmit={handleSubmit}
       >
         {({ errors, touched, setFieldValue }) => (
@@ -203,20 +206,19 @@ function InvestorFirstStep() {
 
             <div className="flex flex-col md:flex-row">
               <div className="w-full pr-2 mb-3 md:mb-6">
-                <Field
-                  as={Select}
-                  name="cities"
+                <Select
+                  name="city"
                   label="City"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
-                    getIn(errors, "cities") && getIn(touched, "cities")
+                    getIn(errors, "city") && getIn(touched, "city")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                   options={Cities}
                 />
-                {getIn(errors, "cities") && getIn(touched, "cities") && (
+                {getIn(errors, "city") && getIn(touched, "city") && (
                   <div className="text-red-500 font-medium">
-                    {getIn(errors, "cities")}
+                    {getIn(errors, "city")}
                   </div>
                 )}
               </div>
@@ -224,26 +226,25 @@ function InvestorFirstStep() {
                 <Field
                   as={InputField}
                   id="grid-pincode"
-                  name="pinCode"
+                  name="pincode"
                   type="number"
                   label="Pin Code"
                   required={true}
                   className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
-                    getIn(errors, "pinCode") && getIn(touched, "pinCode")
+                    getIn(errors, "pincode") && getIn(touched, "pincode")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                 />
-                {getIn(errors, "pinCode") && getIn(touched, "pinCode") && (
+                {getIn(errors, "pincode") && getIn(touched, "pincode") && (
                   <div className="text-red-500 font-medium">
-                    {getIn(errors, "pinCode")}
+                    {getIn(errors, "pincode")}
                   </div>
                 )}
               </div>
             </div>
             <div className="w-full md:w-1/2 pr-2 mb-3 md:mb-6">
-              <Field
-                as={Select}
+              <Select
                 name="investmentRange"
                 label="Investment Range"
                 className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
