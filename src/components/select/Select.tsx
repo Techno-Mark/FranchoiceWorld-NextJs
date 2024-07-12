@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
+import styles from "./MultiSelect.module.css";
+
 
 interface SelectProps {
   options: { value: number; label: string }[];
@@ -108,18 +110,22 @@ const Select: React.FC<SelectProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg`">
-            {options.map((option, index) => (
-              <div
-                key={index}
-                className={`px-4 py-2 cursor-pointer hover:bg-gray-200 ${
-                  option.value === field.value ? "bg-gray-100 font-bold" : ""
-                }`}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.label}
-              </div>
-            ))}
+          <div className="absolute  z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg`">
+            <div
+              className={`max-h-60 overflow-y-auto ${styles.custom_scrollbar}`}
+            >
+              {options.map((option, index) => (
+                <div
+                  key={index}
+                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 ${
+                    option.value === field.value ? "bg-gray-100 font-bold" : ""
+                  }`}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.label}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
