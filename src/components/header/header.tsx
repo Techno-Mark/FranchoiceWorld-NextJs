@@ -71,15 +71,11 @@ const Header = () => {
       pathname === "/list-your-brand/step_4" ||
       pathname === "/thankyou"
     ) {
-      console.log("enterif");
-
       setStepList(true);
     } else {
-      console.log("hello");
       setStepList(false);
     }
   };
-  console.log("listbrand check", listBrand, "steplist", stepList);
 
   const handleScroll = () => {
     const banner = document.querySelector("#banner") as HTMLElement;
