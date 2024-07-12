@@ -43,7 +43,7 @@ const Header = () => {
     },
     {
       name: "Knowledge Center",
-      path: "/",
+      path: "/knowledge-center",
     },
     {
       name: "Contact Us",
