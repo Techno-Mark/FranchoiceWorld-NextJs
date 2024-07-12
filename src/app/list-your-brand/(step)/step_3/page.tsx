@@ -156,7 +156,6 @@ function SecondStep() {
       .required("Is the term renewable? is required"),
   });
 
-
   const handleSubmit = async (
     values: typeof formValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
@@ -424,8 +423,7 @@ function SecondStep() {
                 ))}
               </div>
               <div className="w-full mb-3 md:mb-6">
-                <Field
-                  as={MultiSelect}
+                <MultiSelect
                   name="supportProvided"
                   label="Support Provided to Franchisees"
                   className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
