@@ -56,9 +56,36 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
                 placeholder="Enter Mobile No."
                 className={`rounded-md w-full font-medium text-lg bg-white border border-gray-300 cursor-pointer focus:outline-none ${styles.InputStyle}`}
                 pattern="[0-9]{5} [0-9]{5}"
-                maxLength={11}
                 value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Allow only numbers and limit to 10 digits
+                  if (/^\d*$/.test(value) && value.length <= 10) {
+                    setMobileNumber(value);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  // Prevent entering non-numeric characters
+                  if (
+                    e.key === "." ||
+                    e.key === "-" ||
+                    e.key === "e" ||
+                    e.key === "E"
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
+                onPaste={(e) => {
+                  const pastedData = e.clipboardData.getData("Text");
+                  // Allow only numbers and limit to 10 digits
+                  if (
+                    !/^\d*$/.test(pastedData) ||
+                    mobileNumber.length + pastedData.length > 10
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
+                maxLength={10}
               />
               <Button
                 variant="highlighted"

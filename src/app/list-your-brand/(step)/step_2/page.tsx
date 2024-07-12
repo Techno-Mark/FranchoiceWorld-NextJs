@@ -314,23 +314,23 @@ function SecondStep() {
       setFieldTouched(fieldName, true);
     });
 
-    // try {
-    //   const response = await axios.post(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
-    //     {
-    //       ...values,
-    //       phoneNumber: mobileNumber,
-    //       countryCode: selectedCountry,
-    //     }
-    //   );
-    //   updateStepProgress("/list-your-brand/step_3");
-    //   router.push(`/list-your-brand/step_3`);
-    // } catch (error) {
-    //   console.error("Error submitting form:", error);
-    // } finally {
-    //   setIsSubmitting(false);
-    //   setSubmitting(false);
-    // }
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        {
+          ...values,
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+        }
+      );
+      updateStepProgress("/list-your-brand/step_3");
+      router.push(`/list-your-brand/step_3`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitting(false);
+    }
   };
 
   const handleBackButton = () => {
