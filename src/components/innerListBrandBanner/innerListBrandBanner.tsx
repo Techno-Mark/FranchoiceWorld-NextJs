@@ -44,7 +44,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
             </h3>
             <h4 className={styles.innerBrandSubtitle}>{props.desc}</h4>
             <form
-              className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full max-w-[565px]`}
+              className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown
@@ -110,9 +110,9 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               </Link>
             </p>
           </div>
-          <div className={`w-full`}>
+          <div className={`w-full max-w-[250px] mx-auto md:max-w-full`}>
             <Image
-              className={`w-full object-contain max-w-[461px] ml-auto`}
+              className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0`}
               src={props.bannerImage}
               alt="List your Brand"
               width={461}
