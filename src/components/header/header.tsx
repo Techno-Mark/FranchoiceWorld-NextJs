@@ -21,33 +21,33 @@ const Header = () => {
       submenu: [
         {
           name: "Brand Owner",
-          path: "/services/brand-owner",
+          path: "/list-your-brand",
           icons: "/brandOwner.svg",
         },
         {
           name: "Investor",
-          path: "/services/investor",
+          path: "/investor",
           icons: "/investor.svg",
         },
         {
           name: "Independent Franchise Partner",
-          path: "/services/franchise-partner",
+          path: "/",
           icons: "/independentPartner.svg",
         },
         {
           name: "Real Estate Developer",
-          path: "/services/real-estate-developer",
+          path: "/",
           icons: "/realestate.svg",
         },
       ],
     },
     {
       name: "Knowledge Center",
-      path: "/knowledge_center",
+      path: "/",
     },
     {
       name: "Contact Us",
-      path: "/contact_us",
+      path: "/contact-sales",
     },
   ];
   const [isScrolled, setIsScrolled] = useState(false);
@@ -204,7 +204,10 @@ const Header = () => {
                         ))}
                       </ul>
                       <div className={`${styles.stickyCatBtn}`}>
-                        <Link href="/list-your-brand" className={`${styles.categoryButton}`}>
+                        <Link
+                          href="/list-your-brand"
+                          className={`${styles.categoryButton}`}
+                        >
                           List Your Brand
                         </Link>
                       </div>
