@@ -27,6 +27,7 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
           <Title
             title="Why Choose Franchoice World?"
             desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+            descClass="font-medium"
           />
         </div>
         <div className="flex flex-wrap gap-y-4">
