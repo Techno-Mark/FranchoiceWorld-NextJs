@@ -384,25 +384,28 @@ function SecondStep() {
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
                           {field === "yearFounded" ? (
-                            <Field name={field}>
-                              {({ field, form, meta }: FieldProps) => (
+                            
                                 <YearSelect
                                   id="year-select"
                                   name="yearFounded"
                                   label="Select Year"
                                   required
-                                  startYear={1900} // or any other year you prefer
+                                  startYear={1900}
                                 />
-                              )}
-                            </Field>
+                          
                           ) : (
                             <Select
-                              name={fieldProps.name}
+                              name={field}
                               className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                                getIn(errors, field) && getIn(touched, field)
+                                getIn(errors, field) &&
+                                getIn(touched, field)
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
+                              onChange={(value) => {
+                                if (field === "industry")
+                                  setSelectedIndustry(value);
+                              }}
                               label={label[index]}
                               options={OptionMap[field] || []}
                             />
