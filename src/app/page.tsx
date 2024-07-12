@@ -173,12 +173,14 @@ const cardBox = [
     hoverImage: "/brandOwner_gray.svg",
     chooseTitle: "Brand Owner",
     list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
+    redirectURL: "/list-your-brand"
   },
   {
     chooseImage: "/images/investor.svg",
     hoverImage: "/investor_gray.svg",
     chooseTitle: "Investor",
     list: ["Personalized Matching", "Expert Guidance", "Extensive Network"],
+    redirectURL: "/investor"
   },
   {
     chooseImage: "/images/independentPartner.svg",
