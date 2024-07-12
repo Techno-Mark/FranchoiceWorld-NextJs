@@ -5,8 +5,8 @@ import styles from "./countryDropdown.module.css";
 
 const countries = [
   { code: "+91", name: "India", flag: "https://flagcdn.com/in.svg" },
-  { code: "+1", name: "Canada", flag: "https://flagcdn.com/ca.svg" },
-  { code: "+44", name: "UK", flag: "https://flagcdn.com/gb.svg" },
+  // { code: "+1", name: "Canada", flag: "https://flagcdn.com/ca.svg" },
+  // { code: "+44", name: "UK", flag: "https://flagcdn.com/gb.svg" },
   // Add more countries as needed
 ];
 

@@ -7,59 +7,62 @@ import Card from "../card/card";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import Title from "../title/title";
 import styles from "./contactBanner.module.css";
-// import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Checkbox from "../Fields/CheckBox";
 import TextArea from "../Fields/TextArea";
 import Button from "../button/button";
 import Select from "../select/Select";
+import { useRouter } from "next/navigation";
+import { CreateContact } from "@/api/contact";
 
 interface FormValues {
   fullName: string;
+  countryCode: string;
   phoneNumber: string;
-  email: string;
+  emailId: string;
   companyName: string;
   information: string;
-  who: string;
+  whoAmI: string;
   acceptTerms: boolean;
 }
 const whoOption = [
-  { label: "Brand", value: "Brand" },
-  { label: "Investor", value: "Investor" },
+  { label: "Brand", value: 1 },
+  { label: "Investor", value: 2 },
   {
     label: "Independent Franchise Partner",
-    value: "Independent Franchise Partner",
+    value: 3,
   },
-  { label: "Real Estate Developer", value: "Real Estate Developer" },
+  { label: "Real Estate Developer", value: 4 },
 ];
 const ContactBanner = () => {
-  // const router = useRouter();
+  const router = useRouter();
 
   const initialValues: FormValues = {
     fullName: "",
+    countryCode: "+91",
     phoneNumber: "",
-    email: "",
+    emailId: "",
     companyName: "",
     information: "",
-    who: "",
+    whoAmI: "",
     acceptTerms: true,
   };
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
     phoneNumber: Yup.string().required("Phone Number is required"),
-    email: Yup.string()
+    emailId: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
     companyName: Yup.string().required("Company Name is required"),
-    who: Yup.string().required("This field is required"),
+    whoAmI: Yup.string().required("This field is required"),
     acceptTerms: Yup.boolean().oneOf(
       [true],
       "You must accept the terms and conditions"
     ),
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {
@@ -67,7 +70,16 @@ const ContactBanner = () => {
       setFieldTouched(fieldName, true);
     });
 
-    console.log("Form submitted:", values);
+    try {
+      const response = await CreateContact(values);
+      if (response.ResponseStatus === "success") {
+        router.push(`/thankyou`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
     setSubmitting(false);
   };
 
@@ -173,8 +185,8 @@ const ContactBanner = () => {
                     <div className="w-full pr-1 mb-3">
                       <Field
                         as={InputField}
-                        id="grid-email"
-                        name="email"
+                        id="emailId"
+                        name="emailId"
                         type="email"
                         label="Email ID"
                         required={true}
@@ -230,9 +242,8 @@ const ContactBanner = () => {
                     </div>
                   </div>
                   <div className="w-full mb-3 md:mb-6">
-                    <Field
-                      as={Select}
-                      name="who"
+                    <Select
+                      name="whoAmI"
                       label="Who am I?"
                       className={`flex  justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
                         getIn(errors, "who") && getIn(touched, "who")
