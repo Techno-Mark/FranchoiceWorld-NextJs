@@ -70,7 +70,7 @@ const WhatWeDo: React.FC<WeDoSliderProps> = ({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2.8,
+          slidesToShow: 2.2,
         },
       },
       {
@@ -102,12 +102,12 @@ const WhatWeDo: React.FC<WeDoSliderProps> = ({
           {items.map((wedo, index) => (
             <div key={wedo.id}>
               <div
-                className={`relative mr-6 rounded-lg overflow-hidden ${styles.weDoCard}`}
+                className={`relative mr-6 rounded-lg overflow-hidden min-h-[345px] lg:min-h-full ${styles.weDoCard}`}
               >
                 <Image
                   src={wedo.image}
                   alt={wedo.title}
-                  className={`w-full object-cover h-full`}
+                  className={`w-full object-cover min-h-[345px] lg:min-h-full`}
                   width={332}
                   height={316}
                 />
@@ -115,9 +115,9 @@ const WhatWeDo: React.FC<WeDoSliderProps> = ({
                   {wedo.title}
                 </div>
                 <div
-                  className={`flex flex-col justify-around absolute top-full left-0 w-full bg-[var(--footer-bg)] text-white h-full px-6 py-12 transition-all duration-200 ${styles.hoverCard}`}
+                  className={`flex flex-col justify-start absolute top-full left-0 w-full bg-[var(--footer-bg)] text-white h-full px-6 py-8 md:py-12 transition-all duration-200 ${styles.hoverCard}`}
                 >
-                  <h3 className="font-bold text-base mb-6">
+                  <h3 className="font-bold text-[14px] mb-6">
                     {index + 1}. {wedo.title}
                   </h3>
                   <ul className="list-disc pl-5">

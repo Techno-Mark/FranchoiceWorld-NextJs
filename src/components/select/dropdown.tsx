@@ -58,7 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className="relative inline-block w-full" ref={dropdownRef}>
+    <div className="relative inline-block w-full h-full" ref={dropdownRef}>
       {label && (
         <label className="block mb-2 text-sm font-medium text-gray-700">
           {label}
