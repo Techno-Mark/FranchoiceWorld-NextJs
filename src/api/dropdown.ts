@@ -90,3 +90,21 @@ export const getSupportProvide = async (param: string) => {
     throw new Error("Error fetching");
   }
 };
+
+export const getHeadquarters = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+
+export const getOutlets = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};

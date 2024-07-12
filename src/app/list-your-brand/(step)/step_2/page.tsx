@@ -17,7 +17,9 @@ import { useListBrand } from "@/contexts/ListBrandContext";
 import { updateStepProgress } from "@/utills/stepProgress";
 import {
   getCity,
+  getHeadquarters,
   getIndustry,
+  getOutlets,
   getService,
   getSubCategory,
 } from "@/api/dropdown";
@@ -61,19 +63,13 @@ function SecondStep() {
   const [serviceOptions, setServiceOptions] = useState<OptionType[]>([]);
   const [stateOptions, setStateOptions] = useState<OptionType[]>([]);
   const [cityOptions, setCityOptions] = useState<OptionType[]>([]);
+  const [headquartersOptions, setHeadquartersOptions] = useState<OptionType[]>(
+    []
+  );
+  const [outletsOptions, setOutletsOptions] = useState<OptionType[]>([]);
 
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [selectedState, setSelectedState] = useState<any[]>([]);
-
-  const [selectedYear, setSelectedYear] = useState<number | undefined>(
-    undefined
-  );
-
-  const [displayYear, setDisplayYear] = useState(new Date().getFullYear());
-
-  const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedYear(parseInt(event.target.value, 10));
-  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -81,12 +77,6 @@ function SecondStep() {
       setSelectedCountry(localStorage.getItem("selectedCountry"));
     }
   }, []);
-
-  const YearFounded = [
-    { value: 1, label: "1999" },
-    { value: 2, label: "2002" },
-    { value: 3, label: "2004" },
-  ];
 
   const Locations = [
     { value: 1, label: "Delhi" },
@@ -104,9 +94,8 @@ function SecondStep() {
     industry: categorieOptions,
     subCategory: subCategorieOptions,
     service: serviceOptions,
-    yearFounded: YearFounded,
-    headquartersLocation: Locations,
-    numberOfLocations: NumberOfLocations,
+    headquartersLocation: headquartersOptions,
+    numberOfLocations: outletsOptions,
     state: stateOptions,
     city: cityOptions,
   };
@@ -154,6 +143,37 @@ function SecondStep() {
       }));
 
       setSubCategorieOptions(formattedSubCategoriesTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+  const fetchHeadquartersTypes = async () => {
+    try {
+      const response = await getHeadquarters("/dropdown/headquarters");
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedHeadquartersTypes = response.map((headquearters: any) => ({
+        value: headquearters.id,
+        label: headquearters.name,
+      }));
+
+      setHeadquartersOptions(formattedHeadquartersTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchOutletsTypes = async () => {
+    try {
+      const response = await getOutlets("/dropdown/outlets");
+
+      // Convert the fetched data to the format expected by your Select component
+      const formattedOutletsTypes = response.map((outlets: any) => ({
+        value: outlets.id,
+        label: outlets.name,
+      }));
+
+      setOutletsOptions(formattedOutletsTypes);
     } catch (error) {
       console.error("Error fetching categories types:", error);
     }
@@ -222,6 +242,8 @@ function SecondStep() {
   useEffect(() => {
     fetchCategoriesTypes();
     fetchState();
+    fetchHeadquartersTypes();
+    fetchOutletsTypes();
   }, []);
 
   useEffect(() => {
@@ -292,23 +314,23 @@ function SecondStep() {
       setFieldTouched(fieldName, true);
     });
 
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
-        {
-          ...values,
-          phoneNumber: mobileNumber,
-          countryCode: selectedCountry,
-        }
-      );
-      updateStepProgress("/list-your-brand/step_3");
-      router.push(`/list-your-brand/step_3`);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setIsSubmitting(false);
-      setSubmitting(false);
-    }
+    // try {
+    //   const response = await axios.post(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+    //     {
+    //       ...values,
+    //       phoneNumber: mobileNumber,
+    //       countryCode: selectedCountry,
+    //     }
+    //   );
+    //   updateStepProgress("/list-your-brand/step_3");
+    //   router.push(`/list-your-brand/step_3`);
+    // } catch (error) {
+    //   console.error("Error submitting form:", error);
+    // } finally {
+    //   setIsSubmitting(false);
+    //   setSubmitting(false);
+    // }
   };
 
   const handleBackButton = () => {
@@ -384,21 +406,23 @@ function SecondStep() {
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
                           {field === "yearFounded" ? (
-                            
-                                <YearSelect
-                                  id="year-select"
-                                  name="yearFounded"
-                                  label="Select Year"
-                                  required
-                                  startYear={1900}
-                                />
-                          
+                            <YearSelect
+                              id="year-select"
+                              name="yearFounded"
+                              className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                                getIn(errors, field) && getIn(touched, field)
+                                  ? "border-red-500 mb-0.5"
+                                  : ""
+                              }`}
+                              label="Year Founded"
+                              required
+                              startYear={1900}
+                            />
                           ) : (
                             <Select
                               name={field}
                               className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                                getIn(errors, field) &&
-                                getIn(touched, field)
+                                getIn(errors, field) && getIn(touched, field)
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
