@@ -21,7 +21,7 @@ interface FormValues {
   phoneNumber: string;
   emailId: string;
   companyName: string;
-  information: string;
+  otherInformation: string;
   whoAmI: string;
   acceptTerms: boolean;
 }
@@ -43,7 +43,7 @@ const ContactBanner = () => {
     phoneNumber: "",
     emailId: "",
     companyName: "",
-    information: "",
+    otherInformation: "",
     whoAmI: "",
     acceptTerms: true,
   };
@@ -262,7 +262,7 @@ const ContactBanner = () => {
                     <Field
                       as={TextArea}
                       id="grid-information"
-                      name="information"
+                      name="otherInformation"
                       label="Is there any other information you would like yo share with us?"
                       required={false}
                       className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${

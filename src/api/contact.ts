@@ -7,7 +7,7 @@ interface ContactForm {
     phoneNumber: string;
     emailId: string;
     companyName: string;
-    information: string;
+    otherInformation: string;
     whoAmI: string;
     acceptTerms: boolean;
   }
