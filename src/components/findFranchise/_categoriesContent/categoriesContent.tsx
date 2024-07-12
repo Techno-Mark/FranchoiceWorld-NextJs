@@ -44,9 +44,9 @@ const CategoriesContent = () => {
         className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
         onSubmit={handelSubmitCategory}
       >
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
-            className="text-[16px]"
+            className="!px-3 !py-4 !text-[14px] md:text-[16px]"
             name="selectedIndustry"
             options={Industry}
             value={selectedIndustry}
@@ -54,18 +54,18 @@ const CategoriesContent = () => {
             placeholder="Select Industries"
           />
         </div>
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
-            className="text-[16px]"
+            className="!px-3 !py-4 !text-[14px] md:text-[16px]"
             options={Sector}
             value={selectedSector}
             onChange={handleSectorChange}
             placeholder="Select Sector"
           />
         </div>
-        <div className="mb-5 md:mb-0 md:mr-4 w-full max-w-[327px] md:max-w-[280px]">
+        <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
           <Dropdown
-            className="text-[16px]"
+            className="!px-3 !py-4 !text-[14px] md:text-[16px]"
             options={Product}
             value={selectedProduct}
             onChange={handleProductChange}
@@ -74,7 +74,7 @@ const CategoriesContent = () => {
         </div>
         <Button
           variant="highlighted"
-          className={`px-4 md:px-11 rounded-md text-[16px] ${styles.search_btn}`}
+          className={`px-4 lg:px-11 rounded-md !text-[14px] md:text-[16px] ${styles.search_btn}`}
           type="submit"
         >
           Search
