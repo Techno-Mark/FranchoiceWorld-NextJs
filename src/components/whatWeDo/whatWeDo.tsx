@@ -95,7 +95,7 @@ const WhatWeDo: React.FC<WeDoSliderProps> = ({
           <Title
             title={sectionTitle}
             desc={titleDesc}
-            descClass="w-full md:w-3/4 md:pl-0"
+            descClass="w-full md:w-3/4 md:pl-0 font-medium"
           />
         </div>
         <StyledSlider {...settings}>
