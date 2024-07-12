@@ -53,7 +53,7 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
                       />
                       <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
                     </div>
-                    {desc && <p className="text-medium pb-4">{desc}</p>}
+                    {desc && <p className="font-medium pb-4">{desc}</p>}
                     {list && (
                       <ul className={styles.chooseBenifits}>
                         {list.map((benefit, idx) => (
