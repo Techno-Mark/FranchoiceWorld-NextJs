@@ -36,19 +36,19 @@ const ListingSimpleSteps = () => {
             descClass="font-medium"
           />
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start md:space-x-4">
+        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start lg:space-x-4">
           {steps.map((step, index) => (
-            <div className="relative md:max-w-[180px]" key={index}>
+            <div className="relative lg:max-w-[180px]" key={index}>
               <Stepper
                 className={styles.stepperClass}
                 icon={step.icon}
                 title={step.title}
                 description={step.description}
-                stepBoxClass="ml-4 md:ml-0 !text-left md:!text-center"
+                stepBoxClass="ml-4 md:ml-0 !text-left lg:!text-center"
               />
               {index < steps.length - 1 && (
                 <div
-                  className={`h-px bg-black w-1/2 md:w-full absolute ${styles.stepDivider}`}
+                  className={`h-px bg-black w-1/2 lg:w-full absolute ${styles.stepDivider}`}
                 />
               )}
             </div>
