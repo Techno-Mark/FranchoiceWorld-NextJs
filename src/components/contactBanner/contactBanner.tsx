@@ -58,7 +58,7 @@ const ContactBanner = () => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
-    phoneNumber: Yup.string().required("Phone Number is required"),
+    phoneNumber: Yup.number().required("Phone Number is required"),
     emailId: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -84,7 +84,7 @@ const ContactBanner = () => {
         companyName: values.companyName,
         emailId: values.emailId,
         whoAmI: values.whoAmI,
-        phoneNumber: values.phoneNumber,
+        phoneNumber: values.phoneNumber.toString(),
         otherInformation: values.otherInformation,
       });
       if (response.ResponseStatus === "success") {
