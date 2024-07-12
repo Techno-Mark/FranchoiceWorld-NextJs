@@ -22,6 +22,8 @@ import {
   getSubCategory,
 } from "@/api/dropdown";
 
+import YearSelect from "@/components/Fields/yearSelect";
+
 interface FormValues {
   phoneNumber: string | null;
   countryCode: string | null;
@@ -62,6 +64,16 @@ function SecondStep() {
 
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [selectedState, setSelectedState] = useState<any[]>([]);
+
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(
+    undefined
+  );
+
+  const [displayYear, setDisplayYear] = useState(new Date().getFullYear());
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedYear(parseInt(event.target.value, 10));
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -361,6 +373,7 @@ function SecondStep() {
                   </div>
                 )}
               </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field: string, index: number) => (
                   <div
@@ -368,29 +381,37 @@ function SecondStep() {
                     key={field}
                   >
                     <Field name={field}>
-                      {({ field, form }: FieldProps) => (
+                      {({ field: fieldProps, form }: FieldProps) => (
                         <>
-                          <Select
-                            name={field.name}
-                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                              getIn(errors, field.name) &&
-                              getIn(touched, field.name)
-                                ? "border-red-500 mb-0.5"
-                                : ""
-                            }`}
-                            onChange={(value) => {
-                              if (field.name === "industry")
-                                setSelectedIndustry(value);
-                            }}
-                            label={label[index]}
-                            options={OptionMap[field.name] || []}
-                          />
-                          {getIn(errors, field.name) &&
-                            getIn(touched, field.name) && (
-                              <div className="text-red-500 font-medium">
-                                {getIn(errors, field.name)}
-                              </div>
-                            )}
+                          {field === "yearFounded" ? (
+                            <Field name={field}>
+                              {({ field, form, meta }: FieldProps) => (
+                                <YearSelect
+                                  id="year-select"
+                                  name="yearFounded"
+                                  label="Select Year"
+                                  required
+                                  startYear={1900} // or any other year you prefer
+                                />
+                              )}
+                            </Field>
+                          ) : (
+                            <Select
+                              name={fieldProps.name}
+                              className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                                getIn(errors, field) && getIn(touched, field)
+                                  ? "border-red-500 mb-0.5"
+                                  : ""
+                              }`}
+                              label={label[index]}
+                              options={OptionMap[field] || []}
+                            />
+                          )}
+                          {getIn(errors, field) && getIn(touched, field) && (
+                            <div className="text-red-500 font-medium">
+                              {getIn(errors, field)}
+                            </div>
+                          )}
                         </>
                       )}
                     </Field>
@@ -462,9 +483,8 @@ function SecondStep() {
                     </Field>
                   </div>
                 ))}
-
-               
               </div>
+
               <div className="flex justify-between">
                 <Button
                   variant="secondary"
