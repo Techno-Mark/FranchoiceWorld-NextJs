@@ -240,6 +240,16 @@ const ContactBanner = () => {
                             name="phoneNumber"
                             type="number"
                             required={true}
+                            maxLength={10}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              const { value } = e.target;
+                              if (/^\d{0,10}$/.test(value)) {
+                                // Update formik value if it passes validation
+                                setFieldValue("phoneNumber", value);
+                              }
+                            }}
                             className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:bg-white focus:border-[#73727366] ${
                               getIn(errors, "phoneNumber") &&
                               getIn(touched, "phoneNumber")
