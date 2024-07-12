@@ -49,7 +49,11 @@ function FirstStep() {
       try {
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
-          values
+          {
+            ...values,
+            phoneNumber: mobileNumber,
+            countryCode: selectedCountry,
+          }
         );
         updateStepProgress("/list-your-brand/step_2");
         router.push(`/list-your-brand/step_2`);
