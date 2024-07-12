@@ -204,7 +204,7 @@ const Header = () => {
                         ))}
                       </ul>
                       <div className={`${styles.stickyCatBtn}`}>
-                        <Link href="#" className={`${styles.categoryButton}`}>
+                        <Link href="/list-your-brand" className={`${styles.categoryButton}`}>
                           List Your Brand
                         </Link>
                       </div>

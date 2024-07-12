@@ -17,13 +17,13 @@ import { CreateContact } from "@/api/contact";
 
 interface FormValues {
   fullName: string;
-  countryCode: string;
+  // countryCode: string;
   phoneNumber: string;
   emailId: string;
   companyName: string;
   otherInformation: string;
-  whoAmI: string;
-  acceptTerms: boolean;
+  whoAmI: number | null;
+  // acceptTerms: boolean;
 }
 const whoOption = [
   { label: "Brand", value: 1 },
@@ -39,14 +39,22 @@ const ContactBanner = () => {
 
   const initialValues: FormValues = {
     fullName: "",
-    countryCode: "+91",
-    phoneNumber: "",
-    emailId: "",
     companyName: "",
+    emailId: "",
+    whoAmI: null,
+    phoneNumber: "",
     otherInformation: "",
-    whoAmI: "",
-    acceptTerms: true,
   };
+  // const initialValues: FormValues = {
+  //   fullName: "",
+  //   // countryCode: "+91",
+  //   phoneNumber: "",
+  //   emailId: "",
+  //   companyName: "",
+  //   otherInformation: "",
+  //   whoAmI: null,
+  //   // acceptTerms: true,
+  // };
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
@@ -71,7 +79,14 @@ const ContactBanner = () => {
     });
 
     try {
-      const response = await CreateContact(values);
+      const response = await CreateContact({
+        fullName: values.fullName,
+        companyName: values.companyName,
+        emailId: values.emailId,
+        whoAmI: values.whoAmI,
+        phoneNumber: values.phoneNumber,
+        otherInformation: values.otherInformation,
+      });
       if (response.ResponseStatus === "success") {
         router.push(`/thankyou`);
       }
@@ -128,6 +143,7 @@ const ContactBanner = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
+            enableReinitialize={true}
             onSubmit={handleSubmit}
           >
             {({ errors, touched, setFieldValue }) => (
@@ -246,15 +262,15 @@ const ContactBanner = () => {
                       name="whoAmI"
                       label="Who am I?"
                       className={`flex  justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none min-h-[45px] items-center ${
-                        getIn(errors, "who") && getIn(touched, "who")
+                        getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
                           ? "border-red-500 mb-0.5"
                           : ""
                       }`}
                       options={whoOption}
                     />
-                    {getIn(errors, "who") && getIn(touched, "who") && (
+                    {getIn(errors, "whoAmI") && getIn(touched, "whoAmI") && (
                       <div className="text-red-500 font-medium">
-                        {getIn(errors, "who")}
+                        {getIn(errors, "whoAmI")}
                       </div>
                     )}
                   </div>

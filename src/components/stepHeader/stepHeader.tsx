@@ -14,7 +14,7 @@ function StepHeader() {
       path: "/contact_us",
     },
   ];
-  
+
   return (
     <header
       className={`sticky top-0 z-10 py-4 bg-white ${styles.headerContainer}`}
@@ -49,7 +49,6 @@ function StepHeader() {
                   />
                 </svg>
               </Link>
-             
             </div>
             <div
               id="mega-menu-full"
@@ -66,7 +65,10 @@ function StepHeader() {
                 ))}
               </ul>
               <div className={`${styles.stickyCatBtn}`}>
-                <Link href="#" className={`${styles.categoryButton}`}>
+                <Link
+                  href="/list-your-brand"
+                  className={`${styles.categoryButton}`}
+                >
                   List Your Brand
                 </Link>
               </div>
