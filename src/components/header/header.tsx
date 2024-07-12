@@ -22,22 +22,22 @@ const Header = () => {
         {
           name: "Brand Owner",
           path: "/list-your-brand",
-          icons: "/brandOwner.svg",
+          icons: "/images/brandOwner.svg",
         },
         {
           name: "Investor",
           path: "/investor",
-          icons: "/investor.svg",
+          icons: "/images/investor.svg",
         },
         {
           name: "Independent Franchise Partner",
           path: "/",
-          icons: "/independentPartner.svg",
+          icons: "/images/independentPartner.svg",
         },
         {
           name: "Real Estate Developer",
           path: "/",
-          icons: "/realestate.svg",
+          icons: "/images/realestate.svg",
         },
       ],
     },
