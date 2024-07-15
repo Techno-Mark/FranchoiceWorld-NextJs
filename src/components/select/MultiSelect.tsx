@@ -94,11 +94,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       </label>
       <div className="relative inline-block w-full" ref={selectRef}>
         <div
-          className={`${
-            className
-              ? className
-              : "flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center"
-          } `}
+          className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${className}`}
           onClick={toggleDropdown}
         >
           {(Array.isArray(field.value) ? field.value : []).map(
