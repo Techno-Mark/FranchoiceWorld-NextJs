@@ -350,7 +350,7 @@ function SecondStep() {
         <Title
           title="What It Takes to Join Your Franchise"
           desc="Investment Details Needed"
-          descClass="md:!px-0"
+          descClass="md:!px-0  font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>

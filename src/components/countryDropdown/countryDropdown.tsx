@@ -66,7 +66,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
   const getVariantClasses = () => {
     switch (variant) {
       case "small":
-        return "pl-1 pr-4 py-2 text-sm";
+        return "pl-2 pr-5 py-3 text-sm";
       case "formDropdown":
         return "pl-2 pr-6 py-3 md:pr-7 md:py-4 text-base";
       case "regular":
@@ -81,7 +81,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
         className={`relative flex h-full w-full leading-tight border border-gray-300 rounded-md cursor-pointer focus:outline-none ${getVariantClasses()} ${
           isOpen && styles.selectCountryDrop
         } ${
-          disabled && "pointer-event-none bg-[rgba(115,114,115,0.2)]"
+          disabled && "pointer-event-none"
         } ${className}`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
       >
@@ -114,7 +114,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
             variant === "regular"
               ? "md:px-2"
               : variant === "small"
-              ? "md:px-0"
+              ? "md:px-0 "
               : ""
           }`}
         >

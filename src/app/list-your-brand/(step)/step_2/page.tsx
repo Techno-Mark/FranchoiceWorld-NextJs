@@ -364,7 +364,7 @@ function SecondStep() {
         <Title
           title="Showcase Your Brand's Identity"
           desc="Essential Details Required"
-          descClass="md:!px-0"
+          descClass="md:!px-0  font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
