@@ -41,7 +41,7 @@ function FirstStep() {
         .required("Email is required"),
       companyName: Yup.string().required("Company Name is required"),
       websiteURL: Yup.string()
-        .url("Invalid URL")
+        // .url("Invalid URL")
         .required("Website URL is required"),
     }),
     onSubmit: async (values) => {
@@ -107,7 +107,7 @@ function FirstStep() {
       <Title
         title="Your Details Stay Secure With Us"
         desc="Enter Your Confidential Information"
-        descClass="md:!px-0"
+        descClass="md:!px-0  font-medium text-xl"
         titleClass="md:!pb-2.5"
       />
       <form onSubmit={formik.handleSubmit} className="md:mt-16">
@@ -134,7 +134,7 @@ function FirstStep() {
               </div>
             )}
           </div>
-          <div className="w-full pl-2 mb-3">
+          <div className="w-full pr-2 mb-3 md:pl-2">
             <label
               className="block mb-2 font-medium text-[var(--text-color)]"
               htmlFor="phoneNumber"
@@ -155,7 +155,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={`mb-3`}
+                className={`mb-3 md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>
@@ -166,7 +166,7 @@ function FirstStep() {
             name="email"
             type="email"
             value={formik.values.email}
-            label="Email"
+            label="Email Address"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
@@ -209,7 +209,7 @@ function FirstStep() {
             id="grid-website-url"
             name="websiteURL"
             type="url"
-            label="WebSite URL"
+            label="Website URL"
             value={formik.values.websiteURL}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

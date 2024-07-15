@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = "px-4 py-2 rounded outline-none";
   const variantStyles = {
     primary: "bg-[var(--footer-bg)] text-white hover:bg-[var(--footer-hover)]",
-    secondary: "border border-color-[rgba(115, 114, 115, 0.5)]",
+    secondary: "border border-[rgba(115,114,115,0.5)]",
     highlighted: `font-bold ${styles.highlightedBtn}`,
   };
 

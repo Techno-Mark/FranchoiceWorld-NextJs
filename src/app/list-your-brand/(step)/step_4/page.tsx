@@ -266,6 +266,8 @@ function FourthStep() {
         <Title
           title="Visualize Your Brand"
           desc="Upload Brochures,Logos, and More"
+          descClass="md:!px-0  font-medium text-xl"
+          titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
           initialValues={formValues}
@@ -297,7 +299,7 @@ function FourthStep() {
                 </div>
                 <div>
                   <ImageUpload
-                    label="upload Logo"
+                    label="Upload Logo"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
                     required
@@ -314,7 +316,7 @@ function FourthStep() {
                 </div>
                 <div>
                   <ImageUpload
-                    label="upload Brand Images"
+                    label="Upload Brand Images"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
                     required
@@ -331,7 +333,7 @@ function FourthStep() {
                 </div>
                 <div>
                   <VideoUpload
-                    label="upload Video (Optional)"
+                    label="Upload Video (Optional)"
                     desc="Formats accepted are .MP4, MOV, AVI Not more then 25 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
                     name="video"
@@ -440,7 +442,7 @@ function FourthStep() {
                     </>
                   ) : (
                     <>
-                      Next
+                      Submit
                       <ArrowIcon color="white" className="rotate-180 ml-2" />
                     </>
                   )}
