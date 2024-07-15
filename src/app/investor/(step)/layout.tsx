@@ -5,7 +5,7 @@ import Title from "@/components/title/title";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import styles from "./investorsteps.module.css";
-import { getStepProgress } from "@/utills/stepProgress";
+import { getInvestorStepProgress } from "@/utills/stepProgress";
 import Faq from "@/components/faq/faq";
 
 const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
@@ -17,7 +17,7 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
   const stepPaths = ["/investor/step_1", "/investor/step_2"];
 
   useEffect(() => {
-    const allowedSteps = getStepProgress();
+    const allowedSteps = getInvestorStepProgress();
     if (!allowedSteps.includes(pathname)) {
       const lastAllowedStep =
         allowedSteps[allowedSteps.length - 1] || stepPaths[0];

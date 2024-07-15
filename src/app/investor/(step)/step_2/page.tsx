@@ -1,9 +1,11 @@
 "use client";
 import {
+  getCity,
   getIndustry,
   getInvestmentDuration,
   getInvestmentRange,
   getLookingFor,
+  getState,
 } from "@/api/dropdown";
 import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
@@ -27,28 +29,10 @@ interface FormValues {
   likeToInvest: number | null;
   needForLoan: boolean;
   lookingFor: number | null;
-  lookingForState: number[] | null;
-  lookingForCity: number[] | null;
+  lookingForState: string[] | null;
+  lookingForCity: string[] | null;
   ownProperty: boolean;
 }
-
-const state = [
-  { value: 1, label: "Andhra Pradesh" },
-  { value: 2, label: "Arunachal Pradesh" },
-  { value: 3, label: "Assam" },
-  { value: 4, label: "Bihar" },
-  { value: 5, label: "Chhattisgarh" },
-  { value: 6, label: "Goa" },
-];
-
-const city = [
-  { value: 1, label: "Agra" },
-  { value: 2, label: "Ahmedabad" },
-  { value: 3, label: "Aizwal" },
-  { value: 4, label: "Ajmer" },
-  { value: 5, label: "Allahabad" },
-  { value: 6, label: "Alleppey" },
-];
 
 function InvestorSecondStep() {
   const router = useRouter();
@@ -58,7 +42,12 @@ function InvestorSecondStep() {
   const [capitalOptions, setCapitalOptions] = useState([]);
   const [lookingForOptions, setLookingForOptions] = useState([]);
   const [durationOptions, setDurationOptions] = useState([]);
-
+  const [stateOptions, setStateOptions] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
+  const [selectedState, setSelectedState] = useState<any[]>([]);
+  const [cityStateMapping, setCityStateMapping] = useState<{
+    [cityId: number]: number;
+  }>({});
   const fetchDurationOption = async () => {
     try {
       const response = await getInvestmentDuration();
@@ -68,7 +57,7 @@ function InvestorSecondStep() {
       }));
       setDurationOptions(formattedInvestedDuration);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching Investment Duration:", error);
     }
   };
 
@@ -85,7 +74,7 @@ function InvestorSecondStep() {
       );
       setCapitalOptions(formattedInvestmentRangeTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching Available Capital:", error);
     }
   };
 
@@ -98,7 +87,7 @@ function InvestorSecondStep() {
       }));
       setIndustryOptions(formattedIndustryTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching Industry types:", error);
     }
   };
 
@@ -111,7 +100,41 @@ function InvestorSecondStep() {
       }));
       setLookingForOptions(fromattedLookingFor);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching Looking For:", error);
+    }
+  };
+
+  const fetchState = async () => {
+    try {
+      const response = await getState("/dropdown/states");
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+
+  const fetchCity = async (stateIds: number[]) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: stateIds,
+      });
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+      setCityOptions(formattedCity);
+
+      const newMapping: { [cityId: number]: number } = {};
+      response.forEach((city: any) => {
+        newMapping[city.id] = city.stateId;
+      });
+      setCityStateMapping(newMapping);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
     }
   };
 
@@ -120,6 +143,7 @@ function InvestorSecondStep() {
     fetchAvailableCapital();
     fetchLookingFor();
     fetchDurationOption();
+    fetchState();
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("mobileNumber"));
       setSelectedCountry(localStorage.getItem("selectedCountry"));
@@ -134,8 +158,8 @@ function InvestorSecondStep() {
     needForLoan: true,
     likeToInvest: null,
     lookingFor: null,
-    lookingForState: null,
-    lookingForCity: null,
+    lookingForState: [""],
+    lookingForCity: [""],
     ownProperty: true,
   });
 
@@ -151,6 +175,29 @@ function InvestorSecondStep() {
     lookingForState: Yup.number().required("State is required"),
     lookingForCity: Yup.number().required("City is required"),
   });
+
+  const handleStateChange = (selectedStates: number[]) => {
+    const removedStates = selectedState.filter(
+      (state) => !selectedStates.includes(state)
+    );
+
+    if (removedStates.length > 0) {
+      const currentCities = formValues.lookingForCity;
+
+      fetchCity(selectedStates);
+
+      const updatedCities = currentCities?.filter((cityId: any) => {
+        return !removedStates.includes(cityStateMapping[cityId]);
+      });
+
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        state: selectedStates,
+        city: updatedCities,
+      }));
+    }
+    setSelectedState(selectedStates);
+  };
 
   const handleSubmit = async (
     values: typeof formValues,
@@ -195,6 +242,7 @@ function InvestorSecondStep() {
         lookingForCity: response.lookingForCity || null,
         ownProperty: response.ownProperty || true,
       }));
+      fetchCity(response?.state);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -205,6 +253,12 @@ function InvestorSecondStep() {
       fetchData();
     }
   }, [mobileNumber, selectedCountry]);
+
+  useEffect(() => {
+    if (selectedState.length > 0) {
+      fetchCity(selectedState);
+    }
+  }, [selectedState]);
 
   return (
     <>
@@ -286,7 +340,7 @@ function InvestorSecondStep() {
                 <label className="block mb-2 font-medium">
                   Need for Loan?<span className="text-red-500 ml-1">*</span>
                 </label>
-                <div className="mt-2">
+                <div className="mt-4">
                   <Field name="needForLoan">
                     {({ field }: FieldProps) => (
                       <>
@@ -312,8 +366,8 @@ function InvestorSecondStep() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row">
-              <div className="w-half pr-2 mb-3 md:mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="w-full pr-2 mb-3 md:mb-6">
                 <Select
                   name="lookingFor"
                   label="Looking For"
@@ -331,7 +385,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-half pl-2 mb-3 md:mb-6">
+              <div className="w-full pl-2 mb-3 md:mb-6">
                 <MultiSelect
                   name="lookingForState"
                   label="Looking For Business in (State)"
@@ -341,7 +395,10 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={state}
+                  onChange={(value) => {
+                    handleStateChange(value);
+                  }}
+                  options={stateOptions}
                 />
                 {getIn(errors, "lookingForState") &&
                   getIn(touched, "lookingForState") && (
@@ -351,8 +408,8 @@ function InvestorSecondStep() {
                   )}
               </div>
             </div>
-            <div className="flex flex-col md:flex-row">
-              <div className="w-half pr-2 mb-3 md:mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="w-full pr-2 mb-3 md:mb-6">
                 <MultiSelect
                   name="lookingForCity"
                   label="Looking For Business in (City)"
@@ -362,7 +419,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={city}
+                  options={cityOptions}
                 />
                 {getIn(errors, "lookingForCity") &&
                   getIn(touched, "lookingForCity") && (
@@ -371,7 +428,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-half pl-2 mb-3 md:mb-6">
+              <div className="w-full pl-2 mb-3 md:mb-6">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
                   <span className="text-red-500 ml-1">*</span>
