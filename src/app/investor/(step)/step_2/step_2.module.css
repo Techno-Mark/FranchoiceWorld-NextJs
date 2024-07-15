@@ -1,4 +1,4 @@
-.RadioBox:checked~label {
+.RadioBox:checked~span {
     color: #24A0ED;
     font-weight: 600;
 }

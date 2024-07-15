@@ -1,13 +1,19 @@
 "use client";
+import {
+  getIndustry,
+  getInvestmentDuration,
+  getInvestmentRange,
+  getLookingFor,
+} from "@/api/dropdown";
 import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import Button from "@/components/button/button";
 import Checkbox from "@/components/Fields/CheckBox";
+import RadioButton from "@/components/Fields/RadioButton";
 import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
-import { updateStepProgress } from "@/utills/stepProgress";
-import { Form, Formik, FormikHelpers, getIn } from "formik";
+import { Field, FieldProps, Form, Formik, FormikHelpers, getIn } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -26,29 +32,6 @@ interface FormValues {
   ownProperty: boolean;
 }
 
-const industry = [
-  { value: 1, label: "Food" },
-  { value: 2, label: "Automobile" },
-  { value: 3, label: "Education" },
-  { value: 4, label: "Beauty & Health" },
-  { value: 5, label: "Sports" },
-  { value: 6, label: "Fashion" },
-];
-
-const capital = [
-  { value: 1, label: "Less then 1,00,000" },
-  { value: 2, label: "1,00,000 - 2,00,000" },
-  { value: 3, label: "2,00,000 - 5,00,000" },
-  { value: 4, label: "5,00,000 - 10,00,000" },
-  { value: 5, label: "10,00,000 - 15,00,000" },
-  { value: 6, label: "More then 15,00,000" },
-];
-const investSoon = [
-  { value: 1, label: "Less then 1 Month" },
-  { value: 2, label: "2-4 Month" },
-  { value: 3, label: "4-8 Month" },
-  { value: 4, label: "8-12 Month" },
-];
 const state = [
   { value: 1, label: "Andhra Pradesh" },
   { value: 2, label: "Arunachal Pradesh" },
@@ -71,8 +54,72 @@ function InvestorSecondStep() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState<string | null>("");
   const [selectedCountry, setSelectedCountry] = useState<string | null>("");
+  const [industryOptions, setIndustryOptions] = useState([]);
+  const [capitalOptions, setCapitalOptions] = useState([]);
+  const [lookingForOptions, setLookingForOptions] = useState([]);
+  const [durationOptions, setDurationOptions] = useState([]);
+
+  const fetchDurationOption = async () => {
+    try {
+      const response = await getInvestmentDuration();
+      const formattedInvestedDuration = response.map((duration: any) => ({
+        value: duration.id,
+        label: duration.name,
+      }));
+      setDurationOptions(formattedInvestedDuration);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchAvailableCapital = async () => {
+    try {
+      const response = await getInvestmentRange(
+        "/dropdown/min-max-investments"
+      );
+      const formattedInvestmentRangeTypes = response.map(
+        (InvestmentRange: any) => ({
+          value: InvestmentRange.id,
+          label: InvestmentRange.range,
+        })
+      );
+      setCapitalOptions(formattedInvestmentRangeTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchIndustryTypes = async () => {
+    try {
+      const response = await getIndustry("/dropdown/categories");
+      const formattedIndustryTypes = response.map((industry: any) => ({
+        value: industry.id,
+        label: industry.name,
+      }));
+      setIndustryOptions(formattedIndustryTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchLookingFor = async () => {
+    try {
+      const response = await getLookingFor();
+      const fromattedLookingFor = response.map((looking: any) => ({
+        value: looking.id,
+        label: looking.name,
+      }));
+      setLookingForOptions(fromattedLookingFor);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
 
   useEffect(() => {
+    fetchIndustryTypes();
+    fetchAvailableCapital();
+    fetchLookingFor();
+    fetchDurationOption();
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("mobileNumber"));
       setSelectedCountry(localStorage.getItem("selectedCountry"));
@@ -120,7 +167,7 @@ function InvestorSecondStep() {
     try {
       const response = await CreateInvestorData(params);
       if (response.ResponseStatus === "success") {
-        updateStepProgress("");
+        localStorage.clear();
         router.push(`/thankyou`);
       }
     } catch (error) {
@@ -131,7 +178,6 @@ function InvestorSecondStep() {
   };
 
   const fetchData = async () => {
-    updateStepProgress("/investor/step_1");
     try {
       let params = {
         phoneNumber: mobileNumber,
@@ -140,11 +186,14 @@ function InvestorSecondStep() {
       const response = await getInvestorData(params);
       setFormValues((prevValues) => ({
         ...prevValues,
-        fullName: response?.fullName || "",
-        email: response?.email || "",
-        city: response?.city || null,
-        pincode: response?.pincode || "",
-        investmentRange: response?.investmentRange || null,
+        industryType: response.industryType || null,
+        needForLoan: response.needForLoan || true,
+        availableCapital: response.availableCapital || null,
+        likeToInvest: response.likeToInvest || null,
+        lookingFor: response.lookingFor || null,
+        lookingForState: response.lookingForState || null,
+        lookingForCity: response.lookingForCity || null,
+        ownProperty: response.ownProperty || true,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -184,7 +233,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={industry}
+                  options={industryOptions}
                 />
                 {getIn(errors, "industryType") &&
                   getIn(touched, "industryType") && (
@@ -203,7 +252,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={capital}
+                  options={capitalOptions}
                 />
                 {getIn(errors, "availableCapital") &&
                   getIn(touched, "availableCapital") && (
@@ -224,7 +273,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={investSoon}
+                  options={durationOptions}
                 />
                 {getIn(errors, "likeToInvest") &&
                   getIn(touched, "likeToInvest") && (
@@ -234,34 +283,37 @@ function InvestorSecondStep() {
                   )}
               </div>
               <div className="w-full pl-2 mb-3 md:mb-6">
-                <label className="block mb-2 font-medium">Need for Loan?</label>
-                <div className="flex items-center pt-2">
-                  <div className="flex items-center mr-3">
-                    <input
-                      id="loanYes"
-                      type="radio"
-                      name="needForLoan"
-                      className={`mr-2 ${styles.RadioBox}`}
-                      value={1}
-                      checked
-                    />
-                    <label htmlFor="loanYes">Yes</label>
-                  </div>
-                  <div className="flex">
-                    <input
-                      id="loanNo"
-                      name="needForLoan"
-                      type="radio"
-                      className={`mr-2 ${styles.RadioBox}`}
-                      value={0}
-                    />
-                    <label htmlFor="loanNo">No</label>
-                  </div>
+                <label className="block mb-2 font-medium">
+                  Need for Loan?<span className="text-red-500 ml-1">*</span>
+                </label>
+                <div className="mt-2">
+                  <Field name="needForLoan">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === true}
+                          onChange={() => setFieldValue("needForLoan", true)}
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() => setFieldValue("needForLoan", false)}
+                        />
+                      </>
+                    )}
+                  </Field>
                 </div>
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-3 md:mb-6">
+              <div className="w-half pr-2 mb-3 md:mb-6">
                 <Select
                   name="lookingFor"
                   label="Looking For"
@@ -270,7 +322,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={capital}
+                  options={lookingForOptions}
                 />
                 {getIn(errors, "lookingFor") &&
                   getIn(touched, "lookingFor") && (
@@ -279,7 +331,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-3 md:mb-6">
+              <div className="w-half pl-2 mb-3 md:mb-6">
                 <MultiSelect
                   name="lookingForState"
                   label="Looking For Business in (State)"
@@ -300,7 +352,7 @@ function InvestorSecondStep() {
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-3 md:mb-6">
+              <div className="w-half pr-2 mb-3 md:mb-6">
                 <MultiSelect
                   name="lookingForCity"
                   label="Looking For Business in (City)"
@@ -319,32 +371,34 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-3 md:mb-6">
+              <div className="w-half pl-2 mb-3 md:mb-6">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
+                  <span className="text-red-500 ml-1">*</span>
                 </label>
-                <div className="flex items-center pt-2">
-                  <div className="flex items-center mr-3">
-                    <input
-                      id="ownYes"
-                      type="radio"
-                      name="ownProperty"
-                      className={`mr-2 ${styles.RadioBox}`}
-                      value={1}
-                      checked
-                    />
-                    <label htmlFor="ownYes">Yes</label>
-                  </div>
-                  <div className="flex">
-                    <input
-                      id="ownNo"
-                      name="ownProperty"
-                      type="radio"
-                      className={`mr-2 ${styles.RadioBox}`}
-                      value={0}
-                    />
-                    <label htmlFor="ownNo">No</label>
-                  </div>
+                <div className="mt-2">
+                  <Field name="ownProperty">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === true}
+                          onChange={() => setFieldValue("ownProperty", true)}
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() => setFieldValue("ownProperty", false)}
+                        />
+                      </>
+                    )}
+                  </Field>
                 </div>
               </div>
             </div>

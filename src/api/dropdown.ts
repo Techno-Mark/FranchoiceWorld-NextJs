@@ -108,3 +108,20 @@ export const getOutlets = async (param: string) => {
     throw new Error("Error fetching");
   }
 };
+
+export const getLookingFor = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/dropdown/looking-for`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+export const getInvestmentDuration = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/dropdown/investment-durations`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
