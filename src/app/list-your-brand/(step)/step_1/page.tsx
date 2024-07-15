@@ -145,7 +145,7 @@ function FirstStep() {
               <div className="w-[100px] pb-3">
                 <CountryDropdown
                   variant="small"
-                  className="!border-[rgba(115,114,115,0.4)] "
+                  className="!border-[rgba(115,114,115,0.4)]"
                   disabled={true}
                 />
               </div>
@@ -155,7 +155,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={`mb-3 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                className={`mb-3 md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>

@@ -38,8 +38,8 @@ interface FormValues {
   numberOfLocations: number | null;
   brandDescription: string;
   usp: string;
-  state: [];
-  city: [];
+  state: number[];
+  city: number[];
 }
 
 interface OptionType {
@@ -71,34 +71,9 @@ function SecondStep() {
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [selectedState, setSelectedState] = useState<any[]>([]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setMobileNumber(localStorage.getItem("mobileNumber"));
-      setSelectedCountry(localStorage.getItem("selectedCountry"));
-    }
-  }, []);
-
-  const Locations = [
-    { value: 1, label: "Delhi" },
-    { value: 2, label: "Ahmedabad" },
-    { value: 3, label: "Rajkot" },
-  ];
-
-  const NumberOfLocations = [
-    { value: 1, label: "1" },
-    { value: 2, label: "2" },
-    { value: 3, label: "5" },
-  ];
-
-  const OptionMap: OptionsMapType = {
-    industry: categorieOptions,
-    subCategory: subCategorieOptions,
-    service: serviceOptions,
-    headquartersLocation: headquartersOptions,
-    numberOfLocations: outletsOptions,
-    state: stateOptions,
-    city: cityOptions,
-  };
+  const [cityStateMapping, setCityStateMapping] = useState<{
+    [cityId: number]: number;
+  }>({});
 
   const [formValues, setFormValues] = useState<FormValues>({
     phoneNumber: mobileNumber,
@@ -116,10 +91,26 @@ function SecondStep() {
     city: [],
   });
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMobileNumber(localStorage.getItem("mobileNumber"));
+      setSelectedCountry(localStorage.getItem("selectedCountry"));
+    }
+  }, []);
+
+  const OptionMap: OptionsMapType = {
+    industry: categorieOptions,
+    subCategory: subCategorieOptions,
+    service: serviceOptions,
+    headquartersLocation: headquartersOptions,
+    numberOfLocations: outletsOptions,
+    state: stateOptions,
+    city: cityOptions,
+  };
+
   const fetchCategoriesTypes = async () => {
     try {
       const response = await getIndustry("/dropdown/categories");
-      // Convert the fetched data to the format expected by your Select component
       const formattedcategoriesTypes = response.map((categorie: any) => ({
         value: categorie.id,
         label: categorie.name,
@@ -135,47 +126,39 @@ function SecondStep() {
       const response = await getSubCategory("/dropdown/subcategories", {
         categoryId: industryId,
       });
-
-      // Convert the fetched data to the format expected by your Select component
       const formattedSubCategoriesTypes = response.map((categorie: any) => ({
         value: categorie.id,
         label: categorie.name,
       }));
-
       setSubCategorieOptions(formattedSubCategoriesTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching subcategories types:", error);
     }
   };
+
   const fetchHeadquartersTypes = async () => {
     try {
       const response = await getHeadquarters("/dropdown/headquarters");
-
-      // Convert the fetched data to the format expected by your Select component
       const formattedHeadquartersTypes = response.map((headquearters: any) => ({
         value: headquearters.id,
         label: headquearters.name,
       }));
-
       setHeadquartersOptions(formattedHeadquartersTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching headquarters types:", error);
     }
   };
 
   const fetchOutletsTypes = async () => {
     try {
       const response = await getOutlets("/dropdown/outlets");
-
-      // Convert the fetched data to the format expected by your Select component
       const formattedOutletsTypes = response.map((outlets: any) => ({
         value: outlets.id,
         label: outlets.name,
       }));
-
       setOutletsOptions(formattedOutletsTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching outlets types:", error);
     }
   };
 
@@ -184,48 +167,47 @@ function SecondStep() {
       const response = await getService("/dropdown/services", {
         sectorId: industryId,
       });
-
-      // Convert the fetched data to the format expected by your Select component
       const formattedServicesTypes = response.map((service: any) => ({
         value: service.id,
         label: service.name,
       }));
-
       setServiceOptions(formattedServicesTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching service types:", error);
     }
   };
 
   const fetchState = async () => {
     try {
       const response = await getIndustry("/dropdown/states");
-      // Convert the fetched data to the format expected by your Select component
       const formattedstate = response.map((state: any) => ({
         value: state.id,
         label: state.name,
       }));
       setStateOptions(formattedstate);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching states:", error);
     }
   };
 
-  const fetchCity = async (cityId: any[]) => {
+  const fetchCity = async (stateIds: number[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
-        stateId: cityId,
+        stateId: stateIds,
       });
-
-      // Convert the fetched data to the format expected by your Select component
       const formattedCity = response.map((city: any) => ({
         value: city.id,
         label: city.name,
       }));
-
       setCityOptions(formattedCity);
+
+      const newMapping: { [cityId: number]: number } = {};
+      response.forEach((city: any) => {
+        newMapping[city.id] = city.stateId;
+      });
+      setCityStateMapping(newMapping);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching cities:", error);
     }
   };
 
@@ -234,7 +216,7 @@ function SecondStep() {
       fetchSubCategoriesTypes(selectedIndustry);
       fetchServiceTypes(selectedIndustry);
     }
-    if (selectedCountry != null) {
+    if (selectedState.length > 0) {
       fetchCity(selectedState);
     }
   }, [selectedIndustry, selectedState]);
@@ -270,7 +252,6 @@ function SecondStep() {
           usp: data?.brandDescription || "",
           state: data?.state || [],
           city: data?.city || [],
-          // Add other fields as needed
         }));
 
         fetchSubCategoriesTypes(data?.industry);
@@ -285,6 +266,29 @@ function SecondStep() {
       fetchData();
     }
   }, [mobileNumber, selectedCountry]);
+
+  const handleStateChange = (selectedStates: number[]) => {
+    const removedStates = selectedState.filter(
+      (state) => !selectedStates.includes(state)
+    );
+
+    if (removedStates.length > 0) {
+      const currentCities = formValues.city;
+
+      fetchCity(selectedStates);
+
+      const updatedCities = currentCities.filter((cityId) => {
+        return !removedStates.includes(cityStateMapping[cityId]);
+      });
+
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        state: selectedStates, 
+        city: updatedCities,
+      }));
+    }
+    setSelectedState(selectedStates);
+  };
 
   const validationSchema = Yup.object({
     brandName: Yup.string().required("Brand Name is required"),
@@ -309,7 +313,6 @@ function SecondStep() {
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
     setIsSubmitting(true);
-    // Mark all fields as touched to trigger validation
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
@@ -354,7 +357,6 @@ function SecondStep() {
     "headquartersLocation",
     "numberOfLocations",
   ];
-
   const getIn = <T extends object>(obj: T, key: string): any =>
     key.split(".").reduce((o, k) => (o || {})[k], obj as any);
 
@@ -494,8 +496,10 @@ function SecondStep() {
                               field.name.slice(1).replace(/([A-Z])/g, " $1")
                             }
                             onChange={(value) => {
-                              if (field.name === "state")
-                                setSelectedState(value);
+                              if (field.name === "state") {
+                                handleStateChange(value);
+                              }
+                              setFieldValue(field.name, value);
                             }}
                             options={OptionMap[field.name] || []}
                           />
