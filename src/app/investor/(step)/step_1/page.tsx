@@ -1,5 +1,6 @@
 "use client";
 
+import { getCity, getInvestmentRange } from "@/api/dropdown";
 import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import InputField from "@/components/Fields/InputField";
@@ -23,34 +24,54 @@ interface FormValues {
   investmentRange: number | null;
 }
 
-const Cities = [
-  { value: 1, label: "Agra" },
-  { value: 2, label: "Ahmedabad" },
-  { value: 3, label: "Aizwal" },
-  { value: 4, label: "Ajmer" },
-  { value: 5, label: "Allahabad" },
-  { value: 6, label: "Alleppey" },
-];
-
-const investmentRange = [
-  { value: 1, label: "Less then 1,00,000" },
-  { value: 2, label: "1,00,000 - 2,00,000" },
-  { value: 3, label: "2,00,000 - 5,00,000" },
-  { value: 4, label: "5,00,000 - 10,00,000" },
-  { value: 5, label: "10,00,000 - 15,00,000" },
-  { value: 6, label: "More then 15,00,000" },
-];
-
 function InvestorFirstStep() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState<string | null>("");
   const [selectedCountry, setSelectedCountry] = useState<string | null>("");
+  const [investmentRange, setInvstmentRange] = useState([]);
+  const [citiesOption, setCitiesOption] = useState([]);
+
+  const fetchInvestmentRange = async () => {
+    try {
+      const response = await getInvestmentRange(
+        "/dropdown/min-max-investments"
+      );
+      const formattedInvestmentRangeTypes = response.map(
+        (InvestmentRange: any) => ({
+          value: InvestmentRange.id,
+          label: InvestmentRange.range,
+        })
+      );
+      setInvstmentRange(formattedInvestmentRangeTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  const fetchCity = async (cityId: []) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: cityId,
+      });
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+
+      setCitiesOption(formattedCity);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
 
   useEffect(() => {
+    fetchInvestmentRange();
+    fetchCity([]);
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("mobileNumber"));
       setSelectedCountry(localStorage.getItem("selectedCountry"));
     }
+    console.log("Investment Range State:", investmentRange);
   }, []);
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -81,8 +102,13 @@ function InvestorFirstStep() {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
+    let params = {
+      ...values,
+      phoneNumber: mobileNumber,
+      countryCode: selectedCountry,
+    };
     try {
-      const response = await CreateInvestorData(values);
+      const response = await CreateInvestorData(params);
       updateStepProgress("/investor/step_2");
       router.push(`/investor/step_2`);
     } catch (error) {
@@ -214,7 +240,7 @@ function InvestorFirstStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={Cities}
+                  options={citiesOption}
                 />
                 {getIn(errors, "city") && getIn(touched, "city") && (
                   <div className="text-red-500 font-medium">

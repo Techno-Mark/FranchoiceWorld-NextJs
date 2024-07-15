@@ -31,7 +31,6 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
     localStorage.setItem("selectedCountry", selectedCountry);
     // updateStepProgress("/list-your-brand/step_1");
     router.push(props.submitURL);
-    console.log(e.target);
   };
 
   return (

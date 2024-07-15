@@ -59,8 +59,6 @@ const Header = () => {
 
   const pathname = usePathname();
   const checkPath = () => {
-    console.log("pathname", pathname);
-
     if (pathname === "/list-your-brand") {
       setListBrand(true);
     }
