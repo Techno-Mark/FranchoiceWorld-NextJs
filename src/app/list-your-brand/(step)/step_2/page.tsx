@@ -377,7 +377,7 @@ function SecondStep() {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="mt-16">
-              <div className="w-full mb-3 md:mb-6">
+              <div className="w-full mb-8 md:mb-7">
                 <Field
                   as={InputField}
                   id="brandName"
@@ -401,7 +401,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field: string, index: number) => (
                   <div
-                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
                   >
                     <Field name={field}>
@@ -448,7 +448,7 @@ function SecondStep() {
                 ))}
               </div>
               {["brandDescription", "usp"].map((field) => (
-                <div className="w-full mb-3 md:mb-6" key={field}>
+                <div className="w-full mb-8 md:mb-7" key={field}>
                   <Field
                     as={TextArea}
                     id={field}
@@ -477,7 +477,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {["state", "city"].map((field) => (
                   <div
-                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    className={`w-full mb-8 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
                     key={field}
                   >
                     <Field name={field}>
