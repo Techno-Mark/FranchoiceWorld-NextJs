@@ -4,6 +4,8 @@ import Button from "../button/button";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
 import PdfIcon from "@/assets/icons/pdfIcon";
+import ImageIcon from "@/assets/imageIcon";
+
 
 interface FileUploadProps {
   label?: string;
@@ -13,7 +15,7 @@ interface FileUploadProps {
   descClass?: string;
   name: string;
   onChange: (file: File | null) => void;
-  existingFiles?: any[]; // This should be an array of file objects
+  existingFiles?: any[];
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
@@ -26,15 +28,17 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onChange,
   existingFiles = [],
 }) => {
-  const [files, setFiles] = useState<{ name: string; url: string }[]>([]);
+  const [files, setFiles] = useState<
+    { name: string; url: string; type: string }[]
+  >([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (existingFiles.length > 0 && existingFiles[0]) {
-      // Assuming the file name is stored in a 'name' property
       const fileName = existingFiles[0].name || "Existing File";
-      setFiles([{ name: fileName, url: "#" }]);
+      const fileType = fileName.split(".").pop()?.toLowerCase() || "";
+      setFiles([{ name: fileName, url: "#", type: fileType }]);
     }
   }, [existingFiles]);
 
@@ -64,7 +68,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const handleFile = (file: File) => {
-    const newFile = { name: file.name, url: URL.createObjectURL(file) };
+    const fileType = file.name.split(".").pop()?.toLowerCase() || "";
+    const newFile = {
+      name: file.name,
+      url: URL.createObjectURL(file),
+      type: fileType,
+    };
     setFiles([newFile]);
     onChange(file);
   };
@@ -86,6 +95,19 @@ const FileUpload: React.FC<FileUploadProps> = ({
       0,
       maxLength - 3 - (extension?.length || 0)
     )}...${extension}`;
+  };
+
+  const getFileIcon = (fileType: string) => {
+    switch (fileType) {
+      case "pdf":
+        return <PdfIcon className="mr-2" />;
+      case "png":
+      case "jpg":
+      case "jpeg":
+        return <ImageIcon className="mr-2" />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -112,7 +134,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
               className="hidden"
               ref={fileInputRef}
               onChange={handleFileChange}
-              accept=".pdf"
+              accept=".pdf,.png,.jpg,.jpeg"
               name={name}
             />
             <div className="text-center min-w-[198px] h-[128px]">
@@ -140,9 +162,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
               key={index}
               className="px-3 bg-[#E5F0FA99] min-h-[76px] flex justify-between items-center border-2 border-customBorder rounded-lg"
             >
-              <div className="flex items-center">
-                <PdfIcon className="mr-2" />
-              </div>
+              <div className="flex items-center">{getFileIcon(file.type)}</div>
               <div className="font-bold text-xs">
                 {truncateFileName(file.name, 15)}
               </div>
