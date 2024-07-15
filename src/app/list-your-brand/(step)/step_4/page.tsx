@@ -389,7 +389,7 @@ function FourthStep() {
                     className="text-xs text-[rgba(115,114,115,1)]"
                     htmlFor=""
                   >
-                    Please note that we don not sell your data to any third
+                    Please note that we do not sell your data to any third
                     party.
                   </label>
                   {errors.acceptTerms && touched.acceptTerms && (
