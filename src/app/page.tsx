@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Banner from "@/components/banner/banner";
 import HalfBanner from "@/components/halfBanner/halfBanner";
 import WhyChoose from "@/components/whyChoose/whyChoose";
@@ -170,23 +170,21 @@ const banner = {
 const cardBox = [
   {
     chooseImage: "/images/brandOwner.svg",
-    hoverImage: "/brandOwner_gray.svg",
     chooseTitle: "Brand Owner",
     list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
-    redirectURL: "/list-your-brand"
+    redirectURL: "/list-your-brand",
   },
   {
     chooseImage: "/images/investor.svg",
-    hoverImage: "/investor_gray.svg",
     chooseTitle: "Investor",
     list: ["Personalized Matching", "Expert Guidance", "Extensive Network"],
-    redirectURL: "/investor"
+    redirectURL: "/investor",
   },
   {
     chooseImage: "/images/independentPartner.svg",
-    hoverImage: "/independentPartner_gray.svg",
     chooseTitle: "Independent Franchise Partner",
     list: ["Brand Recognition", "Operational Support", "Risk Mitigation"],
+    redirectURL: "/ifp",
   },
   {
     chooseImage: "/images/realestate.svg",
@@ -197,6 +195,7 @@ const cardBox = [
       "Steady Demand",
       "Long-term Lease Agreements",
     ],
+    redirectURL: "/real-estate",
   },
 ];
 export default function Home() {

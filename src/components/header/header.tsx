@@ -11,13 +11,13 @@ const Header = () => {
       name: "Home",
       path: "/",
     },
-    {
-      name: "About Us",
-      path: "/about",
-    },
+    // {
+    //   name: "About Us",
+    //   path: "/about",
+    // },
     {
       name: "Services",
-      path: "/services",
+      // path: "/services",
       submenu: [
         {
           name: "Brand Owner",
@@ -31,20 +31,20 @@ const Header = () => {
         },
         {
           name: "Independent Franchise Partner",
-          path: "/",
+          path: "/ifp",
           icons: "/images/independentPartner.svg",
         },
         {
           name: "Real Estate Developer",
-          path: "/",
+          path: "/real-estate",
           icons: "/images/realestate.svg",
         },
       ],
     },
-    {
-      name: "Knowledge Center",
-      path: "/knowledge-center",
-    },
+    // {
+    //   name: "Knowledge Center",
+    //   path: "/knowledge-center",
+    // },
     {
       name: "Contact Us",
       path: "/contact-sales",
