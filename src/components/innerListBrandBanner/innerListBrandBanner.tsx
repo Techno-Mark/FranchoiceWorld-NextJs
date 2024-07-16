@@ -170,7 +170,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               &{" "}
               <Link
                 className="underline decoration-current"
-                href="#"
+                href="/legal"
                 target="_blank"
               >
                 Infringement Policy

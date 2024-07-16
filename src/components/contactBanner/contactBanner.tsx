@@ -330,11 +330,19 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         className="font-semibold text-[12px]"
                       >
                         I agree to the{" "}
-                        <Link className="underline" href="#">
+                        <Link
+                          className="underline"
+                          href="/term_conditions"
+                          target="_blank"
+                        >
                           Terms & Conditions
                         </Link>{" "}
                         and{" "}
-                        <Link className="underline" href="#">
+                        <Link
+                          className="underline"
+                          href="/privacy_poilicy"
+                          target="_blank"
+                        >
                           Privacy Policy
                         </Link>
                       </label>
