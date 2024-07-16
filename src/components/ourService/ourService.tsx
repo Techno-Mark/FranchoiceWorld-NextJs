@@ -1,21 +1,25 @@
 import Image from "next/image";
 import styles from "./ourservice.module.css";
+import Link from "next/link";
 const OurService = () => {
   const serviceItem = [
     {
       id: "first",
       serviceIcon: "/images/franchiseListing.svg",
       serviceText: "Franchise Listing",
+      redirectURL: "/service/franchise-listing",
     },
     {
       id: "second",
       serviceIcon: "/images/franchiseAdvisor.svg",
       serviceText: "Franchise Advisory",
+      redirectURL: "/service/franchise-advisor",
     },
     {
       id: "third",
       serviceIcon: "/images/franchiseGrowth.svg",
       serviceText: "Franchise Growth",
+      redirectURL: "/service/franchise-growth",
     },
   ];
   return (
@@ -29,18 +33,23 @@ const OurService = () => {
             <>
               <li
                 key={x.id}
-                className={`flex w-full items-center justify-around px-6 py-4 ${styles.serviceBox}`}
+                className={`flex w-full items-center justify-around ${styles.serviceBox}`}
               >
-                <Image
-                  src={x.serviceIcon}
-                  alt={x.serviceText}
-                  width={73}
-                  height={73}
-                  className={styles.serviceIcn}
-                />
-                <h4 className="text-white font-semibold text-lg w-2/5">
-                  {x.serviceText}
-                </h4>
+                <Link
+                  className="flex items-center justify-around px-6 py-4"
+                  href={x.redirectURL}
+                >
+                  <Image
+                    src={x.serviceIcon}
+                    alt={x.serviceText}
+                    width={73}
+                    height={73}
+                    className={styles.serviceIcn}
+                  />
+                  <h4 className="text-white font-semibold text-lg w-2/5">
+                    {x.serviceText}
+                  </h4>
+                </Link>
               </li>
             </>
           ))}
