@@ -57,7 +57,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
     phoneNumber: Yup.number().required("Phone Number is required"),
     emailId: Yup.string()
       .email("Invalid email address")
-      .required("Email is required"),
+      .required("Email ID is required"),
     companyName: Yup.string().required("Company Name is required"),
     whoAmI: Yup.string().required("This field is required"),
     acceptTerms: Yup.boolean().oneOf(
@@ -163,7 +163,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         id="grid-first-name"
                         name="fullName"
                         type="text"
-                        label="Full name"
+                        label="Full Name"
                         required={true}
                         className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
                           getIn(errors, "fullName") &&
