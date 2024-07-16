@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
 
-
 interface SelectProps {
   options: { value: number; label: string }[];
   name: string;
@@ -66,13 +65,15 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className="relative inline-block w-full">
-      <label
-        className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
-        htmlFor={name}
-      >
-        {label}
-        <span className="text-red-500 ml-1">*</span>
-      </label>
+      {label && (
+        <label
+          className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
+          htmlFor={name}
+        >
+          {label}
+          <span className="text-red-500 ml-1">*</span>
+        </label>
+      )}
       <div className="relative inline-block w-full" ref={selectRef}>
         <div
           className={`${
@@ -117,7 +118,7 @@ const Select: React.FC<SelectProps> = ({
               {options.map((option, index) => (
                 <div
                   key={index}
-                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 ${
+                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 text-left${
                     option.value === field.value ? "bg-gray-100 font-bold" : ""
                   }`}
                   onClick={() => handleOptionClick(option)}

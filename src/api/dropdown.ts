@@ -9,6 +9,14 @@ export const getIndustry = async (param: string) => {
     throw new Error("Error fetching");
   }
 };
+export const getSector = async (body: any) => {
+  try {
+    const response = await axios.post(`${API_URL}/dropdown/sector`, body);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
 
 export const getSubCategory = async (param: string, body: any) => {
   try {
@@ -119,7 +127,9 @@ export const getLookingFor = async () => {
 };
 export const getInvestmentDuration = async () => {
   try {
-    const response = await axios.get(`${API_URL}/dropdown/investment-durations`);
+    const response = await axios.get(
+      `${API_URL}/dropdown/investment-durations`
+    );
     return response.data.ResponseData;
   } catch (error) {
     throw new Error("Error fetching");
