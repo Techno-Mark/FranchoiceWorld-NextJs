@@ -27,7 +27,7 @@ const footerItem = [
       {
         id: 4,
         name: "Contact Us",
-        path: "/contact_us",
+        path: "/contact-sales",
       },
     ],
   },

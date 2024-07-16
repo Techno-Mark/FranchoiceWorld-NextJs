@@ -23,7 +23,7 @@ interface FormValues {
   companyName: string;
   otherInformation: string;
   whoAmI: number | null;
-  // acceptTerms: boolean;
+  acceptTerms: boolean;
 }
 
 interface ContactProps {
@@ -49,6 +49,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
     whoAmI: null,
     phoneNumber: "",
     otherInformation: "",
+    acceptTerms: true,
   };
 
   const validationSchema = Yup.object({
@@ -216,11 +217,12 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                             : ""
                         }`}
                       />
-                      {getIn(errors, "emailId") && getIn(touched, "emailId") && (
-                        <div className="text-red-500 font-medium">
-                          {getIn(errors, "emailId")}
-                        </div>
-                      )}
+                      {getIn(errors, "emailId") &&
+                        getIn(touched, "emailId") && (
+                          <div className="text-red-500 font-medium">
+                            {getIn(errors, "emailId")}
+                          </div>
+                        )}
                     </div>
                     <div className="w-full pl-1 mb-3">
                       <label
