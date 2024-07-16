@@ -86,7 +86,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   return (
     <div className="relative inline-block w-full">
       <label
-        className="block mb-2 text-sm font-medium text-gray-700"
+        className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
         htmlFor={name}
       >
         {label}

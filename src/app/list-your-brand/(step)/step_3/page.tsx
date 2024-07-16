@@ -366,7 +366,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field, index) => (
                   <div
-                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
                   >
                     <Field name={field}>
@@ -422,7 +422,7 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              <div className="w-full mb-3 md:mb-6">
+              <div className="w-full mb-8 md:mb-7">
                 <MultiSelect
                   name="supportProvided"
                   label="Support Provided to Franchisees"
@@ -441,7 +441,7 @@ function SecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full mb-3 md:mb-6">
+              <div className="w-full mb-8 md:mb-7">
                 <Field
                   as={TextArea}
                   name="otherApplicable"
@@ -454,7 +454,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {multiselectFields.map((field, index) => (
                   <div
-                    className={`w-full mb-3 md:even:pl-2 md:odd:pr-2 md:mb-6`}
+                    className={`w-full mb-8 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
                     key={field}
                   >
                     <Field name={field}>

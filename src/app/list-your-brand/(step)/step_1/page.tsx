@@ -112,7 +112,7 @@ function FirstStep() {
       />
       <form onSubmit={formik.handleSubmit} className="md:mt-16">
         <div className="flex flex-col md:flex-row">
-          <div className="w-full pr-2 mb-3">
+          <div className="w-full pr-2 mb-8 md:mb-7">
             <InputField
               id="grid-first-name"
               name="fullName"
@@ -134,7 +134,7 @@ function FirstStep() {
               </div>
             )}
           </div>
-          <div className="w-full pr-2 mb-3 md:pl-2">
+          <div className="w-full pr-2 mb-8 md:mb-7 md:pl-2">
             <label
               className="block mb-2 font-medium text-[var(--text-color)]"
               htmlFor="phoneNumber"
@@ -160,7 +160,7 @@ function FirstStep() {
             </div>
           </div>
         </div>
-        <div className="inline-block w-full mb-3">
+        <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
             id="grid-email"
             name="email"
@@ -182,7 +182,7 @@ function FirstStep() {
             </div>
           )}
         </div>
-        <div className="inline-block w-full mb-3">
+        <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
             id="grid-company-name"
             name="companyName"
@@ -204,7 +204,7 @@ function FirstStep() {
             </div>
           )}
         </div>
-        <div className="inline-block w-full mb-3">
+        <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
             id="grid-website-url"
             name="websiteURL"

@@ -32,7 +32,7 @@ const TextArea: React.FC<TextAreaProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="block mb-2 text-sm font-semibold text-[rgba(115,114,115,1)]"
+          className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
         >
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
