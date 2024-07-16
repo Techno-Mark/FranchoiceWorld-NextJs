@@ -1,13 +1,14 @@
-import { useState, ReactNode } from "react";
 import styles from "./tab.module.css";
+
 interface Tab {
   id: string;
   label: string;
-  content: ReactNode;
 }
 
 interface TabsProps {
   tabs: Tab[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
   titleClassName?: string;
   contentClassName?: string;
   mainClassName?: string;
@@ -16,20 +17,20 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({
   tabs,
+  activeTab,
+  onTabChange,
   titleClassName,
   contentClassName,
   mainClassName,
   dark,
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(tabs[0].id);
-
   return (
     <div className={mainClassName}>
       <div className={`flex gap-6 md:gap-20 tabTitle ${titleClassName}`}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => onTabChange(tab.id)}
             className={`py-2 font-extrabold text-sm border-b-2 ${
               activeTab === tab.id
                 ? `${styles.activeClass}`
@@ -38,16 +39,6 @@ const Tabs: React.FC<TabsProps> = ({
           >
             {tab.label}
           </button>
-        ))}
-      </div>
-      <div className={`mt-4 ${contentClassName}`}>
-        {tabs.map((tab) => (
-          <div
-            key={tab.id}
-            className={`${activeTab === tab.id ? "block" : "hidden"}`}
-          >
-            {tab.content}
-          </div>
         ))}
       </div>
     </div>

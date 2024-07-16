@@ -7,6 +7,7 @@ interface SelectProps {
   name: string;
   label?: string;
   className?: string;
+  placeholder?: string; // New optional placeholder prop
   onChange?: (value: number) => void; // New optional onChange prop
 }
 
@@ -15,6 +16,7 @@ const Select: React.FC<SelectProps> = ({
   name,
   label,
   className,
+  placeholder = "Please select an option", // Default placeholder message
   onChange, // Add onChange to destructured props
   ...props
 }) => {
@@ -47,8 +49,6 @@ const Select: React.FC<SelectProps> = ({
     helpers.setValue(option.value);
     setIsOpen(false);
     setIsTouched(true);
-
-    // Call onChange if provided
     if (onChange) {
       onChange(option.value);
     }
@@ -88,7 +88,7 @@ const Select: React.FC<SelectProps> = ({
               selectedLabel
             ) : (
               <span className="text-[rgba(17,23,29,0.6)] font-medium text-xs">
-                Please select an option
+                {placeholder}
               </span>
             )}
           </span>
@@ -118,7 +118,7 @@ const Select: React.FC<SelectProps> = ({
               {options.map((option, index) => (
                 <div
                   key={index}
-                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 text-left${
+                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
                     option.value === field.value ? "bg-gray-100 font-bold" : ""
                   }`}
                   onClick={() => handleOptionClick(option)}
