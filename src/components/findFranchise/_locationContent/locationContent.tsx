@@ -42,7 +42,7 @@ const LocationContent = () => {
 
   const fetchCityData = async (stateId: number) => {
     try {
-      const resp = await getService("/dropdown/cities", { stateId });
+      const resp = await getService("/dropdown/cities", { stateId:[stateId] });
       const formattedCity = resp.map((service: any) => ({
         value: service.id,
         label: service.name,

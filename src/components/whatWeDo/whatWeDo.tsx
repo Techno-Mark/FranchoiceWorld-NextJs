@@ -34,10 +34,18 @@ const StyledSlider = styled(Slider)`
     color: var(--text-color);
     width: 3rem;
     height: 3rem;
-    opacity: 0.5;
+    opacity: 0.6;
   }
   .slick-prev {
     right: 98px;
+  }
+  .slick-disabled {
+    opacity: 0.3;
+  }
+  .slick-prev:hover:not(.slick-disabled),
+  .slick-next:hover:not(.slick-disabled) {
+    color: var(--footer-bg);
+    opacity: 1;
   }
   @media only screen and (max-width: 767px) {
     .slick-arrow {

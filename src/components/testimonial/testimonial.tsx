@@ -23,7 +23,7 @@ const StyledSlider = styled(Slider)`
   .slick-prev,
   .slick-next {
     color: var(--text-color);
-    opacity: 0.5;
+    opacity: 0.6;
     width: 2.5rem;
     height: 2.5rem;
     top: 33%;
@@ -31,6 +31,11 @@ const StyledSlider = styled(Slider)`
   .slick-list {
     max-width: 570px;
     margin: 0 auto;
+  }
+  .slick-prev:hover,
+  .slick-next:hover {
+    color: var(--footer-bg);
+    opacity: 1;
   }
   @media only screen and (max-width: 767px) {
     .slick-list {
