@@ -226,7 +226,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                     </div>
                     <div className="w-full pl-1 mb-3">
                       <label
-                        className="block mb-2 font-semibold text-[rgba(115,114,115,1)]"
+                        className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
                         htmlFor="phoneNumber"
                       >
                         Phone Number{" "}
@@ -234,7 +234,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                       </label>
                       <div className="flex flex-col">
                         <div className="flex">
-                          <div className="w-[100px] text-[12px] text-semibold">
+                          <div className="w-[100px] text-[12px]">
                             <CountryDropdown
                               variant="small"
                               className="!border-[rgba(115,114,115,0.4)]"
@@ -277,7 +277,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                     <Select
                       name="whoAmI"
                       label="Who am I?"
-                      className={`flex justify-between px-2 py-2 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                      className={`flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                         getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
                           ? "border-red-500 mb-0.5"
                           : ""
