@@ -77,13 +77,14 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
 
   return (
     <div className="relative inline-block h-full" ref={dropdownRef}>
+      {/*  cursor-pointer */}
       <div
-        className={`relative flex h-full w-full leading-tight border border-gray-300 rounded-md cursor-pointer focus:outline-none ${getVariantClasses()} ${
+        className={`relative flex h-full w-full leading-tight border border-gray-300 rounded-md focus:outline-none ${getVariantClasses()} ${
           isOpen && styles.selectCountryDrop
         } ${
           disabled && "pointer-event-none"
         } ${className}`}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
+        // onClick={() => !disabled && setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (
           <div className="flex items-center">
@@ -109,7 +110,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
         ) : (
           "Select a country"
         )}
-        <div
+        {/* <div
           className={`absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none h-full ${
             variant === "regular"
               ? "md:px-2"
@@ -131,7 +132,7 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
               d="M19 9l-7 7-7-7"
             />
           </svg>
-        </div>
+        </div> */}
       </div>
       {isOpen && (
         <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-60 overflow-auto min-w-40">

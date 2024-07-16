@@ -9,16 +9,16 @@ const footerItem = [
     id: "11",
     title: "Company",
     child: [
-      {
-        id: 1,
-        name: "About us",
-        path: "/about",
-      },
-      {
-        id: 2,
-        name: "Services",
-        path: "/services",
-      },
+      // {
+      //   id: 1,
+      //   name: "About us",
+      //   path: "/about",
+      // },
+      // {
+      //   id: 2,
+      //   name: "Services",
+      //   path: "/services",
+      // },
       // {
       //   id: 3,
       //   name: "Knowledge Center",
@@ -35,13 +35,13 @@ const footerItem = [
     id: "22",
     title: "Support",
     child: [
-      {
-        name: "Help Center",
-        path: "/help_center",
-      },
+      // {
+      //   name: "Help Center",
+      //   path: "/help_center",
+      // },
       {
         name: "Terms of service",
-        path: "/terms_of_service",
+        path: "/term_conditions",
       },
       {
         name: "Legal",
@@ -49,7 +49,7 @@ const footerItem = [
       },
       {
         name: "Privacy policy",
-        path: "/privacy-policy",
+        path: "/privacy_policy",
       },
     ],
   },

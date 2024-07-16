@@ -4,11 +4,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { GoCheckCircle } from "react-icons/go";
 import Button from "../button/button";
 import CountryDropdown from "../countryDropdown/countryDropdown";
 import styles from "./innerlistbrandbanner.module.css";
+import {
+  updateInvestorStepProgress,
+  updateStepProgress,
+} from "@/utills/stepProgress";
 interface InnerBannerProps {
   props: {
     bannerImage: string;
@@ -23,13 +27,31 @@ interface InnerBannerProps {
 const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const handleListBrandSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (mobileNumber.trim() === "") {
+      setError("Mobile number is required.");
+      return;
+    }
+    if (mobileNumber.length !== 10) {
+      setError("Mobile number must be exactly 10 digits.");
+      return;
+    }
+    setError(null); // Clear any existing error messages
     localStorage.setItem("mobileNumber", mobileNumber);
     localStorage.setItem("selectedCountry", selectedCountry);
-    // updateStepProgress("/list-your-brand/step_1");
+    if (props.submitURL === "/investor/step_1") {
+      updateInvestorStepProgress("/investor/step_1");
+    } else {
+      updateStepProgress("/list-your-brand/step_1");
+    }
     router.push(props.submitURL);
   };
 
@@ -43,7 +65,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
             </h3>
             <h4 className={styles.innerBrandSubtitle}>{props.desc}</h4>
             <form
-              className={`flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
+              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown
@@ -108,6 +130,11 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
                   </svg>
                 </div>
               </Button>
+              {error && (
+                <p className="absolute text-red-500 left-0 bottom-[-25px] font-semibold">
+                  {error}
+                </p>
+              )}
             </form>
             <ul className="pt-12 pb-8">
               {props.items.map((x, index) => (
@@ -123,15 +150,27 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               }`}
             >
               By continuing, you agree to our{" "}
-              <Link className="underline decoration-current" href="#">
+              <Link
+                className="underline decoration-current"
+                href="/term_conditions"
+                target="_blank"
+              >
                 Terms of Use
               </Link>
               ,{" "}
-              <Link className="underline decoration-current" href="#">
+              <Link
+                className="underline decoration-current"
+                href="/privacy_policy"
+                target="_blank"
+              >
                 Privacy
               </Link>{" "}
               &{" "}
-              <Link className="underline decoration-current" href="#">
+              <Link
+                className="underline decoration-current"
+                href="#"
+                target="_blank"
+              >
                 Infringement Policy
               </Link>
             </p>
