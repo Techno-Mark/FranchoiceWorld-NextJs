@@ -5,7 +5,6 @@ import Link from "next/link";
 import styles from "./stepHeader.module.css";
 import MenuLink from "../header/menuLink/MenuLink";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 function StepHeader() {
   const menuItems = [
@@ -35,7 +34,7 @@ function StepHeader() {
               />
             </Link>
             <div className="flex gap-3 md:hidden items-center">
-              <Link href="tel:+910000000000">
+              <Link href="tel:+916357439829">
                 <svg
                   width="25"
                   height="25"
@@ -79,10 +78,10 @@ function StepHeader() {
               </div>
               <div className="ml-4 hidden md:block">
                 <Link
-                  href="tel:+910000000000"
+                  href="tel:+916357439829"
                   className={`flex items-center gap-2 ${styles.ctaButton}`}
                 >
-                  +91 00000 00000
+                  +91 6357439829
                   <svg
                     width="23"
                     height="23"

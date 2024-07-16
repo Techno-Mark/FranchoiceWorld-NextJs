@@ -8,7 +8,10 @@ import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
-import { updateStepProgress } from "@/utills/stepProgress";
+import {
+  updateInvestorStepProgress,
+  updateStepProgress,
+} from "@/utills/stepProgress";
 import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -71,7 +74,6 @@ function InvestorFirstStep() {
       setMobileNumber(localStorage.getItem("mobileNumber"));
       setSelectedCountry(localStorage.getItem("selectedCountry"));
     }
-    console.log("Investment Range State:", investmentRange);
   }, []);
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -109,8 +111,10 @@ function InvestorFirstStep() {
     };
     try {
       const response = await CreateInvestorData(params);
-      updateStepProgress("/investor/step_2");
-      router.push(`/investor/step_2`);
+      if (response.ResponseStatus === "success") {
+        updateInvestorStepProgress("/investor/step_2");
+        router.push(`/investor/step_2`);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -119,7 +123,7 @@ function InvestorFirstStep() {
   };
 
   const fetchData = async () => {
-    updateStepProgress("/investor/step_1");
+    updateInvestorStepProgress("/investor/step_1");
     try {
       let params = {
         phoneNumber: mobileNumber,

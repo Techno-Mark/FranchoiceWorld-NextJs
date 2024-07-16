@@ -11,13 +11,13 @@ const Header = () => {
       name: "Home",
       path: "/",
     },
-    {
-      name: "About Us",
-      path: "/about",
-    },
+    // {
+    //   name: "About Us",
+    //   path: "/about",
+    // },
     {
       name: "Services",
-      path: "/services",
+      // path: "/services",
       submenu: [
         {
           name: "Brand Owner",
@@ -31,20 +31,20 @@ const Header = () => {
         },
         {
           name: "Independent Franchise Partner",
-          path: "/",
+          path: "/ifp",
           icons: "/images/independentPartner.svg",
         },
         {
           name: "Real Estate Developer",
-          path: "/",
+          path: "/real-estate",
           icons: "/images/realestate.svg",
         },
       ],
     },
-    {
-      name: "Knowledge Center",
-      path: "/knowledge-center",
-    },
+    // {
+    //   name: "Knowledge Center",
+    //   path: "/knowledge-center",
+    // },
     {
       name: "Contact Us",
       path: "/contact-sales",
@@ -128,7 +128,7 @@ const Header = () => {
                   />
                 </Link>
                 <div className="flex gap-3 md:hidden items-center">
-                  <Link href="tel:+910000000000">
+                  <Link href="tel:+916357439829">
                     <svg
                       width="25"
                       height="25"
@@ -242,7 +242,7 @@ const Header = () => {
                   )}
                   <div className="ml-4 hidden md:block">
                     <Link
-                      href="tel:+910000000000"
+                      href="tel:+916357439829"
                       className={`flex items-center gap-2 ${styles.ctaButton}`}
                     >
                       <svg
@@ -257,7 +257,7 @@ const Header = () => {
                           fill="white"
                         />
                       </svg>
-                      +91 00000 00000
+                      +91 6357439829
                     </Link>
                   </div>
                 </div>

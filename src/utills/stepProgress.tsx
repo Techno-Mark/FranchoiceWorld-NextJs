@@ -11,3 +11,17 @@ export const getStepProgress = () => {
     JSON.parse(localStorage.getItem("completedSteps") || "[]")
   );
 };
+
+export const updateInvestorStepProgress = (step: string) => {
+  let steps = JSON.parse(localStorage.getItem("InvestorcompletedSteps") || "[]");
+  if (!steps.includes(step)) {
+    steps.push(step);
+    localStorage.setItem("InvestorcompletedSteps", JSON.stringify(steps));
+  }
+};
+
+export const getInvestorStepProgress = () => {
+  return (
+    JSON.parse(localStorage.getItem("InvestorcompletedSteps") || "[]")
+  );
+};

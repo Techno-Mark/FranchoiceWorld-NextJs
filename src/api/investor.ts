@@ -24,8 +24,8 @@ interface CreateInvestorDataProps {
   needForLoan?: boolean | null;
   likeToInvest?: number | null;
   lookingFor?: number | null;
-  lookingForState?: number[] | null;
-  lookingForCity?: number[] | null;
+  lookingForState?: string[] | null;
+  lookingForCity?: string[] | null;
   ownProperty?: boolean | null;
 }
 

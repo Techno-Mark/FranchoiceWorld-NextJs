@@ -91,7 +91,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
                 type="submit"
                 className="rounded-md !px-2 md:!px-4"
               >
-                <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-base">
+                <div className="flex whitespace-nowrap gap-1 md:gap-2 items-center text-[11px] md:text-[14px]">
                   Start Now{" "}
                   <svg
                     className={styles.arrowIcn}
