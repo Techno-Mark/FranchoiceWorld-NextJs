@@ -168,7 +168,7 @@ function InvestorFirstStep() {
         {({ errors, touched, setFieldValue }) => (
           <Form className="md:mt-16">
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-3 md:mb-6">
+              <div className="w-full pr-2 mb-8 md:mb-7">
                 <Field
                   as={InputField}
                   id="grid-first-name"
@@ -188,7 +188,7 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-              <div className="w-full pl-2 mb-3 md:mb-6">
+              <div className="w-full pl-2 mb-8 md:mb-7">
                 <label
                   className="block mb-2 font-medium text-[var(--text-color)]"
                   htmlFor="phoneNumber"
@@ -215,7 +215,7 @@ function InvestorFirstStep() {
                 </div>
               </div>
             </div>
-            <div className="inline-block w-full mb-3 md:mb-6">
+            <div className="inline-block w-full mb-8 md:mb-7">
               <Field
                 as={InputField}
                 id="grid-email"
@@ -237,7 +237,7 @@ function InvestorFirstStep() {
             </div>
 
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-3 md:mb-6">
+              <div className="w-full pr-2 mb-8 md:mb-7">
                 <Select
                   name="city"
                   label="City"
@@ -254,7 +254,7 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-              <div className="w-full pl-2 mb-3 md:mb-6">
+              <div className="w-full pl-2 mb-8 md:mb-7">
                 <Field
                   as={InputField}
                   id="grid-pincode"
@@ -275,7 +275,7 @@ function InvestorFirstStep() {
                 )}
               </div>
             </div>
-            <div className="w-full md:w-1/2 pr-2 mb-3 md:mb-6">
+            <div className="w-full md:w-1/2 pr-2 mb-8 md:mb-7">
               <Select
                 name="investmentRange"
                 label="Investment Range"
