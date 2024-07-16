@@ -2,11 +2,11 @@
 
 import React from "react";
 
-const Terms_conditions = () => {
+const Privacy_policy = () => {
   return (
     <div className="w-full min-h-screen px-8 py-7 md:px-28 md:py-10  ">
       <div className="mb-8 text-footer-bg font-bold text-4xl">
-        Terms and Conditions
+        Privacy Policy
       </div>
       <div className="mt-6">
         <div className="font-normal pb-14 text-lg text-[rgba(0,0,0,0.6)]">
@@ -75,8 +75,8 @@ const Terms_conditions = () => {
         <div className="text-lg pb-3 font-normal ">
           CARDONE CAPITAL may reject any application to register an individual
           or an organization or entity for failure to achieve validation through
-          available methods or otherwise meet CARDONE CAPITAL&apos;s registration
-          requirements.
+          available methods or otherwise meet CARDONE CAPITAL&apos;s
+          registration requirements.
         </div>
         <div className="text-lg pb-3 font-normal ">
           Your registration and the use of any third-party site is subject to
@@ -84,6 +84,24 @@ const Terms_conditions = () => {
           CAPITAL is not responsible or liable for any harm resulting from the
           use or misuse of those sites, including when such harm could or does
           affect your account on this website or use of the website.
+        </div>
+      </div>
+      <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+        <div className="text-xl pb-3 font-bold">
+          Registered Account Obligations
+        </div>
+        <div className="text-lg pb-3 font-normal ">
+          The named registered user of an account is the only person that may
+          use the account and it may not be transferred to anyone else.
+        </div>
+        <div className="text-lg pb-3 font-normal ">
+          You are responsible for maintaining the confidentiality of your
+          username and password and to periodically change your password to
+          maintain security. If you have concerns that your username or password
+          may have been compromised and suspect that unauthorized access to your
+          account or the website has occurred, you must immediately contact
+          CARDONE CAPITAL&apos;s investor support through a secure method (which
+          may not be through your website account).
         </div>
       </div>
       <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
@@ -154,4 +172,4 @@ const Terms_conditions = () => {
   );
 };
 
-export default Terms_conditions;
+export default Privacy_policy;
