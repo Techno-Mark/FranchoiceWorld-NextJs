@@ -22,6 +22,7 @@ import { useListBrand } from "@/contexts/ListBrandContext";
 import { updateStepProgress } from "@/utills/stepProgress";
 import Link from "next/link";
 import Checkbox from "@/components/Fields/CheckBox";
+import SpinnerLoader from "@/assets/icons/spinner";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -204,53 +205,52 @@ function FourthStep() {
     return fileNameParts.slice(1).join("-"); // This removes the timestamp prefix
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
-          {
-            phoneNumber: mobileNumber,
-            countryCode: selectedCountry,
-          }
-        );
-        const data = response.data?.ResponseData;
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+        {
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+        }
+      );
+      const data = response.data?.ResponseData;
 
-        // Create File objects from paths
-        const brochureFile = data.brochure
-          ? await createFileFromPath(
-              data.brochure,
-              extractFileName(data.brochure)
-            )
-          : null;
-        const logoFile = data.logo
-          ? await createFileFromPath(data.logo, extractFileName(data.logo))
-          : null;
-        const videoFile = data.video
-          ? await createFileFromPath(data.video, extractFileName(data.video))
-          : null;
-
-        // Create File objects for brandImages
-        const brandImageFiles = await Promise.all(
-          (data.brandImages || []).map((path: any, index: any) =>
-            createFileFromPath(path, `brandImage${index + 1}.jpg`)
+      // Create File objects from paths
+      const brochureFile = data.brochure
+        ? await createFileFromPath(
+            data.brochure,
+            extractFileName(data.brochure)
           )
-        );
+        : null;
+      const logoFile = data.logo
+        ? await createFileFromPath(data.logo, extractFileName(data.logo))
+        : null;
+      const videoFile = data.video
+        ? await createFileFromPath(data.video, extractFileName(data.video))
+        : null;
 
-        setFormValues((prevValues) => ({
-          ...prevValues,
-          phoneNumber: data.phoneNumber || null,
-          countryCode: data.countryCode || null,
-          brochure: brochureFile ? [brochureFile] : [],
-          logo: logoFile ? [logoFile] : [],
-          brandImages: brandImageFiles.filter(Boolean),
-          video: videoFile ? [videoFile] : [],
-        }));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+      // Create File objects for brandImages
+      const brandImageFiles = await Promise.all(
+        (data.brandImages || []).map((path: any, index: any) =>
+          createFileFromPath(path, `brandImage${index + 1}.jpg`)
+        )
+      );
 
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        phoneNumber: data.phoneNumber || null,
+        countryCode: data.countryCode || null,
+        brochure: brochureFile ? [brochureFile] : [],
+        logo: logoFile ? [logoFile] : [],
+        brandImages: brandImageFiles.filter(Boolean),
+        video: videoFile ? [videoFile] : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
     if (mobileNumber && selectedCountry) {
       fetchData();
     }
@@ -418,27 +418,7 @@ function FourthStep() {
                 >
                   {isSubmitting ? (
                     <>
-                      <svg
-                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Submitting...
+                      <SpinnerLoader />
                     </>
                   ) : (
                     <>

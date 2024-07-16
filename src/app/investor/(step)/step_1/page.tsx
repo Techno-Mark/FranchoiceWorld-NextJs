@@ -3,6 +3,7 @@
 import { getCity, getInvestmentRange } from "@/api/dropdown";
 import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
+import SpinnerLoader from "@/assets/icons/spinner";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
@@ -33,7 +34,7 @@ function InvestorFirstStep() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>("");
   const [investmentRange, setInvstmentRange] = useState([]);
   const [citiesOption, setCitiesOption] = useState([]);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fetchInvestmentRange = async () => {
     try {
       const response = await getInvestmentRange(
@@ -71,8 +72,8 @@ function InvestorFirstStep() {
     fetchInvestmentRange();
     fetchCity([]);
     if (typeof window !== "undefined") {
-      setMobileNumber(localStorage.getItem("mobileNumber"));
-      setSelectedCountry(localStorage.getItem("selectedCountry"));
+      setMobileNumber(localStorage.getItem("investorMobileNumber"));
+      setSelectedCountry(localStorage.getItem("investorSelectedCountry"));
     }
   }, []);
 
@@ -100,6 +101,7 @@ function InvestorFirstStep() {
     values: typeof formValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
+    setIsSubmitting(true);
     setSubmitting(true);
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
@@ -119,11 +121,11 @@ function InvestorFirstStep() {
       console.error("Error submitting form:", error);
     } finally {
       setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
   const fetchData = async () => {
-    updateInvestorStepProgress("/investor/step_1");
     try {
       let params = {
         phoneNumber: mobileNumber,
@@ -298,8 +300,16 @@ function InvestorFirstStep() {
                 type="submit"
                 className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
               >
-                Next
-                <ArrowIcon color="white" className="rotate-180 ml-2" />
+                {isSubmitting ? (
+                  <>
+                    <SpinnerLoader />
+                  </>
+                ) : (
+                  <>
+                    Next
+                    <ArrowIcon color="white" className="rotate-180 ml-2" />
+                  </>
+                )}
               </Button>
             </div>
           </Form>

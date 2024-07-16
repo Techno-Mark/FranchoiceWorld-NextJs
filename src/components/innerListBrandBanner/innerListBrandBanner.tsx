@@ -45,11 +45,13 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
       return;
     }
     setError(null); // Clear any existing error messages
-    localStorage.setItem("mobileNumber", mobileNumber);
-    localStorage.setItem("selectedCountry", selectedCountry);
     if (props.submitURL === "/investor/step_1") {
+      localStorage.setItem("investorMobileNumber", mobileNumber);
+      localStorage.setItem("investorSelectedCountry", selectedCountry);
       updateInvestorStepProgress("/investor/step_1");
     } else {
+      localStorage.setItem("mobileNumber", mobileNumber);
+      localStorage.setItem("selectedCountry", selectedCountry);
       updateStepProgress("/list-your-brand/step_1");
     }
     router.push(props.submitURL);

@@ -145,8 +145,8 @@ function InvestorSecondStep() {
     fetchDurationOption();
     fetchState();
     if (typeof window !== "undefined") {
-      setMobileNumber(localStorage.getItem("mobileNumber"));
-      setSelectedCountry(localStorage.getItem("selectedCountry"));
+      setMobileNumber(localStorage.getItem("investorMobileNumber"));
+      setSelectedCountry(localStorage.getItem("investorSelectedCountry"));
     }
   }, []);
 
@@ -389,7 +389,7 @@ function InvestorSecondStep() {
                 <MultiSelect
                   name="lookingForState"
                   label="Looking For Business in (State)"
-                  className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                  className={`border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
                     getIn(errors, "lookingForState") &&
                     getIn(touched, "lookingForState")
                       ? "border-red-500 mb-0.5"
@@ -413,7 +413,7 @@ function InvestorSecondStep() {
                 <MultiSelect
                   name="lookingForCity"
                   label="Looking For Business in (City)"
-                  className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                  className={`border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
                     getIn(errors, "lookingForCity") &&
                     getIn(touched, "lookingForCity")
                       ? "border-red-500 mb-0.5"
@@ -433,7 +433,7 @@ function InvestorSecondStep() {
                   Do you own a property?
                   <span className="text-red-500 ml-1">*</span>
                 </label>
-                <div className="mt-2">
+                <div className="mt-4">
                   <Field name="ownProperty">
                     {({ field }: FieldProps) => (
                       <>

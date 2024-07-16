@@ -1,20 +1,5 @@
 "use client";
 
-import ArrowIcon from "@/assets/icons/arrowIcon";
-import InputField from "@/components/Fields/InputField";
-import TextArea from "@/components/Fields/TextArea";
-import Button from "@/components/button/button";
-import MultiSelect from "@/components/select/MultiSelect";
-import Select from "@/components/select/Select";
-import Title from "@/components/title/title";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
-import * as Yup from "yup";
-import styles from "./step_2.module.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useListBrand } from "@/contexts/ListBrandContext";
-import { updateStepProgress } from "@/utills/stepProgress";
 import {
   getCity,
   getHeadquarters,
@@ -23,7 +8,22 @@ import {
   getService,
   getSubCategory,
 } from "@/api/dropdown";
+import ArrowIcon from "@/assets/icons/arrowIcon";
+import InputField from "@/components/Fields/InputField";
+import TextArea from "@/components/Fields/TextArea";
+import Button from "@/components/button/button";
+import MultiSelect from "@/components/select/MultiSelect";
+import Select from "@/components/select/Select";
+import Title from "@/components/title/title";
+import { updateStepProgress } from "@/utills/stepProgress";
+import axios from "axios";
+import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import styles from "./step_2.module.css";
 
+import SpinnerLoader from "@/assets/icons/spinner";
 import YearSelect from "@/components/Fields/yearSelect";
 
 interface FormValues {
@@ -228,40 +228,39 @@ function SecondStep() {
     fetchOutletsTypes();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+        {
+          phoneNumber: mobileNumber,
+          countryCode: selectedCountry,
+        }
+      );
+      const data = response.data?.ResponseData;
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        brandName: data?.brandName || "",
+        industry: data?.industry || null,
+        subCategory: data?.subCategory || null,
+        service: data?.service || null,
+        yearFounded: data?.yearFounded || null,
+        headquartersLocation: data?.headquartersLocation || null,
+        numberOfLocations: data?.numberOfLocations || null,
+        brandDescription: data?.brandDescription || "",
+        usp: data?.brandDescription || "",
+        state: data?.state || [],
+        city: data?.city || [],
+      }));
+
+      fetchSubCategoriesTypes(data?.industry);
+      fetchServiceTypes(data?.industry);
+      fetchCity(data?.state);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
-          {
-            phoneNumber: mobileNumber,
-            countryCode: selectedCountry,
-          }
-        );
-        const data = response.data?.ResponseData;
-        setFormValues((prevValues) => ({
-          ...prevValues,
-          brandName: data?.brandName || "",
-          industry: data?.industry || null,
-          subCategory: data?.subCategory || null,
-          service: data?.service || null,
-          yearFounded: data?.yearFounded || null,
-          headquartersLocation: data?.headquartersLocation || null,
-          numberOfLocations: data?.numberOfLocations || null,
-          brandDescription: data?.brandDescription || "",
-          usp: data?.brandDescription || "",
-          state: data?.state || [],
-          city: data?.city || [],
-        }));
-
-        fetchSubCategoriesTypes(data?.industry);
-        fetchServiceTypes(data?.industry);
-        fetchCity(data?.state);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     if (mobileNumber && selectedCountry) {
       fetchData();
     }
@@ -283,7 +282,7 @@ function SecondStep() {
 
       setFormValues((prevValues) => ({
         ...prevValues,
-        state: selectedStates, 
+        state: selectedStates,
         city: updatedCities,
       }));
     }
@@ -535,27 +534,7 @@ function SecondStep() {
                 >
                   {isSubmitting ? (
                     <>
-                      <svg
-                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Submitting...
+                      <SpinnerLoader />
                     </>
                   ) : (
                     <>

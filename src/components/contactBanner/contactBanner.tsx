@@ -211,14 +211,14 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         label="Email ID"
                         required={true}
                         className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
-                          getIn(errors, "email") && getIn(touched, "email")
+                          getIn(errors, "emailId") && getIn(touched, "emailId")
                             ? "border-red-500 mb-0.5"
                             : ""
                         }`}
                       />
-                      {getIn(errors, "email") && getIn(touched, "email") && (
+                      {getIn(errors, "emailId") && getIn(touched, "emailId") && (
                         <div className="text-red-500 font-medium">
-                          {getIn(errors, "email")}
+                          {getIn(errors, "emailId")}
                         </div>
                       )}
                     </div>
