@@ -83,14 +83,8 @@ const Select: React.FC<SelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          <span>
-            {selectedLabel ? (
-              selectedLabel
-            ) : (
-              <span className="text-[rgba(17,23,29,0.6)] font-medium text-xs">
-                {placeholder}
-              </span>
-            )}
+          <span className="font-medium">
+            {selectedLabel ? selectedLabel : placeholder}
           </span>
           <div className="flex items-center pl-2 pointer-events-none">
             <svg
