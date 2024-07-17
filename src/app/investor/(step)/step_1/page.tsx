@@ -176,7 +176,7 @@ function InvestorFirstStep() {
                   type="text"
                   label="Full Name"
                   required={true}
-                  className={`!border-[rgba(115,114,115,0.4)] ${
+                  className={`border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "fullName") && getIn(touched, "fullName")
                       ? "border-red-500 mb-0.5"
                       : ""
