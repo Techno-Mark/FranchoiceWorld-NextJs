@@ -88,7 +88,7 @@ function InvestorFirstStep() {
     fullName: Yup.string().required("Full Name is required"),
     email: Yup.string()
       .email("Invalid email address")
-      .required("Email is required"),
+      .required("Email Adress is required"),
     city: Yup.number().required("City is required"),
     pincode: Yup.string().required("Pin Code is required"),
     investmentRange: Yup.number().required("Investment Range is required"),

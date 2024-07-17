@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
+import { values } from "pdf-lib";
 
 interface FormValues {
   countryCode: string | null;
@@ -32,6 +33,8 @@ interface FormValues {
   lookingForState: string[] | null;
   lookingForCity: string[] | null;
   ownProperty: boolean;
+  acceptTerms: boolean;
+  submitInfo: boolean;
 }
 
 function InvestorSecondStep() {
@@ -161,6 +164,8 @@ function InvestorSecondStep() {
     lookingForState: [""],
     lookingForCity: [""],
     ownProperty: true,
+    acceptTerms: true,
+    submitInfo: true,
   });
 
   const handleBackButton = () => {
@@ -174,6 +179,14 @@ function InvestorSecondStep() {
     lookingFor: Yup.number().required("Looking For is required"),
     lookingForState: Yup.number().required("State is required"),
     lookingForCity: Yup.number().required("City is required"),
+    acceptTerms: Yup.boolean().oneOf(
+      [true],
+      "You must agree to submit your form"
+    ),
+    submitInfo: Yup.boolean().oneOf(
+      [true],
+      "You must accept the T&C for future processing data"
+    ),
   });
 
   const handleStateChange = (selectedStates: number[]) => {
@@ -200,8 +213,8 @@ function InvestorSecondStep() {
   };
 
   const handleSubmit = async (
-    values: typeof formValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
+    values: FormValues,
+    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
   ) => {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
@@ -464,20 +477,52 @@ function InvestorSecondStep() {
                 title="Agree and Submit Your Information"
                 titleClass="!text-base"
               />
-              <Checkbox
-                className="mb-3"
-                name="submitInfo"
-                id="aggreetosubmit"
-                label="Agree and Submit Your Information ? "
-                defaultChecked={true}
-              />
-              <Checkbox
-                className="mb-3"
-                name="submitInfo"
-                id="aggreetosubmit"
-                label="I hereby consent to the future processing of my data for marketing and operational purposes. "
-                defaultChecked={true}
-              />
+              <Field name="acceptTerms">
+                {({ field }: FieldProps) => (
+                  <>
+                    <Checkbox
+                      id="acceptTerms"
+                      name="acceptTerms"
+                      label="Agree and Submit Your Information ?"
+                      defaultChecked={field.value === true}
+                      className={`mb-3 ${
+                        getIn(errors, "acceptTerms") &&
+                        getIn(touched, "acceptTerms")
+                          ? "border-red-500"
+                          : ""
+                      }`}
+                    />
+                  </>
+                )}
+              </Field>
+              {getIn(errors, "acceptTerms") && getIn(touched, "acceptTerms") && (
+                <div className="text-red-500 font-medium">
+                  {getIn(errors, "acceptTerms")}
+                </div>
+              )}
+              <Field name="submitInfo">
+                {({ field }: FieldProps) => (
+                  <>
+                    <Checkbox
+                      className={`mb-3 ${
+                        getIn(errors, "submitInfo") &&
+                        getIn(touched, "submitInfo")
+                          ? "border-red-500"
+                          : ""
+                      }`}
+                      name="submitInfo"
+                      id="submitInfo"
+                      label="I hereby consent to the future processing of my data for marketing and operational purposes."
+                      defaultChecked={field.value === true}
+                    />
+                  </>
+                )}
+              </Field>
+              {getIn(errors, "submitInfo") && getIn(touched, "submitInfo") && (
+                <div className="text-red-500 font-medium">
+                  {getIn(errors, "submitInfo")}
+                </div>
+              )}
             </div>
             <small>
               Please note that we do not sell your data to any third party.
