@@ -173,7 +173,7 @@ function SecondStep() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/form-details/create`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
         {
           ...values,
           franchiseAgreement:
@@ -334,7 +334,7 @@ function SecondStep() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/form-details/get`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/get`,
         {
           phoneNumber: mobileNumber,
           countryCode: selectedCountry,
