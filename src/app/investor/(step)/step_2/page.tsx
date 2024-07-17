@@ -277,7 +277,7 @@ function InvestorSecondStep() {
         {({ errors, touched, setFieldValue }) => (
           <Form className="md:mt-16">
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Select
                   name="industryType"
                   label="Industry Type"
@@ -296,7 +296,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <Select
                   name="availableCapital"
                   label="Available Capital"
@@ -317,7 +317,7 @@ function InvestorSecondStep() {
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Select
                   name="likeToInvest"
                   label="How soon would you like to invest?"
@@ -336,7 +336,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
                   Need for Loan?<span className="text-red-500 ml-1">*</span>
                 </label>
@@ -367,7 +367,7 @@ function InvestorSecondStep() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Select
                   name="lookingFor"
                   label="Looking For"
@@ -385,7 +385,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <MultiSelect
                   name="lookingForState"
                   label="Looking For Business in (State)"
@@ -409,7 +409,7 @@ function InvestorSecondStep() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <MultiSelect
                   name="lookingForCity"
                   label="Looking For Business in (City)"
@@ -428,7 +428,7 @@ function InvestorSecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
                   <span className="text-red-500 ml-1">*</span>

@@ -156,7 +156,7 @@ function InvestorFirstStep() {
       <Title
         title="Your Details Stay Secure With Us"
         desc="Enter Your Confidential Information"
-        descClass="md:!px-0 font-medium text-lg"
+        descClass="md:!px-0 font-medium text-lg pb-6 md:pb-0"
         titleClass="md:!pb-2.5"
       />
       <Formik
@@ -166,9 +166,9 @@ function InvestorFirstStep() {
         onSubmit={handleSubmit}
       >
         {({ errors, touched, setFieldValue }) => (
-          <Form className="md:mt-16">
+          <Form className="md:mt-12">
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Field
                   as={InputField}
                   id="grid-first-name"
@@ -176,7 +176,7 @@ function InvestorFirstStep() {
                   type="text"
                   label="Full Name"
                   required={true}
-                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                  className={`!border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "fullName") && getIn(touched, "fullName")
                       ? "border-red-500 mb-0.5"
                       : ""
@@ -188,7 +188,7 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label
                   className="block mb-2 font-medium text-[var(--text-color)]"
                   htmlFor="phoneNumber"
@@ -196,9 +196,9 @@ function InvestorFirstStep() {
                   Phone Number <span className="text-red-500 ml-1">*</span>
                 </label>
                 <div className="flex">
-                  <div className="w-[100px] pb-3">
+                  <div className="w-[100px] mr-2">
                     <CountryDropdown
-                      variant="small"
+                      variant="formDropdown"
                       className="!border-[rgba(115,114,115,0.4)]"
                       disabled={true}
                     />
@@ -210,12 +210,12 @@ function InvestorFirstStep() {
                     disabled={true}
                     type="text"
                     value={mobileNumber}
-                    className={`mb-3`}
+                    className={`!border-[rgba(115,114,115,0.4)]`}
                   />
                 </div>
               </div>
             </div>
-            <div className="inline-block w-full mb-8 md:mb-7">
+            <div className="inline-block w-full mb-6 md:mb-7">
               <Field
                 as={InputField}
                 id="grid-email"
@@ -237,7 +237,7 @@ function InvestorFirstStep() {
             </div>
 
             <div className="flex flex-col md:flex-row">
-              <div className="w-full pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Select
                   name="city"
                   label="City"
@@ -254,7 +254,7 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-              <div className="w-full pl-2 mb-8 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <Field
                   as={InputField}
                   id="grid-pincode"
@@ -275,7 +275,7 @@ function InvestorFirstStep() {
                 )}
               </div>
             </div>
-            <div className="w-full md:w-1/2 pr-2 mb-8 md:mb-7">
+            <div className="w-full md:w-1/2 md:pr-2 mb-6 md:mb-7">
               <Select
                 name="investmentRange"
                 label="Investment Range"

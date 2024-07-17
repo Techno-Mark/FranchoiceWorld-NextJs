@@ -28,3 +28,30 @@
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
     border-radius: 0.5rem;
 }
+
+
+@media only screen and (min-width:1024px) and (max-width:1279px) {
+    .stepDivider {
+        top: 14%;
+        left: 65%;
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:1023px) {
+    .stepDivider {
+        top: 15%;
+        left: 70%;
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .stepDivider {
+        top: 7%;
+    }
+
+    .stepperClass {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
