@@ -108,7 +108,7 @@ const YearSelect: React.FC<YearSelectProps> = ({
           {field.value ? (
             field.value
           ) : (
-            <span className="text-[rgba(17,23,29,0.6)] font-medium text-xs">
+            <span className="text-[rgba(17,23,29,0.6)] font-medium ">
               Select Year
             </span>
           )}

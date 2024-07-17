@@ -72,7 +72,6 @@ function SecondStep() {
   const [selectedSubcat, setSelectedSubCat] = useState<number | null>(null);
 
   const [selectedState, setSelectedState] = useState<any[]>([]);
-  console.log("🚀 ~ SecondStep ~ selectedState:", selectedState);
 
   const [cityStateMapping, setCityStateMapping] = useState<{
     [cityId: number]: number;
@@ -108,7 +107,7 @@ function SecondStep() {
     headquartersLocation: headquartersOptions,
     numberOfLocations: outletsOptions,
     state: stateOptions,
-    city: cityOptions,
+    city: selectedState.length > 0 ? cityOptions : [],
   };
 
   const fetchCategoriesTypes = async () => {
@@ -223,8 +222,6 @@ function SecondStep() {
     }
 
     if (selectedState.length > 0) {
-      console.log("Hello");
-
       fetchCity(selectedState);
     }
   }, [selectedIndustry, selectedState, selectedSubcat]);
@@ -436,9 +433,16 @@ function SecondStep() {
                               onChange={(value) => {
                                 if (field === "industry") {
                                   setSelectedIndustry(value);
-                                }
-                                if (field === "subCategory") {
+                                  setFieldValue("industry", value);
+                                  setFieldValue("subCategory", null);
+                                  setFieldValue("service", null);
+                                  setSelectedSubCat(null);
+                                } else if (field === "subCategory") {
                                   setSelectedSubCat(value);
+                                  setFieldValue("subCategory", value);
+                                  setFieldValue("service", null);
+                                } else {
+                                  setFieldValue(field, value);
                                 }
                               }}
                               label={label[index]}
@@ -509,8 +513,7 @@ function SecondStep() {
                                 handleStateChange(value, setFieldValue);
                                 setSelectedState(value);
                               }
-                              if (selectedState.length >  0) {
-                                
+                              if (selectedState.length > 0) {
                               }
                               setFieldValue(field.name, value);
                             }}

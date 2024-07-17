@@ -251,7 +251,10 @@ function InvestorSecondStep() {
         lookingForCity: response.lookingForCity || [],
         ownProperty: response.ownProperty || true,
       }));
-      fetchCity(response?.state);
+
+      if (selectedState.length > 0) {
+        fetchCity(response?.state);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -406,6 +409,7 @@ function InvestorSecondStep() {
                   }`}
                   onChange={(value) => {
                     handleStateChange(value, setFieldValue);
+                    setSelectedState(value);
                   }}
                   options={stateOptions}
                 />
@@ -428,7 +432,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={cityOptions}
+                  options={selectedState.length > 0 ? cityOptions : []}
                 />
                 {getIn(errors, "lookingForCity") &&
                   getIn(touched, "lookingForCity") && (
