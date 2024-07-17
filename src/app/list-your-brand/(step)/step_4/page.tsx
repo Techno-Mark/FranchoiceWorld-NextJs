@@ -28,6 +28,7 @@ interface FormValues {
 }
 
 function FourthStep() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
@@ -158,7 +159,10 @@ function FourthStep() {
   const createFileFromPath = async (filePath: string, fileName: string) => {
     console.log("🚀 ~ createFileFromPath ~ filePath:", filePath)
     try {
-      const response = await fetch(filePath);
+      console.log("filePath", filePath);
+      const url = `${API_URL}${filePath}`;
+      const response = await fetch(url);
+
       const blob = await response.blob();
 
       // Determine the MIME type based on the file extension
@@ -323,6 +327,7 @@ function FourthStep() {
                     maxFiles={5}
                     name="brandImages"
                     onChange={(files) => setFieldValue("brandImages", files)}
+                    existingFiles={formValues.brandImages}
                   />
                   {errors.brandImages && touched.brandImages && (
                     <div className="text-red-500 font-medium">
