@@ -156,6 +156,7 @@ function FourthStep() {
   };
 
   const createFileFromPath = async (filePath: string, fileName: string) => {
+    console.log("🚀 ~ createFileFromPath ~ filePath:", filePath)
     try {
       const response = await fetch(filePath);
       const blob = await response.blob();
