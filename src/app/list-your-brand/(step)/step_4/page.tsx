@@ -1,28 +1,21 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-import styles from "./step_4.module.css";
-import Title from "@/components/title/title";
-import InputField from "@/components/Fields/InputField";
-import Button from "@/components/button/button";
-import { useRouter } from "next/navigation";
-import Dropdown from "@/components/select/dropdown";
-import TextArea from "@/components/Fields/TextArea";
-import { Formik, Form, Field, FieldProps, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import Select from "@/components/select/Select";
-import MultiSelect from "@/components/select/MultiSelect";
-import StepLayout from "../layout";
+import ArrowIcon from "@/assets/icons/arrowIcon";
+import SpinnerLoader from "@/assets/icons/spinner";
+import Checkbox from "@/components/Fields/CheckBox";
 import FileUpload from "@/components/Uploader/FileUpload";
 import ImageUpload from "@/components/Uploader/ImageUpload";
-import ArrowIcon from "@/assets/icons/arrowIcon";
 import VideoUpload from "@/components/Uploader/VideoUpload";
-import axios from "axios";
-import { useListBrand } from "@/contexts/ListBrandContext";
+import Button from "@/components/button/button";
+import Title from "@/components/title/title";
 import { updateStepProgress } from "@/utills/stepProgress";
+import axios from "axios";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import Link from "next/link";
-import Checkbox from "@/components/Fields/CheckBox";
-import SpinnerLoader from "@/assets/icons/spinner";
+import { useRouter } from "next/navigation";
+import * as Yup from "yup";
+import styles from "./step_4.module.css";
 
 interface FormValues {
   phoneNumber: string | null;
