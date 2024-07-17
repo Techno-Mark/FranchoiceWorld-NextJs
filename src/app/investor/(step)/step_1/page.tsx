@@ -9,10 +9,7 @@ import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
-import {
-  updateInvestorStepProgress,
-  updateStepProgress,
-} from "@/utills/stepProgress";
+import { updateInvestorStepProgress } from "@/utills/stepProgress";
 import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -178,7 +175,7 @@ function InvestorFirstStep() {
                   required={true}
                   className={`border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "fullName") && getIn(touched, "fullName")
-                      ? "border-red-500 mb-0.5"
+                      ? "!border-red-500 mb-0.5"
                       : ""
                   }`}
                 />
@@ -262,9 +259,9 @@ function InvestorFirstStep() {
                   type="number"
                   label="Pin Code"
                   required={true}
-                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                  className={`border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "pincode") && getIn(touched, "pincode")
-                      ? "border-red-500 mb-0.5"
+                      ? "!border-red-500 mb-0.5"
                       : ""
                   }`}
                 />
