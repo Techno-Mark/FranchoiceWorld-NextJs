@@ -260,6 +260,7 @@ function SecondStep() {
 
       fetchSubCategoriesTypes(data?.industry);
       fetchServiceTypes(data?.subCategory);
+      setSelectedState(data?.state)
       if (selectedState.length > 0) {
         fetchCity(data?.state);
       }

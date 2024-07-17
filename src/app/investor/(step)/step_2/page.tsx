@@ -48,6 +48,8 @@ function InvestorSecondStep() {
   const [stateOptions, setStateOptions] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
   const [selectedState, setSelectedState] = useState<any[]>([]);
+
+
   const [cityStateMapping, setCityStateMapping] = useState<{
     [cityId: number]: number;
   }>({});
@@ -251,7 +253,7 @@ function InvestorSecondStep() {
         lookingForCity: response.lookingForCity || [],
         ownProperty: response.ownProperty || true,
       }));
-
+      setSelectedState(response?.state);
       if (selectedState.length > 0) {
         fetchCity(response?.state);
       }
