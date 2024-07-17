@@ -29,7 +29,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   existingVideos = [],
   multiple = false,
   maxFiles = 1,
-  accept = "video/*",
+  accept = ".MP4,.MOV,.AVI",
 }) => {
   const [videos, setVideos] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -63,7 +63,9 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
   };
 
   const handleVideoUpload = (files: File[]) => {
-    const videoFiles = files.filter((file) => file.type.startsWith("video/"));
+    const videoFiles = files.filter((file) =>
+      [".mp4", ".mov", ".avi"].includes(file.name.toLowerCase().substr(-4))
+    );
     const newVideos = videoFiles.slice(0, maxFiles - videos.length);
 
     const updatedVideos = [...videos, ...newVideos].slice(0, maxFiles);
@@ -111,7 +113,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
           >
             <input
               type="file"
-              accept="video/*"
+              accept={accept}
               multiple={multiple}
               className="hidden"
               ref={fileInputRef}

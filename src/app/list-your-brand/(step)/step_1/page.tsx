@@ -39,7 +39,7 @@ function FirstStep() {
       fullName: Yup.string().required("Full Name is required"),
       email: Yup.string()
         .email("Invalid email address")
-        .required("Email is required"),
+        .required("Email Address is required"),
       companyName: Yup.string().required("Company Name is required"),
       websiteURL: Yup.string()
         // .url("Invalid URL")
@@ -107,7 +107,7 @@ function FirstStep() {
       <Title
         title="Your Details Stay Secure With Us"
         desc="Enter Your Confidential Information"
-        descClass="md:!px-0  font-medium text-xl"
+        descClass="md:!px-0 md:!pb-3 font-medium text-xl"
         titleClass="md:!pb-2.5"
       />
       <form onSubmit={formik.handleSubmit} className="md:mt-16">
@@ -122,7 +122,7 @@ function FirstStep() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               required={true}
-              className={` ${
+              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                 formik.touched.fullName && formik.errors.fullName
                   ? "border-red-500 mb-0.5"
                   : "mb-3"
@@ -170,7 +170,7 @@ function FirstStep() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
               formik.touched.email && formik.errors.email
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
@@ -192,7 +192,7 @@ function FirstStep() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
               formik.touched.companyName && formik.errors.companyName
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
@@ -214,7 +214,7 @@ function FirstStep() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
               formik.touched.websiteURL && formik.errors.websiteURL
                 ? "border-red-500 mb-0.5"
                 : "mb-4"

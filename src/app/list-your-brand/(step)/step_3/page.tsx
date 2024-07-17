@@ -138,7 +138,9 @@ function SecondStep() {
     roi: Yup.number()
       .typeError("Anticipated % Return on Investment (ROI) must be a number")
       .nullable()
-      .required("Anticipated % Return on Investment (ROI) is required"),
+      .required("Anticipated % Return on Investment (ROI) is required")
+      .min(0, "ROI must be a positive number")
+      .max(100, "ROI cannot be more than 100%"),
     paybackPeriod: Yup.number()
       .nullable()
       .required("Likely Payback Period for a Unit Franchise is required"),
@@ -199,7 +201,7 @@ function SecondStep() {
   const label = [
     "Area Required",
     "Total Initial Investment Range",
-    "Franchise Fee",
+    "Franchise Fee(in INR)",
     "Sales and Revenue Model",
     "Anticipated % Return on Investment (ROI)",
     "Likely Payback Period for a Unit Franchise",
@@ -448,7 +450,7 @@ function SecondStep() {
                   label="Others if applicable"
                   placeholder="Your Message"
                   rows={3}
-                  className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 mb-3 focus:bg-white focus:border-[#73727366]`}
+                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none`}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
@@ -482,7 +484,7 @@ function SecondStep() {
                                       value
                                     );
                                   }}
-                                  className={`w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg focus:outline-none ${
+                                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                                     meta.touched && meta.error
                                       ? "border-red-500 mb-0.5"
                                       : ""

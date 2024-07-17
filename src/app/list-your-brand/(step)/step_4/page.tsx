@@ -58,7 +58,12 @@ function FourthStep() {
 
   const FILE_SIZE = 5 * 1024 * 1024;
   const SUPPORTED_IMAGE_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-  const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/mov", "video/avi"];
+  const SUPPORTED_VIDEO_FORMATS = [
+    "video/mp4",
+    "video/quicktime",
+    "video/x-msvideo",
+    "video/avi",
+  ];
 
   const validationSchema = Yup.object({
     brochure: Yup.array()

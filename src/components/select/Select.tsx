@@ -7,8 +7,8 @@ interface SelectProps {
   name: string;
   label?: string;
   className?: string;
-  placeholder?: string; // New optional placeholder prop
-  onChange?: (value: number) => void; // New optional onChange prop
+  placeholder?: string; 
+  onChange?: (value: number) => void; 
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,8 +16,8 @@ const Select: React.FC<SelectProps> = ({
   name,
   label,
   className,
-  placeholder = "Please select an option", // Default placeholder message
-  onChange, // Add onChange to destructured props
+  placeholder = "Please select an option", 
+  onChange, 
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);

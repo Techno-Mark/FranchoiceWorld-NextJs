@@ -365,7 +365,7 @@ function SecondStep() {
         <Title
           title="Showcase Your Brand's Identity"
           desc="Essential Details Required"
-          descClass="md:!px-0  font-medium text-xl"
+          descClass="md:!px-0 md:!pb-3 font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
@@ -384,7 +384,7 @@ function SecondStep() {
                   type="text"
                   label="Brand Name"
                   required={true}
-                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:border-[#73727366] ${
+                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                     getIn(errors, "brandName") && getIn(touched, "brandName")
                       ? "border-red-500 mb-0.5"
                       : ""
