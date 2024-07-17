@@ -110,7 +110,7 @@ function FirstStep() {
       <Title
         title="Your Details Stay Secure With Us"
         desc="Enter Your Confidential Information"
-        descClass="md:!px-0 md:!pb-3 font-medium text-xl"
+        descClass="md:!px-0 pb-8 font-medium text-xl"
         titleClass="md:!pb-2.5"
       />
       <form onSubmit={formik.handleSubmit} className="md:mt-16">

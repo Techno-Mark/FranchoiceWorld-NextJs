@@ -271,7 +271,7 @@ function FourthStep() {
         <Title
           title="Visualize Your Brand"
           desc="Upload Brochures,Logos, and More"
-          descClass="md:!px-0  font-medium text-xl"
+          descClass="md:!px-0 pb-8 font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
@@ -281,7 +281,7 @@ function FourthStep() {
           enableReinitialize={true}
         >
           {({ errors, touched, setFieldValue }) => (
-            <Form className="mt-16">
+            <Form className="md:mt-8">
               <div className="grid grid-cols-1 gap-5 mb-2 md:grid-cols-2">
                 <div>
                   <FileUpload

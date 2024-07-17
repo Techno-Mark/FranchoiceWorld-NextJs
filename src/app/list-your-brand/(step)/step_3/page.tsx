@@ -35,7 +35,7 @@ interface FormValues {
   roi: number | null;
   paybackPeriod: number | null;
   supportProvided: [];
-  othersApplicable: string;
+  otherApplicable: string;
   franchiseAgreement: number | null;
   franchiseDuration: number | null;
   isRenewable: number | null;
@@ -107,7 +107,7 @@ function SecondStep() {
     roi: null,
     paybackPeriod: null,
     supportProvided: [],
-    othersApplicable: "",
+    otherApplicable: "",
     franchiseAgreement: null,
     franchiseDuration: null,
     isRenewable: null,
@@ -371,7 +371,7 @@ function SecondStep() {
         <Title
           title="What It Takes to Join Your Franchise"
           desc="Investment Details Needed"
-          descClass="md:!px-0  font-medium text-xl"
+          descClass="md:!px-0 pb-8 font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
@@ -383,7 +383,7 @@ function SecondStep() {
           validateOnBlur={true}
         >
           {({ errors, touched, setFieldValue }) => (
-            <Form className="mt-16">
+            <Form className="md:mt-8">
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field, index) => (
                   <div

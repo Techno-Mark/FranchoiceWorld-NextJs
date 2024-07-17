@@ -260,7 +260,7 @@ function SecondStep() {
 
       fetchSubCategoriesTypes(data?.industry);
       fetchServiceTypes(data?.subCategory);
-      setSelectedState(data?.state)
+      setSelectedState(data?.state);
       if (selectedState.length > 0) {
         fetchCity(data?.state);
       }
@@ -369,7 +369,7 @@ function SecondStep() {
         <Title
           title="Showcase Your Brand's Identity"
           desc="Essential Details Required"
-          descClass="md:!px-0 md:!pb-3 font-medium text-xl"
+          descClass="md:!px-0 pb-8 font-medium text-xl"
           titleClass="md:!pb-2.5"
         />
         <Formik<FormValues>
@@ -379,7 +379,7 @@ function SecondStep() {
           enableReinitialize={true}
         >
           {({ errors, touched, setFieldValue }) => (
-            <Form className="mt-16">
+            <Form className="md:mt-8">
               <div className="w-full mb-8 md:mb-7">
                 <Field
                   as={InputField}
