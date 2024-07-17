@@ -42,7 +42,10 @@ function FirstStep() {
         .required("Email Address is required"),
       companyName: Yup.string().required("Company Name is required"),
       websiteURL: Yup.string()
-        // .url("Invalid URL")
+        .matches(
+          /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+          "Invalid WebsiteURL!"
+        )
         .required("Website URL is required"),
     }),
     onSubmit: async (values) => {
@@ -134,7 +137,7 @@ function FirstStep() {
               </div>
             )}
           </div>
-          <div className="w-full pr-2 mb-8 md:mb-7 md:pl-2">
+          <div className="w-full mb-8 md:mb-7 pl-2">
             <label
               className="block mb-2 font-medium text-[var(--text-color)]"
               htmlFor="phoneNumber"
@@ -155,7 +158,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={`mb-3 md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                className={` block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none font-medium  mb-3 md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>
@@ -208,7 +211,7 @@ function FirstStep() {
           <InputField
             id="grid-website-url"
             name="websiteURL"
-            type="url"
+            type="text"
             label="Website URL"
             value={formik.values.websiteURL}
             onChange={formik.handleChange}

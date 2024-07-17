@@ -173,7 +173,7 @@ function InvestorFirstStep() {
                   type="text"
                   label="Full Name"
                   required={true}
-                  className={`border-[rgba(115,114,115,0.4)] ${
+                  className={`block w-full  rounded-lg py-2 px-4 focus:outline-none font-medium  mb-3  !border-[1px] !border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "fullName") && getIn(touched, "fullName")
                       ? "!border-red-500 mb-0.5"
                       : ""
@@ -207,7 +207,7 @@ function InvestorFirstStep() {
                     disabled={true}
                     type="text"
                     value={mobileNumber}
-                    className={`!border-[rgba(115,114,115,0.4)]`}
+                    className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] bg-[rgba(115,114,115,0.2)]`}
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ function InvestorFirstStep() {
                 label="Email Address"
                 type="email"
                 required={true}
-                className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] focus:outline-none ${
                   getIn(errors, "email") && getIn(touched, "email")
                     ? "border-red-500 mb-0.5"
                     : ""
@@ -259,7 +259,7 @@ function InvestorFirstStep() {
                   type="number"
                   label="Pin Code"
                   required={true}
-                  className={`border-[rgba(115,114,115,0.4)] ${
+                  className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "pincode") && getIn(touched, "pincode")
                       ? "!border-red-500 mb-0.5"
                       : ""

@@ -81,7 +81,9 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
       <div
         className={`relative flex h-full w-full leading-tight border border-gray-300 rounded-md focus:outline-none ${getVariantClasses()} ${
           isOpen && styles.selectCountryDrop
-        } ${disabled && "pointer-event-none"} ${className}`}
+        } ${
+          disabled && "pointer-event-none bg-[rgba(115,114,115,0.2)]"
+        } ${className}`}
         // onClick={() => !disabled && setIsOpen(!isOpen)}
       >
         {selectedCountryData ? (

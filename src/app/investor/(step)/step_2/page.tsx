@@ -30,8 +30,8 @@ interface FormValues {
   likeToInvest: number | null;
   needForLoan: boolean;
   lookingFor: number | null;
-  lookingForState: string[] | null;
-  lookingForCity: string[] | null;
+  lookingForState: [];
+  lookingForCity: [];
   ownProperty: boolean;
   acceptTerms: boolean;
   submitInfo: boolean;
@@ -161,8 +161,8 @@ function InvestorSecondStep() {
     needForLoan: true,
     likeToInvest: null,
     lookingFor: null,
-    lookingForState: [""],
-    lookingForCity: [""],
+    lookingForState: [],
+    lookingForCity: [],
     ownProperty: true,
     acceptTerms: true,
     submitInfo: true,
@@ -177,8 +177,8 @@ function InvestorSecondStep() {
     availableCapital: Yup.number().required("Available Capital is required"),
     likeToInvest: Yup.number().required("Investment Time is required"),
     lookingFor: Yup.number().required("Looking For is required"),
-    lookingForState: Yup.number().required("State is required"),
-    lookingForCity: Yup.number().required("City is required"),
+    lookingForState: Yup.array().min(1, "State is required"),
+    lookingForCity: Yup.array().min(1, "City is required"),
     acceptTerms: Yup.boolean().oneOf(
       [true],
       "You must agree to submit your form"
@@ -189,27 +189,23 @@ function InvestorSecondStep() {
     ),
   });
 
-  const handleStateChange = (selectedStates: number[]) => {
-    const removedStates = selectedState.filter(
-      (state) => !selectedStates.includes(state)
-    );
+  const handleStateChange = (
+    selectedStates: number[],
+    setFieldValue: (field: string, value: any) => void
+  ) => {
+    setFieldValue("state", selectedStates);
 
-    if (removedStates.length > 0) {
-      const currentCities = formValues.lookingForCity;
-
+    if (selectedStates.length > 0) {
       fetchCity(selectedStates);
-
-      const updatedCities = currentCities?.filter((cityId: any) => {
-        return !removedStates.includes(cityStateMapping[cityId]);
-      });
-
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        state: selectedStates,
-        city: updatedCities,
-      }));
     }
-    setSelectedState(selectedStates);
+
+    // Update cities based on selected states
+    setFieldValue(
+      "lookingForCity",
+      formValues.lookingForCity?.filter((cityId: any) =>
+        selectedStates.includes(cityStateMapping[cityId])
+      )
+    );
   };
 
   const handleSubmit = async (
@@ -251,8 +247,8 @@ function InvestorSecondStep() {
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,
-        lookingForState: response.lookingForState || null,
-        lookingForCity: response.lookingForCity || null,
+        lookingForState: response.lookingForState || [],
+        lookingForCity: response.lookingForCity || [],
         ownProperty: response.ownProperty || true,
       }));
       fetchCity(response?.state);
@@ -409,7 +405,7 @@ function InvestorSecondStep() {
                       : ""
                   }`}
                   onChange={(value) => {
-                    handleStateChange(value);
+                    handleStateChange(value, setFieldValue);
                   }}
                   options={stateOptions}
                 />
@@ -495,11 +491,12 @@ function InvestorSecondStep() {
                   </>
                 )}
               </Field>
-              {getIn(errors, "acceptTerms") && getIn(touched, "acceptTerms") && (
-                <div className="text-red-500 font-medium">
-                  {getIn(errors, "acceptTerms")}
-                </div>
-              )}
+              {getIn(errors, "acceptTerms") &&
+                getIn(touched, "acceptTerms") && (
+                  <div className="text-red-500 font-medium">
+                    {getIn(errors, "acceptTerms")}
+                  </div>
+                )}
               <Field name="submitInfo">
                 {({ field }: FieldProps) => (
                   <>

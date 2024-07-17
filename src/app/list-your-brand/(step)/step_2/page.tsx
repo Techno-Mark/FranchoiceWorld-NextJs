@@ -69,7 +69,10 @@ function SecondStep() {
   const [outletsOptions, setOutletsOptions] = useState<OptionType[]>([]);
 
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
+  const [selectedSubcat, setSelectedSubCat] = useState<number | null>(null);
+
   const [selectedState, setSelectedState] = useState<any[]>([]);
+  console.log("🚀 ~ SecondStep ~ selectedState:", selectedState);
 
   const [cityStateMapping, setCityStateMapping] = useState<{
     [cityId: number]: number;
@@ -110,7 +113,7 @@ function SecondStep() {
 
   const fetchCategoriesTypes = async () => {
     try {
-      const response = await getIndustry("/dropdown/categories");
+      const response = await getIndustry("/dropdown/industry-types");
       const formattedcategoriesTypes = response.map((categorie: any) => ({
         value: categorie.id,
         label: categorie.name,
@@ -123,8 +126,8 @@ function SecondStep() {
 
   const fetchSubCategoriesTypes = async (industryId: number | null) => {
     try {
-      const response = await getSubCategory("/dropdown/subcategories", {
-        categoryId: industryId,
+      const response = await getSubCategory("/dropdown/sector", {
+        industryId: industryId,
       });
       const formattedSubCategoriesTypes = response.map((categorie: any) => ({
         value: categorie.id,
@@ -162,10 +165,10 @@ function SecondStep() {
     }
   };
 
-  const fetchServiceTypes = async (industryId: number | null) => {
+  const fetchServiceTypes = async (subCatId: number | null) => {
     try {
       const response = await getService("/dropdown/services", {
-        sectorId: industryId,
+        sectorId: subCatId,
       });
       const formattedServicesTypes = response.map((service: any) => ({
         value: service.id,
@@ -205,7 +208,7 @@ function SecondStep() {
       response.forEach((city: any) => {
         newMapping[city.id] = city.stateId;
       });
-      setCityStateMapping(newMapping);
+      setCityStateMapping((prevMapping) => ({ ...prevMapping, ...newMapping }));
     } catch (error) {
       console.error("Error fetching cities:", error);
     }
@@ -214,12 +217,17 @@ function SecondStep() {
   useEffect(() => {
     if (selectedIndustry != null) {
       fetchSubCategoriesTypes(selectedIndustry);
-      fetchServiceTypes(selectedIndustry);
     }
+    if (selectedSubcat != null) {
+      fetchServiceTypes(selectedSubcat);
+    }
+
     if (selectedState.length > 0) {
+      console.log("Hello");
+
       fetchCity(selectedState);
     }
-  }, [selectedIndustry, selectedState]);
+  }, [selectedIndustry, selectedState, selectedSubcat]);
 
   useEffect(() => {
     fetchCategoriesTypes();
@@ -254,8 +262,10 @@ function SecondStep() {
       }));
 
       fetchSubCategoriesTypes(data?.industry);
-      fetchServiceTypes(data?.industry);
-      fetchCity(data?.state);
+      fetchServiceTypes(data?.subCategory);
+      if (selectedState.length > 0) {
+        fetchCity(data?.state);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -266,27 +276,23 @@ function SecondStep() {
     }
   }, [mobileNumber, selectedCountry]);
 
-  const handleStateChange = (selectedStates: number[]) => {
-    const removedStates = selectedState.filter(
-      (state) => !selectedStates.includes(state)
-    );
+  const handleStateChange = (
+    selectedStates: number[],
+    setFieldValue: (field: string, value: any) => void
+  ) => {
+    setFieldValue("state", selectedStates);
 
-    if (removedStates.length > 0) {
-      const currentCities = formValues.city;
-
+    if (selectedStates.length > 0) {
       fetchCity(selectedStates);
-
-      const updatedCities = currentCities.filter((cityId) => {
-        return !removedStates.includes(cityStateMapping[cityId]);
-      });
-
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        state: selectedStates,
-        city: updatedCities,
-      }));
     }
-    setSelectedState(selectedStates);
+
+    // Update cities based on selected states
+    setFieldValue(
+      "city",
+      formValues.city.filter((cityId) =>
+        selectedStates.includes(cityStateMapping[cityId])
+      )
+    );
   };
 
   const validationSchema = Yup.object({
@@ -428,8 +434,12 @@ function SecondStep() {
                                   : ""
                               }`}
                               onChange={(value) => {
-                                if (field === "industry")
+                                if (field === "industry") {
                                   setSelectedIndustry(value);
+                                }
+                                if (field === "subCategory") {
+                                  setSelectedSubCat(value);
+                                }
                               }}
                               label={label[index]}
                               options={OptionMap[field] || []}
@@ -496,7 +506,11 @@ function SecondStep() {
                             }
                             onChange={(value) => {
                               if (field.name === "state") {
-                                handleStateChange(value);
+                                handleStateChange(value, setFieldValue);
+                                setSelectedState(value);
+                              }
+                              if (selectedState.length >  0) {
+                                
                               }
                               setFieldValue(field.name, value);
                             }}

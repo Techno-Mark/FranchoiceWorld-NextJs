@@ -54,9 +54,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     const newValue = fieldValue.includes(option.value)
       ? fieldValue.filter((item: number) => item !== option.value)
       : [...fieldValue, option.value];
+
+    console.log("MultiSelect: New value", newValue);
+
     helpers.setValue(newValue);
 
-    // Call the onChange prop if it exists
     if (onChange) {
       onChange(newValue);
     }

@@ -16,6 +16,7 @@ import { useListBrand } from "@/contexts/ListBrandContext";
 import { updateStepProgress } from "@/utills/stepProgress";
 import {
   getAreaRequired,
+  getFranchiseDuration,
   getInvestmentRange,
   getPaybackProvide,
   getSalesRevanue,
@@ -30,11 +31,10 @@ interface FormValues {
   areaRequired: number | null;
   investmentRange: number | null;
   franchiseFee: number | null;
-  salesRevenueModel: number | null;
+  salesRevenueModel: [];
   roi: number | null;
   paybackPeriod: number | null;
   supportProvided: [];
-
   othersApplicable: string;
   franchiseAgreement: number | null;
   franchiseDuration: number | null;
@@ -75,6 +75,10 @@ function SecondStep() {
     OptionType[]
   >([]);
 
+  const [franchiseOptions, setFranchiseDurationOptions] = useState<
+    OptionType[]
+  >([]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("mobileNumber"));
@@ -99,7 +103,7 @@ function SecondStep() {
     areaRequired: null,
     investmentRange: null,
     franchiseFee: null,
-    salesRevenueModel: null,
+    salesRevenueModel: [],
     roi: null,
     paybackPeriod: null,
     supportProvided: [],
@@ -118,7 +122,7 @@ function SecondStep() {
     paybackPeriod: paybackProvideOptions,
     supportProvided: supportProvideOptions,
     franchiseAgreement: [],
-    franchiseDuration: [],
+    franchiseDuration: franchiseOptions,
     isRenewable: [],
   };
 
@@ -132,9 +136,7 @@ function SecondStep() {
       .nullable()
       .required("Franchise Fee is required")
       .min(0, "Franchise Fee must be a positive number"),
-    salesRevenueModel: Yup.number()
-      .nullable()
-      .required("Sales and Revenue Model is required"),
+    salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
     roi: Yup.number()
       .typeError("Anticipated % Return on Investment (ROI) must be a number")
       .nullable()
@@ -199,7 +201,7 @@ function SecondStep() {
     key.split(".").reduce((o, k) => (o || {})[k], obj as any);
 
   const label = [
-    "Area Required",
+    "Area Required( Sq.ft )",
     "Total Initial Investment Range",
     "Franchise Fee(in INR)",
     "Sales and Revenue Model",
@@ -218,7 +220,7 @@ function SecondStep() {
 
   const multiselectLabel = [
     "Do you have a franchise agreement?",
-    "How long is the franchise for?",
+    "How long is the franchise for(in years)?",
     "Is the term renewable?",
   ];
 
@@ -304,12 +306,29 @@ function SecondStep() {
     }
   };
 
+  const fetchFranchiseDurationTypes = async () => {
+    try {
+      const response = await getFranchiseDuration(
+        "/dropdown/franchise-durations"
+      );
+      // Convert the fetched data to the format expected by your Select component
+      const formattedFranchiseDurationTypes = response.map((duration: any) => ({
+        value: duration.id,
+        label: duration.name,
+      }));
+      setFranchiseDurationOptions(formattedFranchiseDurationTypes);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
   useEffect(() => {
     fetchAreaRequiredTypes();
     fetchInvestmentRangeTypes();
     fetchSalaesRevanueTypes();
     fetchPaybackProvideTypes();
     fetchSupportProvideTypes();
+    fetchFranchiseDurationTypes();
   }, []);
 
   const fetchData = async () => {
@@ -327,7 +346,7 @@ function SecondStep() {
         areaRequired: data?.areaRequired || null,
         investmentRange: data?.investmentRange || null,
         franchiseFee: Number(data?.franchiseFee) || null,
-        salesRevenueModel: data?.salesRevenueModel || null,
+        salesRevenueModel: data?.salesRevenueModel || [],
         roi: data?.roi || null,
         paybackPeriod: data?.paybackPeriod || null,
         supportProvided: data?.supportProvided || [],
@@ -401,6 +420,17 @@ function SecondStep() {
                                 />
                               )}
                             </Field>
+                          ) : field === "salesRevenueModel" ? (
+                            <MultiSelect
+                              name="salesRevenueModel"
+                              className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
+                                getIn(errors, field) && getIn(touched, field)
+                                  ? "border-red-500 mb-0.5"
+                                  : ""
+                              }`}
+                              label="Sales and Revenue Model"
+                              options={OptionMap["salesRevenueModel"] || []}
+                            />
                           ) : (
                             <Select
                               name={fieldProps.name}
@@ -465,30 +495,16 @@ function SecondStep() {
                           {field.name === "franchiseDuration" ? (
                             <Field name="franchiseDuration">
                               {({ field, form, meta }: FieldProps) => (
-                                <InputField
-                                  label={label[index]}
-                                  id="franchiseDuration"
-                                  required
-                                  type="number"
-                                  {...field}
-                                  value={field.value ?? ""}
-                                  onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                  ) => {
-                                    const value =
-                                      e.target.value === ""
-                                        ? null
-                                        : Number(e.target.value);
-                                    form.setFieldValue(
-                                      "franchiseDuration",
-                                      value
-                                    );
-                                  }}
-                                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-                                    meta.touched && meta.error
+                                <Select
+                                  name={field.name}
+                                  className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                                    getIn(errors, field.name) &&
+                                    getIn(touched, field.name)
                                       ? "border-red-500 mb-0.5"
                                       : ""
                                   }`}
+                                  label={multiselectLabel[index]}
+                                  options={OptionMap["franchiseDuration"] || []}
                                 />
                               )}
                             </Field>

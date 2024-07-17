@@ -125,11 +125,22 @@ export const getLookingFor = async () => {
     throw new Error("Error fetching");
   }
 };
+
 export const getInvestmentDuration = async () => {
   try {
     const response = await axios.get(
       `${API_URL}/dropdown/investment-durations`
     );
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+
+
+export const getFranchiseDuration = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
     return response.data.ResponseData;
   } catch (error) {
     throw new Error("Error fetching");
