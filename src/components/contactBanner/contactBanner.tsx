@@ -75,6 +75,10 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
       )
       .required("Company Name is required"),
     whoAmI: Yup.string().required("This field is required"),
+    otherInformation: Yup.string().max(
+      350,
+      "Information cannot be longer than 350 characters."
+    ),
     acceptTerms: Yup.boolean().oneOf(
       [true],
       "You must accept the terms and conditions"
