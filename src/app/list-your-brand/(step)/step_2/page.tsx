@@ -103,7 +103,7 @@ function SecondStep() {
   const OptionMap: OptionsMapType = {
     industry: categorieOptions,
     subCategory: subCategorieOptions,
-    service: serviceOptions,
+    service: selectedSubcat != null ? serviceOptions : [],
     headquartersLocation: headquartersOptions,
     numberOfLocations: outletsOptions,
     state: stateOptions,
@@ -259,7 +259,10 @@ function SecondStep() {
       }));
 
       fetchSubCategoriesTypes(data?.industry);
-      fetchServiceTypes(data?.subCategory);
+      setSelectedSubCat(data?.subCategory);
+      if (selectedSubcat != null) {
+        fetchServiceTypes(data?.subCategory);
+      }
       setSelectedState(data?.state);
       if (selectedState?.length > 0) {
         fetchCity(data?.state);
