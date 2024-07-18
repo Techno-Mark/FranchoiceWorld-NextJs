@@ -52,7 +52,7 @@ function FirstStep() {
       setIsSubmitting(true);
       try {
         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/get`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
           {
             ...values,
             phoneNumber: mobileNumber,

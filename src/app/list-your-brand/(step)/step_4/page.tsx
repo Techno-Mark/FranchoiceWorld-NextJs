@@ -158,8 +158,8 @@ function FourthStep() {
 
   const createFileFromPath = async (filePath: string, fileName: string) => {
     try {
-      console.log("filePath", filePath);
-      const url = `${API_URL}${filePath}`;
+      const url = `${API_URL}/${filePath}`;
+      
       const response = await fetch(url);
 
       const blob = await response.blob();
