@@ -367,7 +367,7 @@ function FourthStep() {
                     className="font-semibold text-[12px]"
                   >
                     I agree to the{" "}
-                    <Link className="underline" href="#">
+                    <Link className="underline" href="/term_conditions">
                       Terms & Conditions.
                     </Link>
                   </label>
