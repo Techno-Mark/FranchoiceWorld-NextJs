@@ -297,7 +297,9 @@ function SecondStep() {
   };
 
   const validationSchema = Yup.object({
-    brandName: Yup.string().required("Brand Name is required"),
+    brandName: Yup.string()
+      .max(250, "Brand Name cannot be longer than 250 characters.")
+      .required("Brand Name is required"),
     industry: Yup.number().nullable().required("Industry is required"),
     subCategory: Yup.number().nullable().required("Sub-Category is required"),
     service: Yup.number().nullable().required("Service/Product is required"),

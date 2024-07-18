@@ -49,7 +49,6 @@ function InvestorSecondStep() {
   const [cityOptions, setCityOptions] = useState([]);
   const [selectedState, setSelectedState] = useState<any[]>([]);
 
-
   const [cityStateMapping, setCityStateMapping] = useState<{
     [cityId: number]: number;
   }>({});
@@ -181,14 +180,12 @@ function InvestorSecondStep() {
     lookingFor: Yup.number().required("Looking For is required"),
     lookingForState: Yup.array().min(1, "State is required"),
     lookingForCity: Yup.array().min(1, "City is required"),
-    acceptTerms: Yup.boolean().oneOf(
-      [true],
-      "You must agree to submit your form"
-    ),
-    submitInfo: Yup.boolean().oneOf(
-      [true],
-      "You must accept the T&C for future processing data"
-    ),
+    acceptTerms: Yup.boolean()
+      .oneOf([true], "You must agree to submit your form")
+      .required("You must accept the Terms & Conditions."),
+    submitInfo: Yup.boolean()
+      .oneOf([true], "You must accept the T&C for future processing data")
+      .required("You must accept the Terms & Conditions."),
   });
 
   const handleStateChange = (
@@ -482,7 +479,8 @@ function InvestorSecondStep() {
               <Field name="acceptTerms">
                 {({ field }: FieldProps) => (
                   <>
-                    <Checkbox
+                    <Field
+                      as={Checkbox}
                       id="acceptTerms"
                       name="acceptTerms"
                       label="Agree and Submit Your Information ?"
@@ -506,7 +504,8 @@ function InvestorSecondStep() {
               <Field name="submitInfo">
                 {({ field }: FieldProps) => (
                   <>
-                    <Checkbox
+                    <Field
+                      as={Checkbox}
                       className={`mb-3 ${
                         getIn(errors, "submitInfo") &&
                         getIn(touched, "submitInfo")

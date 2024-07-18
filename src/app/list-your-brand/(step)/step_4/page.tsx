@@ -25,6 +25,7 @@ interface FormValues {
   brandImages: File[];
   video?: File[];
   acceptTerms: boolean;
+  submitInfo: boolean;
 }
 
 function FourthStep() {
@@ -48,6 +49,7 @@ function FourthStep() {
     brandImages: [],
     video: [],
     acceptTerms: true,
+    submitInfo: true,
   });
 
   const FILE_SIZE = 5 * 1024 * 1024;
@@ -100,6 +102,10 @@ function FourthStep() {
     acceptTerms: Yup.boolean()
       .oneOf([true], "You must accept the Terms & Conditions.")
       .required("You must accept the Terms & Conditions."),
+
+    submitInfo: Yup.boolean()
+      .oneOf([true], "You must accept the T&C for future processing data")
+      .required("You must accept the T&C for future processing data"),
   });
 
   const handleSubmit = async (
@@ -159,7 +165,7 @@ function FourthStep() {
   const createFileFromPath = async (filePath: string, fileName: string) => {
     try {
       const url = `${API_URL}/${filePath}`;
-      
+
       const response = await fetch(url);
 
       const blob = await response.blob();
@@ -376,7 +382,7 @@ function FourthStep() {
                   <Field
                     as={Checkbox}
                     id="grid-accept-terms"
-                    name="acceptTerms"
+                    name="submitInfo"
                     defaultChecked={true}
                   />
                   <label
@@ -398,6 +404,11 @@ function FourthStep() {
                   {errors.acceptTerms && touched.acceptTerms && (
                     <div className="text-red-500 font-medium">
                       {errors.acceptTerms}
+                    </div>
+                  )}
+                  {errors.submitInfo && touched.submitInfo && (
+                    <div className="text-red-500 font-medium">
+                      {errors.submitInfo}
                     </div>
                   )}
                 </div>
