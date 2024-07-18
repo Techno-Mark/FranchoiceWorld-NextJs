@@ -60,7 +60,7 @@ a {
 
 @media only screen and (max-width:1279px) {
   .mainWrapper {
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 350px);
   }
 }
 
