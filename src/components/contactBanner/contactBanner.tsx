@@ -53,14 +53,24 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
   };
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("Full Name is required"),
+    fullName: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9\s]*$/,
+        "Full Name cannot contain special characters"
+      )
+      .required("Full Name is required"),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
       .required("Phone Number is required"),
     emailId: Yup.string()
       .email("Invalid email address")
       .required("Email ID is required"),
-    companyName: Yup.string().required("Company Name is required"),
+    companyName: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9\s]*$/,
+        "Company Name cannot contain special characters"
+      )
+      .required("Company Name is required"),
     whoAmI: Yup.string().required("This field is required"),
     acceptTerms: Yup.boolean().oneOf(
       [true],
