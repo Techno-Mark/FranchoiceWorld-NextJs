@@ -58,6 +58,12 @@ a {
   }
 }
 
+@media only screen and (max-width:1024px) {
+  .mainWrapper {
+    min-height: calc(100vh - 150px);
+  }
+}
+
 @media only screen and (max-width:991px) {
   .container {
     padding-left: 12px;
