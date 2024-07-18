@@ -85,12 +85,18 @@ function InvestorFirstStep() {
   });
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("Full Name is required"),
+    fullName: Yup.string()
+      .max(250, "Full Name cannot be longer than 250 characters.")
+      .required("Full Name is required"),
     email: Yup.string()
+      .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email Adress is required"),
     city: Yup.number().required("City is required"),
-    pincode: Yup.string().required("Pin Code is required"),
+    pincode: Yup.string()
+      .min(4, "Pin code must be atleast 4 characters")
+      .max(12, "Pin Code cannot be longer than 12 characters.")
+      .required("Pin Code is required"),
     investmentRange: Yup.number().required("Investment Range is required"),
   });
 

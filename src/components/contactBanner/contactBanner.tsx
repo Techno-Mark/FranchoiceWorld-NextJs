@@ -54,6 +54,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
+      .max(250, "Full Name cannot be longer than 250 characters.")
       .matches(
         /^[a-zA-Z0-9\s]*$/,
         "Full Name cannot contain special characters"
@@ -63,9 +64,11 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
       .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
       .required("Phone Number is required"),
     emailId: Yup.string()
+      .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email ID is required"),
     companyName: Yup.string()
+      .max(250, "Company Name cannot be longer than 250 characters.")
       .matches(
         /^[a-zA-Z0-9\s]*$/,
         "Company Name cannot contain special characters"
