@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
 import { values } from "pdf-lib";
+import Link from "next/link";
 
 interface FormValues {
   countryCode: string | null;
@@ -476,25 +477,32 @@ function InvestorSecondStep() {
                 title="Agree and Submit Your Information"
                 titleClass="!text-base"
               />
-              <Field name="acceptTerms">
-                {({ field }: FieldProps) => (
-                  <>
-                    <Field
-                      as={Checkbox}
-                      id="acceptTerms"
-                      name="acceptTerms"
-                      label="Agree and Submit Your Information ?"
-                      defaultChecked={field.value === true}
-                      className={`mb-3 ${
-                        getIn(errors, "acceptTerms") &&
-                        getIn(touched, "acceptTerms")
-                          ? "border-red-500"
-                          : ""
-                      }`}
-                    />
-                  </>
-                )}
-              </Field>
+              <div className="flex">
+                <Field name="acceptTerms">
+                  {({ field }: FieldProps) => (
+                    <>
+                      <Field
+                        as={Checkbox}
+                        id="acceptTerms"
+                        name="acceptTerms"
+                        defaultChecked={field.value === true}
+                        className={`mb-3 ${
+                          getIn(errors, "acceptTerms") &&
+                          getIn(touched, "acceptTerms")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                      />
+                    </>
+                  )}
+                </Field>
+                <p>
+                  I agree to the{" "}
+                  <Link className="underline" href="/term-condition">
+                    Terms & Conditions.
+                  </Link>
+                </p>
+              </div>
               {getIn(errors, "acceptTerms") &&
                 getIn(touched, "acceptTerms") && (
                   <div className="text-red-500 font-medium">

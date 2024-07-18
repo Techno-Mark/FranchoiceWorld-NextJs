@@ -351,7 +351,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         I agree to the{" "}
                         <Link
                           className="underline"
-                          href="/term_conditions"
+                          href="/term-conditions"
                           target="_blank"
                         >
                           Terms & Conditions
