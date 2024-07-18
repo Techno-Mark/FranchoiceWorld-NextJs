@@ -135,7 +135,12 @@ function SecondStep() {
       .typeError("Franchise Fee must be a number")
       .nullable()
       .required("Franchise Fee is required")
-      .min(0, "Franchise Fee must be a positive number"),
+      .min(0, "Franchise Fee must be a positive number")
+      .test(
+        'maxDigits',
+        'Franchise Fee cannot have more than 15 digits',
+        value => !value || value.toString().replace(/\D/g, '').length <= 15
+      ),
     salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
     roi: Yup.number()
       .typeError("Anticipated % Return on Investment (ROI) must be a number")
@@ -428,7 +433,6 @@ function SecondStep() {
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                            
                               label="Sales and Revenue Model"
                               options={OptionMap["salesRevenueModel"] || []}
                             />

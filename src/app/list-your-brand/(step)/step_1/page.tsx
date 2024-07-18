@@ -36,11 +36,16 @@ function FirstStep() {
       websiteURL: "",
     },
     validationSchema: Yup.object({
-      fullName: Yup.string().required("Full Name is required"),
+      fullName: Yup.string()
+        .max(250, "Full Name cannot be longer than 250 characters.")
+        .required("Full Name is required"),
       email: Yup.string()
         .email("Invalid email address")
+        .max(250, "Email Address cannot be longer than 250 characters.")
         .required("Email Address is required"),
-      companyName: Yup.string().required("Company Name is required"),
+      companyName: Yup.string()
+        .max(250, "Company Name cannot be longer than 250 characters.")
+        .required("Company Name is required"),
       websiteURL: Yup.string()
         .matches(
           /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
