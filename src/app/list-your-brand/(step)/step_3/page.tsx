@@ -428,6 +428,7 @@ function SecondStep() {
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
+                            
                               label="Sales and Revenue Model"
                               options={OptionMap["salesRevenueModel"] || []}
                             />
