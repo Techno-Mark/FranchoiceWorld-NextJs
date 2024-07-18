@@ -477,7 +477,7 @@ function InvestorSecondStep() {
                 title="Agree and Submit Your Information"
                 titleClass="!text-base"
               />
-              <div className="flex">
+              <div className="flex items-base mb-3">
                 <Field name="acceptTerms">
                   {({ field }: FieldProps) => (
                     <>
@@ -486,7 +486,7 @@ function InvestorSecondStep() {
                         id="acceptTerms"
                         name="acceptTerms"
                         defaultChecked={field.value === true}
-                        className={`mb-3 ${
+                        className={`${
                           getIn(errors, "acceptTerms") &&
                           getIn(touched, "acceptTerms")
                             ? "border-red-500"
@@ -496,12 +496,42 @@ function InvestorSecondStep() {
                     </>
                   )}
                 </Field>
-                <p>
+                <label
+                  htmlFor="acceptTerms"
+                  className="pl-2 leading-none font-semibold"
+                >
                   I agree to the{" "}
-                  <Link className="underline" href="/term-condition">
+                  <Link className="underline" href="/term-conditions">
                     Terms & Conditions.
                   </Link>
-                </p>
+                </label>
+              </div>
+              <div className="flex items-base mb-3">
+                <Field name="submitInfo">
+                  {({ field }: FieldProps) => (
+                    <>
+                      <Field
+                        as={Checkbox}
+                        className={`${
+                          getIn(errors, "submitInfo") &&
+                          getIn(touched, "submitInfo")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                        name="submitInfo"
+                        id="submitInfo"
+                        defaultChecked={field.value === true}
+                      />
+                    </>
+                  )}
+                </Field>
+                <label
+                  htmlFor="submitInfo"
+                  className="pl-2 leading-none font-semibold"
+                >
+                  I hereby consent to the future processing of my data for
+                  marketing and operational purposes.
+                </label>
               </div>
               {getIn(errors, "acceptTerms") &&
                 getIn(touched, "acceptTerms") && (
@@ -509,25 +539,6 @@ function InvestorSecondStep() {
                     {getIn(errors, "acceptTerms")}
                   </div>
                 )}
-              <Field name="submitInfo">
-                {({ field }: FieldProps) => (
-                  <>
-                    <Field
-                      as={Checkbox}
-                      className={`mb-3 ${
-                        getIn(errors, "submitInfo") &&
-                        getIn(touched, "submitInfo")
-                          ? "border-red-500"
-                          : ""
-                      }`}
-                      name="submitInfo"
-                      id="submitInfo"
-                      label="I hereby consent to the future processing of my data for marketing and operational purposes."
-                      defaultChecked={field.value === true}
-                    />
-                  </>
-                )}
-              </Field>
               {getIn(errors, "submitInfo") && getIn(touched, "submitInfo") && (
                 <div className="text-red-500 font-medium">
                   {getIn(errors, "submitInfo")}

@@ -63,9 +63,11 @@ const Checkbox: React.FC<CheckboxProps> = ({
             {isChecked && <BsCheckLg color="white" size={12} />}
           </div>
         </div>
-        <label className="ml-2" htmlFor={id}>
-          {label}
-        </label>
+        {label && (
+          <label className="ml-2" htmlFor={id}>
+            {label}
+          </label>
+        )}
       </div>
     </div>
   );
