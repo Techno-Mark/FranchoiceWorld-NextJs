@@ -254,7 +254,7 @@ function InvestorSecondStep() {
         ownProperty: response.ownProperty || true,
       }));
       setSelectedState(response?.state);
-      if (selectedState.length > 0) {
+      if (selectedState?.length > 0) {
         fetchCity(response?.state);
       }
     } catch (error) {
@@ -269,7 +269,7 @@ function InvestorSecondStep() {
   }, [mobileNumber, selectedCountry]);
 
   useEffect(() => {
-    if (selectedState.length > 0) {
+    if (selectedState?.length > 0) {
       fetchCity(selectedState);
     }
   }, [selectedState]);
@@ -434,7 +434,7 @@ function InvestorSecondStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  options={selectedState.length > 0 ? cityOptions : []}
+                  options={selectedState?.length > 0 ? cityOptions : []}
                 />
                 {getIn(errors, "lookingForCity") &&
                   getIn(touched, "lookingForCity") && (

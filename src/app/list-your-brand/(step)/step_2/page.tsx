@@ -107,7 +107,7 @@ function SecondStep() {
     headquartersLocation: headquartersOptions,
     numberOfLocations: outletsOptions,
     state: stateOptions,
-    city: selectedState.length > 0 ? cityOptions : [],
+    city: selectedState?.length > 0 ? cityOptions : [],
   };
 
   const fetchCategoriesTypes = async () => {
@@ -221,7 +221,7 @@ function SecondStep() {
       fetchServiceTypes(selectedSubcat);
     }
 
-    if (selectedState.length > 0) {
+    if (selectedState?.length > 0) {
       fetchCity(selectedState);
     }
   }, [selectedIndustry, selectedState, selectedSubcat]);
@@ -261,7 +261,7 @@ function SecondStep() {
       fetchSubCategoriesTypes(data?.industry);
       fetchServiceTypes(data?.subCategory);
       setSelectedState(data?.state);
-      if (selectedState.length > 0) {
+      if (selectedState?.length > 0) {
         fetchCity(data?.state);
       }
     } catch (error) {
@@ -514,7 +514,7 @@ function SecondStep() {
                                 handleStateChange(value, setFieldValue);
                                 setSelectedState(value);
                               }
-                              if (selectedState.length > 0) {
+                              if (selectedState?.length > 0) {
                               }
                               setFieldValue(field.name, value);
                             }}
