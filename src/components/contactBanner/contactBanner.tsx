@@ -54,7 +54,9 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
-    phoneNumber: Yup.number().required("Phone Number is required"),
+    phoneNumber: Yup.string()
+      .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
+      .required("Phone Number is required"),
     emailId: Yup.string()
       .email("Invalid email address")
       .required("Email ID is required"),
@@ -165,7 +167,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         type="text"
                         label="Full Name"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "fullName") &&
                           getIn(touched, "fullName")
                             ? "border-red-500 mb-0.5"
@@ -187,7 +189,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         type="text"
                         label="Company Name"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "companyName") &&
                           getIn(touched, "companyName")
                             ? "border-red-500 mb-0.5"
@@ -211,7 +213,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         type="email"
                         label="Email ID"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "emailId") && getIn(touched, "emailId")
                             ? "border-red-500 mb-0.5"
                             : ""
@@ -244,7 +246,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                             as={InputField}
                             id="grid-phoneNumber"
                             name="phoneNumber"
-                            type="number"
+                            type="text"
                             required={true}
                             maxLength={10}
                             onChange={(
@@ -256,7 +258,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                                 setFieldValue("phoneNumber", value);
                               }
                             }}
-                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:bg-white focus:border-[#73727366] ${
+                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
                               getIn(errors, "phoneNumber") &&
                               getIn(touched, "phoneNumber")
                                 ? "border-red-500 mb-0.5"
@@ -295,9 +297,9 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                       as={TextArea}
                       id="grid-information"
                       name="otherInformation"
-                      label="Is there any other information you would like yo share with us?"
+                      label="Is there any other information you would like to share with us?"
                       required={false}
-                      className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:border-[#73727366] ${
+                      className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                         getIn(errors, "information") &&
                         getIn(touched, "information")
                           ? "border-red-500 mb-0.5"
