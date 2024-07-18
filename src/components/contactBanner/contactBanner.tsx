@@ -169,7 +169,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                   className={`bg-white rounded-lg p-5 lg:p-7 lg:absolute w-full mt-6 md:mt-0 left-0 top-0 ${styles.contactForm}`}
                 >
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full pr-1 mb-3">
+                    <div className="w-full md:pr-1 mb-3">
                       <Field
                         as={InputField}
                         id="grid-first-name"
@@ -191,7 +191,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full pl-1 mb-3">
+                    <div className="w-full md:pl-1 mb-3">
                       <Field
                         as={InputField}
                         id="grid-company-name"
@@ -215,7 +215,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full pr-1 mb-3">
+                    <div className="w-full md:pr-1 mb-3">
                       <Field
                         as={InputField}
                         id="emailId"
@@ -236,7 +236,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full pl-1 mb-3">
+                    <div className="w-full md:pl-1 mb-3">
                       <label
                         className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
                         htmlFor="phoneNumber"
