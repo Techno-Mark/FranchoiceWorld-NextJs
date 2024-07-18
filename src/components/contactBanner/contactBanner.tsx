@@ -108,14 +108,14 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
 
   return (
     <section
-      className={`relative py-10 md:py-20 md:mb-32 lg:mb-44 ${
-        underDevelopment && "md:mb-60 lg:mb-72"
+      className={`relative py-10 md:py-20 lg:mb-44 ${
+        underDevelopment && "lg:mb-72"
       } ${styles.contactBanner}`}
     >
       <div className="container">
-        <div className="flex flex-col md:flex-row">
-          <div className={`w-full md:w-1/2 ${styles.contactContent}`}>
-            <div className="max-w-[467px] w-full">
+        <div className="flex flex-col lg:flex-row">
+          <div className={`w-full lg:w-1/2 ${styles.contactContent}`}>
+            <div className="w-full lg:max-w-[467px]">
               {underDevelopment && (
                 <p className="text-white text-[14px] md:text-[16px] lg:text-[20px] font-medium pb-10">
                   {underDevelopment}
@@ -164,9 +164,9 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
             onSubmit={handleSubmit}
           >
             {({ errors, touched, setFieldValue }) => (
-              <Form className="w-full md:w-1/2 relative">
+              <Form className="w-full lg:w-1/2 relative">
                 <Card
-                  className={`bg-white rounded-lg p-5 lg:p-7 md:absolute w-full mt-6 md:mt-0 left-0 top-0 ${styles.contactForm}`}
+                  className={`bg-white rounded-lg p-5 lg:p-7 lg:absolute w-full mt-6 md:mt-0 left-0 top-0 ${styles.contactForm}`}
                 >
                   <div className="flex flex-col md:flex-row">
                     <div className="w-full pr-1 mb-3">

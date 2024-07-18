@@ -28,7 +28,7 @@ export default function RootLayout({
       </head>
       <body className="mainBody">
         {/* <ListBrandProvider> */}
-        <main className="flex flex-col min-h-screen">
+        <main className="flex flex-col md:min-h-[calc(100vh-150px)] lg:min-h-screen">
           <Header />
           {children}
         </main>
