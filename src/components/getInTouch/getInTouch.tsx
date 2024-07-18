@@ -46,6 +46,7 @@ const GetInTouch = ({ location }: any) => {
                 <Link
                   className="pl-4 md:pl-6 pointer-events-none"
                   href={`https://www.google.com/maps/place/${location}`}
+                  target="_blank"
                 >
                   {location}
                 </Link>
