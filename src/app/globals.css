@@ -58,7 +58,7 @@ a {
   }
 }
 
-@media only screen and (min-height:1100px) {
+@media only screen and (min-height:900px) {
   .mainWrapper {
     min-height: calc(100vh - 350px);
   }
