@@ -43,7 +43,10 @@ const GetInTouch = ({ location }: any) => {
               </li>
               <li className="flex items-center pb-3 md:pb-6 font-medium text-base">
                 <HiLocationMarker size={20} color="var(--footer-bg)" />
-                <Link className="pl-4 md:pl-6" href={location}>
+                <Link
+                  className="pl-4 md:pl-6 pointer-events-none"
+                  href={`https://www.google.com/maps/place/${location}`}
+                >
                   {location}
                 </Link>
               </li>
