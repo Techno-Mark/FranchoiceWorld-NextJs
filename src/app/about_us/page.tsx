@@ -1,15 +1,6 @@
 "use client";
 import CardGrid from "@/components/cardGrid/page";
-import Faq from "@/components/faq/faq";
-import FindFranchise from "@/components/findFranchise/findFranchise";
-import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
 import QuickLinks from "@/components/quickLinks/quickLinks";
-import Testimonial from "@/components/testimonial/testimonial";
-import Title from "@/components/title/title";
-import TopBrandSlider from "@/components/topBrands/topBrands";
-import TrandingVideo from "@/components/trandingVideo/trandingVideo";
-import WhatWeDo from "@/components/whatWeDo/whatWeDo";
-import WhyChoose from "@/components/whyChoose/whyChoose";
 import Image from "next/image";
 
 const whyChooseUs = [
@@ -322,74 +313,106 @@ const About_us = () => {
   ];
   return (
     <>
-      <div className="mx-auto md:max-w-[50%] text-center pt-3 pb-20 md:py-16 ">
-        <div className="text-[rgba(23,73,138,1)] text-2xl pb-4 md:pb-10 md:text-6xl font-extrabold">
-          Welcome to Franchoice World,
-        </div>
+      <section className="py-10">
+        <div className="container text-center">
+          <div className="w-full md:w-4/6 mx-auto">
+            <div className="text-[var(--footer-bg)] text-2xl pb-4 md:text-5xl font-extrabold max-w-[600px] mx-auto">
+              Welcome to Franchoice World,
+            </div>
 
-        <div className="text-sm md:text-base font-normal text-[rgba(115,114,115,1)]">
-          by Gyaata and Pacific Group of Companies. Our mission is to empower
-          brands to achieve expansive growth through strategic franchise
-          partnerships.
-          <span className="text-sm pb-8 pt-4 md:text-xl md:pb-10 block font-semibold text-[rgba(115,114,115,1)]">
-            We aim to be the No.1 choice for brands to write their successful
-            expansion story.
-          </span>
-        </div>
-
-        <div className="items-center w-full">
+            <div className="text-[16px] text-[var(--about-text)]">
+              by Gyaata and Pacific Group of Companies. Our mission is to
+              empower brands to achieve expansive growth through strategic
+              franchise partnerships.
+            </div>
+            <div className="text-[18px] pb-8 pt-4 md:pb-10 font-semibold text-[var(--about-text)]">
+              We aim to be the No.1 choice for brands to write their successful
+              expansion story.
+            </div>
+          </div>
           <Image
             src="/images/aboutUs/about_us_Banner.svg"
-            alt={""}
+            alt="About Banner"
             width={978}
-            className="flex items-center w-full"
+            className="flex items-center w-full max-h-[523px] object-contain w-full"
             height={523}
           />
-        </div>
-        <div className="text-sm md:text-base font-normal text-[rgba(115,114,115,1)]">
-          With strategic franchise development, we help brands to expand into
-          every nook and corner and entrepreneurs to scale success in their
-          business. With our firm grounding in the Indian market and a vision to
-          extend globally, we provide wide-ranging services for franchise
-          listing, advisory, and growth. Our personalized support, local
-          expertise, and data-driven strategies make us the go-to platform for
-          successful franchise expansion.
-          <span className="text-sm  pt-4 md:text-xl block font-semibold text-[rgba(115,114,115,1)]">
-            Join us and realize the potential of your brand.
-          </span>
-        </div>
-      </div>
-
-      {/* not set */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-9 md:gap-24 mx-auto max-w-[50%] pt-3 pb-16 md:py-16">
-        <div className=" w-full ">
-          <div className="text-[rgba(23,73,138,1)]  text-3xl md:text- font-extrabold">
-            Mission
-          </div>
-          <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-semibold">
-            Our mission at Franchoice World is to convert businesses into
-            successful franchises.
-          </div>
-          <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-normal">
-            We offer a range of services that are meant to take you through the
-            entire process of franchising, from the stage of conceptualization
-            to actual support.
+          <div className="w-full md:w-4/6 mx-auto">
+            <div className="text-[16px] text-[var(--about-text)]">
+              With strategic franchise development, we help brands to expand
+              into every nook and corner and entrepreneurs to scale success in
+              their business. With our firm grounding in the Indian market and a
+              vision to extend globally, we provide wide-ranging services for
+              franchise listing, advisory, and growth. Our personalized support,
+              local expertise, and data-driven strategies make us the go-to
+              platform for successful franchise expansion.
+            </div>
+            <div className="text-[18px] pb-8 pt-4 md:pb-10 font-semibold text-[var(--about-text)]">
+              Join us and realize the potential of your brand.
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="text-sm  md:text-base font-normal text-[rgba(115,114,115,1)]">
-          <Image
-            src="/images/aboutUs/Our_mission.png"
-            alt={""}
-            width={172}
-            className="flex items-center w-full pb-5"
-            height={206}
-          />
+      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-20">
+        <div className="container">
+          <div className="flex justify-around w-full w-3/4 mx-auto">
+            <div className="w-full md:w-2/4">
+              <div className="text-[rgba(23,73,138,1)]  text-3xl md:text- font-extrabold">
+                Mission
+              </div>
+              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-semibold">
+                Our mission at Franchoice World is to convert businesses into
+                successful franchises.
+              </div>
+              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-normal">
+                We offer a range of services that are meant to take you through
+                the entire process of franchising, from the stage of
+                conceptualization to actual support.
+              </div>
+            </div>
+
+            <div className="w-full md:w-2/4">
+              <ul className="text-right">
+                <li className="inline-block w-max-content p-2 pt-0">
+                  <Image
+                    src={"/images/whatWeDo/evaluating.jpg"}
+                    alt="image1"
+                    width={170}
+                    height={215}
+                  />
+                </li>
+                <li className="inline-block w-max-content p-2 mt-4">
+                  <Image
+                    src={"/images/whatWeDo/evaluating.jpg"}
+                    alt="image1"
+                    width={170}
+                    height={215}
+                  />
+                </li>
+                <li className="inline-block w-max-content p-2 pb-0">
+                  <Image
+                    src={"/images/whatWeDo/evaluating.jpg"}
+                    alt="image1"
+                    width={170}
+                    height={215}
+                  />
+                </li>
+                <li className="inline-block w-max-content p-2 pb-0">
+                  <Image
+                    src={"/images/whatWeDo/evaluating.jpg"}
+                    alt="image1"
+                    width={170}
+                    height={215}
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <CardGrid cardData={cardData} />
-
+        <CardGrid cardData={cardData} />
+      </section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-24 mx-auto max-w-[50%] pt-3 pb-20 md:pb-9">
         <div className="text-sm  md:text-base font-normal text-[rgba(115,114,115,1)]">
           <Image
