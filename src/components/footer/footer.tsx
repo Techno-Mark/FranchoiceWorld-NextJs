@@ -12,7 +12,7 @@ const footerItem = [
       {
         id: 1,
         name: "About us",
-        path: "/about_us",
+        path: "/about-us",
       },
       // {
       //   id: 2,
