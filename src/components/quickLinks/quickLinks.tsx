@@ -15,7 +15,7 @@ interface QuickLinkProps {
 
 const QuickLinks: React.FC<QuickLinkProps> = ({ quickLink }) => {
   return (
-    <section className={`mt- md:mt-16 py-10 md:py-16 ${styles.quickLinks}`}>
+    <section className={`mt-10 md:mt-16 py-10 md:py-16 ${styles.quickLinks}`}>
       <div className="container">
         {quickLink.map((d, index) => (
           <div className="mt-6" key={index}>

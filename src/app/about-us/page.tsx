@@ -223,42 +223,6 @@ const About_us = () => {
               </div>
             </div>
             <ImageGallery column={2} galleryImages={galleryImages} />
-            {/* <div className="w-full md:w-2/4">
-              <ul className="text-right">
-                <li className="inline-block w-max-content p-2 pt-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 mt-4">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 pb-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 pb-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-              </ul>
-            </div> */}
           </div>
         </div>
 
@@ -266,55 +230,17 @@ const About_us = () => {
       </section>
 
       {/* values section */}
-      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-20">
+      <section className="bg-[rgba(203,224,244,0.2)] ">
         <div className="container">
-          <div className="flex justify-around  w-3/4 mx-auto">
+          <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
+            <ImageGallery column={2} galleryImages={galleryImages} />
             <div className="w-full md:w-2/4">
-              <ul className="text-left">
-                <li className="inline-block w-max-content p-2 pt-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 mt-4">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 pb-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-                <li className="inline-block w-max-content p-2 pb-0">
-                  <Image
-                    src={"/images/whatWeDo/evaluating.jpg"}
-                    alt="image1"
-                    width={170}
-                    height={215}
-                  />
-                </li>
-              </ul>
-            </div>
-
-            <div className="w-full md:w-2/4">
-              <div className="text-[rgba(23,73,138,1)]  text-3xl md:text- font-extrabold">
-                Values
-              </div>
-              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-semibold">
+              <Title title="Values" />
+              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
                 Franchoice World provides a strategic approach to franchise
                 growth, combining creative methods and custom support.
               </div>
-              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-normal">
+              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
                 We make pathways available for investors into unexplored
                 markets, and offer a bright business future to brands,
                 investors, independent franchise partners, and real estate

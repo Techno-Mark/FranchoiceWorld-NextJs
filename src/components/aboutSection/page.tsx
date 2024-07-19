@@ -21,7 +21,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   callToAction,
 }) => {
   return (
-    <section className="py-4 md:py-10">
+    <section className="py-4 md:py-16">
       <div className="container text-center">
         <div className="w-full md:w-4/6 mx-auto">
           <div className="text-[var(--footer-bg)] text-2xl pb-4 md:text-5xl font-extrabold max-w-[600px] mx-auto">

@@ -27,7 +27,7 @@ const TeamMember: React.FC<TeamMember> = ({ name, position, imageSrc }) => (
         {name}
       </span>
     </div>
-    <div className="pt-1 font-semibold">
+    <div className="pt-1 opacity-70 font-semibold">
       <span>{position}</span>
     </div>
   </div>
