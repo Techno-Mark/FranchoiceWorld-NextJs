@@ -209,7 +209,7 @@ const About_us = () => {
       />
       <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-24">
         <div className="container">
-          <div className="flex justify-between items-center w-4/5 mx-auto">
+          <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
             <div className="w-full md:w-2/4">
               <Title title="Mission" />
               <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">

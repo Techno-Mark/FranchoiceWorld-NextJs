@@ -32,13 +32,16 @@ const ImageGallery: React.FC<GalleryProps> = ({
   });
 
   return (
-    <div className={`flex ${className}`}>
+    <div className={`flex my-6 md:my-0${className}`}>
       {columns.map((col, colIndex) => (
-        <div key={colIndex} className={`flex flex-col px-3 odd:mb-6 even:mt-6`}>
+        <div
+          key={colIndex}
+          className={`flex flex-col px-2 sm:px-3 odd:mb-6 even:mt-6`}
+        >
           {col.map((image, imgIndex) => (
             <Image
               key={imgIndex}
-              className={`mb-6 ${styles.image} ${imageClass}`}
+              className={`mb-4 sm:mb-6 ${styles.image} ${imageClass}`}
               src={image.imagePath}
               alt={image.name || "gallery image"}
               width={image.width || 177}
