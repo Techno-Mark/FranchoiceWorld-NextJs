@@ -94,7 +94,7 @@ function SecondStep() {
 
   const Options = [
     { value: 1, label: "Yes" },
-    { value: 0, label: "No" },
+    { value: 2, label: "No" },
   ];
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -121,9 +121,9 @@ function SecondStep() {
     roi: [],
     paybackPeriod: paybackProvideOptions,
     supportProvided: supportProvideOptions,
-    franchiseAgreement: [],
+    franchiseAgreement: Options,
     franchiseDuration: franchiseOptions,
-    isRenewable: [],
+    isRenewable: Options,
   };
 
   const validationSchema = Yup.object({
@@ -137,9 +137,9 @@ function SecondStep() {
       .required("Franchise Fee is required")
       .min(0, "Franchise Fee must be a positive number")
       .test(
-        'maxDigits',
-        'Franchise Fee cannot have more than 15 digits',
-        value => !value || value.toString().replace(/\D/g, '').length <= 15
+        "maxDigits",
+        "Franchise Fee cannot have more than 15 digits",
+        (value) => !value || value.toString().replace(/\D/g, "").length <= 15
       ),
     salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
     roi: Yup.number()
@@ -181,9 +181,8 @@ function SecondStep() {
         `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
         {
           ...values,
-          franchiseAgreement:
-            values.franchiseAgreement === 1 ? "true" : "false",
-          isRenewable: values.isRenewable === 1 ? "true" : "false",
+          franchiseAgreement: values.franchiseAgreement === 1 ? true : false,
+          isRenewable: values.isRenewable === 1 ? true : false,
           phoneNumber: mobileNumber,
           countryCode: selectedCountry,
         }
@@ -356,9 +355,9 @@ function SecondStep() {
         paybackPeriod: data?.paybackPeriod || null,
         supportProvided: data?.supportProvided || [],
         otherApplicable: data?.otherApplicable || "",
-        franchiseAgreement: data?.franchiseAgreement === true ? 1 : 0 || null,
+        franchiseAgreement: data?.franchiseAgreement === true ? 1 : 2 || null,
         franchiseDuration: data?.franchiseDuration || null,
-        isRenewable: data?.isRenewable === true ? 1 : 0 || null,
+        isRenewable: data?.isRenewable === true ? 1 : 2 || null,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
