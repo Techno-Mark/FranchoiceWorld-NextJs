@@ -56,6 +56,10 @@
     color: var(--white-color);
 }
 
+.submenu li:hover a img {
+    filter: brightness(0) invert(1);
+}
+
 @media only screen and (max-width:767px) {
     .submenu {
         position: relative;

@@ -85,12 +85,18 @@ function InvestorFirstStep() {
   });
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("Full Name is required"),
+    fullName: Yup.string()
+      .max(250, "Full Name cannot be longer than 250 characters.")
+      .required("Full Name is required"),
     email: Yup.string()
+      .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email Adress is required"),
     city: Yup.number().required("City is required"),
-    pincode: Yup.string().required("Pin Code is required"),
+    pincode: Yup.string()
+      .min(4, "Pin code must be atleast 4 characters")
+      .max(12, "Pin Code cannot be longer than 12 characters.")
+      .required("Pin Code is required"),
     investmentRange: Yup.number().required("Investment Range is required"),
   });
 
@@ -173,7 +179,7 @@ function InvestorFirstStep() {
                   type="text"
                   label="Full Name"
                   required={true}
-                  className={`block w-full  rounded-lg py-2 px-4 focus:outline-none font-medium  mb-3  !border-[1px] !border-[rgba(115,114,115,0.4)] ${
+                  className={`block w-full  rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] ${
                     getIn(errors, "fullName") && getIn(touched, "fullName")
                       ? "!border-red-500 mb-0.5"
                       : ""
