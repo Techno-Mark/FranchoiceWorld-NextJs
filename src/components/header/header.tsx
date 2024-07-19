@@ -11,10 +11,10 @@ const Header = () => {
       name: "Home",
       path: "/",
     },
-    // {
-    //   name: "About Us",
-    //   path: "/about",
-    // },
+    {
+      name: "About Us",
+      path: "/about_us",
+    },
     {
       name: "Services",
       // path: "/services",

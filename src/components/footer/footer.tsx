@@ -9,11 +9,11 @@ const footerItem = [
     id: "11",
     title: "Company",
     child: [
-      // {
-      //   id: 1,
-      //   name: "About us",
-      //   path: "/about",
-      // },
+      {
+        id: 1,
+        name: "About us",
+        path: "/about_us",
+      },
       // {
       //   id: 2,
       //   name: "Services",

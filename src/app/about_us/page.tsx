@@ -1,8 +1,10 @@
 "use client";
 import AboutSection from "@/components/aboutSection/page";
 import CardGrid from "@/components/cardGrid/page";
+import ImageGallery from "@/components/imageGallery/ImageGallery";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import TeamSection from "@/components/teamSection/page";
+import Title from "@/components/title/title";
 import Image from "next/image";
 
 const quickLinksData = [
@@ -162,10 +164,40 @@ const teamMembers = [
   },
 ];
 
+const galleryImages = [
+  {
+    imagePath: "/images/aboutUs/ourMission/mission1.jpg",
+    name: "mission1",
+    width: 177,
+    height: 218,
+    column: 1,
+  },
+  {
+    imagePath: "/images/aboutUs/ourMission/mission2.jpg",
+    name: "mission2",
+    width: 177,
+    height: 218,
+    column: 0,
+  },
+  {
+    imagePath: "/images/aboutUs/ourMission/mission3.jpg",
+    name: "mission3",
+    width: 177,
+    height: 218,
+    column: 1,
+  },
+  {
+    imagePath: "/images/aboutUs/ourMission/mission4.jpg",
+    name: "mission4",
+    width: 177,
+    height: 218,
+    column: 0,
+  },
+];
+
 const About_us = () => {
   return (
     <>
-      {/* main section with responsive*/}
       <AboutSection
         title="Welcome to Franchoice World,"
         subtitle="by Gyaata and Pacific Group of Companies. Our mission is to empower brands to achieve expansive growth through strategic franchise partnerships."
@@ -175,27 +207,23 @@ const About_us = () => {
         description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
       />
-
-      {/* Mission and card section */}
-      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-20">
+      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-24">
         <div className="container">
-          <div className="flex justify-around  w-3/4 mx-auto">
+          <div className="flex justify-between items-center w-4/5 mx-auto">
             <div className="w-full md:w-2/4">
-              <div className="text-[var(--footer-bg)]  text-3xl md:text- font-extrabold">
-                Mission
-              </div>
-              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-semibold">
+              <Title title="Mission" />
+              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
                 Our mission at Franchoice World is to convert businesses into
                 successful franchises.
               </div>
-              <div className="text-[rgba(115,114,115,1)] text-lg pt-6 md:text- font-normal">
+              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
                 We offer a range of services that are meant to take you through
                 the entire process of franchising, from the stage of
                 conceptualization to actual support.
               </div>
             </div>
-
-            <div className="w-full md:w-2/4">
+            <ImageGallery column={2} galleryImages={galleryImages} />
+            {/* <div className="w-full md:w-2/4">
               <ul className="text-right">
                 <li className="inline-block w-max-content p-2 pt-0">
                   <Image
@@ -230,7 +258,7 @@ const About_us = () => {
                   />
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
 
