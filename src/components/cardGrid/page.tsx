@@ -16,13 +16,13 @@ export default function CardGrid({ cardData }: any) {
               />
             </div>
             <div>
-              <div className="text-[rgba(23,73,178,1)] text-lg md:text-lg font-bold">
+              <div className="text-[var(--footer-bg)] text-lg md:text-lg font-bold">
                 {card.title}
               </div>
               {card.descriptions.map((description: any, descIndex: any) => (
                 <div
                   key={descIndex}
-                  className="text-[rgba(115,114,115,1)] text-sm  pt-3 md:pt-6 font-medium"
+                  className="text-[var(--about-text)] opacity-70  text-sm  pt-2 md:pt-6 font-medium"
                 >
                   {description}
                 </div>
