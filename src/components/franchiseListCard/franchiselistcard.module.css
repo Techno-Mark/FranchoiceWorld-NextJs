@@ -1,0 +1,62 @@
+.franchiseItemCard {
+    box-shadow: none;
+    border: 0.5px solid var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s;
+    padding: 1rem;
+    transform-origin: top;
+}
+
+.franchiseItemImage {
+    height: 110px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.franchiseItemCard:hover {
+    transform: scale(1.02);
+    border: none;
+    box-shadow: 0px 7px 29px rgba(23, 73, 138, 0.2);
+}
+
+.franchiseItemCategory {
+    font-size: 0.8rem;
+    line-height: normal;
+}
+
+.franchiseItemTitle {
+    color: var(--footer-bg);
+}
+
+.franchiseItemDetails {
+    border-top: 0.5px solid var(--text-color);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 1.2rem;
+    margin-top: 0.9rem;
+}
+
+.franchiseItemDetails li span {
+    font-weight: 700;
+}
+
+.franchiseItemButton {
+    background: var(--text-color);
+    color: var(--white-color);
+    font-weight: 700;
+}
+
+.franchiseItemCard:hover .franchiseItemButton {
+    background: var(--highlighted-color);
+}
+
+@media only screen and (max-width:767px) {
+    .franchiseItemCard:hover {
+        transform: scale(1);
+    }
+
+    .franchiseItemImage {
+        height: 96px;
+    }
+}

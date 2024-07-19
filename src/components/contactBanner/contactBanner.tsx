@@ -359,7 +359,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                         and{" "}
                         <Link
                           className="underline"
-                          href="/privacy_poilicy"
+                          href="/privacy-poilicy"
                           target="_blank"
                         >
                           Privacy Policy
