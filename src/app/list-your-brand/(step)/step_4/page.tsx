@@ -361,7 +361,7 @@ function FourthStep() {
                 <span className="text-[rgba(23,73,138,1)] font-semibold text-sm">
                   Agree and Submit Your Information
                 </span>
-                <div className="flex py-5">
+                <div className="flex py-5 items-center">
                   <Field
                     as={Checkbox}
                     id="acceptTerms"
@@ -370,7 +370,7 @@ function FourthStep() {
                   />
                   <label
                     htmlFor="acceptTerms"
-                    className="font-semibold text-[12px]"
+                    className="font-semibold text-[12px] pl-2"
                   >
                     I agree to the{" "}
                     <Link className="underline" href="/term-conditions">
@@ -378,7 +378,7 @@ function FourthStep() {
                     </Link>
                   </label>
                 </div>
-                <div className="flex">
+                <div className="flex items-center">
                   <Field
                     as={Checkbox}
                     id="grid-accept-terms"
@@ -387,7 +387,7 @@ function FourthStep() {
                   />
                   <label
                     htmlFor="grid-accept-terms"
-                    className="font-semibold text-[12px]"
+                    className="font-semibold text-[12px] pl-2"
                   >
                     I hereby consent to the future processing of my data for
                     marketing and operational purposes.
