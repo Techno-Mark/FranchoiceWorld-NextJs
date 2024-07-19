@@ -166,28 +166,59 @@ const teamMembers = [
 
 const galleryImages = [
   {
-    imagePath: "/images/aboutUs/ourMission/mission1.jpg",
-    name: "mission1",
-    width: 177,
-    height: 218,
-    column: 1,
-  },
-  {
-    imagePath: "/images/aboutUs/ourMission/mission2.jpg",
-    name: "mission2",
-    width: 177,
-    height: 218,
-    column: 0,
-  },
-  {
-    imagePath: "/images/aboutUs/ourMission/mission3.jpg",
+    imagePath: "/images/aboutUs/ourMission/mission2.png",
     name: "mission3",
     width: 177,
     height: 218,
     column: 1,
   },
   {
-    imagePath: "/images/aboutUs/ourMission/mission4.jpg",
+    imagePath: "/images/aboutUs/ourMission/mission1.jpg",
+    name: "mission1",
+    width: 177,
+    height: 218,
+    column: 0,
+  },
+  {
+    imagePath: "/images/aboutUs/ourMission/mission4.png",
+    name: "mission3",
+    width: 177,
+    height: 218,
+    column: 1,
+  },
+  {
+    imagePath: "/images/aboutUs/ourMission/mission3.png",
+    name: "mission4",
+    width: 177,
+    height: 218,
+    column: 0,
+  },
+];
+
+const ValueImages = [
+  {
+    imagePath: "/images/aboutUs/ourValue/ourValue2.png",
+    name: "mission1",
+    width: 177,
+    height: 218,
+    column: 1,
+  },
+  {
+    imagePath: "/images/aboutUs/ourValue/ourValue1.png",
+    name: "mission2",
+    width: 177,
+    height: 218,
+    column: 0,
+  },
+  {
+    imagePath: "/images/aboutUs/ourValue/ourValue4.png",
+    name: "mission3",
+    width: 177,
+    height: 218,
+    column: 1,
+  },
+  {
+    imagePath: "/images/aboutUs/ourValue/ourValue3.png",
     name: "mission4",
     width: 177,
     height: 218,
@@ -233,7 +264,7 @@ const About_us = () => {
       <section className="bg-[rgba(203,224,244,0.2)] ">
         <div className="container">
           <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
-            <ImageGallery column={2} galleryImages={galleryImages} />
+            <ImageGallery column={2} galleryImages={ValueImages} />
             <div className="w-full md:w-2/4">
               <Title title="Values" />
               <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
