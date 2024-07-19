@@ -1,0 +1,20 @@
+.breadcrumb {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumbItem {
+    display: flex;
+    align-items: center;
+}
+
+.separator {
+    margin: 0 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.homeIcon {
+    margin-right: 0.5rem;
+}
