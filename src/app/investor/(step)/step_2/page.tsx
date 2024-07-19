@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
-import { values } from "pdf-lib";
 
 interface FormValues {
   countryCode: string | null;
@@ -192,7 +191,7 @@ function InvestorSecondStep() {
     selectedStates: number[],
     setFieldValue: (field: string, value: any) => void
   ) => {
-    setFieldValue("state", selectedStates);
+    setFieldValue("lookingForState", selectedStates);
 
     if (selectedStates.length > 0) {
       fetchCity(selectedStates);
