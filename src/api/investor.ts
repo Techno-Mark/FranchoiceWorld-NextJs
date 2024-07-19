@@ -12,12 +12,10 @@ interface CreateInvestorDataProps {
   countryCode: string | null;
   phoneNumber: string | null;
   address?: string | null;
-  country?: number | null;
-  state?: number | null;
   city?: number | null;
   pincode?: string | null;
-  educationQualification?: number | null;
-  occupation?: number | null;
+  // educationQualification?: number | null;
+  // occupation?: number | null;
   industryType?: number | null;
   investmentRange?: number | null;
   availableCapital?: number | null;

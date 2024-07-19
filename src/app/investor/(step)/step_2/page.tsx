@@ -16,12 +16,11 @@ import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { Field, FieldProps, Form, Formik, FormikHelpers, getIn } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
-import { values } from "pdf-lib";
-import Link from "next/link";
 
 interface FormValues {
   countryCode: string | null;
@@ -193,7 +192,7 @@ function InvestorSecondStep() {
     selectedStates: number[],
     setFieldValue: (field: string, value: any) => void
   ) => {
-    setFieldValue("state", selectedStates);
+    setFieldValue("lookingForState", selectedStates);
 
     if (selectedStates.length > 0) {
       fetchCity(selectedStates);
