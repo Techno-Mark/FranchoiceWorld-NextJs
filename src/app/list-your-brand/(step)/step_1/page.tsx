@@ -120,7 +120,7 @@ function FirstStep() {
       />
       <form onSubmit={formik.handleSubmit} className="md:mt-16">
         <div className="flex flex-col md:flex-row">
-          <div className="w-full pr-2 mb-8 md:mb-7">
+          <div className="w-full md:pr-2 mb-8 md:mb-7">
             <InputField
               id="grid-first-name"
               name="fullName"
@@ -130,10 +130,10 @@ function FirstStep() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               required={true}
-              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                 formik.touched.fullName && formik.errors.fullName
                   ? "border-red-500 mb-0.5"
-                  : "mb-3"
+                  : ""
               }`}
             />
             {formik.touched.fullName && formik.errors.fullName && (
@@ -142,7 +142,7 @@ function FirstStep() {
               </div>
             )}
           </div>
-          <div className="w-full mb-8 md:mb-7 pl-2">
+          <div className="w-full mb-8 md:mb-7 md:pl-2">
             <label
               className="block mb-2 font-medium text-[var(--text-color)]"
               htmlFor="phoneNumber"
@@ -150,9 +150,9 @@ function FirstStep() {
               Phone Number <span className="text-red-500 ml-1">*</span>
             </label>
             <div className="flex">
-              <div className="w-[100px] pb-3">
+              <div className="w-[100px]">
                 <CountryDropdown
-                  variant="small"
+                  variant="formDropdown"
                   className="!border-[rgba(115,114,115,0.4)]"
                   disabled={true}
                 />
@@ -163,7 +163,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={` block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none font-medium  mb-3 md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none font-medium md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>

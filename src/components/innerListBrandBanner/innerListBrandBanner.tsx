@@ -154,7 +154,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               By continuing, you agree to our{" "}
               <Link
                 className="underline decoration-current"
-                href="/term_conditions"
+                href="/term-conditions"
                 target="_blank"
               >
                 Terms of Use
@@ -162,7 +162,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               ,{" "}
               <Link
                 className="underline decoration-current"
-                href="/privacy_policy"
+                href="/privacy-policy"
                 target="_blank"
               >
                 Privacy

@@ -16,11 +16,11 @@ import MultiSelect from "@/components/select/MultiSelect";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { Field, FieldProps, Form, Formik, FormikHelpers, getIn } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
-import { values } from "pdf-lib";
 
 interface FormValues {
   countryCode: string | null;
@@ -192,7 +192,7 @@ function InvestorSecondStep() {
     selectedStates: number[],
     setFieldValue: (field: string, value: any) => void
   ) => {
-    setFieldValue("state", selectedStates);
+    setFieldValue("lookingForState", selectedStates);
 
     if (selectedStates.length > 0) {
       fetchCity(selectedStates);
@@ -476,50 +476,68 @@ function InvestorSecondStep() {
                 title="Agree and Submit Your Information"
                 titleClass="!text-base"
               />
-              <Field name="acceptTerms">
-                {({ field }: FieldProps) => (
-                  <>
-                    <Field
-                      as={Checkbox}
-                      id="acceptTerms"
-                      name="acceptTerms"
-                      label="Agree and Submit Your Information ?"
-                      defaultChecked={field.value === true}
-                      className={`mb-3 ${
-                        getIn(errors, "acceptTerms") &&
-                        getIn(touched, "acceptTerms")
-                          ? "border-red-500"
-                          : ""
-                      }`}
-                    />
-                  </>
-                )}
-              </Field>
+              <div className="flex items-base mb-3">
+                <Field name="acceptTerms">
+                  {({ field }: FieldProps) => (
+                    <>
+                      <Field
+                        as={Checkbox}
+                        id="acceptTerms"
+                        name="acceptTerms"
+                        defaultChecked={field.value === true}
+                        className={`${
+                          getIn(errors, "acceptTerms") &&
+                          getIn(touched, "acceptTerms")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                      />
+                    </>
+                  )}
+                </Field>
+                <label
+                  htmlFor="acceptTerms"
+                  className="pl-2 leading-none font-semibold"
+                >
+                  I agree to the{" "}
+                  <Link className="underline" href="/term-conditions">
+                    Terms & Conditions.
+                  </Link>
+                </label>
+              </div>
+              <div className="flex items-base mb-3">
+                <Field name="submitInfo">
+                  {({ field }: FieldProps) => (
+                    <>
+                      <Field
+                        as={Checkbox}
+                        className={`${
+                          getIn(errors, "submitInfo") &&
+                          getIn(touched, "submitInfo")
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                        name="submitInfo"
+                        id="submitInfo"
+                        defaultChecked={field.value === true}
+                      />
+                    </>
+                  )}
+                </Field>
+                <label
+                  htmlFor="submitInfo"
+                  className="pl-2 leading-none font-semibold"
+                >
+                  I hereby consent to the future processing of my data for
+                  marketing and operational purposes.
+                </label>
+              </div>
               {getIn(errors, "acceptTerms") &&
                 getIn(touched, "acceptTerms") && (
                   <div className="text-red-500 font-medium">
                     {getIn(errors, "acceptTerms")}
                   </div>
                 )}
-              <Field name="submitInfo">
-                {({ field }: FieldProps) => (
-                  <>
-                    <Field
-                      as={Checkbox}
-                      className={`mb-3 ${
-                        getIn(errors, "submitInfo") &&
-                        getIn(touched, "submitInfo")
-                          ? "border-red-500"
-                          : ""
-                      }`}
-                      name="submitInfo"
-                      id="submitInfo"
-                      label="I hereby consent to the future processing of my data for marketing and operational purposes."
-                      defaultChecked={field.value === true}
-                    />
-                  </>
-                )}
-              </Field>
               {getIn(errors, "submitInfo") && getIn(touched, "submitInfo") && (
                 <div className="text-red-500 font-medium">
                   {getIn(errors, "submitInfo")}

@@ -56,7 +56,7 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
-        disabled={disabled}
+        readOnly={disabled}
       />
     </>
   );

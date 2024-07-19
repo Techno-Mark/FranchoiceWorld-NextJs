@@ -2,21 +2,42 @@
 import Link from "next/link";
 import styles from "./menulink.module.css";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const MenuLink = ({ item }: any) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleSubmenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleScroll = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {item.submenu ? (
         <>
-          <div className={styles.menuItem}>
+          <div className={styles.menuItem} ref={menuRef}>
             <button
               onClick={toggleSubmenu}
               className={`p-2 xl:px-3 capitalize inline-block flex gap-1 lg:gap-2 items-center ${styles.menuItem} ${styles.menuButton}`}
