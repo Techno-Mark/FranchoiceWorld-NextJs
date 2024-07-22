@@ -1,0 +1,11 @@
+.paginationButton {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginationButton:disabled{
+    opacity: 0.2;
+}

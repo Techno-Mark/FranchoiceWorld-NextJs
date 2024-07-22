@@ -4,6 +4,7 @@ import Select from "@/components/select/Select";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import styles from "./locationcontent.module.css";
+import { useRouter } from "next/navigation";
 interface OptionType {
   value: number;
   label: string;
@@ -12,6 +13,7 @@ const LocationContent = () => {
   const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
   const [stateOptions, setStateOptions] = useState<OptionType[]>([]);
   const [cityOptions, setCityOptions] = useState<OptionType[]>([]);
+  const router = useRouter();
 
   const fetchIndustryData = async () => {
     try {
@@ -42,7 +44,7 @@ const LocationContent = () => {
 
   const fetchCityData = async (stateId: number) => {
     try {
-      const resp = await getService("/dropdown/cities", { stateId:[stateId] });
+      const resp = await getService("/dropdown/cities", { stateId: [stateId] });
       const formattedCity = resp.map((service: any) => ({
         value: service.id,
         label: service.name,
@@ -66,8 +68,8 @@ const LocationContent = () => {
         city: null,
       }}
       onSubmit={(values) => {
-        // Handle form submission logic here
         console.log(values);
+        router.push("/franchise/list");
       }}
     >
       {({ values, setFieldValue }) => (
