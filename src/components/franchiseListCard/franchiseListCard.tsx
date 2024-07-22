@@ -42,14 +42,19 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
 
   return (
     <>
-      <div className={`flex flex-wrap justify-center xl:justify-between pb-8 ${className}`}>
+      <div
+        className={`flex flex-wrap justify-center xl:justify-between pb-8 ${className}`}
+      >
         {paginatedItems.map((card, index) => (
-          <Card key={index} className={`mx-1.5 my-4 ${styles.franchiseItemCard}`}>
+          <Card
+            key={index}
+            className={`mx-1.5 my-4 ${styles.franchiseItemCard}`}
+          >
             <div className="bg-white overflow-hidden">
               <Image
                 src={card.franchiseImage}
                 alt={card.title}
-                className={`${styles.franchiseItemImage}`}
+                className={`object-top ${styles.franchiseItemImage}`}
                 width={230}
                 height={110}
               />
@@ -57,13 +62,11 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                 <div className="flex justify-between items-center">
                   <div className={styles.BrandTitleSection}>
                     <h3
-                      className={`text-lg font-medium ${styles.franchiseItemCategory}`}
+                      className={`text-[12px] font-medium ${styles.franchiseItemCategory}`}
                     >
                       {card.category}
                     </h3>
-                    <h4
-                      className={`text-xl font-bold ${styles.franchiseItemTitle}`}
-                    >
+                    <h4 className={`font-bold ${styles.franchiseItemTitle}`}>
                       {card.title}
                     </h4>
                   </div>
@@ -90,7 +93,7 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                 </ul>
                 <Button
                   variant="secondary"
-                  className={`w-full text-bold ${styles.franchiseItemButton}`}
+                  className={`w-full text-bold rounded-lg !py-1 ${styles.franchiseItemButton}`}
                 >
                   Know More
                 </Button>
