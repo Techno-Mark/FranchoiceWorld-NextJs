@@ -33,9 +33,9 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(i);
       }
     } else {
-      if (currentPage <= 3) {
-        pages.push(1, 2, 3, "...", totalPages);
-      } else if (currentPage > totalPages - 3) {
+      if (currentPage <= 2) {
+        pages.push(1, 2, "...", totalPages);
+      } else if (currentPage > totalPages - 2) {
         pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
       } else {
         pages.push(
@@ -58,7 +58,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-center mt-6">
+    <div className="flex justify-center mt-3 md:mt-6">
       <button
         onClick={handlePrevPage}
         className={`mx-2 border border-[var(--text-color)] rounded-full ${styles.paginationButton}`}
@@ -74,7 +74,7 @@ const Pagination: React.FC<PaginationProps> = ({
             page === currentPage
               ? "bg-[var(--footer-bg)] text-white font-bold"
               : "hover:bg-gray-100 border border-[rgba(115,114,115,0.2)] font-medium"
-          }`}
+          } ${typeof page !== "number" ? '!opacity-50 hover:bg-transparent':''}`}
           disabled={typeof page !== "number"}
         >
           {typeof page === "number" ? formatPageNumber(page) : page}

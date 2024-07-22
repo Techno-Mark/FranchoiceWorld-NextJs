@@ -109,7 +109,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -119,7 +119,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -129,7 +129,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -139,7 +139,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -149,7 +149,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -159,7 +159,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -169,7 +169,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -179,7 +179,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -189,7 +189,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -199,7 +199,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -209,7 +209,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -219,7 +219,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -229,7 +229,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -239,7 +239,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -249,7 +249,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -259,7 +259,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -269,7 +269,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -279,7 +279,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -289,7 +289,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -299,7 +299,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -309,7 +309,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -319,7 +319,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -329,7 +329,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -339,7 +339,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -349,7 +349,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -359,7 +359,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -369,7 +369,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -379,7 +379,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -389,7 +389,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -399,7 +399,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -409,7 +409,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -419,7 +419,7 @@ const ProductList = () => {
     {
       franchiseImage: "/images/bussinessImage.jpg",
       title: "Froozo",
-      category: "F&B",
+      category: "Food & Beverage",
       investmentRange: "₹30L - 50L",
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
@@ -430,7 +430,7 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="bg-[#f1f1f2] py-6">
+      <div className="bg-[#f1f1f2] py-4 md:py-6">
         <div className="container">
           <Breadcrumbs
             items={breadcrumbItems}
@@ -438,7 +438,7 @@ const ProductList = () => {
           />
         </div>
       </div>
-      <div className="mt-10 mb-8">
+      <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
           <FranchiseListCard items={cardListitems} />
         </div>
