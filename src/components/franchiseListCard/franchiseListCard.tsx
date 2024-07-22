@@ -5,6 +5,7 @@ import styles from "./franchiselistcard.module.css";
 import React, { useState } from "react";
 import Button from "../button/button";
 import Pagination from "../pagination/pagination";
+import Link from "next/link";
 
 interface FranchiseCard {
   franchiseImage: string;
@@ -91,12 +92,18 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                     Franchise Outlet: <span>{card.franchiseOutlet}</span>
                   </li>
                 </ul>
-                <Button
+                <Link
+                  className={`inline-block text-center font-bold px-4 py-1 rounded-lg w-full ${styles.franchiseItemButton}`}
+                  href={`/franchise/details/${index}`}
+                >
+                  Learn More
+                </Link>
+                {/* <Button
                   variant="secondary"
-                  className={`w-full text-bold rounded-lg !py-1 ${styles.franchiseItemButton}`}
+                  className={`w-full text-bold rounded-lg !py-1 `}
                 >
                   Know More
-                </Button>
+                </Button> */}
               </div>
             </div>
           </Card>
