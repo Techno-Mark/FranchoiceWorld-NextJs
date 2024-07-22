@@ -9,3 +9,9 @@
 .paginationButton:disabled{
     opacity: 0.2;
 }
+@media only screen and (max-width:767px) {
+    .paginationButton {
+        width: 30px;
+        height: 30px;
+    }
+}

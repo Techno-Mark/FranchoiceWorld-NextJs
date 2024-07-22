@@ -3,7 +3,7 @@
     border: 0.5px solid var(--text-color);
     border-radius: 10px;
     transition: all 0.3s;
-    padding: 1rem;
+    padding: 1rem 1.25rem;
 }
 
 .franchiseItemImage {

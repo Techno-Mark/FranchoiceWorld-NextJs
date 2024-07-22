@@ -25,7 +25,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
             {index > 0 && <span className={styles.separator}>{separator}</span>}
             {index < items.length - 1 ? (
               <Link
-                className="flex items-center text-[12px] font-medium"
+                className="flex items-center text-[10px] md:text-[12px] font-medium"
                 href={item.href}
               >
                 {item.label === "Home" && (
@@ -34,7 +34,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                 {item.label}
               </Link>
             ) : (
-              <span className="text-[12px] font-semibold text-[var(--third-color)]">
+              <span className="text-[10px] md:text-[12px] font-semibold text-[var(--third-color)]">
                 {item.label === "Home" && (
                   <GoHome size={20} className={styles.homeIcon} />
                 )}
