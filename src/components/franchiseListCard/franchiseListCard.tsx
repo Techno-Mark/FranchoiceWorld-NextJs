@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import Card from "../card/card";
 import styles from "./franchiselistcard.module.css";
-import React from "react";
+import React, { useState } from "react";
 import Button from "../button/button";
+import Pagination from "../pagination/pagination";
 
 interface FranchiseCard {
   franchiseImage: string;
@@ -12,20 +14,36 @@ interface FranchiseCard {
   areaRequired: string;
   franchiseOutlet: string;
   favorite?: boolean;
+  logo?: string;
 }
+
 interface FranchiseCardProps {
   className?: string;
   items: FranchiseCard[];
+  itemsPerPage?: number;
+  pagination?: boolean;
 }
 
 const FranchiseListCard: React.FC<FranchiseCardProps> = ({
   items,
   className,
+  pagination = true,
+  itemsPerPage = 12,
 }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const paginatedItems = items.slice(startIdx, startIdx + itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
-      <div className={`flex flex-wrap ${className}`}>
-        {items.map((card, index) => (
+      <div className={`flex flex-wrap pb-8 ${className}`}>
+        {paginatedItems.map((card, index) => (
           <Card key={index} className={`mx-2 my-4 ${styles.franchiseItemCard}`}>
             <div className="bg-white overflow-hidden">
               <Image
@@ -49,12 +67,15 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                       {card.title}
                     </h4>
                   </div>
-
-                  {/* {favorite ? (
-                    <FaHeart className="text-[#D21F34]" size={20} />
-                  ) : (
-                    <FaRegHeart className="text-gray-500" size={20} />
-                  )} */}
+                  {card.logo && (
+                    <Image
+                      className="object-contain px-2"
+                      src={card.logo}
+                      alt={card.title}
+                      width={80}
+                      height={70}
+                    />
+                  )}
                 </div>
                 <ul className={styles.franchiseItemDetails}>
                   <li className="flex justify-between">
@@ -78,6 +99,13 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
           </Card>
         ))}
       </div>
+      {pagination && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };

@@ -4,6 +4,7 @@ import Select from "@/components/select/Select";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import styles from "./investmentContent.module.css";
+import { useRouter } from "next/navigation";
 
 interface OptionType {
   value: number;
@@ -19,6 +20,7 @@ interface FormValues {
 const InvestmentContent = () => {
   const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
   const [minMaxOption, setMinMaxOption] = useState<OptionType[]>([]);
+  const router = useRouter();
 
   const fetchIndustryData = async () => {
     try {
@@ -59,8 +61,8 @@ const InvestmentContent = () => {
         max: null,
       }}
       onSubmit={(values) => {
-        // Handle form submission logic here
         console.log(values);
+        router.push("/franchise/list");
       }}
     >
       {({ values, setFieldValue }) => {

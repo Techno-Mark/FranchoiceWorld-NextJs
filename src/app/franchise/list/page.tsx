@@ -7,8 +7,9 @@ import QuickLinks from "@/components/quickLinks/quickLinks";
 const ProductList = () => {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Our Mission", href: "/about/our-mission" },
+    { label: "Food & Beverage", href: "javascript:void(0);" },
+    { label: "Quick Bites", href: "javascript:void(0);" },
+    { label: "Quick Service Restaurants", href: "javascript:void(0);" },
   ];
   const quickLinksData = [
     {
@@ -113,6 +114,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -122,6 +124,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -131,6 +134,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -140,6 +144,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -149,6 +154,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -158,6 +164,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -167,6 +174,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -176,6 +184,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -185,6 +194,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -194,6 +204,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -203,6 +214,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -212,6 +224,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -221,6 +234,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -230,6 +244,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -239,6 +254,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -248,6 +264,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -257,6 +274,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -266,6 +284,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -275,6 +294,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -284,6 +304,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -293,6 +314,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -302,6 +324,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -311,6 +334,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -320,6 +344,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -329,6 +354,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -338,6 +364,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -347,6 +374,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -356,6 +384,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -365,6 +394,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -374,6 +404,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -383,6 +414,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
+      logo: "/images/froozoLogo.png",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -392,6 +424,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: true,
+      logo: "/images/froozoLogo.png",
     },
   ];
 
@@ -405,7 +438,7 @@ const ProductList = () => {
           />
         </div>
       </div>
-      <div className="my-10">
+      <div className="mt-10 mb-8">
         <div className="container">
           <FranchiseListCard items={cardListitems} />
         </div>

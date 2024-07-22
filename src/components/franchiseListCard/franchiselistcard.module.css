@@ -4,7 +4,6 @@
     border-radius: 10px;
     transition: all 0.3s;
     padding: 1rem;
-    transform-origin: top;
 }
 
 .franchiseItemImage {
@@ -14,8 +13,8 @@
 }
 
 .franchiseItemCard:hover {
-    transform: scale(1.02);
-    border: none;
+    transform: scale(1.04);
+    border-color: transparent;
     box-shadow: 0px 7px 29px rgba(23, 73, 138, 0.2);
 }
 

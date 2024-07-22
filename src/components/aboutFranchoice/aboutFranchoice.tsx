@@ -2,6 +2,7 @@ import Image from "next/image";
 import Button from "../button/button";
 import Title from "../title/title";
 import styles from "./aboutfranchoice.module.css";
+import Link from "next/link";
 const AboutFranchoice = () => {
   return (
     <section className={`py-10 md:py-20 ${styles.aboutFranchoice}`}>
@@ -21,7 +22,12 @@ const AboutFranchoice = () => {
               No.1 choice for brands looking to successfully pen an expansion
               story.
             </p>
-            <Button variant="highlighted">Learn More</Button>
+            <Link
+              className="font-bold bg-[var(--highlighted-color)] text-white px-4 py-2 rounded"
+              href={"/about-us"}
+            >
+              Learn More
+            </Link>
           </div>
           <div
             className={`w-full flex justify-center md:justify-end md:w-1/2 mt-4 md:mt-0 ${styles.aboutRight}`}
