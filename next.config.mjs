@@ -1,15 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'drive.google.com',
-                port: '',
-                pathname: '/open/**',
-            },
-        ],
-    },
+  images: {
+    domains: ["crm-stageapi.pacificabs.com", "drive.google.com"],
+  },
 };
 
 export default nextConfig;

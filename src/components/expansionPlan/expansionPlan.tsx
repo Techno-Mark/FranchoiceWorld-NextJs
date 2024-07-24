@@ -1,13 +1,6 @@
 import React from "react";
 import Title from "../title/title";
-interface PlanDetail {
-  planTitle: string;
-  planDesc: string;
-}
-interface ExpansionProps {
-  brandName: string;
-  plans: PlanDetail[];
-}
+
 const ExpansionPlan: React.FC<ExpansionProps> = ({ brandName, plans }) => {
   return (
     <section className="py-8 md:py-16">

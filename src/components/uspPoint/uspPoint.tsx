@@ -2,11 +2,6 @@ import Image from "next/image";
 import React from "react";
 import Title from "../title/title";
 
-interface UspPointProps {
-  imagePath: string;
-  uspPoints: string[];
-}
-
 const UspPoint: React.FC<UspPointProps> = ({ imagePath, uspPoints }) => {
   return (
     <section className="py-8 md:pb-20">

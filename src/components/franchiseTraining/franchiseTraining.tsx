@@ -1,14 +1,7 @@
 import React from "react";
 import { PiCheckCircleBold } from "react-icons/pi";
 import Title from "../title/title";
-interface TrainingItemsProps {
-  label: string;
-  value: string;
-}
-interface TrainingProps {
-  brandName: string;
-  trainingItems: TrainingItemsProps[];
-}
+
 const FranchiseTraining: React.FC<TrainingProps> = ({
   brandName,
   trainingItems,

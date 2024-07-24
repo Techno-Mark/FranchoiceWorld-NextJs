@@ -8,21 +8,24 @@ import Select from "../select/Select";
 import styles from "./inquireform.module.css";
 import { getCity, getInvestmentRange } from "@/api/dropdown";
 import Button from "../button/button";
-import Link from "next/link";
 import Checkbox from "../Fields/CheckBox";
+import { CreateInquiry } from "@/api/contact";
 
 interface FormValues {
   fullName: string;
+  countryCode: string;
   phoneNumber: string;
   emailId: string;
   companyName: string;
-  whoAmI: number | null;
+  investmentRange: number | null;
+  city: number | null;
   acceptTerms: boolean;
 }
 
 const InquireForm = () => {
   const [citiesOption, setCitiesOption] = useState([]);
   const [investmentRange, setInvstmentRange] = useState([]);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const fetchInvestmentRange = async () => {
     try {
@@ -37,7 +40,7 @@ const InquireForm = () => {
       );
       setInvstmentRange(formattedInvestmentRangeTypes);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching investment ranges:", error);
     }
   };
 
@@ -53,7 +56,7 @@ const InquireForm = () => {
 
       setCitiesOption(formattedCity);
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching cities:", error);
     }
   };
 
@@ -65,10 +68,12 @@ const InquireForm = () => {
   const initialValues: FormValues = {
     fullName: "",
     companyName: "",
+    countryCode: "+91",
     emailId: "",
-    whoAmI: null,
+    investmentRange: null,
     phoneNumber: "",
     acceptTerms: true,
+    city: null,
   };
 
   const validationSchema = Yup.object({
@@ -86,23 +91,17 @@ const InquireForm = () => {
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email ID is required"),
-    companyName: Yup.string()
-      .max(250, "Company Name cannot be longer than 250 characters.")
-      .matches(
-        /^[a-zA-Z0-9\s]*$/,
-        "Company Name cannot contain special characters"
-      )
-      .required("Company Name is required"),
-    investmentRange: Yup.number().required("Investment Range is required"),
-    acceptTerms: Yup.boolean().oneOf(
-      [true],
-      "You must accept the terms and conditions"
-    ),
+    investmentRange: Yup.number().required("City is required"),
+    city: Yup.number().required("Investment Range is required"),
+    // acceptTerms: Yup.boolean().oneOf(
+    //   [true],
+    //   "You must accept the terms and conditions"
+    // ),
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
-    { setFieldTouched }: FormikHelpers<FormValues>
+    { setFieldTouched, resetForm }: FormikHelpers<FormValues>
   ) => {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
@@ -111,14 +110,19 @@ const InquireForm = () => {
     try {
       const params = {
         fullName: values.fullName,
-        companyName: values.companyName,
-        emailId: values.emailId,
-        whoAmI: values.whoAmI,
+        email: values.emailId,
+        countryCode: values.countryCode,
         phoneNumber: values.phoneNumber.toString(),
+        city: values.city,
+        investmentRange: values.investmentRange,
+        termsAggrement: values.acceptTerms,
       };
-      // if (response.ResponseStatus === "success") {
-      //   router.push(`/thankyou`);
-      // }
+      const response = await CreateInquiry(params);
+      if (response.ResponseStatus === "success") {
+        resetForm();
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 10000);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -151,7 +155,7 @@ const InquireForm = () => {
                     }`}
                   />
                   {getIn(errors, "fullName") && getIn(touched, "fullName") && (
-                    <div className="text-red-500 font-medium">
+                    <div className="text-red-500 font-medium text-[12px]">
                       {getIn(errors, "fullName")}
                     </div>
                   )}
@@ -189,7 +193,7 @@ const InquireForm = () => {
                     </div>
                     {getIn(errors, "phoneNumber") &&
                       getIn(touched, "phoneNumber") && (
-                        <div className="text-red-500 font-medium">
+                        <div className="text-red-500 font-medium text-[12px]">
                           {getIn(errors, "phoneNumber")}
                         </div>
                       )}
@@ -210,7 +214,7 @@ const InquireForm = () => {
                     }`}
                   />
                   {getIn(errors, "emailId") && getIn(touched, "emailId") && (
-                    <div className="text-red-500 font-medium">
+                    <div className="text-red-500 font-medium text-[12px]">
                       {getIn(errors, "emailId")}
                     </div>
                   )}
@@ -227,7 +231,7 @@ const InquireForm = () => {
                     options={citiesOption}
                   />
                   {getIn(errors, "city") && getIn(touched, "city") && (
-                    <div className="text-red-500 font-medium">
+                    <div className="text-red-500 font-medium text-[12px]">
                       {getIn(errors, "city")}
                     </div>
                   )}
@@ -246,7 +250,7 @@ const InquireForm = () => {
                   />
                   {getIn(errors, "investmentRange") &&
                     getIn(touched, "investmentRange") && (
-                      <div className="text-red-500 font-medium">
+                      <div className="text-red-500 font-medium text-[12px]">
                         {getIn(errors, "investmentRange")}
                       </div>
                     )}
@@ -288,13 +292,18 @@ const InquireForm = () => {
                     from Franchoice World
                   </label>
                 </div>
-                {getIn(errors, "acceptTerms") &&
-                  getIn(touched, "acceptTerms") && (
-                    <div className="text-red-500 font-medium">
-                      {getIn(errors, "acceptTerms")}
-                    </div>
-                  )}
+                {/* {getIn(errors, "acceptTerms") &&
+               getIn(touched, "acceptTerms") && (
+                 <div className="text-red-500 font-medium text-[12px]">
+                   {getIn(errors, "acceptTerms")}
+                 </div>
+               )} */}
               </div>
+              {showSuccessMessage && (
+                <div className="text-green-500 text-center mt-4">
+                  Your inquiry has been submitted successfully!
+                </div>
+              )}
             </Form>
           )}
         </Formik>

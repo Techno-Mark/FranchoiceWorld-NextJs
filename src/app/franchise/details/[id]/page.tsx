@@ -1,3 +1,5 @@
+"use client";
+import { getBrandDetails } from "@/api/brand";
 import AboutBrand from "@/components/aboutBrand/aboutBrand";
 import ExpansionPlan from "@/components/expansionPlan/expansionPlan";
 import FranchiseTraining from "@/components/franchiseTraining/franchiseTraining";
@@ -5,20 +7,60 @@ import FranchiseCostInvestment from "@/components/frCostInvestment/franchiseCost
 import InquireForm from "@/components/inquireForm/inquireForm";
 import UspPoint from "@/components/uspPoint/uspPoint";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const FranchiseDetails: React.FC = () => {
-  const aboutBrandContent = {
-    title: "<Brand Name>",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    media: [
-      { type: "image" as const, src: "/images/brands/brandImage.jpg" },
-      { type: "image" as const, src: "/images/brands/brandImage2.jpg" },
-      { type: "image" as const, src: "/images/brands/brandImage3.jpg" },
-      { type: "image" as const, src: "/images/brands/brandImage.jpg" },
-      { type: "video" as const, src: "/images/brands/video-1.mp4" },
-    ],
+  const pathname = usePathname();
+  const [brandName, setBrandName] = useState<string>("");
+  const [aboutBrandContent, setAboutBrandContent] = useState<BrandContent>({
+    brandDesc: "",
+    media: [],
+  });
+
+  const [usp, setUsp] = useState<string[]>([]);
+  const [franchiseData, setFranchiseData] = useState<any>(null);
+  // const [expansionData, setExpansionData] = useState<ExpansionProps>({
+  //   plans: [],
+  // });
+
+  const fetchBrandDetails = async (id: number) => {
+    try {
+      const response = await getBrandDetails(id);
+      setBrandName(response.ResponseData.brandName);
+      setUsp(
+        response.ResponseData.usp ? response.ResponseData.usp.split(",") : []
+      );
+
+      const mediaArray = response.ResponseData.brandImages.map(
+        (url: string) => ({
+          type: "image" as const,
+          src: `${API_URL}/${url}`,
+        })
+      );
+
+      mediaArray.push({
+        type: "video" as const,
+        src: `${API_URL}/${response.ResponseData.video}`,
+      });
+
+      setAboutBrandContent({
+        brandDesc: response.ResponseData.brandDescription,
+        media: mediaArray,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    const segments = pathname.split("/");
+    const id = segments[segments.length - 1];
+    if (id) {
+      fetchBrandDetails(Number(id));
+    }
+  }, [pathname]);
 
   const expansionPlan = [
     {
@@ -76,20 +118,20 @@ const FranchiseDetails: React.FC = () => {
   return (
     <>
       <AboutBrand
-        brandTitle={aboutBrandContent.title}
-        brandDesc={aboutBrandContent.desc}
+        brandTitle={brandName}
+        brandDesc={aboutBrandContent.brandDesc}
         media={aboutBrandContent.media}
       />
-      <UspPoint
-        imagePath="/images/brands/usp.png"
-        uspPoints={["Point 01", "Point 02", "Point 03", "Point 04"]}
+      <UspPoint imagePath="/images/brands/usp.png" uspPoints={usp} />
+      <FranchiseCostInvestment
+      // investmentRange={franchiseData.investmentRangeAssociation.range}
+      // areaRequired={franchiseData.areaRequiredAssociation.name}
+      // franchiseFee={franchiseData.franchiseFee}
+      // roi={franchiseData.roi}
+      // paybackPeriod={franchiseData.paybackPeriodAssociation.name}
       />
-      <FranchiseCostInvestment />
-      <ExpansionPlan brandName="<Brand Name>" plans={expansionPlan} />
-      <FranchiseTraining
-        brandName="<Brand Name>"
-        trainingItems={trainingItems}
-      />
+      <ExpansionPlan brandName={brandName} plans={expansionPlan} />
+      <FranchiseTraining brandName={brandName} trainingItems={trainingItems} />
       <section className="pt-10 pb-20">
         <div className="container">
           <p className="italic">
