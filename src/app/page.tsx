@@ -11,6 +11,7 @@ import OurService from "@/components/ourService/ourService";
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
 
 // interface HomeData {
 //   banner: any[];
@@ -248,21 +249,22 @@ export default function Home() {
       <HalfBanner />
       <WhyChoose cardBox={cardBox} />
       <InnerListBrandBanner props={innerBanner} />
+      <InquireForm />
       <FindFranchise />
-      <ListBrandBanner />
+      {/* <ListBrandBanner /> */}
       <TopBrandSlider
         sectionTitle={opportunity.sectionTitle}
         items={opportunity.items}
       />
-      <Testimonial title="Success Stories" testimonials={testimonials} />
       <FranchiseIndustry />
       <AboutFranchoice />
       <OurService />
-      <TopBrandSlider
+      {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}
       />
-      <TrandingVideo items={trandingVideo.items} />
+      <TrandingVideo items={trandingVideo.items} /> */}
+      <Testimonial title="Success Stories" testimonials={testimonials} />
     </>
   );
 }

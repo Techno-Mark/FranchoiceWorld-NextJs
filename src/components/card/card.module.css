@@ -3,6 +3,3 @@
     box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.cardBox:hover {
-    background: var(--footer-bg);
-}

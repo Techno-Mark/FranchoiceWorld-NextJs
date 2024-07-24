@@ -8,9 +8,6 @@
     margin: 0 auto 3rem;
 }
 
-.cardItems:hover .chooseTitle {
-    color: white;
-}
 
 .chooseImg {
     margin-bottom: 1.5rem;
@@ -22,9 +19,6 @@
     padding-bottom: 1rem;
 }
 
-.chooseBenifits:hover {
-    color: white;
-}
 
 .chooseBenifits li {
     display: flex;
@@ -50,17 +44,6 @@
     line-height: normal;
 }
 
-.cardItems:hover .knowMore {
-    color: white
-}
-
-.knowMore .svgPath {
-    fill: var(--text-color);
-}
-
-.cardItems:hover .svgPath {
-    fill: white
-}
 
 .cardItems:not(:hover) img {
     filter: grayscale(100%);
