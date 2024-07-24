@@ -16,7 +16,7 @@ const FranchiseTraining: React.FC<TrainingProps> = ({
   return (
     <section className="py-4">
       <div className="container">
-        <Title title={`${brandName} Franchise Training`} />
+        <Title title={`${brandName} Franchise Training`}/>
         <ul className="border-t border-[var(--text-color)] py-5">
           {trainingItems.map((items, index) => (
             <li className="flex justify-between pb-2" key={index}>

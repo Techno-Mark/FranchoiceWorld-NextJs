@@ -2,6 +2,7 @@ import AboutBrand from "@/components/aboutBrand/aboutBrand";
 import ExpansionPlan from "@/components/expansionPlan/expansionPlan";
 import FranchiseTraining from "@/components/franchiseTraining/franchiseTraining";
 import FranchiseCostInvestment from "@/components/frCostInvestment/franchiseCostInvestment";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import UspPoint from "@/components/uspPoint/uspPoint";
 import Link from "next/link";
 import React from "react";
@@ -115,6 +116,7 @@ const FranchiseDetails: React.FC = () => {
           </p>
         </div>
       </section>
+      <InquireForm />
     </>
   );
 };
