@@ -1,10 +1,72 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import FranchiseListCard from "@/components/franchiseListCard/franchiseListCard";
 import { FaChevronRight } from "react-icons/fa";
 import QuickLinks from "@/components/quickLinks/quickLinks";
+import { useSearchParams } from "next/navigation";
+import { getFranchiseList } from "@/api/home";
 
 const ProductList = () => {
+  const searchParams = useSearchParams();
+
+  const [brandData, setBrandData] = useState([]);
+
+  // Access the query parameters
+  const type = searchParams.get("type");
+  const industry = Number(searchParams.get("industry"));
+
+  const sector = Number(searchParams.get("sector"));
+  const service = Number(searchParams.get("service"));
+  const state = searchParams.get("state");
+  const city = searchParams.get("city");
+  const minRange = searchParams.get("minRange");
+  const maxRange = searchParams.get("maxRange");
+
+  // const fetchdata = async () => {
+  //   try {
+  //     let url = "/form-details/list?";
+
+  //     // Add type and industry to the URL for all cases
+  //     url += `type=${type}&industry=${industry}`;
+
+  //     // Add additional parameters based on the type
+  //     switch (type) {
+  //       case "categories":
+  //         url += `&sector=${sector}&service=${service}`;
+  //         break;
+  //       case "location":
+  //         url += `&state=${state}&city=${city}`;
+  //         break;
+  //       case "investment":
+  //         url += `&minRange=${minRange}&maxRange=${maxRange}`;
+  //         break;
+  //       default:
+  //         console.warn("Unknown type:", type);
+  //     }
+
+  //     const response = await getFranchiseList(url);
+  //     const formattedData = response.map((categorie: any) => ({
+  //       franchiseImage: "/images/bussinessImage.jpg",
+  //       title: categorie.brandName,
+  //       category: categorie.subCategory,
+  //       investmentRange: categorie.investmentRange,
+  //       areaRequired: categorie.areaaRequired,
+  //       franchiseOutlet: categorie.numberOfLocations,
+  //       favorite: false,
+  //       logo: categorie.logo,
+  //     }));
+  //     setBrandData(formattedData);
+  //   } catch (error) {
+  //     console.error("Error fetching categories types:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchdata();
+  // }, [type, industry, sector, service, state, city, minRange, maxRange]);
+
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Food & Beverage", href: "javascript:void(0);" },
@@ -114,7 +176,7 @@ const ProductList = () => {
       areaRequired: "1000 - 1500",
       franchiseOutlet: "20 - 50",
       favorite: false,
-      logo: "/images/froozoLogo.png",
+      logo: "https://drive.google.com/open?id=1koX9tHomx4y8wf226tjR8s62FBMwDEOv",
     },
     {
       franchiseImage: "/images/bussinessImage.jpg",
@@ -440,7 +502,7 @@ const ProductList = () => {
       </div>
       <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
-          <FranchiseListCard items={cardListitems} />
+          <FranchiseListCard items={brandData} />
         </div>
       </div>
       <QuickLinks quickLink={quickLinksData} />

@@ -5,6 +5,7 @@ import Select from "@/components/select/Select";
 import styles from "./categoriescontent.module.css";
 import { getIndustry, getSector, getService } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
+import { getFranchiseList } from "@/api/home";
 interface OptionType {
   value: number;
   label: string;
@@ -66,9 +67,10 @@ const CategoriesContent = () => {
         sector: null,
         product: null,
       }}
-      onSubmit={(values) => {
-        console.log(values);
-        router.push("/franchise/list");
+      onSubmit={async (values) => {
+        router.push(
+          `/franchise/list?type=categories&industry=${values.industry}&sector=${values.sector}&service=${values.product}`
+        );
       }}
     >
       {({ values, setFieldValue }) => (

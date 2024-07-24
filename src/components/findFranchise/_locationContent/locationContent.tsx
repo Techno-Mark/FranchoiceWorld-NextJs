@@ -69,7 +69,9 @@ const LocationContent = () => {
       }}
       onSubmit={(values) => {
         console.log(values);
-        router.push("/franchise/list");
+        router.push(
+          `/franchise/list?type=location&industry=${values.industry}&state=${values.state}&city=${values.city}`
+        );
       }}
     >
       {({ values, setFieldValue }) => (

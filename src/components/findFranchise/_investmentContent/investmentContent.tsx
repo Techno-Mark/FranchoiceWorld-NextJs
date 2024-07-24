@@ -61,8 +61,9 @@ const InvestmentContent = () => {
         max: null,
       }}
       onSubmit={(values) => {
-        console.log(values);
-        router.push("/franchise/list");
+        router.push(
+          `/franchise/list?type=investment&industry=${values.industry}&minRange=${values.min}&maxRange=${values.max}`
+        );
       }}
     >
       {({ values, setFieldValue }) => {

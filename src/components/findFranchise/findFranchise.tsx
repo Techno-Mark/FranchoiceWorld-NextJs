@@ -19,21 +19,21 @@ interface FranchiseProps {
 }
 
 const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState(1);
 
   const tabs = [
-    { id: "tab1", label: "Categories" },
-    { id: "tab2", label: "Location" },
-    { id: "tab3", label: "Investment" },
+    { id: 1, label: "Categories" },
+    { id: 2, label: "Location" },
+    { id: 3, label: "Investment" },
   ];
 
   const renderContent = () => {
     switch (activeTab) {
-      case "tab1":
+      case 1:
         return <CategoriesContent />;
-      case "tab2":
+      case 2:
         return <LocationContent />;
-      case "tab3":
+      case 3:
         return <InvestmentContent />;
       default:
         return <CategoriesContent />;
