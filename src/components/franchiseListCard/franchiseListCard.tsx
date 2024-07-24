@@ -41,6 +41,14 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
     setCurrentPage(page);
   };
 
+  if (items.length === 0) {
+    return (
+      <div className={`flex justify-center items-center h-64 ${className}`}>
+        <p className="text-xl font-semibold text-gray-500">No data found</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div
@@ -109,7 +117,7 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
           </Card>
         ))}
       </div>
-      {pagination && (
+      {pagination && items.length > 0 && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function CardGrid({ cardData }: any) {
   return (
     <div className="container">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3 pb-20 md:py-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3 pb-20 md:py-10">
         {cardData.map((card: any, index: any) => (
           <div key={index} className="flex pb-14 md:pb-20">
             <div className="pr-4 md:pr-7">
@@ -15,14 +15,14 @@ export default function CardGrid({ cardData }: any) {
                 height={120}
               />
             </div>
-            <div>
-              <div className="text-[rgba(23,73,178,1)] text-lg md:text-lg font-bold">
+            <div className="w-[calc(100%-50px)]">
+              <div className="text-[var(--footer-bg)] text-lg md:text-lg font-bold">
                 {card.title}
               </div>
               {card.descriptions.map((description: any, descIndex: any) => (
                 <div
                   key={descIndex}
-                  className="text-[rgba(115,114,115,1)] text-sm  pt-3 md:pt-6 font-medium"
+                  className="text-[var(--about-text)] opacity-70  text-sm  pt-2 md:pt-6 font-medium"
                 >
                   {description}
                 </div>

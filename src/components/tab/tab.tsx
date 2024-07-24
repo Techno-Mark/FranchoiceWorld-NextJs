@@ -1,14 +1,14 @@
 import styles from "./tab.module.css";
 
 interface Tab {
-  id: string;
+  id: number;
   label: string;
 }
 
 interface TabsProps {
   tabs: Tab[];
-  activeTab: string;
-  onTabChange: (id: string) => void;
+  activeTab: number;
+  onTabChange: (id: number) => void;
   titleClassName?: string;
   contentClassName?: string;
   mainClassName?: string;

@@ -33,7 +33,7 @@ const OurService = () => {
             <>
               <li
                 key={x.id}
-                className={`flex w-full items-center justify-around ${styles.serviceBox}`}
+                className={`flex w-full items-center justify-around ${styles.serviceBox} group`}
               >
                 <Link
                   className="flex items-center justify-around px-6 py-4"
@@ -46,7 +46,7 @@ const OurService = () => {
                     height={73}
                     className={styles.serviceIcn}
                   />
-                  <h4 className="text-white font-semibold text-lg w-2/5">
+                  <h4 className="text-white font-semibold text-lg w-2/5 group-hover:text-[var(--footer-bg)]">
                     {x.serviceText}
                   </h4>
                 </Link>

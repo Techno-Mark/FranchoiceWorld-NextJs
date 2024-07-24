@@ -10,6 +10,8 @@ import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 import OurService from "@/components/ourService/ourService";
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
+import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
 
 // interface HomeData {
 //   banner: any[];
@@ -167,6 +169,21 @@ const banner = {
   imgAlt: "Banner image",
   bannerTitle: "Welcome to the World of Franchising",
 };
+
+const innerBanner = {
+  bannerImage: "/images/leftInnerListBrandBanner.png",
+  submitURL: "/list-your-brand/step_1",
+  SectionTitle: "List Your Brand",
+  desc: "Put your brand in the spotlight!",
+  items: [
+    "Gain access to a broad audience of potential franchisees",
+    "Receive pre-screened, highly qualified leads from individuals.",
+    "Navigate expansion challenges and achieve sustainable growth.",
+  ],
+  noborder: true,
+  imageOnLeft: true,
+};
+
 const cardBox = [
   {
     chooseImage: "/images/brandOwner.svg",
@@ -231,21 +248,23 @@ export default function Home() {
       <Banner props={banner} />
       <HalfBanner />
       <WhyChoose cardBox={cardBox} />
+      <InnerListBrandBanner props={innerBanner} />
+      <InquireForm />
       <FindFranchise />
-      <ListBrandBanner />
+      {/* <ListBrandBanner /> */}
       <TopBrandSlider
         sectionTitle={opportunity.sectionTitle}
         items={opportunity.items}
       />
-      <Testimonial title="Success Stories" testimonials={testimonials} />
       <FranchiseIndustry />
       <AboutFranchoice />
       <OurService />
-      <TopBrandSlider
+      {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}
       />
-      <TrandingVideo items={trandingVideo.items} />
+      <TrandingVideo items={trandingVideo.items} /> */}
+      <Testimonial title="Success Stories" testimonials={testimonials} />
     </>
   );
 }

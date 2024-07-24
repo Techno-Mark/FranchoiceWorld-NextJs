@@ -13,28 +13,32 @@ const LocationContent = lazy(
 const InvestmentContent = lazy(
   () => import("./_investmentContent/investmentContent")
 );
+const BrandContent = lazy(() => import("./_brandContent/brandContent"));
 
 interface FranchiseProps {
   dark?: boolean;
 }
 
 const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState(1);
 
   const tabs = [
-    { id: "tab1", label: "Categories" },
-    { id: "tab2", label: "Location" },
-    { id: "tab3", label: "Investment" },
+    { id: 1, label: "Categories" },
+    { id: 2, label: "Location" },
+    { id: 3, label: "Investment" },
+    { id: 4, label: "Brand" },
   ];
 
   const renderContent = () => {
     switch (activeTab) {
-      case "tab1":
+      case 1:
         return <CategoriesContent />;
-      case "tab2":
+      case 2:
         return <LocationContent />;
-      case "tab3":
+      case 3:
         return <InvestmentContent />;
+      case 4:
+        return <BrandContent />;
       default:
         return <CategoriesContent />;
     }

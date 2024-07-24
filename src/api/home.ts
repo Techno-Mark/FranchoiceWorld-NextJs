@@ -12,3 +12,12 @@ export const getData = async (param: string) => {
     throw new Error("Error fetching");
   }
 };
+
+export const getFranchiseList = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
+    return response.data.ResponseData.brands;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};

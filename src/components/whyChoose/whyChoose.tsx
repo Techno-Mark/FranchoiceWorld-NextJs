@@ -37,11 +37,13 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
               { chooseImage, chooseTitle, list, desc, redirectURL = "#" },
               index
             ) => (
-              <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
-                <Card className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard}`}>
+              <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4 ">
+                <Card
+                  className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard} hover:bg-[var(--footer-bg)] group`}
+                >
                   <Link
                     href={redirectURL}
-                    className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
+                    className={`w-full flex flex-col justify-between h-full ${styles.cardItems} group-hover:text-[var(--white-color)]`}
                   >
                     <div
                       className={`flex justify-start ${

@@ -2,14 +2,12 @@
     padding: 1rem 0;
 }
 
+
 .titlePart {
     max-width: 545px;
     margin: 0 auto 3rem;
 }
 
-.cardItems:hover .chooseTitle {
-    color: var(--footer-bg);
-}
 
 .chooseImg {
     margin-bottom: 1.5rem;
@@ -20,6 +18,7 @@
 .chooseBenifits {
     padding-bottom: 1rem;
 }
+
 
 .chooseBenifits li {
     display: flex;
@@ -45,17 +44,6 @@
     line-height: normal;
 }
 
-.cardItems:hover .knowMore {
-    color: var(--highlighted-color);
-}
-
-.knowMore .svgPath {
-    fill: var(--text-color);
-}
-
-.cardItems:hover .svgPath {
-    fill: var(--highlighted-color);
-}
 
 .cardItems:not(:hover) img {
     filter: grayscale(100%);

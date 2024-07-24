@@ -61,8 +61,9 @@ const InvestmentContent = () => {
         max: null,
       }}
       onSubmit={(values) => {
-        console.log(values);
-        router.push("/franchise/list");
+        router.push(
+          `/franchise/list?type=investment&industry=${values.industry}&minRange=${values.min}&maxRange=${values.max}`
+        );
       }}
     >
       {({ values, setFieldValue }) => {
@@ -79,7 +80,7 @@ const InvestmentContent = () => {
             <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
               <Select
                 name="industry"
-                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
+                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
                 options={industryOptions}
                 placeholder="Select Industries"
                 onChange={(value) => {
@@ -90,7 +91,7 @@ const InvestmentContent = () => {
             <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
               <Select
                 name="min"
-                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
+                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
                 options={minMaxOption}
                 placeholder="Select Min Investment"
                 onChange={(value) => {
@@ -102,7 +103,7 @@ const InvestmentContent = () => {
             <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
               <Select
                 name="max"
-                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
+                className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
                 options={filteredMaxOptions}
                 placeholder="Select Max Investment"
                 onChange={(value) => setFieldValue("max", value)}

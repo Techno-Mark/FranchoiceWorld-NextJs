@@ -21,6 +21,7 @@ interface InnerBannerProps {
     desc?: string;
     items: string[];
     noborder?: boolean;
+    imageOnLeft?: boolean; // New prop
   };
 }
 
@@ -60,8 +61,29 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   return (
     <section className={`py-8 md:py-20 ${styles.innerListBrandBanner}`}>
       <div className="container">
-        <div className="flex items-start flex-wrap lg:flex-nowrap gap-8">
-          <div className={`w-full ${styles.listBrandBannerText}`}>
+        <div
+          className={`flex items-start flex-wrap lg:flex-nowrap gap-8 ${
+            props.imageOnLeft ? "" : "flex-row-reverse"
+          }`}
+        >
+          <div
+            className={`w-full max-w-[250px] mx-auto md:max-w-full ${
+              props.imageOnLeft ? "lg:mr-auto" : "lg:ml-auto"
+            }`}
+          >
+            <Image
+              className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0`}
+              src={props.bannerImage}
+              alt="List your Brand"
+              width={461}
+              height={378}
+            />
+          </div>
+          <div
+            className={`w-full ${styles.listBrandBannerText} ${
+              props.imageOnLeft ? "lg:pl-8" : "lg:pr-8"
+            }`}
+          >
             <h3 className={`font-extrabold ${styles.innerBrandTitle}`}>
               {props.SectionTitle}
             </h3>
@@ -176,15 +198,6 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
                 Infringement Policy
               </Link>
             </p>
-          </div>
-          <div className={`w-full max-w-[250px] mx-auto md:max-w-full`}>
-            <Image
-              className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0`}
-              src={props.bannerImage}
-              alt="List your Brand"
-              width={461}
-              height={378}
-            />
           </div>
         </div>
       </div>
