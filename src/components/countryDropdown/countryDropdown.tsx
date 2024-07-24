@@ -101,7 +101,11 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
             />
             <span
               className={`ml-auto font-medium text-[11px] ${
-                variant === "regular" ? "md:text-lg" : "md:text-[14px]"
+                variant === "regular"
+                  ? "md:text-lg"
+                  : variant === "formDropdown"
+                  ? "md:text-[14px]"
+                  : "md:text-[12px]"
               }`}
             >
               ({selectedCountryData.code})

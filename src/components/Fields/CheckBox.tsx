@@ -13,6 +13,7 @@ interface CheckboxProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   className?: string;
   formik?: boolean;
+  variant?: "Regular" | "White";
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -25,6 +26,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onBlur,
   className,
   formik = false,
+  variant = "Regular",
 }) => {
   const [field, , helpers] = useField({ name, type: "checkbox", value });
   const [isChecked, setIsChecked] = useState(defaultChecked || false);
@@ -48,7 +50,11 @@ const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <div className={className}>
       <div className={`flex items-center ${className}`}>
-        <div className={`relative ${styles.checkboxInput}`}>
+        <div
+          className={`relative ${styles.checkboxInput} ${
+            variant === "White" && styles.whiteCheckBox
+          }`}
+        >
           <input
             className={`absolute w-full h-full top-0 left-0 z-10 opacity-0 ${styles.checkboxInput}`}
             type="checkbox"
@@ -60,7 +66,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
             onBlur={formik ? field.onBlur : onBlur}
           />
           <div className={styles.checkmark}>
-            {isChecked && <BsCheckLg color="white" size={12} />}
+            {isChecked && (
+              <BsCheckLg
+                color={variant === "White" ? "var(--footer-bg)" : "white"}
+                size={12}
+              />
+            )}
           </div>
         </div>
         {label && (
