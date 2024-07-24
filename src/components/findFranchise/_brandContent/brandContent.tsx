@@ -1,18 +1,18 @@
-import { getIndustry, getService, getState } from "@/api/dropdown";
+import React, { useState, useEffect } from "react";
+import { Formik, Form } from "formik";
 import Button from "@/components/button/button";
 import Select from "@/components/select/Select";
-import { Form, Formik } from "formik";
-import { useEffect, useState } from "react";
-import styles from "./locationcontent.module.css";
+import styles from "./brandcontent.module.css";
+import { getIndustry, getSector, getService } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 interface OptionType {
   value: number;
   label: string;
 }
-const LocationContent = () => {
+const BrandContent = () => {
   const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
-  const [stateOptions, setStateOptions] = useState<OptionType[]>([]);
-  const [cityOptions, setCityOptions] = useState<OptionType[]>([]);
+  const [sectorOptions, setSectorOptions] = useState<OptionType[]>([]);
+  const [productOptions, setProductOptions] = useState<OptionType[]>([]);
   const router = useRouter();
 
   const fetchIndustryData = async () => {
@@ -28,48 +28,47 @@ const LocationContent = () => {
     }
   };
 
-  const fetchStateData = async () => {
+  const fetchSectorData = async (industryId: number) => {
     try {
-      const resp = await getState("/dropdown/states");
-      const formattedState = resp.map((sector: any) => ({
+      const resp = await getSector({ industryId });
+      const formattedSector = resp.map((sector: any) => ({
         value: sector.id,
         label: sector.name,
       }));
-      setStateOptions(formattedState);
-      setCityOptions([]); // Clear the product options when the industry changes
+      setSectorOptions(formattedSector);
+      setProductOptions([]);
     } catch (err) {
-      console.log("Error while fetching State Data", err);
+      console.log("Error while fetching sectors", err);
     }
   };
 
-  const fetchCityData = async (stateId: number) => {
+  const fetchServiceData = async (sectorId: number) => {
     try {
-      const resp = await getService("/dropdown/cities", { stateId: [stateId] });
-      const formattedCity = resp.map((service: any) => ({
+      const resp = await getService("/dropdown/services", { sectorId });
+      const formattedService = resp.map((service: any) => ({
         value: service.id,
         label: service.name,
       }));
-      setCityOptions(formattedCity);
+      setProductOptions(formattedService);
     } catch (err) {
-      console.log("Error while fetching City Data", err);
+      console.log("Error while fetching services", err);
     }
   };
 
   useEffect(() => {
     fetchIndustryData();
-    fetchStateData();
   }, []);
 
   return (
     <Formik
       initialValues={{
         industry: null,
-        state: null,
-        city: null,
+        sector: null,
+        product: null,
       }}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         router.push(
-          `/franchise/list?type=location&industry=${values.industry}&state=${values.state}&city=${values.city}`
+          `/franchise/list?type=brand&industry=${values.industry}&sector=${values.sector}&service=${values.product}`
         );
       }}
     >
@@ -82,34 +81,30 @@ const LocationContent = () => {
               name="industry"
               className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
               options={industryOptions}
-              placeholder="Select Industries"
+              placeholder="Brand Name"
               onChange={(value) => {
                 setFieldValue("industry", value);
+                setFieldValue("sector", null);
+                setFieldValue("product", null);
+                fetchSectorData(value);
               }}
             />
           </div>
           <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
             <Select
-              name="state"
+              name="sector"
               className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-              options={stateOptions}
-              placeholder="Select State"
+              options={sectorOptions}
+              placeholder="Location"
               onChange={(value) => {
-                setFieldValue("state", value);
-                setFieldValue("city", null);
-                fetchCityData(value);
+                setFieldValue("sector", value);
+                setFieldValue("product", null);
+                fetchServiceData(value);
               }}
+              // disabled={!values.industry}
             />
           </div>
-          <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
-            <Select
-              name="city"
-              className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-              options={cityOptions}
-              placeholder="Select City"
-              onChange={(value) => setFieldValue("city", value)}
-            />
-          </div>
+          
           <Button
             variant="highlighted"
             className={`px-4 lg:px-11 rounded-md !text-[14px] md:text-[16px] ${styles.search_btn}`}
@@ -123,4 +118,4 @@ const LocationContent = () => {
   );
 };
 
-export default LocationContent;
+export default BrandContent;

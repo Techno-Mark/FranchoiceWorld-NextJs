@@ -11,7 +11,7 @@ const HalfBanner = () => {
             List Your Brand
           </Link>
           <Link href="#" className={`w-full ${styles.categoryButton}`}>
-            Find Your Franchise
+            Investor Registration
           </Link>
         </div>
       </div>

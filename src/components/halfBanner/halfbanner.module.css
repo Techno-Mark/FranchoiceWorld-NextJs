@@ -12,6 +12,7 @@
     background: var(--footer-bg);
     border-radius: 0.5rem;
     max-width: 270px;
+    font-weight: 600;
 }
 .categoryButton:hover{
     background: var(--footer-hover);

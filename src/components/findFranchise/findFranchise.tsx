@@ -13,6 +13,7 @@ const LocationContent = lazy(
 const InvestmentContent = lazy(
   () => import("./_investmentContent/investmentContent")
 );
+const BrandContent = lazy(() => import("./_brandContent/brandContent"));
 
 interface FranchiseProps {
   dark?: boolean;
@@ -25,6 +26,7 @@ const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
     { id: 1, label: "Categories" },
     { id: 2, label: "Location" },
     { id: 3, label: "Investment" },
+    { id: 4, label: "Brand" },
   ];
 
   const renderContent = () => {
@@ -35,6 +37,8 @@ const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
         return <LocationContent />;
       case 3:
         return <InvestmentContent />;
+      case 4:
+        return <BrandContent />;
       default:
         return <CategoriesContent />;
     }

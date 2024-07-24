@@ -2,13 +2,14 @@
     padding: 1rem 0;
 }
 
+
 .titlePart {
     max-width: 545px;
     margin: 0 auto 3rem;
 }
 
 .cardItems:hover .chooseTitle {
-    color: var(--footer-bg);
+    color: white;
 }
 
 .chooseImg {
@@ -19,6 +20,10 @@
 
 .chooseBenifits {
     padding-bottom: 1rem;
+}
+
+.chooseBenifits:hover {
+    color: white;
 }
 
 .chooseBenifits li {
@@ -46,7 +51,7 @@
 }
 
 .cardItems:hover .knowMore {
-    color: var(--highlighted-color);
+    color: white
 }
 
 .knowMore .svgPath {
@@ -54,7 +59,7 @@
 }
 
 .cardItems:hover .svgPath {
-    fill: var(--highlighted-color);
+    fill: white
 }
 
 .cardItems:not(:hover) img {
