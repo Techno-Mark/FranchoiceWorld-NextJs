@@ -12,6 +12,7 @@ import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
 import InquireForm from "@/components/inquireForm/inquireForm";
+import CookieConsent from "@/components/cookie/cookie";
 
 // interface HomeData {
 //   banner: any[];
@@ -218,9 +219,11 @@ const cardBox = [
 export default function Home() {
   return (
     <>
+      {/* <CookieConsent /> */}
       <Banner props={banner} />
       <HalfBanner />
       <WhyChoose cardBox={cardBox} />
+
       <InnerListBrandBanner props={innerBanner} />
       <InquireForm />
       <FindFranchise />
