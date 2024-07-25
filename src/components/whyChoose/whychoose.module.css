@@ -45,9 +45,11 @@
 }
 
 
-.cardItems:not(:hover) img {
-    filter: grayscale(100%);
-    opacity: 0.8;
+.cardItems:hover .chooseTitle,
+.cardItems:hover .chooseBenifits li::before,
+.cardItems:hover img {
+    /* filter: grayscale(100%); */
+    filter: brightness(0) invert(1);
 }
 
 .whyChooseCard {
