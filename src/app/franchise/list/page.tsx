@@ -24,48 +24,80 @@ const ProductList = () => {
   const minRange = searchParams.get("minRange");
   const maxRange = searchParams.get("maxRange");
 
-  // const fetchdata = async () => {
-  //   try {
-  //     let url = "/form-details/list?";
+  const fetchdata = async () => {
+    try {
+      const params = new URLSearchParams();
 
-  //     // Add type and industry to the URL for all cases
-  //     url += `type=${type}&industry=${industry}`;
+      // Always add type
+      params.append("type", String(type));
 
-  //     // Add additional parameters based on the type
-  //     switch (type) {
-  //       case "categories":
-  //         url += `&sector=${sector}&service=${service}`;
-  //         break;
-  //       case "location":
-  //         url += `&state=${state}&city=${city}`;
-  //         break;
-  //       case "investment":
-  //         url += `&minRange=${minRange}&maxRange=${maxRange}`;
-  //         break;
-  //       default:
-  //         console.warn("Unknown type:", type);
-  //     }
+      // Helper function to add param if it's a valid, non-empty value
+      const addParamIfValid = (
+        key: string,
+        value: string | number | null | undefined
+      ) => {
+        if (
+          value !== null &&
+          value !== undefined &&
+          value !== "" &&
+          !(typeof value === "number" && isNaN(value))
+        ) {
+          params.append(key, String(value));
+        }
+      };
 
-  //     const response = await getFranchiseList(url);
-  //     const formattedData = response.map((categorie: any) => ({
-  //       franchiseImage: "/images/bussinessImage.jpg",
-  //       title: categorie.brandName,
-  //       category: categorie.subCategory,
-  //       investmentRange: categorie.investmentRange,
-  //       areaRequired: categorie.areaaRequired,
-  //       franchiseOutlet: categorie.numberOfLocations,
-  //       favorite: false,
-  //       logo: categorie.logo,
-  //     }));
-  //     setBrandData(formattedData);
-  //   } catch (error) {
-  //     console.error("Error fetching categories types:", error);
-  //   }
-  // };
+      // Add industry if valid
+      addParamIfValid("industry", industry);
 
-  // useEffect(() => {
-  //   fetchdata();
-  // }, [type, industry, sector, service, state, city, minRange, maxRange]);
+      // Add additional parameters based on the type
+      switch (type) {
+        case "categories":
+          addParamIfValid("sector", sector);
+          addParamIfValid("service", service);
+          break;
+        case "location":
+          if (typeof state === "number" && !isNaN(state)) {
+            addParamIfValid("state", state);
+          }
+          if (typeof city === "number" && !isNaN(city)) {
+            addParamIfValid("city", city);
+          }
+          break;
+        case "investment":
+          // Only add minRange and maxRange if they are valid numbers
+          if (typeof minRange === "number" && !isNaN(minRange)) {
+            params.append("minRange", String(minRange));
+          }
+          if (typeof maxRange === "number" && !isNaN(maxRange)) {
+            params.append("maxRange", String(maxRange));
+          }
+          break;
+        default:
+          console.warn("Unknown type:", type);
+      }
+
+      const url = `/form-details/list?${params.toString()}`;
+
+      const response = await getFranchiseList(url);
+      const formattedData = response.map((categorie: any) => ({
+        franchiseImage: "/images/bussinessImage.jpg",
+        title: categorie.brandName,
+        category: categorie.subCategory,
+        investmentRange: categorie.investmentRange,
+        areaRequired: categorie.areaaRequired,
+        franchiseOutlet: categorie.numberOfLocations,
+        favorite: false,
+        // logo: categorie.logo,
+      }));
+      setBrandData(formattedData);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, [type, industry, sector, service, state, city, minRange, maxRange]);
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
