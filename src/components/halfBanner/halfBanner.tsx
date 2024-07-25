@@ -10,7 +10,7 @@ const HalfBanner = () => {
           <Link href="/list-your-brand" className={`w-full ${styles.categoryButton}`}>
             List Your Brand
           </Link>
-          <Link href="#" className={`w-full ${styles.categoryButton}`}>
+          <Link href="/investor" className={`w-full ${styles.categoryButton}`}>
             Investor Registration
           </Link>
         </div>
