@@ -20,7 +20,7 @@ const QuickLinks: React.FC<QuickLinkProps> = ({ quickLink }) => {
         {quickLink.map((d, index) => (
           <div className="mt-6" key={index}>
             <h3 className="text-[16px] font-bold text-[#333]">{d.title}</h3>
-            <div className="flex flex-wrap py-6  text-[#333]">
+            <div className="flex flex-wrap py-2 md:py-6 text-[#333]">
               {d.linkItem.map((x, subIndex) => (
                 <span
                   className="my-1 text-[16px] pr-1 mr-1 border-r border-[var(--text-color)] last:border-r-0 leading-none"

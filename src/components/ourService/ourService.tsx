@@ -33,7 +33,7 @@ const OurService = () => {
             <>
               <li
                 key={x.id}
-                className={`flex w-full items-center justify-around ${styles.serviceBox} group`}
+                className={`flex w-full items-center justify-around md:justify-between ${styles.serviceBox} group px-3 md:px-6`}
               >
                 <Link
                   className="flex items-center justify-around px-6 py-4"

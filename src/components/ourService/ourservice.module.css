@@ -3,18 +3,28 @@
 }
 
 .serviceBox {
-    background: var(--third-color);
+    /* background: var(--third-color); */
     border-radius: 1.4rem;
     transition: all 0.3s;
-    border: 2px solid transparent;
+    border: 2px solid var(--white-color);
 }
 
-.serviceBox:hover,
-.serviceBox h4:hover {
+.serviceIcn {
+    filter: brightness(0) invert(1);
+    transition: all 0.3s;
+}
+
+.serviceBox:hover {
     transform: scale(1.02);
-    border: 2px solid var(--white-color);
     background-color: var(--white-color);
+}
+
+.serviceBox h4:hover {
     color: var(--footer-bg);
+}
+
+.serviceBox:hover .serviceIcn {
+    filter: none;
 }
 
 @media only screen and (max-width: 767px) {
