@@ -5,36 +5,36 @@ import ListingSimpleSteps from "@/components/listingSimpleSteps/listingSimpleSte
 import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 
 function ListYourBrand() {
-  const trandingVideo = {
-    desc: "Real, inspiring journeys of successful business entrepreneurs- Explore how they reached",
-    desc2: "their franchising milestones with us!",
-    items: [
-      {
-        id: "1",
-        title:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/images/banner.jpg",
-      },
-      {
-        id: "2",
-        title:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/images/banner.jpg",
-      },
-      {
-        id: "3",
-        title:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-        videoThumbnail: "/images/banner.jpg",
-      },
-    ],
-  };
+  // const trandingVideo = {
+  //   desc: "Real, inspiring journeys of successful business entrepreneurs- Explore how they reached",
+  //   desc2: "their franchising milestones with us!",
+  //   items: [
+  //     {
+  //       id: "1",
+  //       title:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+  //       videoThumbnail: "/images/banner.jpg",
+  //     },
+  //     {
+  //       id: "2",
+  //       title:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+  //       videoThumbnail: "/images/banner.jpg",
+  //     },
+  //     {
+  //       id: "3",
+  //       title:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  //       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+  //       videoThumbnail: "/images/banner.jpg",
+  //     },
+  //   ],
+  // };
   const innerBanner = {
     bannerImage: "/images/innerListBrandBanner.png",
     submitURL: "/list-your-brand/step_1",
@@ -51,11 +51,11 @@ function ListYourBrand() {
     <>
       <InnerListBrandBanner props={innerBanner} />
       <ListingSimpleSteps />
-      <TrandingVideo
+      {/* <TrandingVideo
         items={trandingVideo.items}
         desc={trandingVideo.desc}
         desc2={trandingVideo.desc2}
-      />
+      /> */}
       <Faq />
       <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />

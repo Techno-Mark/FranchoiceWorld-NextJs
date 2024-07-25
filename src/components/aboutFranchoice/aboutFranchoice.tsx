@@ -23,7 +23,7 @@ const AboutFranchoice = () => {
               story.
             </p>
             <Link
-              className="font-bold bg-[var(--highlighted-color)] text-white px-4 py-2 rounded"
+              className="font-bold bg-[var(--highlighted-color)] text-white px-4 py-2 rounded hover:bg-[var(--highlighted-hover)]"
               href={"/about-us"}
             >
               Learn More

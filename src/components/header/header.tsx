@@ -223,8 +223,11 @@ const Header = () => {
                     </Link>
                   </div>
                   <div className={`ml-4 ${styles.stickyCatBtn}`}>
-                    <Link href="#" className={`${styles.categoryButton}`}>
-                      Find Your Franchise
+                    <Link
+                      href="/investor"
+                      className={`${styles.categoryButton}`}
+                    >
+                      Investor Registration
                     </Link>
                   </div>
                 </>

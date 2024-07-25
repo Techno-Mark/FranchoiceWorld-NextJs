@@ -111,12 +111,12 @@ const international = {
   ],
 };
 const testimonials = [
-  {
-    message:
-      "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
-    author: "Connplex",
-    companyLogo: "/images/testimonial/connplex.jpg",
-  },
+  // {
+  //   message:
+  //     "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
+  //   author: "Connplex",
+  //   companyLogo: "/images/testimonial/connplex.jpg",
+  // },
   {
     message:
       "Choosing Gyaata to expand our franchises was one of the best decisions we made. Their dedicated and creative team enhanced our brand reputation and run result-driven lead generation campaigns. We saw significant growth within a short span of time. If you are looking for your brand's franchise growth, this is the one!",
@@ -136,34 +136,34 @@ const testimonials = [
     companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
-const trandingVideo = {
-  items: [
-    {
-      id: "1",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "2",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "3",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-  ],
-};
+// const trandingVideo = {
+//   items: [
+//     {
+//       id: "1",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "2",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "3",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//   ],
+// };
 const banner = {
   imgUrl: "/images/banner.jpg",
   imgAlt: "Banner image",
@@ -187,7 +187,7 @@ const innerBanner = {
 const cardBox = [
   {
     chooseImage: "/images/brandOwner.svg",
-    chooseTitle: "Brand Owner",
+    chooseTitle: "Brand",
     list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
     redirectURL: "/list-your-brand",
   },
@@ -216,33 +216,6 @@ const cardBox = [
   },
 ];
 export default function Home() {
-  // const [homeData, setHomeData] = useState<HomeData | null>(null);
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [error, setError] = useState<string | null>(null);
-  // const pathname = usePathname();
-
-  // const fetchData = async () => {
-  //   try {
-  //     const res = await getData(pathname);
-  //     if (res) {
-  //       setHomeData(res.responseData);
-  //     } else {
-  //       throw new Error("Something went wrong...!!!");
-  //     }
-  //   } catch (err: any) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, [pathname]);
-
-  // if (loading) return <Loading />;
-  // if (error) return <div>Error: {error}</div>;
-
   return (
     <>
       <Banner props={banner} />

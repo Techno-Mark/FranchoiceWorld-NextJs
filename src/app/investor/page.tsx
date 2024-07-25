@@ -73,12 +73,12 @@ const opportunity = {
   ],
 };
 const testimonials = [
-  {
-    message:
-      "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
-    author: "Connplex",
-    companyLogo: "/images/testimonial/connplex.jpg",
-  },
+  // {
+  //   message:
+  //     "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
+  //   author: "Connplex",
+  //   companyLogo: "/images/testimonial/connplex.jpg",
+  // },
   {
     message:
       "Choosing Gyaata to expand our franchises was one of the best decisions we made. Their dedicated and creative team enhanced our brand reputation and run result-driven lead generation campaigns. We saw significant growth within a short span of time. If you are looking for your brand's franchise growth, this is the one!",
@@ -98,34 +98,34 @@ const testimonials = [
     companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
-const trandingVideo = {
-  items: [
-    {
-      id: "1",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "2",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "3",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-  ],
-};
+// const trandingVideo = {
+//   items: [
+//     {
+//       id: "1",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "2",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "3",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//   ],
+// };
 const whatWeDo = {
   title: "What Will We Do to Get You a Suitable Brand?",
   titleDesc:
@@ -307,7 +307,7 @@ const Investor = () => {
         items={opportunity.items}
       />
       <Testimonial title="Success Stories" testimonials={testimonials} />
-      <TrandingVideo items={trandingVideo.items} />
+      {/* <TrandingVideo items={trandingVideo.items} /> */}
       <WhatWeDo
         sectionTitle={whatWeDo.title}
         titleDesc={whatWeDo.titleDesc}
