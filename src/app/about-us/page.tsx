@@ -5,7 +5,6 @@ import ImageGallery from "@/components/imageGallery/ImageGallery";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import TeamSection from "@/components/teamSection/page";
 import Title from "@/components/title/title";
-import Image from "next/image";
 
 const quickLinksData = [
   {
@@ -238,7 +237,7 @@ const About_us = () => {
         description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
       />
-      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-24">
+      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-0">
         <div className="container">
           <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
             <div className="w-full md:w-2/4">
@@ -261,7 +260,7 @@ const About_us = () => {
       </section>
 
       {/* values section */}
-      <section className="bg-[rgba(203,224,244,0.2)] ">
+      <section className="py-8 md:py-16">
         <div className="container">
           <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
             <ImageGallery column={2} galleryImages={ValueImages} />

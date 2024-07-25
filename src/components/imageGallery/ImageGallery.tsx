@@ -41,7 +41,7 @@ const ImageGallery: React.FC<GalleryProps> = ({
           {col.map((image, imgIndex) => (
             <Image
               key={imgIndex}
-              className={`mb-4 sm:mb-6 ${styles.image} ${imageClass}`}
+              className={`mb-4 sm:mb-6 last:mb-0 ${styles.image} ${imageClass}`}
               src={image.imagePath}
               alt={image.name || "gallery image"}
               width={image.width || 177}
