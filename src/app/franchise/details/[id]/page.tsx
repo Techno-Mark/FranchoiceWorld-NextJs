@@ -20,10 +20,19 @@ const FranchiseDetails: React.FC = () => {
   });
 
   const [usp, setUsp] = useState<string[]>([]);
-  const [franchiseData, setFranchiseData] = useState<any>(null);
-  // const [expansionData, setExpansionData] = useState<ExpansionProps>({
-  //   plans: [],
-  // });
+  const [franchiseCostInvest, setFranchiseCostInvest] =
+    useState<FranchiseCostInvestmentProps>({
+      operations: {
+        commenced: "",
+        franchiseCommenced: "",
+      },
+      franchiseDetails: {
+        investment: "",
+        likelyPayBackPeriod: "",
+        industry: "",
+        franchiseModel: [],
+      },
+    });
 
   const fetchBrandDetails = async (id: number) => {
     try {
@@ -32,22 +41,32 @@ const FranchiseDetails: React.FC = () => {
       setUsp(
         response.ResponseData.usp ? response.ResponseData.usp.split(",") : []
       );
-
       const mediaArray = response.ResponseData.brandImages.map(
         (url: string) => ({
           type: "image" as const,
           src: `${API_URL}/${url}`,
         })
       );
-
       mediaArray.push({
         type: "video" as const,
         src: `${API_URL}/${response.ResponseData.video}`,
       });
-
       setAboutBrandContent({
         brandDesc: response.ResponseData.brandDescription,
         media: mediaArray,
+      });
+      setFranchiseCostInvest({
+        ...franchiseCostInvest,
+        operations: {
+          commenced: response.ResponseData.yearFounded,
+          franchiseCommenced: response.ResponseData.yearFounded,
+        },
+        franchiseDetails: {
+          investment: response.ResponseData.investmentRangeAssociation.range,
+          likelyPayBackPeriod: response.ResponseData.paybackPeriod,
+          industry: response.ResponseData.industry,
+          franchiseModel: response.ResponseData.salesRevenueModel,
+        },
       });
     } catch (err) {
       console.log(err);
@@ -124,11 +143,8 @@ const FranchiseDetails: React.FC = () => {
       />
       <UspPoint imagePath="/images/brands/usp.png" uspPoints={usp} />
       <FranchiseCostInvestment
-      // investmentRange={franchiseData.investmentRangeAssociation.range}
-      // areaRequired={franchiseData.areaRequiredAssociation.name}
-      // franchiseFee={franchiseData.franchiseFee}
-      // roi={franchiseData.roi}
-      // paybackPeriod={franchiseData.paybackPeriodAssociation.name}
+        operations={franchiseCostInvest.operations}
+        franchiseDetails={franchiseCostInvest.franchiseDetails}
       />
       <ExpansionPlan brandName={brandName} plans={expansionPlan} />
       <FranchiseTraining brandName={brandName} trainingItems={trainingItems} />

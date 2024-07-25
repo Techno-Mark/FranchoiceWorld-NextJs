@@ -35,3 +35,21 @@ interface TrainingProps {
   brandName: string;
   trainingItems: TrainingItemsProps[];
 }
+
+// Cost & Investment
+interface OperationProps {
+  commenced: string;
+  franchiseCommenced: string;
+}
+
+interface FranchiseDetailsProps {
+  investment: string;
+  likelyPayBackPeriod: string;
+  industry: string;
+  franchiseModel: string[];
+}
+
+interface FranchiseCostInvestmentProps {
+  operations: OperationProps;
+  franchiseDetails: FranchiseDetailsProps;
+}

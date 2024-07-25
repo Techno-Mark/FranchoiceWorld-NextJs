@@ -28,12 +28,12 @@ const AboutBrand: React.FC<BrandContent> = ({
       <div className="container">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="w-full md:w-1/2">
-            <div className="w-5/6">
-              <h2 className="text-4xl font-extrabold text-[var(--footer-bg)]">
+            <div className="w-full md:w-5/6">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-[var(--footer-bg)]">
                 About
               </h2>
               <h3
-                className={`text-4xl font-extrabold text-[var(--footer-bg)] pb-6 ${styles.brandTitle}`}
+                className={`text-2xl md:text-4xl font-extrabold text-[var(--footer-bg)] pb-4 md:pb-6 ${styles.brandTitle}`}
               >
                 {brandTitle}
               </h3>
@@ -43,7 +43,7 @@ const AboutBrand: React.FC<BrandContent> = ({
           <div className="w-full md:w-1/2 max-w-[562px]">
             {/* Brand gallery component */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full h-[360px] bg-gray-200 rounded-xl">
+              <div className="relative w-full h-[200px] md:h-[360px] bg-gray-200 rounded-xl">
                 {isLoading && (
                   <div className="absolute inset-0 bg-gray-200"></div>
                 )}
@@ -72,7 +72,7 @@ const AboutBrand: React.FC<BrandContent> = ({
                   <li key={index} className="cursor-pointer mx-1 rounded-lg">
                     {item.type === "image" ? (
                       <Image
-                        className="object-cover rounded-lg w-[100px] h-[70px]"
+                        className="object-cover rounded-lg w-[50px] h-[40px] md:w-[100px] md:h-[70px]"
                         src={item.src}
                         alt={`${brandTitle} thumbnail ${index + 1}`}
                         width={100}
@@ -82,13 +82,10 @@ const AboutBrand: React.FC<BrandContent> = ({
                       />
                     ) : (
                       <div
-                        className="relative rounded-lg w-[100px] h-[70px] bg-gray-300 flex items-center justify-center"
+                        className="relative rounded-lg w-[50px] h-[40px] md:w-[100px] md:h-[70px] bg-gray-300 flex items-center justify-center"
                         onClick={() => handleThumbnailClick(item)}
                       >
-                        <FaCirclePlay
-                          className="absolute left-0 right-0 mx-auto top-half text-white"
-                          size={35}
-                        />
+                        <FaCirclePlay className="absolute left-0 right-0 mx-auto top-half text-white text-lg md:text-[35px]" />
                       </div>
                     )}
                   </li>
