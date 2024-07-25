@@ -8,6 +8,7 @@ import Pagination from "../pagination/pagination";
 import Link from "next/link";
 
 interface FranchiseCard {
+  id?: number | null;
   franchiseImage: string;
   title: string;
   category: string;
@@ -52,7 +53,7 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
   return (
     <>
       <div
-        className={`flex flex-wrap justify-center xl:justify-between pb-8 ${className}`}
+        className={`flex flex-wrap justify-center xl:justify-start pb-8 ${className}`}
       >
         {paginatedItems.map((card, index) => (
           <Card
@@ -102,9 +103,9 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                 </ul>
                 <Link
                   className={`inline-block text-center font-bold px-4 py-1 rounded-lg w-full ${styles.franchiseItemButton}`}
-                  href={`/franchise/details/${index}`}
+                  href={`/franchise/details/${card.id}`}
                 >
-                  Learn More
+                  Know More
                 </Link>
                 {/* <Button
                   variant="secondary"

@@ -45,9 +45,9 @@
 }
 
 
-.cardItems:hover .chooseTitle,
-.cardItems:hover .chooseBenifits li::before,
-.cardItems:hover img {
+.whyChooseCard:hover .chooseTitle,
+.whyChooseCard:hover .chooseBenifits li::before,
+.whyChooseCard:hover img {
     /* filter: grayscale(100%); */
     filter: brightness(0) invert(1);
 }
