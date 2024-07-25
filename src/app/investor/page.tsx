@@ -1,13 +1,14 @@
 "use client";
+import { getFranchiseList } from "@/api/home";
 import Faq from "@/components/faq/faq";
 import FindFranchise from "@/components/findFranchise/findFranchise";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
-import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 import WhatWeDo from "@/components/whatWeDo/whatWeDo";
 import WhyChoose from "@/components/whyChoose/whyChoose";
+import { useEffect, useState } from "react";
 
 const whyChooseUs = [
   {
@@ -31,47 +32,48 @@ const whyChooseUs = [
     desc: "Gain valuable insights into market trends and opportunities to make informed investment decisions.",
   },
 ];
-const opportunity = {
-  sectionTitle: "Top Business Opportunities",
-  items: [
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-  ],
-};
+// const opportunity = {
+//   sectionTitle: "Top Business Opportunities",
+//   items: [
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//   ],
+// };
+
 const testimonials = [
   // {
   //   message:
@@ -98,6 +100,7 @@ const testimonials = [
     companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
+
 // const trandingVideo = {
 //   items: [
 //     {
@@ -126,6 +129,7 @@ const testimonials = [
 //     },
 //   ],
 // };
+
 const whatWeDo = {
   title: "What Will We Do to Get You a Suitable Brand?",
   titleDesc:
@@ -283,6 +287,41 @@ const quickLinksData = [
 ];
 
 const Investor = () => {
+  const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
+    sectionTitle: "Top Business Opportunities",
+    items: [],
+  });
+
+  const fetchTopOppData = async () => {
+    try {
+      const res = await getFranchiseList(
+        "/form-details/list?type=categories&limit=4"
+      );
+
+      const oppArray = res.map((r: any) => ({
+        id: r.id,
+        image: r.brandImages[0],
+        title: r.brandName,
+        category: r.subCategory,
+        investmentRange: r.investmentRange,
+        areaRequired: r.areaaRequired,
+        franchiseOutlet: r.numberOfLocations,
+        favorite: false,
+      }));
+
+      setOpportunity({
+        ...opportunity,
+        items: oppArray,
+      });
+    } catch (error) {
+      console.error("Error fetching list Top franchise:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTopOppData();
+  }, []);
+
   const innerBanner = {
     bannerImage: "/images/innerInvestorBanner.png",
     submitURL: "/investor/step_1",
@@ -295,6 +334,7 @@ const Investor = () => {
     ],
     noborder: true,
   };
+
   return (
     <>
       <InnerListBrandBanner props={innerBanner} />

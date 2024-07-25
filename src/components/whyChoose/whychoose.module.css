@@ -2,12 +2,10 @@
     padding: 1rem 0;
 }
 
-
 .titlePart {
     max-width: 545px;
     margin: 0 auto 3rem;
 }
-
 
 .chooseImg {
     margin-bottom: 1.5rem;
@@ -18,7 +16,6 @@
 .chooseBenifits {
     padding-bottom: 1rem;
 }
-
 
 .chooseBenifits li {
     display: flex;
@@ -44,6 +41,17 @@
     line-height: normal;
 }
 
+.knowMore,
+.whyChooseCard .svgPath {
+    color: var(--highlighted-color);
+    fill: var(--highlighted-color);
+}
+
+.whyChooseCard:hover .knowMore,
+.whyChooseCard:hover .svgPath {
+    color: white;
+    fill: var(--white-color);
+}
 
 .whyChooseCard:hover .chooseTitle,
 .whyChooseCard:hover .chooseBenifits li::before,

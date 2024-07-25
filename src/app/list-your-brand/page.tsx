@@ -1,5 +1,6 @@
 import Faq from "@/components/faq/faq";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import ListBrandBanner from "@/components/listBrandBanner/listBrandBanner";
 import ListingSimpleSteps from "@/components/listingSimpleSteps/listingSimpleSteps";
 import TrandingVideo from "@/components/trandingVideo/trandingVideo";
@@ -57,9 +58,10 @@ function ListYourBrand() {
         desc2={trandingVideo.desc2}
       /> */}
       <Faq />
-      <div className="pt-4 md:py-12">
+      <InquireForm />
+      {/* <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />
-      </div>
+      </div> */}
     </>
   );
 }
