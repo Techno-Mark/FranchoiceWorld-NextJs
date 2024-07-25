@@ -1,5 +1,6 @@
 // components/CardGrid.js
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CardGrid({ cardData }: any) {
   return (
@@ -15,7 +16,7 @@ export default function CardGrid({ cardData }: any) {
                 height={120}
               />
             </div>
-            <div className="w-[calc(100%-50px)]">
+            <div className="w-[calc(100%-60px)]">
               <div className="text-[var(--footer-bg)] text-lg md:text-lg font-bold">
                 {card.title}
               </div>
@@ -27,16 +28,18 @@ export default function CardGrid({ cardData }: any) {
                   {description}
                 </div>
               ))}
-              <div className="text-[rgba(210,31,52,1)] text-sm pt-3 md:pt-6 md:text-sm font-semibold">
-                Know more
-                <Image
-                  src="/images/aboutUs/tail-right.png"
-                  alt="Arrow"
-                  width={12}
-                  className="ml-2 inline-block"
-                  height={10.4}
-                />
-              </div>
+              <Link href={card.url} className="inline-block">
+                <div className="text-[rgba(210,31,52,1)] text-sm pt-3 md:pt-6 md:text-sm font-semibold">
+                  Know more
+                  <Image
+                    src="/images/aboutUs/tail-right.png"
+                    alt="Arrow"
+                    width={12}
+                    className="ml-2 inline-block"
+                    height={10.4}
+                  />
+                </div>
+              </Link>
             </div>
           </div>
         ))}
