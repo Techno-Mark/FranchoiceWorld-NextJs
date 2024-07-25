@@ -139,7 +139,7 @@ const InquireForm = () => {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="w-full">
-              <div className="flex flex-col md:flex-row items-start whitespace-nowrap">
+              <div className="flex flex-col items-center md:items-start md:flex-row whitespace-nowrap">
                 <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
                   <Field
                     as={InputField}
