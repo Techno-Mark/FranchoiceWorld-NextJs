@@ -7,6 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import { useSearchParams } from "next/navigation";
 import { getFranchiseList } from "@/api/home";
+import InquireForm from "@/components/inquireForm/inquireForm";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -216,7 +217,10 @@ const ProductList = () => {
           <FranchiseListCard items={brandData} />
         </div>
       </div>
-      <QuickLinks quickLink={quickLinksData} />
+      <div className="relative">
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm />
+      </div>
     </>
   );
 };
