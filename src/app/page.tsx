@@ -12,7 +12,6 @@ import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhyChoose from "@/components/whyChoose/whyChoose";
 import { useEffect, useState } from "react";
-import CookieConsent from "@/components/cookie/cookie";
 
 // interface HomeData {
 //   banner: any[];
@@ -216,7 +215,6 @@ export default function Home() {
   }, []);
   return (
     <>
-      {/* <CookieConsent /> */}
       <Banner props={banner} />
       <HalfBanner />
       <WhyChoose cardBox={cardBox} />

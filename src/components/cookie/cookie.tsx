@@ -1,4 +1,3 @@
-// components/CookieConsent/CookieConsent.jsx
 "use client";
 import CloseIcon from "@/assets/icons/closeIcon";
 import { Cookie } from "@/assets/icons/cookie";
@@ -10,14 +9,17 @@ const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
 
   useEffect(() => {
-    const hasSeenPopup = localStorage.getItem("hasSeenCookiePopup");
-    if (!hasSeenPopup) {
+    const consent = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("cookieConsent="));
+    if (!consent) {
       setShowConsent(true);
     }
   }, []);
 
   const handleAction = () => {
-    localStorage.setItem("hasSeenCookiePopup", "true");
+    document.cookie =
+      "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365;
     setShowConsent(false);
   };
 
