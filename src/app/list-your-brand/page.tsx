@@ -37,7 +37,8 @@ function ListYourBrand() {
   //   ],
   // };
   const innerBanner = {
-    bannerImage: "/images/innerListBrandBanner.png",
+    // bannerImage: "/images/innerListBrandBanner.png",
+    bannerImageTxt: "Accelerate your brand's growth and scale greater heights.",
     submitURL: "/list-your-brand/step_1",
     SectionTitle: "List Your Brand",
     desc: "Put your brand in the spotlight!",

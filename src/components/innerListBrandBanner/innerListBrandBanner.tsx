@@ -15,13 +15,14 @@ import {
 } from "@/utills/stepProgress";
 interface InnerBannerProps {
   props: {
-    bannerImage: string;
+    bannerImage?: string;
     submitURL: string;
     SectionTitle: string;
     desc?: string;
     items: string[];
     noborder?: boolean;
-    imageOnLeft?: boolean; // New prop
+    imageOnLeft?: boolean;
+    bannerImageTxt?: string;
   };
 }
 
@@ -68,26 +69,47 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
         >
           <div
             className={`w-full max-w-[250px] mx-auto md:max-w-full ${
-              props.imageOnLeft ? "lg:mr-auto" : "lg:ml-auto"
+              props.imageOnLeft ? "lg:ml-auto" : "lg:mr-auto"
             }`}
           >
-            <Image
-              className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0`}
-              src={props.bannerImage}
-              alt="List your Brand"
-              width={461}
-              height={378}
-            />
+            {props.bannerImage && (
+              <Image
+                className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0  ${
+                  props.imageOnLeft ? "lg:mr-auto lg:ml-0" : "lg:ml-auto"
+                }`}
+                src={props.bannerImage}
+                alt="List your Brand"
+                width={461}
+                height={378}
+              />
+            )}
+            {props.bannerImageTxt && (
+              <h3 className="text-3xl md:text-5xl font-light text-right ml-auto max-w-[400px] mt-8 md:mt-20">
+                {props.bannerImageTxt}
+              </h3>
+            )}
           </div>
           <div
             className={`w-full ${styles.listBrandBannerText} ${
               props.imageOnLeft ? "lg:pl-8" : "lg:pr-8"
             }`}
           >
-            <h3 className={`font-extrabold ${styles.innerBrandTitle}`}>
+            <h3
+              className={`font-extrabold ${styles.innerBrandTitle}  ${
+                props.imageOnLeft ? styles.innerBrandTitleHome : ""
+              }`}
+            >
               {props.SectionTitle}
             </h3>
-            <h4 className={styles.innerBrandSubtitle}>{props.desc}</h4>
+            <h4
+              className={
+                props.imageOnLeft
+                  ? styles.innerBrandDescHome
+                  : styles.innerBrandSubtitle
+              }
+            >
+              {props.desc}
+            </h4>
             <form
               className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
