@@ -26,7 +26,7 @@ interface inquiryForm {
   countryCode: string;
   phoneNumber: string;
   city: number | null;
-  investmentRange: number | null;
+  whoAmI: string;
   termsAggrement: boolean;
 }
 

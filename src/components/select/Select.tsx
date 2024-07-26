@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
-import { boolean } from "yup";
 
 interface SelectProps {
   options: { value: number; label: string }[];
@@ -27,7 +26,9 @@ const Select: React.FC<SelectProps> = ({
   const { submitCount } = useFormikContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
+  const [dropUp, setDropUp] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,6 +48,24 @@ const Select: React.FC<SelectProps> = ({
       document.removeEventListener("click", handleClickOutside);
     };
   }, [selectRef, helpers, isOpen]);
+
+  useEffect(() => {
+    if (isOpen && dropdownRef.current && selectRef.current) {
+      const dropdownRect = dropdownRef.current.getBoundingClientRect();
+      const selectRect = selectRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - selectRect.bottom;
+      const spaceAbove = selectRect.top;
+
+      if (
+        spaceBelow < dropdownRect.height &&
+        spaceAbove > dropdownRect.height
+      ) {
+        setDropUp(true);
+      } else {
+        setDropUp(false);
+      }
+    }
+  }, [isOpen]);
 
   const handleOptionClick = (option: { value: number; label: string }) => {
     helpers.setValue(option.value);
@@ -86,7 +105,7 @@ const Select: React.FC<SelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          <span className="font-medium">
+          <span className="font-medium w-full text-ellipsis overflow-hidden">
             {selectedLabel ? selectedLabel : placeholder}
           </span>
           <div className="flex items-center pl-2 pointer-events-none">
@@ -108,14 +127,19 @@ const Select: React.FC<SelectProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute  z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg`">
+          <div
+            className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg ${
+              dropUp ? "bottom-full mb-1" : ""
+            }`}
+            ref={dropdownRef}
+          >
             <div
               className={`max-h-60 overflow-y-auto ${styles.custom_scrollbar}`}
             >
               {options.map((option, index) => (
                 <div
                   key={index}
-                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
+                  className={` overflow-x-hidden text-ellipsis px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
                     option.value === field.value ? "bg-gray-100 font-bold" : ""
                   }`}
                   onClick={() => handleOptionClick(option)}
@@ -128,7 +152,7 @@ const Select: React.FC<SelectProps> = ({
         )}
       </div>
       {/* {showError && (
-        <div className="text-red-500 text-sm mt-1">{meta.error}</div>
+        <div className="text-red-500 mt-2 text-sm">{meta.error}</div>
       )} */}
     </div>
   );

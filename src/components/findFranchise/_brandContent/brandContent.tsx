@@ -90,21 +90,6 @@ const BrandContent = () => {
               }}
             />
           </div>
-          <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
-            <Select
-              name="sector"
-              className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-              options={sectorOptions}
-              placeholder="Location"
-              onChange={(value) => {
-                setFieldValue("sector", value);
-                setFieldValue("product", null);
-                fetchServiceData(value);
-              }}
-              // disabled={!values.industry}
-            />
-          </div>
-          
           <Button
             variant="highlighted"
             className={`px-4 lg:px-11 rounded-md !text-[14px] md:text-[16px] ${styles.search_btn}`}
