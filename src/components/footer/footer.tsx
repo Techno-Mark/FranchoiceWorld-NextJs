@@ -77,22 +77,31 @@ const Footer = () => {
             </p>
             <ul className={`${styles.socialMedia}`}>
               <li key="1">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.instagram.com/franchoiceworld/"
+                >
                   <SlSocialInstagram />
                 </Link>
               </li>
               <li key="2">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.facebook.com/Franchoiceworld/"
+                >
                   <FaFacebook />
                 </Link>
               </li>
               <li key="3">
-                <Link href="#">
+                <Link target="_blank" href="https://x.com/franchoiceworld">
                   <FaXTwitter />
                 </Link>
               </li>
               <li key="4">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.linkedin.com/company/103189724/admin/feed/posts/"
+                >
                   <FaLinkedin />
                 </Link>
               </li>
