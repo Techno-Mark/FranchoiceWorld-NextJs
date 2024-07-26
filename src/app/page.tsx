@@ -181,7 +181,7 @@ const cardBox = [
 
 export default function Home() {
   const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
-    sectionTitle: "Top Business Opportunities",
+    sectionTitle: "Top Busines  s Opportunities",
     items: [],
   });
 
@@ -217,26 +217,27 @@ export default function Home() {
     <>
       <Banner props={banner} />
       <HalfBanner />
-      <WhyChoose cardBox={cardBox} />
+      <div className="relative">
+        <WhyChoose cardBox={cardBox} />
+        <InnerListBrandBanner props={innerBanner} />
+        <FindFranchise />
+        {/* <ListBrandBanner /> */}
 
-      <InnerListBrandBanner props={innerBanner} />
-      <InquireForm />
-      <FindFranchise />
-      {/* <ListBrandBanner /> */}
-
-      <TopBrandSlider
-        sectionTitle={opportunity.sectionTitle}
-        items={opportunity.items}
-      />
-      <FranchiseIndustry />
-      <AboutFranchoice />
-      <OurService />
-      {/* <TopBrandSlider
+        <TopBrandSlider
+          sectionTitle={opportunity.sectionTitle}
+          items={opportunity.items}
+        />
+        <FranchiseIndustry />
+        <AboutFranchoice />
+        <OurService />
+        {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}
       />
       <TrandingVideo items={trandingVideo.items} /> */}
-      <Testimonial title="Success Stories" testimonials={testimonials} />
+        <Testimonial title="Success Stories" testimonials={testimonials} />
+        <InquireForm />
+      </div>
     </>
   );
 }

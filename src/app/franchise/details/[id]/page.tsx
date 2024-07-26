@@ -141,40 +141,45 @@ const FranchiseDetails: React.FC = () => {
         brandDesc={aboutBrandContent.brandDesc}
         media={aboutBrandContent.media}
       />
-      <UspPoint imagePath="/images/brands/usp.png" uspPoints={usp} />
-      <FranchiseCostInvestment
-        operations={franchiseCostInvest.operations}
-        franchiseDetails={franchiseCostInvest.franchiseDetails}
-      />
-      <ExpansionPlan brandName={brandName} plans={expansionPlan} />
-      <FranchiseTraining brandName={brandName} trainingItems={trainingItems} />
-      <section className="pt-10 pb-20">
-        <div className="container">
-          <p className="italic">
-            <strong>Disclaimer:</strong> Franchoice World is one of the leading
-            integrated franchise solutions company, specializing in franchising
-            and licensing. We accept no liability for the accuracy of
-            information on this site and/or linked sites, and advise users to
-            consult with legal, accounting, and franchise experts before making
-            any commitments. Users are solely responsible for verifying the
-            accuracy and reliability of all information mentioned. For further
-            details, please check our{" "}
-            <Link href="/term-conditions" target="_blank">
-              Terms & Conditions
-            </Link>
-            ,
-            <Link href="/privacy-policy" target="_blank">
-              Privacy Policy
-            </Link>
-            , and
-            <Link href="/legal" target="_blank">
-              Legal and Infringement Policy
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
-      <InquireForm />
+      <div className="relative">
+        <UspPoint imagePath="/images/brands/usp.png" uspPoints={usp} />
+        <FranchiseCostInvestment
+          operations={franchiseCostInvest.operations}
+          franchiseDetails={franchiseCostInvest.franchiseDetails}
+        />
+        <ExpansionPlan brandName={brandName} plans={expansionPlan} />
+        <FranchiseTraining
+          brandName={brandName}
+          trainingItems={trainingItems}
+        />
+        <section className="pt-10 pb-20">
+          <div className="container">
+            <p className="italic">
+              <strong>Disclaimer:</strong> Franchoice World is one of the
+              leading integrated franchise solutions company, specializing in
+              franchising and licensing. We accept no liability for the accuracy
+              of information on this site and/or linked sites, and advise users
+              to consult with legal, accounting, and franchise experts before
+              making any commitments. Users are solely responsible for verifying
+              the accuracy and reliability of all information mentioned. For
+              further details, please check our{" "}
+              <Link href="/term-conditions" target="_blank">
+                Terms & Conditions
+              </Link>
+              ,
+              <Link href="/privacy-policy" target="_blank">
+                Privacy Policy
+              </Link>
+              , and
+              <Link href="/legal" target="_blank">
+                Legal and Infringement Policy
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+        <InquireForm />
+      </div>
     </>
   );
 };

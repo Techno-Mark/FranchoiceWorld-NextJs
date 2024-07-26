@@ -129,7 +129,7 @@ const InquireForm = () => {
   };
 
   return (
-    <section className={`bg-[var(--footer-bg)] py-2 ${styles.inquiryForm}`}>
+    <section className={`bg-[var(--footer-bg)] py-2 sticky bottom-0 ${styles.inquiryForm}`}>
       <div className="container">
         <Formik
           initialValues={initialValues}
@@ -150,7 +150,7 @@ const InquireForm = () => {
                     required={true}
                     className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none text-[12px] ${
                       getIn(errors, "fullName") && getIn(touched, "fullName")
-                        ? "border-red-500 mb-0.5"
+                        ? "!border-red-500"
                         : ""
                     }`}
                   />

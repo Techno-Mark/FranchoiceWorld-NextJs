@@ -58,7 +58,7 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
         {paginatedItems.map((card, index) => (
           <Card
             key={index}
-            className={`mx-1.5 my-4 ${styles.franchiseItemCard}`}
+            className={`mx-2 my-4 ${styles.franchiseItemCard}`}
           >
             <div className="bg-white overflow-hidden">
               <Image

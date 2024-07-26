@@ -52,14 +52,16 @@ function ListYourBrand() {
   return (
     <>
       <InnerListBrandBanner props={innerBanner} />
-      <ListingSimpleSteps />
-      {/* <TrandingVideo
+      <div className="relative">
+        <ListingSimpleSteps />
+        {/* <TrandingVideo
         items={trandingVideo.items}
         desc={trandingVideo.desc}
         desc2={trandingVideo.desc2}
       /> */}
-      <Faq />
-      <InquireForm />
+        <Faq />
+        <InquireForm />
+      </div>
       {/* <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />
       </div> */}
