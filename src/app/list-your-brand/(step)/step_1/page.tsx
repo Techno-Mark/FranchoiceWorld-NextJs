@@ -44,14 +44,13 @@ function FirstStep() {
         .max(250, "Email Address cannot be longer than 250 characters.")
         .required("Email Address is required"),
       companyName: Yup.string()
-        .max(250, "Company Name cannot be longer than 250 characters.")
-        .required("Company Name is required"),
-      websiteURL: Yup.string()
-        .matches(
-          /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-          "Invalid WebsiteURL!"
-        )
-        .required("Website URL is required"),
+        .max(250, "Brand Name cannot be longer than 250 characters.")
+        .required("Brand Name is required"),
+      websiteURL: Yup.string().matches(
+        /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        "Invalid WebsiteURL!"
+      ),
+      // .required("Website URL is required"),
     }),
     onSubmit: async (values) => {
       setIsSubmitting(true);
@@ -130,7 +129,7 @@ function FirstStep() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               required={true}
-              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
                 formik.touched.fullName && formik.errors.fullName
                   ? "border-red-500 mb-0.5"
                   : ""
@@ -163,7 +162,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none font-medium md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>
@@ -178,7 +177,7 @@ function FirstStep() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none text-base font-medium ${
               formik.touched.email && formik.errors.email
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
@@ -192,15 +191,15 @@ function FirstStep() {
         </div>
         <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
-            id="grid-company-name"
+            id="grid-brand-name"
             name="companyName"
             type="text"
-            label="Company Name"
+            label="Brand Name"
             value={formik.values.companyName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
               formik.touched.companyName && formik.errors.companyName
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
@@ -221,8 +220,7 @@ function FirstStep() {
             value={formik.values.websiteURL}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
               formik.touched.websiteURL && formik.errors.websiteURL
                 ? "border-red-500 mb-0.5"
                 : "mb-4"

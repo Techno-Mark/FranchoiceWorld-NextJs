@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
+import { boolean } from "yup";
 
 interface SelectProps {
   options: { value: number; label: string }[];
   name: string;
   label?: string;
   className?: string;
-  placeholder?: string; 
-  onChange?: (value: number) => void; 
+  placeholder?: string;
+  required?: boolean;
+  onChange?: (value: number) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,8 +18,9 @@ const Select: React.FC<SelectProps> = ({
   name,
   label,
   className,
-  placeholder = "Please select an option", 
-  onChange, 
+  placeholder = "Please select an option",
+  required,
+  onChange,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -71,7 +74,7 @@ const Select: React.FC<SelectProps> = ({
           htmlFor={name}
         >
           {label}
-          <span className="text-red-500 ml-1">*</span>
+          {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
       <div className="relative inline-block w-full" ref={selectRef}>

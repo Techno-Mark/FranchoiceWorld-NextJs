@@ -62,13 +62,11 @@ function FourthStep() {
   ];
 
   const validationSchema = Yup.object({
-    brochure: Yup.array()
-      .min(1, "Brochure is required")
-      .test("fileSize", "File size is too large", (value) =>
-        value && value[0] ? value[0].size <= FILE_SIZE : true
-      ),
+    brochure: Yup.array().test("fileSize", "File size is too large", (value) =>
+      value && value[0] ? value[0].size <= FILE_SIZE : true
+    ),
+    // .min(1, "Brochure is required")
     logo: Yup.array()
-      .min(1, "Logo is required")
       .test("fileSize", "File size is too large", (value) =>
         value && value[0] ? value[0].size <= FILE_SIZE : true
       )
@@ -77,8 +75,8 @@ function FourthStep() {
           ? SUPPORTED_IMAGE_FORMATS.includes(value[0].type)
           : true
       ),
+    // .min(1, "Logo is required")
     brandImages: Yup.array()
-      .min(1, "At least one logo is required")
       .max(5, "Maximum 5 logos allowed")
       .test("fileSize", "Files are too large", (value) =>
         value ? value.every((file) => file.size <= FILE_SIZE) : true
@@ -88,6 +86,7 @@ function FourthStep() {
           ? value.every((file) => SUPPORTED_IMAGE_FORMATS.includes(file.type))
           : true
       ),
+    // .min(1, "At least one logo is required")
     video: Yup.array()
       .test(
         "fileSize",
@@ -165,9 +164,7 @@ function FourthStep() {
   const createFileFromPath = async (filePath: string, fileName: string) => {
     try {
       const url = `${API_URL}/${filePath}`;
-
       const response = await fetch(url);
-
       const blob = await response.blob();
 
       // Determine the MIME type based on the file extension
@@ -291,7 +288,7 @@ function FourthStep() {
                     label="Upload Brochure"
                     desc="Formats accepted are .pdf .png and .jpeg Not more then 25 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     name="brochure"
                     onChange={(file) => {
                       const fileArray = file ? [file] : [];
@@ -310,7 +307,7 @@ function FourthStep() {
                     label="Upload Logo"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     name="logo"
                     onChange={(files) => setFieldValue("logo", files)}
                     existingFiles={formValues.logo}
@@ -327,7 +324,7 @@ function FourthStep() {
                     label="Upload Brand Images"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     multiple
                     maxFiles={5}
                     name="brandImages"

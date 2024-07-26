@@ -297,23 +297,25 @@ function SecondStep() {
   };
 
   const validationSchema = Yup.object({
-    brandName: Yup.string()
-      .max(250, "Brand Name cannot be longer than 250 characters.")
-      .required("Brand Name is required"),
-    industry: Yup.number().nullable().required("Industry is required"),
-    subCategory: Yup.number().nullable().required("Sub-Category is required"),
-    service: Yup.number().nullable().required("Service/Product is required"),
-    yearFounded: Yup.number().nullable().required("Year Founded is required"),
-    headquartersLocation: Yup.number()
-      .nullable()
-      .required("Location of Headquarters is required"),
-    numberOfLocations: Yup.number()
-      .nullable()
-      .required("Current Number of Locations/Outlets is required"),
-    brandDescription: Yup.string().required("Description is required"),
-    usp: Yup.string().required("Unique Selling Proposition is required"),
-    state: Yup.array().min(1, "Please select at least one option"),
-    city: Yup.array().min(1, "Please select at least one option"),
+    brandName: Yup.string().max(
+      250,
+      "Brand Name cannot be longer than 250 characters."
+    ),
+    // .required("Brand Name is required"),
+    // industry: Yup.number().nullable().required("Industry is required"),
+    // subCategory: Yup.number().nullable().required("Sub-Category is required"),
+    // service: Yup.number().nullable().required("Service/Product is required"),
+    // yearFounded: Yup.number().nullable().required("Year Founded is required"),
+    // headquartersLocation: Yup.number()
+    //   .nullable()
+    //   .required("Location of Headquarters is required"),
+    // numberOfLocations: Yup.number()
+    //   .nullable()
+    //   .required("Current Number of Locations/Outlets is required"),
+    // brandDescription: Yup.string().required("Description is required"),
+    // usp: Yup.string().required("Unique Selling Proposition is required"),
+    // state: Yup.array().min(1, "Please select at least one option"),
+    // city: Yup.array().min(1, "Please select at least one option"),
   });
 
   const handleSubmit = async (
@@ -392,7 +394,6 @@ function SecondStep() {
                   name="brandName"
                   type="text"
                   label="Brand Name"
-                  required={true}
                   className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                     getIn(errors, "brandName") && getIn(touched, "brandName")
                       ? "border-red-500 mb-0.5"
@@ -425,7 +426,7 @@ function SecondStep() {
                                   : ""
                               }`}
                               label="Year Founded"
-                              required
+                              // required
                               startYear={1900}
                             />
                           ) : (
@@ -478,7 +479,7 @@ function SecondStep() {
                         : "Description"
                     }
                     placeholder="Your Message"
-                    required={true}
+                    // required={true}
                     rows={4}
                     className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                       getIn(errors, field) && getIn(touched, field)
@@ -493,6 +494,9 @@ function SecondStep() {
                   )}
                 </div>
               ))}
+              <p className="text-[var(--footer-bg)] text-base font-bold pb-4">
+                Please Select Your Brand expansion plan Across States and City
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {["state", "city"].map((field) => (
                   <div

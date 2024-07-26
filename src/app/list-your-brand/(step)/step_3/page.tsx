@@ -1,19 +1,5 @@
 "use client";
 
-import ArrowIcon from "@/assets/icons/arrowIcon";
-import TextArea from "@/components/Fields/TextArea";
-import Button from "@/components/button/button";
-import MultiSelect from "@/components/select/MultiSelect";
-import Select from "@/components/select/Select";
-import Title from "@/components/title/title";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
-import * as Yup from "yup";
-import styles from "./step_3.module.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useListBrand } from "@/contexts/ListBrandContext";
-import { updateStepProgress } from "@/utills/stepProgress";
 import {
   getAreaRequired,
   getFranchiseDuration,
@@ -22,8 +8,21 @@ import {
   getSalesRevanue,
   getSupportProvide,
 } from "@/api/dropdown";
-import InputField from "@/components/Fields/InputField";
+import ArrowIcon from "@/assets/icons/arrowIcon";
 import SpinnerLoader from "@/assets/icons/spinner";
+import InputField from "@/components/Fields/InputField";
+import TextArea from "@/components/Fields/TextArea";
+import Button from "@/components/button/button";
+import MultiSelect from "@/components/select/MultiSelect";
+import Select from "@/components/select/Select";
+import Title from "@/components/title/title";
+import { updateStepProgress } from "@/utills/stepProgress";
+import axios from "axios";
+import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import styles from "./step_3.module.css";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -127,43 +126,41 @@ function SecondStep() {
   };
 
   const validationSchema = Yup.object({
-    areaRequired: Yup.number().nullable().required("Area Required is required"),
-    investmentRange: Yup.number()
-      .nullable()
-      .required("Total Initial Investment Range is required"),
+    // areaRequired: Yup.number().nullable().required("Area Required is required"),
+    // investmentRange: Yup.number()
+    //   .nullable()
+    //   .required("Total Initial Investment Range is required"),
     franchiseFee: Yup.number()
       .typeError("Franchise Fee must be a number")
       .nullable()
-      .required("Franchise Fee is required")
+      // .required("Franchise Fee is required")
       .min(0, "Franchise Fee must be a positive number")
       .test(
         "maxDigits",
         "Franchise Fee cannot have more than 15 digits",
         (value) => !value || value.toString().replace(/\D/g, "").length <= 15
       ),
-    salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
+    // salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
     roi: Yup.number()
       .typeError("Anticipated % Return on Investment (ROI) must be a number")
       .nullable()
-      .required("Anticipated % Return on Investment (ROI) is required")
       .min(0, "ROI must be a positive number")
       .max(100, "ROI cannot be more than 100%"),
-    paybackPeriod: Yup.number()
-      .nullable()
-      .required("Likely Payback Period for a Unit Franchise is required"),
-    supportProvided: Yup.array().min(1, "Please select at least one option"),
+    // .required("Anticipated % Return on Investment (ROI) is required")
+    paybackPeriod: Yup.number().nullable(),
+    // .required("Likely Payback Period for a Unit Franchise is required"),
+    // supportProvided: Yup.array().min(1, "Please select at least one option"),
 
-    franchiseAgreement: Yup.number()
-      .nullable()
-      .required("Do you have a franchise agreement? is required"),
+    // franchiseAgreement: Yup.number()
+    //   .nullable()
+    //   .required("Do you have a franchise agreement? is required"),
     franchiseDuration: Yup.number()
       .typeError("How long is the franchise for must be a number")
       .nullable()
-      .required("How long is the franchise for? is required")
       .min(0, "How long is the franchise for must be a positive number"),
-    isRenewable: Yup.number()
-      .nullable()
-      .required("Is the term renewable? is required"),
+    // .required("How long is the franchise for? is required")
+    isRenewable: Yup.number().nullable(),
+    // .required("Is the term renewable? is required"),
   });
 
   const handleSubmit = async (
@@ -403,7 +400,6 @@ function SecondStep() {
                                 <InputField
                                   label={label[index]}
                                   id={field.name}
-                                  required
                                   type="number"
                                   {...field}
                                   value={field.value ?? ""}
