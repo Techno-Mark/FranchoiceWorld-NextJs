@@ -65,29 +65,29 @@ const Privacy_policy = () => {
             of our users to better understand, protect, and serve them. It is
             compiled, aggregated, and analysed anonymously. This information may
             include the URL you came from (whether it was within our website or
-            not), the URL you go to next, your computer's browser information,
-            and your IP address. 
+            not), the URL you go to next, your computer&apos;s browser
+            information, and your IP address. 
           </div>
           <div className="text-lg pb-3 font-normal ">
-            We utilize technologies like "cookies" on specific pages of the
-            Website to analyse webpage flow, measure promotional effectiveness,
-            and enhance trust and safety. "Cookies" assist us in providing our
-            services, and certain features of the website may only be available
-            through the use of cookies. 
+            We utilize technologies like &quot;cookies&quot; on specific pages
+            of the Website to analyse webpage flow, measure promotional
+            effectiveness, and enhance trust and safety. &quot;Cookies&quot;
+            assist us in providing our services, and certain features of the
+            website may only be available through the use of cookies. 
           </div>
           <div className="text-lg pb-3 font-normal ">
             We also use cookies to reduce the frequency with which you need to
             enter your password during a session and to provide information
-            tailored to your interests. Most cookies are "session cookies,"
-            automatically deleted from your hard drive at the end of a session.
-            You can decline our cookies if your browser permits, though this may
-            limit access to certain features on the website and may require more
-            frequent password entry during a session. 
+            tailored to your interests. Most cookies are &quot;session
+            cookies,&quot; automatically deleted from your hard drive at the end
+            of a session. You can decline our cookies if your browser permits,
+            though this may limit access to certain features on the website and
+            may require more frequent password entry during a session. 
           </div>
           <div className="text-lg pb-3 font-normal ">
-            You may encounter "cookies" or similar devices on specific website
-            pages placed by third parties. We do not control the use of cookies
-            by third parties. 
+            You may encounter &quot;cookies&quot; or similar devices on specific
+            website pages placed by third parties. We do not control the use of
+            cookies by third parties. 
           </div>
           <div className="text-lg pb-3 font-normal ">
             If you make purchases on the website, we collect information about
@@ -134,7 +134,7 @@ const Privacy_policy = () => {
             and other criminal activity; enforce our terms and conditions; and
             as otherwise described to you.  In our efforts to continually
             improve our product and service offerings, we collect and analyse
-            demographic and profile data about our users' activity on our
+            demographic and profile data about our users&apos; activity on our
             website. We identify and use your IP address to help diagnose
             problems with our server, and to administer our website. Your IP
             address is also used to help identify you and to gather broad
@@ -148,11 +148,11 @@ const Privacy_policy = () => {
         <div className="font-normal pb-4 text-[rgba(0,0,0,0.6)]">
           <div className="text-xl pb-3 font-bold">Cookies Policy </div>
           <div className="text-lg pb-3 font-normal ">
-            A "cookie" is a small piece of information stored by a web server on
-            a web browser to read it later from that browser. Cookies help
-            enable the browser to remember information of a specific user. Note
-            that we place both permanent and temporary cookies in your
-            computer's hard drive. These cookies do not contain any of your
+            A &quot;cookie&quot; is a small piece of information stored by a web
+            server on a web browser to read it later from that browser. Cookies
+            help enable the browser to remember information of a specific user.
+            Note that we place both permanent and temporary cookies in your
+            computer&apos;s hard drive. These cookies do not contain any of your
             personally identifiable information.
           </div>
         </div>
