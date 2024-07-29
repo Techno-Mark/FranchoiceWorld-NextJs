@@ -220,13 +220,13 @@ function SecondStep() {
   ];
 
   const multiselectLabel = [
-    "Do you have a franchise agreement?",
+    // "Do you have a franchise agreement?",
     "How long is the franchise for(in years)?",
     "Is the term renewable?",
   ];
 
   const multiselectFields = [
-    "franchiseAgreement",
+    // "franchiseAgreement",
     "franchiseDuration",
     "isRenewable",
   ];
