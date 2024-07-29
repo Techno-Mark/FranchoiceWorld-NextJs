@@ -159,7 +159,7 @@ function InvestorSecondStep() {
     phoneNumber: mobileNumber,
     industryType: null,
     availableCapital: null,
-    needForLoan: true,
+    needForLoan: false,
     likeToInvest: null,
     lookingFor: null,
     lookingForState: [],
@@ -242,7 +242,7 @@ function InvestorSecondStep() {
       setFormValues((prevValues) => ({
         ...prevValues,
         industryType: response.industryType || null,
-        needForLoan: response.needForLoan || true,
+        needForLoan: response.needForLoan || false,
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,

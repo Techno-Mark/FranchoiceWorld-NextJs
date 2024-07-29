@@ -300,6 +300,7 @@ function InvestorFirstStep() {
                       : ""
                   }`}
                   options={countryOptions}
+                  required={true}
                 />
                 {getIn(errors, "country") && getIn(touched, "country") && (
                   <div className="text-red-500 font-medium">
@@ -311,6 +312,7 @@ function InvestorFirstStep() {
                 <Select
                   name="state"
                   label="State"
+                  required={true}
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
                     getIn(errors, "state") && getIn(touched, "state")
                       ? "border-red-500 mb-0.5"
@@ -331,6 +333,7 @@ function InvestorFirstStep() {
                 <Select
                   name="city"
                   label="City"
+                  required={true}
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
                     getIn(errors, "city") && getIn(touched, "city")
                       ? "border-red-500 mb-0.5"
@@ -376,6 +379,7 @@ function InvestorFirstStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
+                  required={true}
                   options={investmentRange}
                 />
                 {getIn(errors, "investmentRange") &&
