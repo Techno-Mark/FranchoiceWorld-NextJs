@@ -248,7 +248,6 @@ function SecondStep() {
   const fetchAreaRequiredTypes = async () => {
     try {
       const response = await getAreaRequired("/dropdown/area-required");
-      // Convert the fetched data to the format expected by your Select component
       const formattedAreaRequiredTypes = response.map((Area: any) => ({
         value: Area.id,
         label: Area.name,
@@ -264,7 +263,6 @@ function SecondStep() {
       const response = await getInvestmentRange(
         "/dropdown/investment-durations"
       );
-      // Convert the fetched data to the format expected by your Select component
       const formattedInvestmentRangeTypes = response.map(
         (InvestmentRange: any) => ({
           value: InvestmentRange.id,
@@ -282,7 +280,6 @@ function SecondStep() {
       const response = await getSalesRevanue(
         "/dropdown/sales-and-revenue-model"
       );
-      // Convert the fetched data to the format expected by your Select component
       const formattedSalesRevanueTypes = response.map((salesRevanue: any) => ({
         value: salesRevanue.id,
         label: salesRevanue.name,
@@ -296,7 +293,6 @@ function SecondStep() {
   const fetchPaybackProvideTypes = async () => {
     try {
       const response = await getPaybackProvide("/dropdown/payback-periods");
-      // Convert the fetched data to the format expected by your Select component
       const formattedPaybackProvideTypes = response.map((payback: any) => ({
         value: payback.id,
         label: payback.name,
@@ -310,7 +306,6 @@ function SecondStep() {
   const fetchSupportProvideTypes = async () => {
     try {
       const response = await getSupportProvide("/dropdown/provided-supports");
-      // Convert the fetched data to the format expected by your Select component
       const formattedSupportProvideTypes = response.map((support: any) => ({
         value: support.id,
         label: support.name,
@@ -326,7 +321,6 @@ function SecondStep() {
       const response = await getFranchiseDuration(
         "/dropdown/franchise-durations"
       );
-      // Convert the fetched data to the format expected by your Select component
       const formattedFranchiseDurationTypes = response.map((duration: any) => ({
         value: duration.id,
         label: duration.name,
@@ -355,9 +349,10 @@ function SecondStep() {
           countryCode: selectedCountry,
         }
       );
-      const data = response.data?.ResponseData;
+      const data = response.data.ResponseData;
       setFormValues((prevValues) => ({
         ...prevValues,
+        email: "email@eemail.com",
         areaRequired: data?.areaRequired || null,
         investmentRange: data?.investmentRange || null,
         franchiseFee: Number(data?.franchiseFee) || null,
@@ -366,14 +361,14 @@ function SecondStep() {
         paybackPeriod: data?.paybackPeriod || null,
         supportProvided: data?.supportProvided || [],
         otherApplicable: data?.otherApplicable || "",
-        franchiseAgreement: data?.franchiseAgreement === true ? 1 : 2 || null,
-        franchiseDuration: data?.franchiseDuration || null,
-        isRenewable: data?.isRenewable === true ? 1 : 2 || null,
-        isOperatingManual: data?.isOperatingManual || true,
-        trainingLocation: data?.trainingLocation || true,
-        isAssistanceAvailable: data?.isAssistanceAvailable || true,
-        isITSystemIncluded: data?.isITSystemIncluded || true,
-        isExpertGuidance: data?.isExpertGuidance || true,
+        franchiseAgreement: data.franchiseAgreement === true ? 1 : 2 || null,
+        franchiseDuration: data.franchiseDuration || null,
+        isRenewable: data.isRenewable === true ? 1 : 2 || null,
+        isOperatingManual: data.isOperatingManual || true,
+        trainingLocation: data.trainingLocation || true,
+        isAssistanceAvailable: data.isAssistanceAvailable || true,
+        isITSystemIncluded: data.isITSystemIncluded || true,
+        isExpertGuidance: data.isExpertGuidance || true,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -597,7 +592,7 @@ function SecondStep() {
                       <>
                         <RadioButton
                           name={field.name}
-                          label="Yes"
+                          label="Head office"
                           value="true"
                           labelClassName="inline-flex items-center mr-11"
                           className={`${styles.RadioBox}`}
@@ -608,7 +603,7 @@ function SecondStep() {
                         />
                         <RadioButton
                           name={field.name}
-                          label="No"
+                          label="Online/HQ"
                           value="false"
                           className={`${styles.RadioBox}`}
                           checked={field.value === false}
@@ -666,7 +661,6 @@ function SecondStep() {
                           name={field.name}
                           label="Yes"
                           value="true"
-                          labelClassName="inline-flex items-center mr-11"
                           className={`${styles.RadioBox}`}
                           checked={field.value === true}
                           onChange={() =>

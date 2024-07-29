@@ -131,7 +131,7 @@ const InquireForm = () => {
       if (response.ResponseStatus === "success") {
         resetForm();
         setShowSuccessMessage(true);
-        setTimeout(() => setShowSuccessMessage(false), 10000);
+        setTimeout(() => setShowSuccessMessage(false), 5000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
