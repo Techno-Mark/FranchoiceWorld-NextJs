@@ -60,7 +60,7 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
         </div>
         {bottomDesc && (
           <div className="mt-14 flex justify-center items-center">
-            <span className="text-[var(--white-color)] text-xl ">
+            <span className="text-[var(--white-color)] text-center text-base md:text-xl">
               {bottomDesc}
             </span>
           </div>
