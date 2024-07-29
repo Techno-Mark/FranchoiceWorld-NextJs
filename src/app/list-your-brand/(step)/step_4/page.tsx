@@ -155,7 +155,7 @@ function FourthStep() {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
-        formData,
+        { formData, finalSubmit: true },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -392,11 +392,12 @@ function FourthStep() {
                     }}
                     existingFiles={formValues.franchiseAggrementFile}
                   />
-                  {errors.franchiseAggrementFile && touched.franchiseAggrementFile && (
-                    <div className="text-red-500">
-                      {errors.franchiseAggrementFile as ReactNode}
-                    </div>
-                  )}
+                  {errors.franchiseAggrementFile &&
+                    touched.franchiseAggrementFile && (
+                      <div className="text-red-500">
+                        {errors.franchiseAggrementFile as ReactNode}
+                      </div>
+                    )}
                 </div>
               </div>
 
