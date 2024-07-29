@@ -20,7 +20,7 @@ const AdvisoryService: React.FC<AdvisoryServiceProps> = ({ props }) => {
   const { title, subtitle, listItems, imageSrc, imageAlt } = props;
 
   return (
-    <section className="bg-[rgba(245,249,253,1)] my-16 py-10 md:py-10 lg:py-24">
+    <section className="bg-[rgba(245,249,253,1)]  py-10 md:py-10 lg:py-24">
       <div className="container">
         <div className="flex items-center flex-col md:flex-row w-full mx-auto">
           <div className="w-full md:w-3/5 md:pr-6 max-w-[575px]">
