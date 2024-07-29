@@ -49,10 +49,10 @@ function InvestorFirstStep() {
     }
   };
 
-  const fetchCity = async (cityId: []) => {
+  const fetchCity = async (stateId: []) => {
     try {
       const response = await getCity("/dropdown/cities", {
-        stateId: cityId,
+        stateId: stateId,
       });
       const formattedCity = response.map((city: any) => ({
         value: city.id,

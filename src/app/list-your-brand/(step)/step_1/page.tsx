@@ -13,6 +13,7 @@ import Button from "@/components/button/button";
 import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { updateStepProgress } from "@/utills/stepProgress";
+import { getCity, getCountry, getState } from "@/api/dropdown";
 
 const FirstStep = () => {
   const router = useRouter();
@@ -25,9 +26,10 @@ const FirstStep = () => {
     email: "",
     brandName: "",
     websiteURL: "",
-    country: "",
-    state: "",
-    city: "",
+    country: null,
+    state: null,
+    city: null,
+    pincode: "",
   });
 
   const [countryOptions, setCountryOptions] = useState([]);
@@ -43,22 +45,50 @@ const FirstStep = () => {
       countryCode: selectedCountry,
     }));
     fetchCountries();
+    fetchStates();
     fetchData(mobileNumber, selectedCountry);
   }, []);
 
   const fetchCountries = async () => {
-    // Fetch countries from API and set countryOptions
-    // setCountryOptions(response.data);
+    try {
+      const response = await getCountry("/dropdown/countries");
+      const formattedstate = response.map((country: any) => ({
+        value: country.id,
+        label: country.name,
+      }));
+      setCountryOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
   };
 
-  const fetchStates = async (countryId: number) => {
-    // Fetch states based on selected country
-    // setStateOptions(response.data);
+  const fetchStates = async () => {
+    try {
+      const response = await getState("/dropdown/states");
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
   };
 
-  const fetchCities = async (stateId: number) => {
-    // Fetch cities based on selected state
-    // setCityOptions(response.data);
+  const fetchCities = async (stateId: number[]) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: stateId,
+      });
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+
+      setCityOptions(formattedCity);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
   };
 
   const validationSchema = Yup.object({
@@ -79,6 +109,10 @@ const FirstStep = () => {
     country: Yup.string().required("Country is required"),
     state: Yup.string().required("State is required"),
     city: Yup.string().required("City is required"),
+    pincode: Yup.string()
+      .min(4, "Pin code must be atleast 4 characters")
+      .max(12, "Pin Code cannot be longer than 12 characters.")
+      .required("Pin Code is required"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -114,6 +148,9 @@ const FirstStep = () => {
         phoneNumber: mobileNumber,
         countryCode: selectedCountry,
       }));
+      if (data.state) {
+        fetchCities(data.state);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -248,8 +285,8 @@ const FirstStep = () => {
                 </div>
               )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7">
+            <div className="flex flex-col md:flex-row">
+              <div className="w-full mb-8 pr-2 md:mb-7">
                 <Field name="country">
                   {({ field, form }: any) => (
                     <Select
@@ -260,7 +297,7 @@ const FirstStep = () => {
                       options={countryOptions}
                       onChange={(option) => {
                         form.setFieldValue("country", option);
-                        fetchStates(option);
+                        fetchStates();
                       }}
                       onBlur={form.handleBlur}
                       required
@@ -278,7 +315,7 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full mb-8 md:mb-7">
+              <div className="w-full mb-8 pl-2 md:mb-7">
                 <Field name="state">
                   {({ field, form }: any) => (
                     <Select
@@ -289,7 +326,7 @@ const FirstStep = () => {
                       options={stateOptions}
                       onChange={(option) => {
                         form.setFieldValue("state", option);
-                        fetchCities(option);
+                        fetchCities([option]);
                       }}
                       onBlur={form.handleBlur}
                       required
@@ -308,7 +345,56 @@ const FirstStep = () => {
                 )}
               </div>
             </div>
-
+            <div className="flex flex-col md:flex-row">
+              <div className="w-full mb-8 pr-2 md:mb-7">
+                <Field name="city">
+                  {({ field, form }: any) => (
+                    <Select
+                      {...field}
+                      id="city"
+                      name="city"
+                      label="City"
+                      options={cityOptions}
+                      onChange={(option) => {
+                        form.setFieldValue("city", option);
+                      }}
+                      onBlur={form.handleBlur}
+                      required
+                      className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                        form.touched.city && form.errors.city
+                          ? "border-red-500 mb-0.5"
+                          : "mb-3"
+                      }`}
+                    />
+                  )}
+                </Field>
+                {touched.city && errors.city && (
+                  <div className="text-red-500 font-medium mb-4">
+                    {errors.city}
+                  </div>
+                )}
+              </div>
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
+                <Field
+                  as={InputField}
+                  id="grid-pincode"
+                  name="pincode"
+                  type="number"
+                  label="Pin Code"
+                  required={true}
+                  className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] ${
+                    errors.pincode && touched.pincode
+                      ? "!border-red-500 mb-0.5"
+                      : ""
+                  }`}
+                />
+                {errors.pincode && touched.pincode && (
+                  <div className="text-red-500 font-medium">
+                    {errors.pincode}
+                  </div>
+                )}
+              </div>
+            </div>
             <div className="flex justify-end">
               <Button
                 variant="highlighted"
