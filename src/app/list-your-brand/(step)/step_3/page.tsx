@@ -31,7 +31,7 @@ interface FormValues {
   investmentRange: number | null;
   franchiseFee: number | null;
   salesRevenueModel: [];
-  roi: number | null;
+  // roi: number | null;
   paybackPeriod: number | null;
   supportProvided: [];
   otherApplicable: string;
@@ -103,7 +103,7 @@ function SecondStep() {
     investmentRange: null,
     franchiseFee: null,
     salesRevenueModel: [],
-    roi: null,
+    // roi: null,
     paybackPeriod: null,
     supportProvided: [],
     otherApplicable: "",
@@ -141,11 +141,11 @@ function SecondStep() {
         (value) => !value || value.toString().replace(/\D/g, "").length <= 15
       ),
     // salesRevenueModel: Yup.array().min(1, "Please select at least one option"),
-    roi: Yup.number()
-      .typeError("Anticipated % Return on Investment (ROI) must be a number")
-      .nullable()
-      .min(0, "ROI must be a positive number")
-      .max(100, "ROI cannot be more than 100%"),
+    // roi: Yup.number()
+    //   .typeError("Anticipated % Return on Investment (ROI) must be a number")
+    //   .nullable()
+    //   .min(0, "ROI must be a positive number")
+    //   .max(100, "ROI cannot be more than 100%"),
     // .required("Anticipated % Return on Investment (ROI) is required")
     paybackPeriod: Yup.number().nullable(),
     // .required("Likely Payback Period for a Unit Franchise is required"),
@@ -206,7 +206,7 @@ function SecondStep() {
     "Total Initial Investment Range",
     "Franchise Fee(in INR)",
     "Sales and Revenue Model",
-    "Anticipated % Return on Investment (ROI)",
+    // "Anticipated % Return on Investment (ROI)",
     "Likely Payback Period for a Unit Franchise",
   ];
 
@@ -215,7 +215,7 @@ function SecondStep() {
     "investmentRange",
     "franchiseFee",
     "salesRevenueModel",
-    "roi",
+    // "roi",
     "paybackPeriod",
   ];
 
@@ -348,7 +348,7 @@ function SecondStep() {
         investmentRange: data?.investmentRange || null,
         franchiseFee: Number(data?.franchiseFee) || null,
         salesRevenueModel: data?.salesRevenueModel || [],
-        roi: data?.roi || null,
+        // roi: data?.roi || null,
         paybackPeriod: data?.paybackPeriod || null,
         supportProvided: data?.supportProvided || [],
         otherApplicable: data?.otherApplicable || "",
@@ -394,7 +394,7 @@ function SecondStep() {
                     <Field name={field}>
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
-                          {field === "franchiseFee" || field === "roi" ? (
+                          {field === "franchiseFee" ? (
                             <Field name={field}>
                               {({ field, form, meta }: FieldProps) => (
                                 <InputField

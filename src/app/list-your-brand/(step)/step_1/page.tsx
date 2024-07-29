@@ -32,7 +32,7 @@ function FirstStep() {
       phoneNumber: mobileNumber,
       countryCode: selectedCountry,
       email: "",
-      companyName: "",
+      brandName: "",
       websiteURL: "",
     },
     validationSchema: Yup.object({
@@ -43,7 +43,7 @@ function FirstStep() {
         .email("Invalid email address")
         .max(250, "Email Address cannot be longer than 250 characters.")
         .required("Email Address is required"),
-      companyName: Yup.string()
+      brandName: Yup.string()
         .max(250, "Brand Name cannot be longer than 250 characters.")
         .required("Brand Name is required"),
       websiteURL: Yup.string().matches(
@@ -90,7 +90,7 @@ function FirstStep() {
         phoneNumber: mobileNumber,
         countryCode: selectedCountry,
         email: data.email || "",
-        companyName: data.companyName || "",
+        brandName: data.brandName || "",
         websiteURL: data.websiteURL || "",
       });
     } catch (error) {
@@ -192,22 +192,22 @@ function FirstStep() {
         <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
             id="grid-brand-name"
-            name="companyName"
+            name="brandName"
             type="text"
             label="Brand Name"
-            value={formik.values.companyName}
+            value={formik.values.brandName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
             className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
-              formik.touched.companyName && formik.errors.companyName
+              formik.touched.brandName && formik.errors.brandName
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
             }`}
           />
-          {formik.touched.companyName && formik.errors.companyName && (
+          {formik.touched.brandName && formik.errors.brandName && (
             <div className="text-red-500 font-medium mb-4">
-              {formik.errors.companyName}
+              {formik.errors.brandName}
             </div>
           )}
         </div>

@@ -10,6 +10,7 @@ interface SelectProps {
   placeholder?: string;
   required?: boolean;
   onChange?: (value: number) => void;
+  searchable?: boolean; // Optional prop to enable search functionality
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -20,6 +21,7 @@ const Select: React.FC<SelectProps> = ({
   placeholder = "Please select an option",
   required,
   onChange,
+  searchable = false,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -27,6 +29,7 @@ const Select: React.FC<SelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [dropUp, setDropUp] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -74,13 +77,22 @@ const Select: React.FC<SelectProps> = ({
     if (onChange) {
       onChange(option.value);
     }
+    setSearchQuery(""); // Reset search query when an option is selected
   };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   const showError = (isTouched || submitCount > 0) && meta.error;
+
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const selectedLabel =
     options.find((option) => option.value === field.value)?.label || "";
@@ -133,27 +145,44 @@ const Select: React.FC<SelectProps> = ({
             }`}
             ref={dropdownRef}
           >
+            {searchable && (
+              <div className="p-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search..."
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+            )}
             <div
               className={`max-h-60 overflow-y-auto ${styles.custom_scrollbar}`}
             >
-              {options.map((option, index) => (
-                <div
-                  key={index}
-                  className={` overflow-x-hidden text-ellipsis px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
-                    option.value === field.value ? "bg-gray-100 font-bold" : ""
-                  }`}
-                  onClick={() => handleOptionClick(option)}
-                >
-                  {option.label}
-                </div>
-              ))}
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option, index) => (
+                  <div
+                    key={index}
+                    className={`px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
+                      option.value === field.value
+                        ? "bg-gray-100 font-bold"
+                        : ""
+                    }`}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    {option.label}
+                  </div>
+                ))
+              ) : (
+                <div className="px-4 py-2 text-gray-500">No options found</div>
+              )}
             </div>
           </div>
         )}
       </div>
-      {/* {showError && (
+      {showError && (
         <div className="text-red-500 mt-2 text-sm">{meta.error}</div>
-      )} */}
+      )}
     </div>
   );
 };
