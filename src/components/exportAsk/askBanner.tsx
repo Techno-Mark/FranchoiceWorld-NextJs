@@ -123,13 +123,13 @@ const AskBanner = () => {
   };
 
   return (
-    <section className={`relative py-10 md:py-20 askExpertss ${styles.contactBanner}`}>
+    <section className={`relative py-10 md:py-20 ${styles.contactBanner}`}>
       <Image
-        className="hidden"
+        className="absolute z-[-1] left-0 top-0 w-full object-cover h-4/5 max-h-[533px]"
         src="/images/askBanner.jpg"
         alt="banenr"
         width={1920}
-        height={560}
+        height={533}
       />
       <div className="container">
         <div className="flex flex-col lg:flex-row mt-8 md:mt-20">
