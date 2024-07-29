@@ -1,10 +1,12 @@
 "use client";
 
+import { getCity, getCountry, getState } from "@/api/dropdown";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import SpinnerLoader from "@/assets/icons/spinner";
 import InputField from "@/components/Fields/InputField";
 import Button from "@/components/button/button";
 import CountryDropdown from "@/components/countryDropdown/countryDropdown";
+import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { updateStepProgress } from "@/utills/stepProgress";
 import axios from "axios";
@@ -19,8 +21,62 @@ function FirstStep() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [stateOption, setStateOptions] = useState([]);
+  const [citiesOptions, setCitiesOptions] = useState([]);
+  const [selectedState, setSelectedState] = useState();
+
+  const fetchCountry = async () => {
+    try {
+      const response = await getCountry("/dropdown/countries");
+      const formattedstate = response.map((country: any) => ({
+        value: country.id,
+        label: country.name,
+      }));
+      setCountryOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+
+  const fetchState = async () => {
+    try {
+      const response = await getState("/dropdown/states");
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+
+  const fetchCity = async (cityId: []) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: cityId,
+      });
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+
+      setCitiesOptions(formattedCity);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
 
   useEffect(() => {
+    if (selectedState) {
+      fetchCity(selectedState);
+    }
+  }, [selectedState]);
+
+  useEffect(() => {
+    fetchCountry();
+    fetchState();
     // This runs only on the client side
     setMobileNumber(localStorage.getItem("mobileNumber") || "");
     setSelectedCountry(localStorage.getItem("selectedCountry") || "");
@@ -34,6 +90,10 @@ function FirstStep() {
       email: "",
       brandName: "",
       websiteURL: "",
+      country: null,
+      state: null,
+      city: null,
+      pincode: "",
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
@@ -51,6 +111,10 @@ function FirstStep() {
         "Invalid WebsiteURL!"
       ),
       // .required("Website URL is required"),
+      country: Yup.number().required("Country is required"),
+      state: Yup.number().required("State is required"),
+      city: Yup.number().required("City is required"),
+      pincode: Yup.number().required("Pincode is required"),
     }),
     onSubmit: async (values) => {
       setIsSubmitting(true);
@@ -92,7 +156,15 @@ function FirstStep() {
         email: data.email || "",
         brandName: data.brandName || "",
         websiteURL: data.websiteURL || "",
+        city: data.city || null,
+        state: data.state || null,
+        country: data.country || null,
+        pincode: data.pincode || "",
       });
+      setSelectedState(data?.state);
+      if (data?.state) {
+        fetchCity(data?.state);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -231,6 +303,83 @@ function FirstStep() {
               {formik.errors.websiteURL}
             </div>
           )}
+        </div>
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:pr-2 mb-6 md:mb-7">
+            <Select
+              name="country"
+              label="Country"
+              className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                formik.touched.country && formik.errors.country
+                  ? "border-red-500 mb-0.5"
+                  : ""
+              }`}
+              options={countryOptions}
+              required={true}
+            />
+            {formik.touched.country && formik.errors.country && (
+              <div className="text-red-500 font-medium">
+                {formik.errors.country}
+              </div>
+            )}
+          </div>
+          <div className="w-full md:pr-2 mb-6 md:mb-7">
+            <Select
+              name="state"
+              label="State"
+              className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                formik.touched.state && formik.errors.state
+                  ? "border-red-500 mb-0.5"
+                  : ""
+              }`}
+              options={stateOption}
+              required={true}
+            />
+            {formik.touched.state && formik.errors.state && (
+              <div className="text-red-500 font-medium">
+                {formik.errors.state}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:pr-2 mb-6 md:mb-7">
+            <Select
+              name="city"
+              label="City"
+              className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                formik.touched.city && formik.errors.city
+                  ? "border-red-500 mb-0.5"
+                  : ""
+              }`}
+              options={citiesOptions}
+              required={true}
+            />
+            {formik.touched.city && formik.errors.city && (
+              <div className="text-red-500 font-medium">
+                {formik.errors.city}
+              </div>
+            )}
+          </div>
+          <div className="w-full md:pl-2 mb-6 md:mb-7">
+            <InputField
+              id="grid-pincode"
+              name="pincode"
+              type="number"
+              label="Pin Code"
+              required={true}
+              className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] ${
+                formik.errors.pincode && formik.touched.pincode
+                  ? "!border-red-500 mb-0.5"
+                  : ""
+              }`}
+            />
+            {formik.errors.pincode && formik.touched.pincode && (
+              <div className="text-red-500 font-medium">
+                {formik.errors.pincode}
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex justify-end">
           <Button
