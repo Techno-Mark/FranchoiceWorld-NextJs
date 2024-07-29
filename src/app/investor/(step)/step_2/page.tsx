@@ -174,18 +174,18 @@ function InvestorSecondStep() {
   };
 
   const validationSchema = Yup.object({
-    industryType: Yup.number().required("Industry is required"),
-    availableCapital: Yup.number().required("Available Capital is required"),
-    likeToInvest: Yup.number().required("Investment Time is required"),
-    lookingFor: Yup.number().required("Looking For is required"),
-    lookingForState: Yup.array().min(1, "State is required"),
-    lookingForCity: Yup.array().min(1, "City is required"),
-    acceptTerms: Yup.boolean()
-      .oneOf([true], "You must agree to submit your form")
-      .required("You must accept the Terms & Conditions."),
-    submitInfo: Yup.boolean()
-      .oneOf([true], "You must accept the T&C for future processing data")
-      .required("You must accept the Terms & Conditions."),
+    // industryType: Yup.number().required("Industry is required"),
+    // availableCapital: Yup.number().required("Available Capital is required"),
+    // likeToInvest: Yup.number().required("Investment Time is required"),
+    // lookingFor: Yup.number().required("Looking For is required"),
+    // lookingForState: Yup.array().min(1, "State is required"),
+    // lookingForCity: Yup.array().min(1, "City is required"),
+    // acceptTerms: Yup.boolean()
+    //   .oneOf([true], "You must agree to submit your form")
+    //   .required("You must accept the Terms & Conditions."),
+    // submitInfo: Yup.boolean()
+    //   .oneOf([true], "You must accept the T&C for future processing data")
+    //   .required("You must accept the Terms & Conditions."),
   });
 
   const handleStateChange = (
@@ -349,7 +349,7 @@ function InvestorSecondStep() {
               </div>
               <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
-                  Need for Loan?<span className="text-red-500 ml-1">*</span>
+                  Need for Loan?
                 </label>
                 <div className="mt-4">
                   <Field name="needForLoan">
@@ -443,7 +443,7 @@ function InvestorSecondStep() {
               <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
-                  <span className="text-red-500 ml-1">*</span>
+                  
                 </label>
                 <div className="mt-4">
                   <Field name="ownProperty">
