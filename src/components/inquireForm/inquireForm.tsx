@@ -251,7 +251,7 @@ const InquireForm = () => {
                 <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
                   <Select
                     name="whoAmI"
-                    placeholder="who Am I ?"
+                    placeholder="Who Am I ?"
                     className={`flex items-center justify-between text-[12px] font-medium border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
                       getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
                         ? "border-red-500 mb-0.5"
@@ -270,7 +270,7 @@ const InquireForm = () => {
                   variant="highlighted"
                   className="rounded-lg mb-2 text-[12px] border border-[var(--highlighted-color)]"
                 >
-                  Inquire Now!
+                  Enquire Now!
                 </Button>
               </div>
               <div className="text-center">

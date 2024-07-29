@@ -25,17 +25,19 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
   return (
     <section className={`py-10 md:pt-20 ${styles.ourService}`}>
       <div className="container">
-        <Title
-          title={title}
-          desc={subtitle ? subtitle : ""}
-          descClass="md:!px-0 pb-8 font-medium text-xl !text-center text-[var(--white-color)]"
-          titleClass="!text-center !text-[var(--white-color)]"
-        />
-        <div className="flex justify-center flex-wrap mt-6">
+        <div className="w-full md:w-4/6 mx-auto">
+          <Title
+            title={title}
+            desc={subtitle ? subtitle : ""}
+            descClass="font-medium text-xl !text-center text-[var(--white-color)]"
+            titleClass="!text-center !text-[var(--white-color)]"
+          />
+        </div>
+        <div className="flex justify-center flex-wrap mt-8">
           {services.map((service) => (
             <div
               key={service.id}
-              className={`${styles.serviceBox} min-h-[56px] mx-1 w-1/2 mb-4 max-w-[156px] md:mx-2 md:w-full md:max-w-[270px] md:h-[114px] group p-4`}
+              className={`${styles.serviceBox} min-h-[56px] mx-1 w-1/2 mb-4 md:mb-8 max-w-[156px] md:mx-2 md:w-full lg:w-1/4 md:max-w-[270px] md:h-[114px] p-4`}
             >
               <Link
                 className="flex items-center justify-center h-full"
@@ -59,7 +61,7 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
           ))}
         </div>
         {bottomDesc && (
-          <div className="mt-14 flex justify-center items-center">
+          <div className="mt-10 flex justify-center items-center">
             <span className="text-[var(--white-color)] text-center text-base md:text-xl">
               {bottomDesc}
             </span>

@@ -85,7 +85,7 @@ const FranchiseGroth = () => {
           services={serviceItems}
           bottomDesc="Make your brand franchising experience seamless and rewarding with us."
         />
-        <div className="my-32">
+        <div className="my-20">
           <WhyChoose
             title="Benefits of Growing with Franchoice World "
             cardBox={cardBox}

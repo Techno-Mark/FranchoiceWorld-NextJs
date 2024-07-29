@@ -13,16 +13,16 @@ import TextArea from "../Fields/TextArea";
 import Button from "../button/button";
 import Select from "../select/Select";
 import { useRouter } from "next/navigation";
-import { CreateContact } from "@/api/contact";
+import { AskExperts, CreateContact } from "@/api/contact";
+import { useEffect, useState } from "react";
+import { getCity } from "@/api/dropdown";
 
 interface FormValues {
   fullName: string;
-  // countryCode: string;
+  countryCode: string;
   phoneNumber: string;
   emailId: string;
-  companyName: string;
-  otherInformation: string;
-  whoAmI: number | null;
+  city: number | null;
   acceptTerms: boolean;
 }
 
@@ -30,25 +30,37 @@ interface ContactProps {
   underDevelopment?: string;
 }
 
-const whoOption = [
-  { label: "Brand", value: 1 },
-  { label: "Investor", value: 2 },
-  {
-    label: "Independent Franchise Partner",
-    value: 3,
-  },
-  { label: "Real Estate Developer", value: 4 },
-];
 const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
-  const router = useRouter();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [citiesOption, setCitiesOption] = useState([]);
+
+  const fetchCity = async (cityId: []) => {
+    try {
+      const response = await getCity("/dropdown/cities", {
+        stateId: cityId,
+      });
+      const formattedCity = response.map((city: any) => ({
+        value: city.id,
+        label: city.name,
+      }));
+
+      setCitiesOption(formattedCity);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCity([]);
+    // fetchInvestmentRange();
+  }, []);
 
   const initialValues: FormValues = {
     fullName: "",
-    companyName: "",
     emailId: "",
-    whoAmI: null,
+    countryCode: "+91",
     phoneNumber: "",
-    otherInformation: "",
+    city: null,
     acceptTerms: true,
   };
 
@@ -67,18 +79,19 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email ID is required"),
-    companyName: Yup.string()
-      .max(250, "Company Name cannot be longer than 250 characters.")
-      .matches(
-        /^[a-zA-Z0-9\s]*$/,
-        "Company Name cannot contain special characters"
-      )
-      .required("Company Name is required"),
-    whoAmI: Yup.string().required("This field is required"),
-    otherInformation: Yup.string().max(
-      350,
-      "Information cannot be longer than 350 characters."
-    ),
+    city: Yup.number().required("City Range is required"),
+    // companyName: Yup.string()
+    //   .max(250, "Company Name cannot be longer than 250 characters.")
+    //   .matches(
+    //     /^[a-zA-Z0-9\s]*$/,
+    //     "Company Name cannot contain special characters"
+    //   )
+    //   .required("Company Name is required"),
+    // whoAmI: Yup.string().required("This field is required"),
+    // otherInformation: Yup.string().max(
+    //   350,
+    //   "Information cannot be longer than 350 characters."
+    // ),
     acceptTerms: Yup.boolean().oneOf(
       [true],
       "You must accept the terms and conditions"
@@ -87,23 +100,25 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
 
   const handleSubmit = async (
     values: FormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<FormValues>
+    { setSubmitting, setFieldTouched, resetForm }: FormikHelpers<FormValues>
   ) => {
     Object.keys(values).forEach((fieldName) => {
       setFieldTouched(fieldName, true);
     });
 
     try {
-      const response = await CreateContact({
+      const response = await AskExperts({
         fullName: values.fullName,
-        companyName: values.companyName,
-        emailId: values.emailId,
-        whoAmI: values.whoAmI,
+        email: values.emailId,
         phoneNumber: values.phoneNumber.toString(),
-        otherInformation: values.otherInformation,
+        countryCode: "+91",
+        city: values.city,
+        termsAggrement: values.acceptTerms,
       });
       if (response.ResponseStatus === "success") {
-        router.push(`/thankyou`);
+        resetForm();
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 10000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -115,12 +130,12 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
 
   return (
     <section
-      className={`relative py-10 md:py-20  ${
-        underDevelopment && "lg:mb-72"
-      } ${styles.contactBanner}`}
+      className={`relative py-10 md:py-20  ${underDevelopment && "lg:mb-72"} ${
+        styles.contactBanner
+      }`}
     >
       <div className="container">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row mt-8 md:mt-20">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -234,18 +249,18 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                     </div>
                     <div className="w-full md:pl-1 mb-3">
                       <Select
-                        name="City"
+                        name="city"
                         label="City"
-                        className={`flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
-                          getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
-                            ? "border-red-500 mb-0.5"
+                        className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                          getIn(errors, "city") && getIn(touched, "city")
+                            ? "border-red-500"
                             : ""
                         }`}
-                        options={whoOption}
+                        options={citiesOption}
                       />
-                      {getIn(errors, "whoAmI") && getIn(touched, "whoAmI") && (
+                      {getIn(errors, "city") && getIn(touched, "city") && (
                         <div className="text-red-500 font-medium">
-                          {getIn(errors, "whoAmI")}
+                          {getIn(errors, "city")}
                         </div>
                       )}
                     </div>
@@ -267,7 +282,7 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                       />
                       <label
                         htmlFor="grid-accept-terms"
-                        className="font-semibold text-[12px]"
+                        className="font-semibold text-[12px] pl-2"
                       >
                         I agree to the{" "}
                         <Link
@@ -303,6 +318,11 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
                       Submit
                     </Button>
                   </div>
+                  {showSuccessMessage && (
+                    <div className="text-green-500 text-center mt-4">
+                      Your inquiry has been submitted successfully!
+                    </div>
+                  )}
                 </Card>
               </Form>
             )}

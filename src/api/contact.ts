@@ -38,3 +38,21 @@ export const CreateInquiry = async (body: inquiryForm) => {
     throw new Error("Error fetching");
   }
 };
+
+interface Askexp{
+  fullName: string;
+  email: string;
+  countryCode: string;
+  phoneNumber: string;
+  city: number | null;
+  termsAggrement: boolean;
+}
+
+export const AskExperts = async (body: Askexp) => {
+  try {
+    const response = await axios.post(`${API_URL}/expert/create`, body);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
