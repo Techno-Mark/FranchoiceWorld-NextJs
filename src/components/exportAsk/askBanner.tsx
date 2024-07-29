@@ -1,22 +1,19 @@
 "use client";
+import { AskExperts } from "@/api/contact";
+import { getCity } from "@/api/dropdown";
 import { Field, Form, Formik, FormikHelpers, getIn } from "formik";
-import { GoCheckCircle } from "react-icons/go";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
+import Checkbox from "../Fields/CheckBox";
 import InputField from "../Fields/InputField";
+import Button from "../button/button";
 import Card from "../card/card";
 import CountryDropdown from "../countryDropdown/countryDropdown";
+import Select from "../select/Select";
 import Title from "../title/title";
 import styles from "./askBanner.module.css";
-import Link from "next/link";
-import Checkbox from "../Fields/CheckBox";
-import TextArea from "../Fields/TextArea";
-import Button from "../button/button";
-import Select from "../select/Select";
-import { useRouter } from "next/navigation";
-import { AskExperts, CreateContact } from "@/api/contact";
-import { useEffect, useState } from "react";
-import { getCity } from "@/api/dropdown";
-import Image from "next/image";
 
 interface FormValues {
   fullName: string;
@@ -27,11 +24,7 @@ interface FormValues {
   acceptTerms: boolean;
 }
 
-interface ContactProps {
-  underDevelopment?: string;
-}
-
-const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
+const AskBanner = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [citiesOption, setCitiesOption] = useState([]);
 
@@ -130,11 +123,7 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
   };
 
   return (
-    <section
-      className={`relative py-10 md:py-20  ${underDevelopment && "lg:mb-72"} ${
-        styles.contactBanner
-      }`}
-    >
+    <section className={`relative py-10 md:py-20 askExpertss ${styles.contactBanner}`}>
       <Image
         className="hidden"
         src="/images/askBanner.jpg"
