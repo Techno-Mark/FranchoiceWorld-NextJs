@@ -184,7 +184,8 @@ const serviceItems = [
     id: "first",
     serviceIcon: "/images/franchiseListing.svg",
     serviceText: "Franchise Listing",
-    redirectURL: "/service/franchise-listing",
+    redirectURL:
+      "franchise/list?type=categories&industry=null&sector=null&service=null",
   },
   {
     id: "second",
@@ -202,7 +203,7 @@ const serviceItems = [
 
 export default function Home() {
   const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
-    sectionTitle: "Top Busines  s Opportunities",
+    sectionTitle: "Top Business Opportunities",
     items: [],
   });
 

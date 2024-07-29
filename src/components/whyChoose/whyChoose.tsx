@@ -17,7 +17,7 @@ interface WhyChooseProps {
   title?: string;
   desc?: string;
   hideKnowMore?: boolean;
-  disableLi?: boolean; // New prop
+  disableLi?: boolean;
 }
 
 const WhyChoose: React.FC<WhyChooseProps> = ({
@@ -25,7 +25,7 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
   title,
   desc,
   hideKnowMore = false,
-  disableLi = false, // Default value
+  disableLi = false,
 }) => {
   return (
     <section className={styles.whyChoose}>

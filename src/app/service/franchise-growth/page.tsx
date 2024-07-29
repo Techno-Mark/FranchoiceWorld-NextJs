@@ -1,18 +1,11 @@
-import AdvisoryService from "@/components/advisoryService/advisoryService";
 import AskBanner from "@/components/exportAsk/askBanner";
 import FranchiseBanner from "@/components/franchiseBanner/franchiseBanner";
 import FranchiseService from "@/components/franchiseServices/franchiseService";
-import ImageGallery from "@/components/imageGallery/ImageGallery";
 import InquireForm from "@/components/inquireForm/inquireForm";
-import OurService from "@/components/ourService/ourService";
-import Title from "@/components/title/title";
 import WhyChoose from "@/components/whyChoose/whyChoose";
-import Image from "next/image";
-import React from "react";
 
 const innerBanner = {
   bannerImage: "/images/franchise-groth/franchise-grothBanner.png",
-
   SectionTitle: "Franchise Growth Services",
   desc: "",
   items: [
@@ -85,23 +78,24 @@ const FranchiseGroth = () => {
   return (
     <>
       <FranchiseBanner props={innerBanner} />
-      <FranchiseService
-        title="Our Franchise Growth Services"
-        subtitle="We at Franchoice World offer franchise growth services that provide the right momentum for your brand&s franchising business."
-        services={serviceItems}
-        bottomDesc="Make your brand franchising experience seamless and rewarding with us."
-      />
-      <div className="my-32">
-        <WhyChoose
-          title="Benefits of Growing with Franchoice World "
-          desc=""
-          cardBox={cardBox}
-          hideKnowMore
-          disableLi
+      <div className="relative">
+        <FranchiseService
+          title="Our Franchise Growth Services"
+          subtitle="We at Franchoice World offer franchise growth services that provide the right momentum for your brand&s franchising business."
+          services={serviceItems}
+          bottomDesc="Make your brand franchising experience seamless and rewarding with us."
         />
+        <div className="my-20">
+          <WhyChoose
+            title="Benefits of Growing with Franchoice World "
+            cardBox={cardBox}
+            hideKnowMore
+            disableLi
+          />
+        </div>
+        <AskBanner />
+        <InquireForm />
       </div>
-      <AskBanner />
-      <InquireForm />
     </>
   );
 };
