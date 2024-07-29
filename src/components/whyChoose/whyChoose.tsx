@@ -49,7 +49,11 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
                 >
                   <Link
                     href={redirectURL}
-                    className={`w-full flex flex-col justify-between h-full ${styles.cardItems} group-hover:text-[var(--white-color)]`}
+                    className={`w-full flex flex-col ${
+                      redirectURL ? "cursor-pointer" : "cursor-none"
+                    } justify-between h-full ${
+                      styles.cardItems
+                    } group-hover:text-[var(--white-color)]`}
                   >
                     <div
                       className={`flex justify-start ${
