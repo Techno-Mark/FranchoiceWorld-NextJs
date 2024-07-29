@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
+import RadioButton from "@/components/Fields/RadioButton";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -38,6 +39,11 @@ interface FormValues {
   franchiseAgreement: number | null;
   franchiseDuration: number | null;
   isRenewable: number | null;
+  isOperatingManual: boolean;
+  trainingLocation: boolean;
+  isAssistanceAvailable: boolean;
+  isITSystemIncluded: boolean;
+  isExpertGuidance: boolean;
 }
 
 interface OptionType {
@@ -110,6 +116,11 @@ function SecondStep() {
     franchiseAgreement: null,
     franchiseDuration: null,
     isRenewable: null,
+    isOperatingManual: true,
+    trainingLocation: true,
+    isAssistanceAvailable: true,
+    isITSystemIncluded: true,
+    isExpertGuidance: true,
   });
 
   const OptionMap: OptionsMapType = {
@@ -119,6 +130,7 @@ function SecondStep() {
     salesRevenueModel: salesRevanueOptions,
     roi: [],
     paybackPeriod: paybackProvideOptions,
+    tenurePeriod: paybackProvideOptions,
     supportProvided: supportProvideOptions,
     franchiseAgreement: Options,
     franchiseDuration: franchiseOptions,
@@ -208,6 +220,7 @@ function SecondStep() {
     "Sales and Revenue Model",
     // "Anticipated % Return on Investment (ROI)",
     "Likely Payback Period for a Unit Franchise",
+    "Lock In Tenure period",
   ];
 
   const fields = [
@@ -217,6 +230,7 @@ function SecondStep() {
     "salesRevenueModel",
     // "roi",
     "paybackPeriod",
+    "tenurePeriod",
   ];
 
   const multiselectLabel = [
@@ -355,6 +369,11 @@ function SecondStep() {
         franchiseAgreement: data?.franchiseAgreement === true ? 1 : 2 || null,
         franchiseDuration: data?.franchiseDuration || null,
         isRenewable: data?.isRenewable === true ? 1 : 2 || null,
+        isOperatingManual: data?.isOperatingManual || true,
+        trainingLocation: data?.trainingLocation || true,
+        isAssistanceAvailable: data?.isAssistanceAvailable || true,
+        isITSystemIncluded: data?.isITSystemIncluded || true,
+        isExpertGuidance: data?.isExpertGuidance || true,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -497,7 +516,7 @@ function SecondStep() {
                               {({ field, form, meta }: FieldProps) => (
                                 <Select
                                   name={field.name}
-                                  className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                                  className={`flex  w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
                                     getIn(errors, field.name) &&
                                     getIn(touched, field.name)
                                       ? "border-red-500 mb-0.5"
@@ -511,7 +530,7 @@ function SecondStep() {
                           ) : (
                             <Select
                               name={field.name}
-                              className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                              className={`flex  w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
                                 getIn(errors, field.name) &&
                                 getIn(touched, field.name)
                                   ? "border-red-500 mb-0.5"
@@ -534,6 +553,174 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
+
+              {/* For radio button */}
+              <div className=" mt-1 grid grid-cols-1 md:grid-cols-2">
+                <div className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}>
+                  <label className="block mb-2 font-medium">
+                    Detailed operating manuals for franchisees
+                  </label>
+                  <Field name="isOperatingManual">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          labelClassName="inline-flex items-center mr-11"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === true}
+                          onChange={() =>
+                            setFieldValue("isOperatingManual", true)
+                          }
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() =>
+                            setFieldValue("isOperatingManual", false)
+                          }
+                        />
+                      </>
+                    )}
+                  </Field>
+                </div>
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Franchisee training location
+                  </label>
+                  <Field name="trainingLocation">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          labelClassName="inline-flex items-center mr-11"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === true}
+                          onChange={() =>
+                            setFieldValue("trainingLocation", true)
+                          }
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() =>
+                            setFieldValue("trainingLocation", false)
+                          }
+                        />
+                      </>
+                    )}
+                  </Field>
+                </div>
+              </div>
+
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-2">
+                <div className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}>
+                  <label className="block mb-2 font-medium">
+                    Is field assistance available for franchisee?
+                  </label>
+                  <Field name="isAssistanceAvailable">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          labelClassName="inline-flex items-center mr-11"
+                          className={`${styles.RadioBox} `}
+                          checked={field.value === true}
+                          onChange={() =>
+                            setFieldValue("isAssistanceAvailable", true)
+                          }
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() =>
+                            setFieldValue("isAssistanceAvailable", false)
+                          }
+                        />
+                      </>
+                    )}
+                  </Field>
+                </div>
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Current IT systems will be included in the franchise
+                  </label>
+                  <Field name="isITSystemIncluded">
+                    {({ field }: FieldProps) => (
+                      <>
+                        <RadioButton
+                          name={field.name}
+                          label="Yes"
+                          value="true"
+                          labelClassName="inline-flex items-center mr-11"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === true}
+                          onChange={() =>
+                            setFieldValue("isITSystemIncluded", true)
+                          }
+                        />
+                        <RadioButton
+                          name={field.name}
+                          label="No"
+                          value="false"
+                          className={`${styles.RadioBox}`}
+                          checked={field.value === false}
+                          onChange={() =>
+                            setFieldValue("isITSystemIncluded", false)
+                          }
+                        />
+                      </>
+                    )}
+                  </Field>
+                </div>
+              </div>
+
+              <div className="w-full mt-3 mb-8 ">
+                <label className="block mb-2 font-medium">
+                  Expert guidance from Head Office to franchisee in opening the
+                  franchise
+                </label>
+                <Field name="isExpertGuidance">
+                  {({ field }: FieldProps) => (
+                    <>
+                      <RadioButton
+                        name={field.name}
+                        label="Yes"
+                        value="true"
+                        labelClassName="inline-flex items-center mr-11"
+                        className={`${styles.RadioBox}`}
+                        checked={field.value === true}
+                        onChange={() => setFieldValue("isExpertGuidance", true)}
+                      />
+                      <RadioButton
+                        name={field.name}
+                        label="No"
+                        value="false"
+                        className={`${styles.RadioBox}`}
+                        checked={field.value === false}
+                        onChange={() =>
+                          setFieldValue("isExpertGuidance", false)
+                        }
+                      />
+                    </>
+                  )}
+                </Field>
+              </div>
+
               <div className="flex justify-between">
                 <Button
                   variant="secondary"

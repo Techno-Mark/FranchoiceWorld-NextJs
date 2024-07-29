@@ -5,6 +5,7 @@ interface RadioButtonProps {
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  labelClassName?: string;
 }
 
 const RadioButton: React.FC<RadioButtonProps> = ({
@@ -14,9 +15,18 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   checked,
   onChange,
   className,
+  labelClassName,
 }) => {
+  // Default CSS classes
+  const defaultContainerCSS = "inline-flex items-center mr-2";
+
+  // Use the provided classes if available, otherwise use the defaults
+  const finalLabelClassName = labelClassName
+    ? labelClassName
+    : defaultContainerCSS;
+
   return (
-    <label className="inline-flex items-center mr-2">
+    <label className={finalLabelClassName}>
       <input
         type="radio"
         name={name}

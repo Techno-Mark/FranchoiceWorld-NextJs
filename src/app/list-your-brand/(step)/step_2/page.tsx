@@ -361,13 +361,10 @@ function SecondStep() {
     "Current Number of Locations/Outlets",
   ];
 
-  const fields = [
-    "industry",
-    "subCategory",
-    "service",
+  const mainFields = ["industry", "subCategory", "service"];
+  const otherFields = [
     "businessCommencedYear",
     "franchiseCommencedYear",
-    // "yearFounded",
     "headquartersLocation",
     "numberOfLocations",
   ];
@@ -413,8 +410,52 @@ function SecondStep() {
                   )}
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {mainFields.map((field: string, index: number) => (
+                  <div className="w-full" key={field}>
+                    <Field name={field}>
+                      {({ field: fieldProps, form }: FieldProps) => (
+                        <>
+                          <Select
+                            name={field}
+                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                              getIn(errors, field) && getIn(touched, field)
+                                ? "border-red-500 mb-0.5"
+                                : ""
+                            }`}
+                            onChange={(value) => {
+                              if (field === "industry") {
+                                setSelectedIndustry(value);
+                                setFieldValue("industry", value);
+                                setFieldValue("subCategory", null);
+                                setFieldValue("service", null);
+                                setSelectedSubCat(null);
+                              } else if (field === "subCategory") {
+                                setSelectedSubCat(value);
+                                setFieldValue("subCategory", value);
+                                setFieldValue("service", null);
+                              } else {
+                                setFieldValue(field, value);
+                              }
+                            }}
+                            searchable={true}
+                            label={label[mainFields.indexOf(field)]}
+                            options={OptionMap[field] || []}
+                          />
+                          {getIn(errors, field) && getIn(touched, field) && (
+                            <div className="text-red-500 font-medium">
+                              {getIn(errors, field)}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </Field>
+                  </div>
+                ))}
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {fields.map((field: string, index: number) => (
+                {otherFields.map((field: string, index: number) => (
                   <div
                     className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
@@ -422,7 +463,8 @@ function SecondStep() {
                     <Field name={field}>
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
-                          {field === "businessCommencedOn" ? (
+                          {field === "businessCommencedYear" ||
+                          field === "franchiseCommencedYear" ? (
                             <YearSelect
                               id="year-select"
                               name={field}
@@ -431,21 +473,11 @@ function SecondStep() {
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                              label={label[index]}
-                              // label="Year Founded"
-                              // required
-                              startYear={1900}
-                            />
-                          ) : field === "franchiseCommencedOn" ? (
-                            <YearSelect
-                              id="year-select"
-                              name={field}
-                              className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                                getIn(errors, field) && getIn(touched, field)
-                                  ? "border-red-500 mb-0.5"
-                                  : ""
-                              }`}
-                              label={label[index]}
+                              label={
+                                label[
+                                  mainFields.length + otherFields.indexOf(field)
+                                ]
+                              }
                               startYear={1900}
                             />
                           ) : (
@@ -456,23 +488,13 @@ function SecondStep() {
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                              onChange={(value) => {
-                                if (field === "industry") {
-                                  setSelectedIndustry(value);
-                                  setFieldValue("industry", value);
-                                  setFieldValue("subCategory", null);
-                                  setFieldValue("service", null);
-                                  setSelectedSubCat(null);
-                                } else if (field === "subCategory") {
-                                  setSelectedSubCat(value);
-                                  setFieldValue("subCategory", value);
-                                  setFieldValue("service", null);
-                                } else {
-                                  setFieldValue(field, value);
-                                }
-                              }}
+                              onChange={(value) => setFieldValue(field, value)}
                               searchable={true}
-                              label={label[index]}
+                              label={
+                                label[
+                                  mainFields.length + otherFields.indexOf(field)
+                                ]
+                              }
                               options={OptionMap[field] || []}
                             />
                           )}
@@ -487,6 +509,7 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
+
               {["brandDescription", "usp"].map((field) => (
                 <div className="w-full mb-8 md:mb-7" key={field}>
                   <Field
@@ -499,7 +522,6 @@ function SecondStep() {
                         : "Description"
                     }
                     placeholder="Your Message"
-                    // required={true}
                     rows={4}
                     className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                       getIn(errors, field) && getIn(touched, field)
@@ -514,6 +536,7 @@ function SecondStep() {
                   )}
                 </div>
               ))}
+
               <p className="text-[var(--footer-bg)] text-base font-bold pb-4">
                 Please Select Your Brand expansion plan Across States and City
               </p>

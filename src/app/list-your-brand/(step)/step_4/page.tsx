@@ -24,6 +24,7 @@ interface FormValues {
   logo: File[];
   brandImages: File[];
   video?: File[];
+  franchiseAggrementFile?: File[];
   acceptTerms: boolean;
   submitInfo: boolean;
 }
@@ -48,6 +49,7 @@ function FourthStep() {
     logo: [],
     brandImages: [],
     video: [],
+    franchiseAggrementFile: [],
     acceptTerms: true,
     submitInfo: true,
   });
@@ -88,6 +90,17 @@ function FourthStep() {
       ),
     // .min(1, "At least one logo is required")
     video: Yup.array()
+      .test(
+        "fileSize",
+        "File size is too large",
+        (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 5 : true) // 25 MB for video
+      )
+      .test("fileFormat", "Unsupported file format", (value) =>
+        value && value[0]
+          ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
+          : true
+      ),
+    franchiseAggrementFile: Yup.array()
       .test(
         "fileSize",
         "File size is too large",
@@ -349,6 +362,26 @@ function FourthStep() {
                   {errors.video && touched.video && (
                     <div className="text-red-500 font-medium">
                       {errors.video}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <FileUpload
+                    label="Upload Current Franchise Agreement"
+                    desc="Formats accepted are .pdf .word Not more than 10 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    // required
+                    name="franchiseAggrementFile"
+                    accept=".pdf,.docx,.doc"
+                    onChange={(file) => {
+                      const fileArray = file ? [file] : [];
+                      setFieldValue("franchiseAggrementFile", fileArray);
+                    }}
+                    existingFiles={formValues.brochure}
+                  />
+                  {errors.brochure && touched.brochure && (
+                    <div className="text-red-500">
+                      {errors.brochure as ReactNode}
                     </div>
                   )}
                 </div>
