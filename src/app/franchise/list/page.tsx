@@ -23,7 +23,6 @@ const ProductList = () => {
   const minRange = searchParams.get("minRange");
   const maxRange = searchParams.get("maxRange");
   const brandName = searchParams.get("brandName");
-  console.log("🚀 ~ ProductList ~ brandName:", brandName)
 
   const fetchdata = async () => {
     try {
