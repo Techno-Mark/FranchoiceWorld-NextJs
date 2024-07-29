@@ -1,63 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, getIn } from "formik";
 import Button from "@/components/button/button";
 import Select from "@/components/select/Select";
 import styles from "./brandcontent.module.css";
 import { getIndustry, getSector, getService } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
+import InputField from "@/components/Fields/InputField";
 interface OptionType {
   value: number;
   label: string;
 }
 const BrandContent = () => {
-  const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
-  const [sectorOptions, setSectorOptions] = useState<OptionType[]>([]);
-  const [productOptions, setProductOptions] = useState<OptionType[]>([]);
   const router = useRouter();
-
-  const fetchIndustryData = async () => {
-    try {
-      const resp = await getIndustry("/dropdown/industry-types");
-      const formattedInvestor = resp.map((industry: any) => ({
-        value: industry.id,
-        label: industry.name,
-      }));
-      setIndustryOptions(formattedInvestor);
-    } catch (err) {
-      console.log("Error while fetching industry types", err);
-    }
-  };
-
-  const fetchSectorData = async (industryId: number) => {
-    try {
-      const resp = await getSector({ industryId });
-      const formattedSector = resp.map((sector: any) => ({
-        value: sector.id,
-        label: sector.name,
-      }));
-      setSectorOptions(formattedSector);
-      setProductOptions([]);
-    } catch (err) {
-      console.log("Error while fetching sectors", err);
-    }
-  };
-
-  const fetchServiceData = async (sectorId: number) => {
-    try {
-      const resp = await getService("/dropdown/services", { sectorId });
-      const formattedService = resp.map((service: any) => ({
-        value: service.id,
-        label: service.name,
-      }));
-      setProductOptions(formattedService);
-    } catch (err) {
-      console.log("Error while fetching services", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchIndustryData();
-  }, []);
 
   return (
     <Formik
@@ -77,17 +31,12 @@ const BrandContent = () => {
           className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
         >
           <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
-            <Select
-              name="industry"
-              className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-              options={industryOptions}
-              placeholder="Brand Name"
-              onChange={(value) => {
-                setFieldValue("industry", value);
-                setFieldValue("sector", null);
-                setFieldValue("product", null);
-                fetchSectorData(value);
-              }}
+            <InputField
+              id="grid-first-name"
+              name="brandName"
+              type="text"
+              required={true}
+              className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
             />
           </div>
           <Button

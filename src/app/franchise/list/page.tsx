@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import { getFranchiseList } from "@/api/home";
 import FranchiseListCard from "@/components/franchiseListCard/franchiseListCard";
-import { FaChevronRight } from "react-icons/fa";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import { useSearchParams } from "next/navigation";
-import { getFranchiseList } from "@/api/home";
-import InquireForm from "@/components/inquireForm/inquireForm";
+import { useEffect, useState } from "react";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -66,7 +64,7 @@ const ProductList = () => {
           break;
         case "investment":
           // Only add minRange and maxRange if they are valid numbers
-          if (typeof minRange === "number" && !isNaN(minRange)) {
+          if (typeof minRange === "number" && !isNaN(minRange)) {          
             params.append("minRange", String(minRange));
           }
           if (typeof maxRange === "number" && !isNaN(maxRange)) {
@@ -102,12 +100,12 @@ const ProductList = () => {
     fetchdata();
   }, [type, industry, sector, service, state, city, minRange, maxRange]);
 
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Food & Beverage", href: "javascript:void(0);" },
-    { label: "Quick Bites", href: "javascript:void(0);" },
-    { label: "Quick Service Restaurants", href: "javascript:void(0);" },
-  ];
+  // const breadcrumbItems = [
+  //   { label: "Home", href: "/" },
+  //   { label: "Food & Beverage", href: "javascript:void(0);" },
+  //   { label: "Quick Bites", href: "javascript:void(0);" },
+  //   { label: "Quick Service Restaurants", href: "javascript:void(0);" },
+  // ];
   const quickLinksData = [
     {
       title: "Browse By Investment Range",

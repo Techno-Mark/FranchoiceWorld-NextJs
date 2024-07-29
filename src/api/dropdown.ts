@@ -1,7 +1,6 @@
 import axios from "axios";
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
-
 export const getIndustry = async (param: string) => {
   try {
     const response = await axios.get(`${API_URL}${param}`);
@@ -80,6 +79,22 @@ export const getInvestmentRange = async (param: string) => {
     throw new Error("Error fetching");
   }
 };
+export const getMinInvestmentRange = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+export const getMaxInvestmentRange = async (param: string, body: any) => {
+  try {
+    const response = await axios.post(`${API_URL}${param}`, body);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
 
 export const getSalesRevanue = async (param: string) => {
   try {
@@ -145,7 +160,6 @@ export const getInvestmentDuration = async () => {
     throw new Error("Error fetching");
   }
 };
-
 
 export const getFranchiseDuration = async (param: string) => {
   try {
