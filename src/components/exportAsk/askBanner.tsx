@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { AskExperts, CreateContact } from "@/api/contact";
 import { useEffect, useState } from "react";
 import { getCity } from "@/api/dropdown";
+import Image from "next/image";
 
 interface FormValues {
   fullName: string;
@@ -134,6 +135,13 @@ const AskBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
         styles.contactBanner
       }`}
     >
+      <Image
+        className="hidden"
+        src="/images/askBanner.jpg"
+        alt="banenr"
+        width={1920}
+        height={560}
+      />
       <div className="container">
         <div className="flex flex-col lg:flex-row mt-8 md:mt-20">
           <Formik
