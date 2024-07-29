@@ -14,6 +14,7 @@ import {
   updateStepProgress,
 } from "@/utills/stepProgress";
 interface InnerBannerProps {
+  className?: string;
   props: {
     bannerImage?: string;
     submitURL: string;
@@ -26,7 +27,10 @@ interface InnerBannerProps {
   };
 }
 
-const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
+const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
+  props,
+  className,
+}) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +64,9 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   };
 
   return (
-    <section className={`py-8 md:py-20 ${styles.innerListBrandBanner}`}>
+    <section
+      className={`py-8 md:py-20 ${styles.innerListBrandBanner} ${className}`}
+    >
       <div className="container">
         <div
           className={`flex items-start flex-wrap lg:flex-nowrap gap-8 ${

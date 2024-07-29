@@ -247,7 +247,7 @@ export default function Home() {
           cardBox={cardBox}
         />
 
-        <InnerListBrandBanner props={innerBanner} />
+        <InnerListBrandBanner props={innerBanner} className="md:!pb-10" />
         <FindFranchise />
         {/* <ListBrandBanner /> */}
 
