@@ -348,9 +348,7 @@ function InvestorSecondStep() {
                   )}
               </div>
               <div className="w-full md:pl-2 mb-6 md:mb-7">
-                <label className="block mb-2 font-medium">
-                  Need for Loan?
-                </label>
+                <label className="block mb-2 font-medium">Need for Loan?</label>
                 <div className="mt-4">
                   <Field name="needForLoan">
                     {({ field }: FieldProps) => (
@@ -360,7 +358,9 @@ function InvestorSecondStep() {
                           label="Yes"
                           value="true"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() => setFieldValue("needForLoan", true)}
                         />
                         <RadioButton
@@ -368,7 +368,9 @@ function InvestorSecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() => setFieldValue("needForLoan", false)}
                         />
                       </>
@@ -443,7 +445,6 @@ function InvestorSecondStep() {
               <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
-                  
                 </label>
                 <div className="mt-4">
                   <Field name="ownProperty">
@@ -454,7 +455,9 @@ function InvestorSecondStep() {
                           label="Yes"
                           value="true"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() => setFieldValue("ownProperty", true)}
                         />
                         <RadioButton
@@ -462,7 +465,9 @@ function InvestorSecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() => setFieldValue("ownProperty", false)}
                         />
                       </>
