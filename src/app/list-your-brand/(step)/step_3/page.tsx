@@ -364,11 +364,18 @@ function SecondStep() {
         franchiseAgreement: data.franchiseAgreement === true ? 1 : 2 || null,
         franchiseDuration: data.franchiseDuration || null,
         isRenewable: data.isRenewable === true ? 1 : 2 || null,
-        isOperatingManual: data.isOperatingManual || true,
-        trainingLocation: data.trainingLocation || true,
-        isAssistanceAvailable: data.isAssistanceAvailable || true,
-        isITSystemIncluded: data.isITSystemIncluded || true,
-        isExpertGuidance: data.isExpertGuidance || true,
+        isOperatingManual:
+          data.isOperatingManual === true || data.isOperatingManual === "true",
+        trainingLocation:
+          data.trainingLocation === true || data.trainingLocation === "true",
+        isAssistanceAvailable:
+          data.isAssistanceAvailable === true ||
+          data.isAssistanceAvailable === "true",
+        isITSystemIncluded:
+          data.isITSystemIncluded === true ||
+          data.isITSystemIncluded === "true",
+        isExpertGuidance:
+          data.isExpertGuidance === true || data.isExpertGuidance === "true",
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -564,7 +571,9 @@ function SecondStep() {
                           value="true"
                           labelClassName="inline-flex items-center mr-11"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() =>
                             setFieldValue("isOperatingManual", true)
                           }
@@ -574,7 +583,9 @@ function SecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() =>
                             setFieldValue("isOperatingManual", false)
                           }
@@ -596,7 +607,9 @@ function SecondStep() {
                           value="true"
                           labelClassName="inline-flex items-center mr-11"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() =>
                             setFieldValue("trainingLocation", true)
                           }
@@ -606,7 +619,9 @@ function SecondStep() {
                           label="Online/HQ"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() =>
                             setFieldValue("trainingLocation", false)
                           }
@@ -631,7 +646,9 @@ function SecondStep() {
                           value="true"
                           labelClassName="inline-flex items-center mr-11"
                           className={`${styles.RadioBox} `}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() =>
                             setFieldValue("isAssistanceAvailable", true)
                           }
@@ -641,7 +658,9 @@ function SecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() =>
                             setFieldValue("isAssistanceAvailable", false)
                           }
@@ -662,7 +681,9 @@ function SecondStep() {
                           label="Yes"
                           value="true"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() =>
                             setFieldValue("isITSystemIncluded", true)
                           }
@@ -672,7 +693,9 @@ function SecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() =>
                             setFieldValue("isITSystemIncluded", false)
                           }
@@ -697,7 +720,7 @@ function SecondStep() {
                         value="true"
                         labelClassName="inline-flex items-center mr-11"
                         className={`${styles.RadioBox}`}
-                        checked={field.value === true}
+                        checked={field.value === true || field.value === "true"}
                         onChange={() => setFieldValue("isExpertGuidance", true)}
                       />
                       <RadioButton
@@ -705,7 +728,9 @@ function SecondStep() {
                         label="No"
                         value="false"
                         className={`${styles.RadioBox}`}
-                        checked={field.value === false}
+                        checked={
+                          field.value === false || field.value === "false"
+                        }
                         onChange={() =>
                           setFieldValue("isExpertGuidance", false)
                         }
