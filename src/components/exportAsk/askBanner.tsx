@@ -107,7 +107,7 @@ const AskBanner = () => {
         phoneNumber: values.phoneNumber.toString(),
         countryCode: "+91",
         city: values.city,
-        termsAggrement: values.acceptTerms,
+        acceptTerms: values.acceptTerms,
       });
       if (response.ResponseStatus === "success") {
         resetForm();
@@ -231,7 +231,7 @@ const AskBanner = () => {
                         type="email"
                         label="Email ID"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                        className={`block w-full border border-[#73727366] rounded-lg py-2.5 px-4 focus:outline-none ${
                           getIn(errors, "emailId") && getIn(touched, "emailId")
                             ? "border-red-500 mb-0.5"
                             : ""

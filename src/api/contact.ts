@@ -45,7 +45,7 @@ interface Askexp{
   countryCode: string;
   phoneNumber: string;
   city: number | null;
-  termsAggrement: boolean;
+  acceptTerms: boolean;
 }
 
 export const AskExperts = async (body: Askexp) => {
