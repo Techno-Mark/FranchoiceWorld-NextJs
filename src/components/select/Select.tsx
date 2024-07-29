@@ -180,9 +180,9 @@ const Select: React.FC<SelectProps> = ({
           </div>
         )}
       </div>
-      {showError && (
+      {/* {showError && (
         <div className="text-red-500 mt-2 text-sm">{meta.error}</div>
-      )}
+      )} */}
     </div>
   );
 };
