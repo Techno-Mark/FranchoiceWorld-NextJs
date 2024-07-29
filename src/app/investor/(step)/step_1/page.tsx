@@ -1,6 +1,11 @@
 "use client";
 
-import { getCity, getInvestmentRange } from "@/api/dropdown";
+import {
+  getCity,
+  getCountry,
+  getInvestmentRange,
+  getState,
+} from "@/api/dropdown";
 import { CreateInvestorData, getInvestorData } from "@/api/investor";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import SpinnerLoader from "@/assets/icons/spinner";
@@ -20,6 +25,8 @@ interface FormValues {
   email: string | null;
   countryCode: string | null;
   phoneNumber: string | null;
+  country: number | null;
+  state: number | null;
   city: number | null;
   pincode: string | null;
   investmentRange: number | null;
@@ -31,7 +38,10 @@ function InvestorFirstStep() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>("");
   const [investmentRange, setInvstmentRange] = useState([]);
   const [citiesOption, setCitiesOption] = useState([]);
+  const [stateOptions, setStateOptions] = useState([]);
+  const [countryOptions, setCountryOptions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const fetchInvestmentRange = async () => {
     try {
       const response = await getInvestmentRange(
@@ -49,25 +59,55 @@ function InvestorFirstStep() {
     }
   };
 
-  const fetchCity = async (stateId: []) => {
+  const fetchCountries = async () => {
+    try {
+      const response = await getCountry("/dropdown/countries");
+      const formattedstate = response.map((country: any) => ({
+        value: country.id,
+        label: country.name,
+      }));
+      setCountryOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+
+  const fetchStates = async () => {
+    try {
+      const response = await getState("/dropdown/states");
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOptions(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+  const fetchCity = async (stateIds: number[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
-        stateId: stateId,
+        stateId: stateIds,
       });
       const formattedCity = response.map((city: any) => ({
         value: city.id,
         label: city.name,
       }));
-
       setCitiesOption(formattedCity);
+
+      const newMapping: { [cityId: number]: number } = {};
+      response.forEach((city: any) => {
+        newMapping[city.id] = city.stateId;
+      });
     } catch (error) {
-      console.error("Error fetching categories types:", error);
+      console.error("Error fetching cities:", error);
     }
   };
 
   useEffect(() => {
     fetchInvestmentRange();
-    fetchCity([]);
+    fetchCountries();
+    fetchStates();
     if (typeof window !== "undefined") {
       setMobileNumber(localStorage.getItem("investorMobileNumber"));
       setSelectedCountry(localStorage.getItem("investorSelectedCountry"));
@@ -79,6 +119,8 @@ function InvestorFirstStep() {
     email: "",
     countryCode: selectedCountry,
     phoneNumber: mobileNumber,
+    country: null,
+    state: null,
     city: null,
     pincode: "",
     investmentRange: null,
@@ -92,7 +134,9 @@ function InvestorFirstStep() {
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email Adress is required"),
-    city: Yup.number().required("City is required"),
+    country: Yup.string().required("Country is required"),
+    state: Yup.string().required("State is required"),
+    city: Yup.string().required("City is required"),
     pincode: Yup.string()
       .min(4, "Pin code must be atleast 4 characters")
       .max(12, "Pin Code cannot be longer than 12 characters.")
@@ -139,10 +183,16 @@ function InvestorFirstStep() {
         ...prevValues,
         fullName: response?.fullName || "",
         email: response?.email || "",
+        country: response?.country || null,
+        state: response?.state || null,
         city: response?.city || null,
         pincode: response?.pincode || "",
         investmentRange: response?.investmentRange || null,
       }));
+
+      if (response?.state) {
+        fetchCity([response?.state]);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -242,6 +292,43 @@ function InvestorFirstStep() {
             <div className="flex flex-col md:flex-row">
               <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <Select
+                  name="country"
+                  label="Country"
+                  className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                    getIn(errors, "country") && getIn(touched, "country")
+                      ? "border-red-500 mb-0.5"
+                      : ""
+                  }`}
+                  options={countryOptions}
+                />
+                {getIn(errors, "country") && getIn(touched, "country") && (
+                  <div className="text-red-500 font-medium">
+                    {getIn(errors, "country")}
+                  </div>
+                )}
+              </div>
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
+                <Select
+                  name="state"
+                  label="State"
+                  className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                    getIn(errors, "state") && getIn(touched, "state")
+                      ? "border-red-500 mb-0.5"
+                      : ""
+                  }`}
+                  onChange={(value: number) => {
+                    fetchCity([value]);
+                  }}
+                  options={stateOptions}
+                />
+                {getIn(errors, "state") && getIn(touched, "state") && (
+                  <div className="text-red-500 font-medium">
+                    {getIn(errors, "state")}
+                  </div>
+                )}
+              </div>
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
+                <Select
                   name="city"
                   label="City"
                   className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
@@ -257,7 +344,9 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-              <div className="w-full md:pl-2 mb-6 md:mb-7">
+            </div>
+            <div className="flex flex-col md:flex-row">
+              <div className="w-full md:w-1/3 md:pr-2 mb-6 md:mb-7">
                 <Field
                   as={InputField}
                   id="grid-pincode"
@@ -277,25 +366,25 @@ function InvestorFirstStep() {
                   </div>
                 )}
               </div>
-            </div>
-            <div className="w-full md:w-1/2 md:pr-2 mb-6 md:mb-7">
-              <Select
-                name="investmentRange"
-                label="Investment Range"
-                className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
-                  getIn(errors, "investmentRange") &&
-                  getIn(touched, "investmentRange")
-                    ? "border-red-500 mb-0.5"
-                    : ""
-                }`}
-                options={investmentRange}
-              />
-              {getIn(errors, "investmentRange") &&
-                getIn(touched, "investmentRange") && (
-                  <div className="text-red-500 font-medium">
-                    {getIn(errors, "investmentRange")}
-                  </div>
-                )}
+              <div className="w-full md:w-2/3 md:pl-2 mb-6 md:mb-7">
+                <Select
+                  name="investmentRange"
+                  label="Investment Range"
+                  className={`flex items-center justify-between border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer focus:outline-none ${
+                    getIn(errors, "investmentRange") &&
+                    getIn(touched, "investmentRange")
+                      ? "border-red-500 mb-0.5"
+                      : ""
+                  }`}
+                  options={investmentRange}
+                />
+                {getIn(errors, "investmentRange") &&
+                  getIn(touched, "investmentRange") && (
+                    <div className="text-red-500 font-medium">
+                      {getIn(errors, "investmentRange")}
+                    </div>
+                  )}
+              </div>
             </div>
             <div className="flex justify-end">
               <Button
