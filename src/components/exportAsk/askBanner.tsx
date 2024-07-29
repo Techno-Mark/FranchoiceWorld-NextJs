@@ -151,7 +151,7 @@ const AskBanner = () => {
                     titleClass="md:!pb-2.5"
                   />
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:pr-1 mb-3">
+                    <div className="w-full md:pr-2 mb-3">
                       <Field
                         as={InputField}
                         id="grid-first-name"
@@ -173,7 +173,7 @@ const AskBanner = () => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full md:pl-1 mb-3">
+                    <div className="w-full md:pl-2 mb-3">
                       <label
                         className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
                         htmlFor="phoneNumber"
@@ -223,7 +223,7 @@ const AskBanner = () => {
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:pr-1 mb-3">
+                    <div className="w-full md:pr-2 mb-3">
                       <Field
                         as={InputField}
                         id="emailId"
@@ -244,12 +244,12 @@ const AskBanner = () => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full md:pl-1 mb-3">
+                    <div className="w-full md:pl-2 mb-3">
                       <Select
                         name="city"
                         label="City"
                         searchable
-                        className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                        className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                           getIn(errors, "city") && getIn(touched, "city")
                             ? "border-red-500"
                             : ""
