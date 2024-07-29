@@ -22,6 +22,8 @@ const ProductList = () => {
   const city = searchParams.get("city");
   const minRange = searchParams.get("minRange");
   const maxRange = searchParams.get("maxRange");
+  console.log("🚀 ~ ProductList ~ maxRange:", maxRange);
+  console.log("🚀 ~ ProductList ~ minRange:", minRange);
 
   const fetchdata = async () => {
     try {
@@ -63,12 +65,11 @@ const ProductList = () => {
           }
           break;
         case "investment":
-          // Only add minRange and maxRange if they are valid numbers
-          if (typeof minRange === "number" && !isNaN(minRange)) {          
-            params.append("minRange", String(minRange));
+          if (minRange !== null && minRange !== "" && minRange !== "null") {
+            params.append("minRange", minRange);
           }
-          if (typeof maxRange === "number" && !isNaN(maxRange)) {
-            params.append("maxRange", String(maxRange));
+          if (maxRange !== null && maxRange !== "" && maxRange !== "null") {
+            params.append("maxRange", maxRange);
           }
           break;
         default:
