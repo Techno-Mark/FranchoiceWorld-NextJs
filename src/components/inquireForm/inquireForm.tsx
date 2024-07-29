@@ -102,7 +102,7 @@ const InquireForm = () => {
       .email("Invalid email address")
       .required("Email ID is required"),
     whoAmI: Yup.string().required("This field is required"),
-    city: Yup.number().required("City Range is required"),
+    city: Yup.number().required("City is required"),
     // acceptTerms: Yup.boolean().oneOf(
     //   [true],
     //   "You must accept the terms and conditions"
@@ -234,6 +234,7 @@ const InquireForm = () => {
                 <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
                   <Select
                     name="city"
+                    searchable
                     placeholder="City"
                     className={`flex items-center justify-between text-[12px] font-medium border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
                       getIn(errors, "city") && getIn(touched, "city")

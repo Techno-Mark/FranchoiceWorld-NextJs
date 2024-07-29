@@ -24,7 +24,7 @@ interface FormValues {
   logo: File[];
   brandImages: File[];
   video?: File[];
-  franchiseAggrementFile?: File[];
+  franchiseAggrementFile: File[];
   acceptTerms: boolean;
   submitInfo: boolean;
 }
@@ -100,17 +100,11 @@ function FourthStep() {
           ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
           : true
       ),
-    franchiseAggrementFile: Yup.array()
-      .test(
-        "fileSize",
-        "File size is too large",
-        (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 5 : true) // 25 MB for video
-      )
-      .test("fileFormat", "Unsupported file format", (value) =>
-        value && value[0]
-          ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
-          : true
-      ),
+    franchiseAggrementFile: Yup.array().test(
+      "fileSize",
+      "File size is too large",
+      (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 2 : true)
+    ),
     acceptTerms: Yup.boolean()
       .oneOf([true], "You must accept the Terms & Conditions.")
       .required("You must accept the Terms & Conditions."),
@@ -151,13 +145,17 @@ function FourthStep() {
       });
     }
 
+    values.franchiseAggrementFile.forEach((file) => {
+      formData.append(`franchiseAggrementFile`, file);
+    });
+
     formData.append("phoneNumber", mobileNumber || "");
     formData.append("countryCode", selectedCountry || "");
 
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
-        formData,
+        { formData, finalSubmit: true },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -204,6 +202,13 @@ function FourthStep() {
             break;
           case "avi":
             mimeType = "video/x-msvideo";
+            break;
+          case "doc":
+            mimeType = "application/msword";
+            break;
+          case "docx":
+            mimeType =
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             break;
         }
       }
@@ -255,6 +260,13 @@ function FourthStep() {
         )
       );
 
+      const fileAgreement = data.franchiseAggrementFile
+        ? await createFileFromPath(
+            data.franchiseAggrementFile,
+            extractFileName(data.franchiseAggrementFile)
+          )
+        : null;
+
       setFormValues((prevValues) => ({
         ...prevValues,
         phoneNumber: data.phoneNumber || null,
@@ -263,6 +275,7 @@ function FourthStep() {
         logo: logoFile ? [logoFile] : [],
         brandImages: brandImageFiles.filter(Boolean),
         video: videoFile ? [videoFile] : [],
+        franchiseAggrementFile: fileAgreement ? [fileAgreement] : [],
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -377,13 +390,14 @@ function FourthStep() {
                       const fileArray = file ? [file] : [];
                       setFieldValue("franchiseAggrementFile", fileArray);
                     }}
-                    existingFiles={formValues.brochure}
+                    existingFiles={formValues.franchiseAggrementFile}
                   />
-                  {errors.brochure && touched.brochure && (
-                    <div className="text-red-500">
-                      {errors.brochure as ReactNode}
-                    </div>
-                  )}
+                  {errors.franchiseAggrementFile &&
+                    touched.franchiseAggrementFile && (
+                      <div className="text-red-500">
+                        {errors.franchiseAggrementFile as ReactNode}
+                      </div>
+                    )}
                 </div>
               </div>
 

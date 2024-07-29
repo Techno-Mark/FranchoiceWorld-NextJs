@@ -73,7 +73,7 @@ const AskBanner = () => {
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email ID is required"),
-    city: Yup.number().required("City Range is required"),
+    city: Yup.number().required("City is required"),
     // companyName: Yup.string()
     //   .max(250, "Company Name cannot be longer than 250 characters.")
     //   .matches(
@@ -248,6 +248,7 @@ const AskBanner = () => {
                       <Select
                         name="city"
                         label="City"
+                        searchable
                         className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                           getIn(errors, "city") && getIn(touched, "city")
                             ? "border-red-500"

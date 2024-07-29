@@ -5,6 +5,7 @@ import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
 import PdfIcon from "@/assets/icons/pdfIcon";
 import ImageIcon from "@/assets/imageIcon";
+import WordIcon from "@/assets/icons/wordIcon";
 
 interface FileUploadProps {
   label?: string;
@@ -102,6 +103,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
     switch (fileType) {
       case "pdf":
         return <PdfIcon className="mr-2" />;
+      case "doc":
+      case "docx":
+        return <WordIcon className="mr-2" />;
       case "png":
       case "jpg":
       case "jpeg":
