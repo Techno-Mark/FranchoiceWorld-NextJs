@@ -301,6 +301,7 @@ function InvestorFirstStep() {
                   }`}
                   options={countryOptions}
                   required={true}
+                  searchable={true}
                 />
                 {getIn(errors, "country") && getIn(touched, "country") && (
                   <div className="text-red-500 font-medium">
@@ -322,6 +323,7 @@ function InvestorFirstStep() {
                     fetchCity([value]);
                   }}
                   options={stateOptions}
+                  searchable={true}
                 />
                 {getIn(errors, "state") && getIn(touched, "state") && (
                   <div className="text-red-500 font-medium">
@@ -340,6 +342,7 @@ function InvestorFirstStep() {
                       : ""
                   }`}
                   options={citiesOption}
+                  searchable={true}
                 />
                 {getIn(errors, "city") && getIn(touched, "city") && (
                   <div className="text-red-500 font-medium">

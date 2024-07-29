@@ -1,3 +1,10 @@
+.searchIcn{
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+
+
 @supports not (gap: 1rem) {
     .findForm {
         margin: 1rem;
