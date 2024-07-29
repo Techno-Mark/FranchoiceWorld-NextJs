@@ -37,6 +37,14 @@ export const getService = async (param: string, body: any) => {
   }
 };
 
+export const getCountry = async (param: string) => {
+  try {
+    const response = await axios.get(`${API_URL}${param}`);
+    return response.data.ResponseData;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
 export const getState = async (param: string) => {
   try {
     const response = await axios.get(`${API_URL}${param}`);
