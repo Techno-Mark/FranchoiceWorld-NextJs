@@ -103,7 +103,7 @@ const AskBanner = () => {
     try {
       const response = await AskExperts({
         fullName: values.fullName,
-        email: values.emailId,
+        emailId: values.emailId,
         phoneNumber: values.phoneNumber.toString(),
         countryCode: "+91",
         city: values.city,

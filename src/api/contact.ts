@@ -41,7 +41,7 @@ export const CreateInquiry = async (body: inquiryForm) => {
 
 interface Askexp{
   fullName: string;
-  email: string;
+  emailId: string;
   countryCode: string;
   phoneNumber: string;
   city: number | null;
