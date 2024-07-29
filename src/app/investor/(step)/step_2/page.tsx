@@ -242,15 +242,15 @@ function InvestorSecondStep() {
       setFormValues((prevValues) => ({
         ...prevValues,
         industryType: response.industryType || null,
-        needForLoan: response.needForLoan || false,
+        needForLoan: response.needForLoan === true || response.needForLoan === "true",
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,
         lookingForState: response.lookingForState || [],
         lookingForCity: response.lookingForCity || [],
-        ownProperty: response.ownProperty || true,
+        ownProperty: response.ownProperty === true || response.ownProperty === "true",
       }));
-      setSelectedState(response?.state);
+      setSelectedState([response?.state]);
       if (selectedState?.length > 0) {
         fetchCity(response?.state);
       }
