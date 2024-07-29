@@ -202,7 +202,7 @@ const serviceItems = [
 
 export default function Home() {
   const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
-    sectionTitle: "Top Busines  s Opportunities",
+    sectionTitle: "Top Business Opportunities",
     items: [],
   });
 
