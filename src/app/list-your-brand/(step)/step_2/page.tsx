@@ -290,9 +290,11 @@ function SecondStep() {
     // Update cities based on selected states
     setFieldValue(
       "city",
-      formValues.city.filter((cityId) =>
-        selectedStates.includes(cityStateMapping[cityId])
-      )
+      Array.isArray(formValues.city)
+        ? formValues.city.filter((cityId) =>
+            selectedStates.includes(cityStateMapping[cityId])
+          )
+        : []
     );
   };
 
