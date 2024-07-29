@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,21 +8,21 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --pirmary-color: #193560;
-  --secondary-color: #00458D;
+  --secondary-color: #00458d;
   --text-color: #737273;
-  --footer-bg: #17498A;
-  --highlighted-color: #D21F34;
-  --third-color: #0090C5;
+  --footer-bg: #17498a;
+  --highlighted-color: #d21f34;
+  --third-color: #0090c5;
   --white-color: #fff;
-  --border-color: #EDEDED;
-  --font-family: 'Montserrat';
-  --text-size: '16px';
-  --text-title: '30';
-  --highlighted-hover: #A30719;
+  --border-color: #ededed;
+  --font-family: "Montserrat";
+  --text-size: "16px";
+  --text-title: "30";
+  --highlighted-hover: #a30719;
   --footer-hover: #063169;
-  --about-text: #161C2D;
-  --cookie-bg-color:#F5F9FD;
-
+  --about-text: #161c2d;
+  --cookie-bg-color: #f5f9fd;
+  --bottom-border: #8a8a8a;
 }
 
 * {
@@ -53,7 +53,6 @@ a {
 }
 
 @layer base {
-
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -61,20 +60,20 @@ a {
   }
 }
 
-@media only screen and (min-height:900px) {
+@media only screen and (min-height: 900px) {
   .mainWrapper {
     min-height: calc(100vh - 350px);
   }
 }
 
-@media only screen and (max-width:991px) {
+@media only screen and (max-width: 991px) {
   .container {
     padding-left: 12px;
     padding-right: 12px;
   }
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
   body {
     font-size: 12px;
   }
@@ -88,7 +87,7 @@ a {
   }
 
   .headerBg::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
@@ -106,14 +105,14 @@ a {
 
 @keyframes moveRight {
   0% {
-    left: 0
+    left: 0;
   }
 
   50% {
-    left: -4px
+    left: -4px;
   }
 
   to {
-    left: 0
+    left: 0;
   }
 }

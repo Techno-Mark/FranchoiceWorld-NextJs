@@ -180,6 +180,27 @@ const cardBox = [
   },
 ];
 
+const serviceItems = [
+  {
+    id: "first",
+    serviceIcon: "/images/franchiseListing.svg",
+    serviceText: "Franchise Listing",
+    redirectURL: "/service/franchise-listing",
+  },
+  {
+    id: "second",
+    serviceIcon: "/images/franchiseAdvisor.svg",
+    serviceText: "Franchise Advisory",
+    redirectURL: "/service/franchise-advisor",
+  },
+  {
+    id: "third",
+    serviceIcon: "/images/franchiseGrowth.svg",
+    serviceText: "Franchise Growth",
+    redirectURL: "/service/franchise-growth",
+  },
+];
+
 export default function Home() {
   const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
     sectionTitle: "Top Business Opportunities",
@@ -219,7 +240,11 @@ export default function Home() {
       {/* <CookieConsent /> */}
       <Banner props={banner} />
       <HalfBanner />
-      <WhyChoose cardBox={cardBox} />
+      <WhyChoose
+        title="Why Choose Franchoice World?"
+        desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+        cardBox={cardBox}
+      />
 
       <InnerListBrandBanner props={innerBanner} />
       <InquireForm />
@@ -232,7 +257,7 @@ export default function Home() {
       />
       <FranchiseIndustry />
       <AboutFranchoice />
-      <OurService />
+      <OurService services={serviceItems} />
       {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}

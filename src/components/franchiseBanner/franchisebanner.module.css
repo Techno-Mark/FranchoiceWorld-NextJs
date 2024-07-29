@@ -1,27 +1,17 @@
 .innerBrandTitle {
-    font-size: 3.5rem;
-    line-height: 3.5rem;
+    font-size: 1.8rem;
+    line-height: 2.75rem;
     color: var(--secondary-color);
-    padding-bottom: 1rem;
+    padding-bottom: 1.32rem;
 }
 
 .innerBrandSubtitle {
-    font-size: 1.5rem;
+    padding-top: 1.32rem;
+    font-size: 1.37rem;
     line-height: normal;
-    padding-bottom: 3rem;
-    font-weight: 500;
+    padding-bottom: 1.32rem;
+    font-weight: 600;
     max-width: 420px;
-}
-
-.InputStyle {
-    max-width: 283px;
-    color: var(--text-color);
-    padding: 1rem;
-    outline: none;
-}
-
-.InputStyle:focus {
-    border: 1.31px solid var(--secondary-color)
 }
 
 .agreePolicy {
@@ -31,10 +21,10 @@
 .arrowIcn {
     position: relative;
     left: 0;
-    animation: moveRight .8s infinite;
+    animation: moveRight 0.8s infinite;
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
     .InputStyle {
         max-width: 190px;
         padding: 0.4rem;
@@ -54,7 +44,7 @@
     }
 }
 
-@media only screen and (max-width:575px) {
+@media only screen and (max-width: 575px) {
     .InputStyle {
         max-width: 175px;
         padding: 0.3rem;
@@ -75,7 +65,7 @@
     }
 }
 
-@media only screen and (max-width:374px) {
+@media only screen and (max-width: 374px) {
     .InputStyle {
         max-width: 125px;
     }
@@ -83,14 +73,14 @@
 
 @keyframes moveRight {
     0% {
-        left: 0
+        left: 0;
     }
 
     50% {
-        left: -4px
+        left: -4px;
     }
 
     to {
-        left: 0
+        left: 0;
     }
 }

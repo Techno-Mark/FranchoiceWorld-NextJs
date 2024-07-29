@@ -14,20 +14,26 @@ interface CardItem {
 
 interface WhyChooseProps {
   cardBox: CardItem[];
+  title?: string;
+  desc?: string;
   hideKnowMore?: boolean;
+  disableLi?: boolean; // New prop
 }
 
 const WhyChoose: React.FC<WhyChooseProps> = ({
   cardBox,
+  title,
+  desc,
   hideKnowMore = false,
+  disableLi = false, // Default value
 }) => {
   return (
     <section className={styles.whyChoose}>
       <div className="container">
         <div className={`text-center ${styles.titlePart}`}>
           <Title
-            title="Why Choose Franchoice World?"
-            desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+            title={title ? title : ""}
+            desc={desc ? desc : ""}
             descClass="font-medium"
           />
         </div>
@@ -63,9 +69,15 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
                       {desc && <p className="font-medium pb-4">{desc}</p>}
                       {list && (
                         <ul className={styles.chooseBenifits}>
-                          {list.map((benefit, idx) => (
-                            <li key={idx}>{benefit}</li>
-                          ))}
+                          {list.map((benefit, idx) =>
+                            disableLi ? (
+                              <span key={idx} className={styles.benefitItem}>
+                                {benefit}
+                              </span>
+                            ) : (
+                              <li key={idx}>{benefit}</li>
+                            )
+                          )}
                         </ul>
                       )}
                     </div>
