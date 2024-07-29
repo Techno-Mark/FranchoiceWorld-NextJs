@@ -22,8 +22,8 @@ const ProductList = () => {
   const city = searchParams.get("city");
   const minRange = searchParams.get("minRange");
   const maxRange = searchParams.get("maxRange");
-  console.log("🚀 ~ ProductList ~ maxRange:", maxRange);
-  console.log("🚀 ~ ProductList ~ minRange:", minRange);
+  const brandName = searchParams.get("brandName");
+  console.log("🚀 ~ ProductList ~ brandName:", brandName)
 
   const fetchdata = async () => {
     try {
@@ -35,17 +35,21 @@ const ProductList = () => {
       // Helper function to add param if it's a valid, non-empty value
       const addParamIfValid = (
         key: string,
-        value: string | number | null | undefined
+        value: string | number | null | undefined,
+        excludeZero = false
       ) => {
         if (
           value !== null &&
           value !== undefined &&
           value !== "" &&
-          !(typeof value === "number" && isNaN(value))
+          !(typeof value === "number" && isNaN(value)) &&
+          !(excludeZero && value === 0) &&
+          key !== 'industry' || value !== 0
         ) {
           params.append(key, String(value));
         }
       };
+      
 
       // Add industry if valid
       addParamIfValid("industry", industry);
@@ -72,6 +76,8 @@ const ProductList = () => {
             params.append("maxRange", maxRange);
           }
           break;
+          case "brand":
+            addParamIfValid("brandName",brandName)
         default:
           console.warn("Unknown type:", type);
       }

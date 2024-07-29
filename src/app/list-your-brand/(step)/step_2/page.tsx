@@ -249,6 +249,8 @@ function SecondStep() {
         industry: data?.industry || null,
         subCategory: data?.subCategory || null,
         service: data?.service || null,
+        businessCommencedYear: Number(data?.businessCommencedYear) || null,
+        franchiseCommencedYear: Number(data?.franchiseCommencedYear) || null,
         yearFounded: data?.yearFounded || null,
         headquartersLocation: data?.headquartersLocation || null,
         numberOfLocations: data?.numberOfLocations || null,

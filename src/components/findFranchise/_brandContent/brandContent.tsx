@@ -17,17 +17,13 @@ const BrandContent = () => {
   return (
     <Formik
       initialValues={{
-        industry: null,
-        sector: null,
-        product: null,
+        brandName: "",
       }}
       onSubmit={async (values) => {
-        router.push(
-          `/franchise/list?type=brand&industry=${values.industry}&sector=${values.sector}&service=${values.product}`
-        );
+        router.push(`/franchise/list?type=brand&brandName=${values.brandName}`);
       }}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, handleChange }) => (
         <Form
           className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
         >
@@ -36,6 +32,8 @@ const BrandContent = () => {
               id="grid-first-name"
               name="brandName"
               type="text"
+              value={values.brandName}
+              onChange={handleChange}
               required={true}
               placeholder="Search"
               className={`block w-full rounded-lg py-2 pr-4 pl-10 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
