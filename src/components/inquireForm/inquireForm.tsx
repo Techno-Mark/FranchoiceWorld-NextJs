@@ -178,7 +178,7 @@ const InquireForm = () => {
                       <div className="w-[80px] text-[12px]">
                         <CountryDropdown
                           variant="small"
-                          className="!border-[rgba(115,114,115,0.4)] rounded-lg bg-white !py-2 font-medium"
+                          className="!border-[rgba(115,114,115,0.4)] rounded-lg bg-white !py-1 font-medium mb-0.5 h-[36px]"
                         />
                       </div>
                       <Field
@@ -195,10 +195,10 @@ const InquireForm = () => {
                             setFieldValue("phoneNumber", value);
                           }
                         }}
-                        className={`block w-full border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-2 focus:outline-none ${
+                        className={`block w-full border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-1 focus:outline-none mb-0.5 ${
                           getIn(errors, "phoneNumber") &&
                           getIn(touched, "phoneNumber")
-                            ? "border-red-500 mb-0.5"
+                            ? "border-red-500"
                             : ""
                         }`}
                       />

@@ -238,7 +238,6 @@ export default function Home() {
   return (
     <>
       <Banner props={banner} />
-
       <HalfBanner />
       <div className="relative">
         <WhyChoose
@@ -246,11 +245,9 @@ export default function Home() {
           desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
           cardBox={cardBox}
         />
-
         <InnerListBrandBanner props={innerBanner} className="md:!pb-10" />
         <FindFranchise />
         {/* <ListBrandBanner /> */}
-
         <TopBrandSlider
           sectionTitle={opportunity.sectionTitle}
           items={opportunity.items}
