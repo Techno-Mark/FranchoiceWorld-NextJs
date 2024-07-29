@@ -26,19 +26,16 @@ const serviceItems = [
     id: "first",
     serviceIcon: "/images/franchise-groth/FranchiseModal.svg",
     serviceText: "Franchise Modelling",
-    redirectURL: "/service/franchise-listing",
   },
   {
     id: "second",
     serviceIcon: "/images/franchise-groth/Financial.svg",
     serviceText: "Financial Modelling",
-    redirectURL: "/service/franchise-advisor",
   },
   {
     id: "third",
     serviceIcon: "/images/franchise-groth/Franchise.svg",
     serviceText: "Franchise Development ",
-    redirectURL: "/service/franchise-growth",
   },
 ];
 
