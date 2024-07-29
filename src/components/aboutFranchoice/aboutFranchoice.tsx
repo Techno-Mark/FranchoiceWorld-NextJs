@@ -10,7 +10,7 @@ const AboutFranchoice = () => {
         <div className="block md:hidden text-center">
           <Title title="About Franchoice World" />
         </div>
-        <div className="flex flex-col-reverse md:flex-row gap-6 text-center md:text-left">
+        <div className="flex items-center flex-col-reverse md:flex-row gap-6 text-center md:text-left">
           <div className={`pb-6 md:pb-0 w-full md:w-1/2 ${styles.aboutLeft}`}>
             <div className="hidden md:block">
               <Title title="About Franchoice World" />

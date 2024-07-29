@@ -68,7 +68,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ title, testimonials }) => {
   };
 
   return (
-    <section className={`py-8 ${styles.testimonial}`}>
+    <section className={`py-8 md:py-20 ${styles.testimonial}`}>
       <div className="container mx-auto text-center md:w-3/4">
         <Title title={title} />
         <StyledSlider {...settings}>

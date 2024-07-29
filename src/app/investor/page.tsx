@@ -3,6 +3,7 @@ import { getFranchiseList } from "@/api/home";
 import Faq from "@/components/faq/faq";
 import FindFranchise from "@/components/findFranchise/findFranchise";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
@@ -338,23 +339,26 @@ const Investor = () => {
   return (
     <>
       <InnerListBrandBanner props={innerBanner} />
-      <FindFranchise dark={true} />
-      <div className="py-12">
-        <WhyChoose cardBox={whyChooseUs} hideKnowMore={true} />
+      <div className="relative">
+        <FindFranchise dark={true} />
+        <div className="py-12">
+          <WhyChoose cardBox={whyChooseUs} hideKnowMore={true} />
+        </div>
+        <TopBrandSlider
+          sectionTitle={opportunity.sectionTitle}
+          items={opportunity.items}
+        />
+        <Testimonial title="Success Stories" testimonials={testimonials} />
+        {/* <TrandingVideo items={trandingVideo.items} /> */}
+        <WhatWeDo
+          sectionTitle={whatWeDo.title}
+          titleDesc={whatWeDo.titleDesc}
+          items={whatWeDo.items}
+        />
+        <Faq />
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm />
       </div>
-      <TopBrandSlider
-        sectionTitle={opportunity.sectionTitle}
-        items={opportunity.items}
-      />
-      <Testimonial title="Success Stories" testimonials={testimonials} />
-      {/* <TrandingVideo items={trandingVideo.items} /> */}
-      <WhatWeDo
-        sectionTitle={whatWeDo.title}
-        titleDesc={whatWeDo.titleDesc}
-        items={whatWeDo.items}
-      />
-      <Faq />
-      <QuickLinks quickLink={quickLinksData} />
     </>
   );
 };

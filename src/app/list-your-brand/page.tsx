@@ -37,7 +37,8 @@ function ListYourBrand() {
   //   ],
   // };
   const innerBanner = {
-    bannerImage: "/images/innerListBrandBanner.png",
+    // bannerImage: "/images/innerListBrandBanner.png",
+    bannerImageTxt: "Accelerate your brand's growth and scale greater heights.",
     submitURL: "/list-your-brand/step_1",
     SectionTitle: "List Your Brand",
     desc: "Put your brand in the spotlight!",
@@ -51,14 +52,16 @@ function ListYourBrand() {
   return (
     <>
       <InnerListBrandBanner props={innerBanner} />
-      <ListingSimpleSteps />
-      {/* <TrandingVideo
+      <div className="relative">
+        <ListingSimpleSteps />
+        {/* <TrandingVideo
         items={trandingVideo.items}
         desc={trandingVideo.desc}
         desc2={trandingVideo.desc2}
       /> */}
-      <Faq />
-      <InquireForm />
+        <Faq />
+        <InquireForm />
+      </div>
       {/* <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />
       </div> */}

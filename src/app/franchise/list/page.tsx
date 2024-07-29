@@ -7,6 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import { useSearchParams } from "next/navigation";
 import { getFranchiseList } from "@/api/home";
+import InquireForm from "@/components/inquireForm/inquireForm";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -81,7 +82,8 @@ const ProductList = () => {
       const response = await getFranchiseList(url);
       const formattedData = response.map((categorie: any) => ({
         id: categorie.id,
-        franchiseImage: "/images/bussinessImage.jpg",
+        franchiseImage: categorie.brandImages[0],
+        // franchiseImage: "/images/bussinessImage.jpg",
         title: categorie.brandName,
         category: categorie.subCategory,
         investmentRange: categorie.investmentRange,
@@ -202,20 +204,23 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="bg-[#f1f1f2] py-4 md:py-6">
+      {/* <div className="bg-[#f1f1f2] py-4 md:py-6">
         <div className="container">
           <Breadcrumbs
             items={breadcrumbItems}
             separator={<FaChevronRight size={12} />}
           />
         </div>
-      </div>
+      </div> */}
       <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
           <FranchiseListCard items={brandData} />
         </div>
       </div>
-      <QuickLinks quickLink={quickLinksData} />
+      <div className="relative">
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm />
+      </div>
     </>
   );
 };

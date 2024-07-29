@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import Card from "../card/card";
-import styles from "./franchiselistcard.module.css";
-import React, { useState } from "react";
-import Button from "../button/button";
-import Pagination from "../pagination/pagination";
 import Link from "next/link";
+import React, { useState } from "react";
+import Card from "../card/card";
+import Pagination from "../pagination/pagination";
+import styles from "./franchiselistcard.module.css";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/`;
 
 interface FranchiseCard {
   id?: number | null;
@@ -58,11 +58,11 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
         {paginatedItems.map((card, index) => (
           <Card
             key={index}
-            className={`mx-1.5 my-4 ${styles.franchiseItemCard}`}
+            className={`mx-2 my-4 ${styles.franchiseItemCard}`}
           >
             <div className="bg-white overflow-hidden">
               <Image
-                src={card.franchiseImage}
+                src={`${API_URL}${card.franchiseImage}`}
                 alt={card.title}
                 className={`object-top ${styles.franchiseItemImage}`}
                 width={230}

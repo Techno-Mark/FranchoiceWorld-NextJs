@@ -12,7 +12,6 @@ import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhyChoose from "@/components/whyChoose/whyChoose";
 import { useEffect, useState } from "react";
-import CookieConsent from "@/components/cookie/cookie";
 
 // interface HomeData {
 //   banner: any[];
@@ -203,7 +202,7 @@ const serviceItems = [
 
 export default function Home() {
   const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
-    sectionTitle: "Top Business Opportunities",
+    sectionTitle: "Top Busines  s Opportunities",
     items: [],
   });
 
@@ -237,33 +236,35 @@ export default function Home() {
   }, []);
   return (
     <>
-      {/* <CookieConsent /> */}
       <Banner props={banner} />
+
       <HalfBanner />
-      <WhyChoose
-        title="Why Choose Franchoice World?"
-        desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
-        cardBox={cardBox}
-      />
+      <div className="relative">
+        <WhyChoose
+          title="Why Choose Franchoice World?"
+          desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+          cardBox={cardBox}
+        />
 
-      <InnerListBrandBanner props={innerBanner} />
-      <InquireForm />
-      <FindFranchise />
-      {/* <ListBrandBanner /> */}
+        <InnerListBrandBanner props={innerBanner} />
+        <FindFranchise />
+        {/* <ListBrandBanner /> */}
 
-      <TopBrandSlider
-        sectionTitle={opportunity.sectionTitle}
-        items={opportunity.items}
-      />
-      <FranchiseIndustry />
-      <AboutFranchoice />
-      <OurService services={serviceItems} />
-      {/* <TopBrandSlider
+        <TopBrandSlider
+          sectionTitle={opportunity.sectionTitle}
+          items={opportunity.items}
+        />
+        <FranchiseIndustry />
+        <AboutFranchoice />
+        <OurService services={serviceItems} />
+        {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}
       />
       <TrandingVideo items={trandingVideo.items} /> */}
-      <Testimonial title="Success Stories" testimonials={testimonials} />
+        <Testimonial title="Success Stories" testimonials={testimonials} />
+        <InquireForm />
+      </div>
     </>
   );
 }

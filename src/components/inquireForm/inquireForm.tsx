@@ -17,32 +17,42 @@ interface FormValues {
   phoneNumber: string;
   emailId: string;
   companyName: string;
-  investmentRange: number | null;
+  whoAmI: string;
   city: number | null;
   acceptTerms: boolean;
 }
 
 const InquireForm = () => {
   const [citiesOption, setCitiesOption] = useState([]);
-  const [investmentRange, setInvstmentRange] = useState([]);
+  // const [investmentRange, setInvstmentRange] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const fetchInvestmentRange = async () => {
-    try {
-      const response = await getInvestmentRange(
-        "/dropdown/min-max-investments"
-      );
-      const formattedInvestmentRangeTypes = response.map(
-        (InvestmentRange: any) => ({
-          value: InvestmentRange.id,
-          label: InvestmentRange.range,
-        })
-      );
-      setInvstmentRange(formattedInvestmentRangeTypes);
-    } catch (error) {
-      console.error("Error fetching investment ranges:", error);
-    }
-  };
+  // const fetchInvestmentRange = async () => {
+  //   try {
+  //     const response = await getInvestmentRange(
+  //       "/dropdown/min-max-investments"
+  //     );
+  //     const formattedInvestmentRangeTypes = response.map(
+  //       (InvestmentRange: any) => ({
+  //         value: InvestmentRange.id,
+  //         label: InvestmentRange.range,
+  //       })
+  //     );
+  //     setInvstmentRange(formattedInvestmentRangeTypes);
+  //   } catch (error) {
+  //     console.error("Error fetching investment ranges:", error);
+  //   }
+  // };
+
+  const whoOption = [
+    { label: "Brand", value: 1 },
+    { label: "Investor", value: 2 },
+    {
+      label: "Independent Franchise Partner",
+      value: 3,
+    },
+    { label: "Real Estate Developer", value: 4 },
+  ];
 
   const fetchCity = async (cityId: []) => {
     try {
@@ -62,7 +72,7 @@ const InquireForm = () => {
 
   useEffect(() => {
     fetchCity([]);
-    fetchInvestmentRange();
+    // fetchInvestmentRange();
   }, []);
 
   const initialValues: FormValues = {
@@ -70,7 +80,7 @@ const InquireForm = () => {
     companyName: "",
     countryCode: "+91",
     emailId: "",
-    investmentRange: null,
+    whoAmI: "",
     phoneNumber: "",
     acceptTerms: true,
     city: null,
@@ -85,14 +95,14 @@ const InquireForm = () => {
       )
       .required("Full Name is required"),
     phoneNumber: Yup.string()
-      .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
+      .matches(/^\d{10}$/, "Number must be exactly 10 digits")
       .required("Phone Number is required"),
     emailId: Yup.string()
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
       .required("Email ID is required"),
-    investmentRange: Yup.number().required("City is required"),
-    city: Yup.number().required("Investment Range is required"),
+    whoAmI: Yup.string().required("This field is required"),
+    city: Yup.number().required("City Range is required"),
     // acceptTerms: Yup.boolean().oneOf(
     //   [true],
     //   "You must accept the terms and conditions"
@@ -114,7 +124,7 @@ const InquireForm = () => {
         countryCode: values.countryCode,
         phoneNumber: values.phoneNumber.toString(),
         city: values.city,
-        investmentRange: values.investmentRange,
+        whoAmI: values.whoAmI,
         termsAggrement: values.acceptTerms,
       };
       const response = await CreateInquiry(params);
@@ -129,7 +139,9 @@ const InquireForm = () => {
   };
 
   return (
-    <section className={`bg-[var(--footer-bg)] py-2 ${styles.inquiryForm}`}>
+    <section
+      className={`bg-[var(--footer-bg)] py-2 lg:sticky lg:bottom-0 ${styles.inquiryForm}`}
+    >
       <div className="container">
         <Formik
           initialValues={initialValues}
@@ -148,9 +160,9 @@ const InquireForm = () => {
                     type="text"
                     placeholder="Full Name"
                     required={true}
-                    className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none text-[12px] ${
+                    className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none text-[12px] font-medium${
                       getIn(errors, "fullName") && getIn(touched, "fullName")
-                        ? "border-red-500 mb-0.5"
+                        ? "!border-red-500"
                         : ""
                     }`}
                   />
@@ -166,7 +178,7 @@ const InquireForm = () => {
                       <div className="w-[80px] text-[12px]">
                         <CountryDropdown
                           variant="small"
-                          className="!border-[rgba(115,114,115,0.4)] rounded-lg bg-white !py-2"
+                          className="!border-[rgba(115,114,115,0.4)] rounded-lg bg-white !py-2 font-medium"
                         />
                       </div>
                       <Field
@@ -183,7 +195,7 @@ const InquireForm = () => {
                             setFieldValue("phoneNumber", value);
                           }
                         }}
-                        className={`block w-full border border-[#73727366] text-[12px] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
+                        className={`block w-full border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-2 focus:outline-none ${
                           getIn(errors, "phoneNumber") &&
                           getIn(touched, "phoneNumber")
                             ? "border-red-500 mb-0.5"
@@ -207,7 +219,7 @@ const InquireForm = () => {
                     type="email"
                     placeholder="Email ID"
                     required={true}
-                    className={`block w-full border border-[#73727366] rounded-lg text-[12px] py-2 px-4 focus:outline-none ${
+                    className={`block w-full border border-[#73727366] rounded-lg text-[12px] font-medium py-2 px-4 focus:outline-none ${
                       getIn(errors, "emailId") && getIn(touched, "emailId")
                         ? "border-red-500 mb-0.5"
                         : ""
@@ -223,7 +235,7 @@ const InquireForm = () => {
                   <Select
                     name="city"
                     placeholder="City"
-                    className={`flex items-center justify-between text-[12px] border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
+                    className={`flex items-center justify-between text-[12px] font-medium border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
                       getIn(errors, "city") && getIn(touched, "city")
                         ? "border-red-500 mb-0.5"
                         : ""
@@ -238,22 +250,20 @@ const InquireForm = () => {
                 </div>
                 <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
                   <Select
-                    name="investmentRange"
-                    placeholder="Investment Range*"
-                    className={`flex items-center justify-between text-[12px] border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
-                      getIn(errors, "investmentRange") &&
-                      getIn(touched, "investmentRange")
+                    name="whoAmI"
+                    placeholder="who Am I ?"
+                    className={`flex items-center justify-between text-[12px] font-medium border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
+                      getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
                         ? "border-red-500 mb-0.5"
                         : ""
                     }`}
-                    options={investmentRange}
+                    options={whoOption}
                   />
-                  {getIn(errors, "investmentRange") &&
-                    getIn(touched, "investmentRange") && (
-                      <div className="text-red-500 font-medium text-[12px]">
-                        {getIn(errors, "investmentRange")}
-                      </div>
-                    )}
+                  {getIn(errors, "whoAmI") && getIn(touched, "whoAmI") && (
+                    <div className="text-red-500 font-medium text-[12px]">
+                      {getIn(errors, "whoAmI")}
+                    </div>
+                  )}
                 </div>
                 <Button
                   type="submit"

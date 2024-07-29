@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import { ListBrandProvider } from "@/contexts/ListBrandContext";
+import CookieConsent from "@/components/cookie/cookie";
 
 export const metadata: Metadata = {
   title: {
@@ -31,6 +32,7 @@ export default function RootLayout({
         <main className="flex flex-col min-h-screen mainWrapper">
           <Header />
           {children}
+          <CookieConsent />
         </main>
         <Footer />
         {/* </ListBrandProvider> */}

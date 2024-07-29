@@ -29,7 +29,7 @@ import YearSelect from "@/components/Fields/yearSelect";
 interface FormValues {
   phoneNumber: string | null;
   countryCode: string | null;
-  brandName: string;
+  companyName: string;
   industry: number | null;
   subCategory: number | null;
   service: number | null;
@@ -80,7 +80,7 @@ function SecondStep() {
   const [formValues, setFormValues] = useState<FormValues>({
     phoneNumber: mobileNumber,
     countryCode: selectedCountry,
-    brandName: "",
+    companyName: "",
     industry: null,
     subCategory: null,
     service: null,
@@ -245,7 +245,7 @@ function SecondStep() {
       const data = response.data?.ResponseData;
       setFormValues((prevValues) => ({
         ...prevValues,
-        brandName: data?.brandName || "",
+        companyName: data?.companyName || "",
         industry: data?.industry || null,
         subCategory: data?.subCategory || null,
         service: data?.service || null,
@@ -297,23 +297,25 @@ function SecondStep() {
   };
 
   const validationSchema = Yup.object({
-    brandName: Yup.string()
-      .max(250, "Brand Name cannot be longer than 250 characters.")
-      .required("Brand Name is required"),
-    industry: Yup.number().nullable().required("Industry is required"),
-    subCategory: Yup.number().nullable().required("Sub-Category is required"),
-    service: Yup.number().nullable().required("Service/Product is required"),
-    yearFounded: Yup.number().nullable().required("Year Founded is required"),
-    headquartersLocation: Yup.number()
-      .nullable()
-      .required("Location of Headquarters is required"),
-    numberOfLocations: Yup.number()
-      .nullable()
-      .required("Current Number of Locations/Outlets is required"),
-    brandDescription: Yup.string().required("Description is required"),
-    usp: Yup.string().required("Unique Selling Proposition is required"),
-    state: Yup.array().min(1, "Please select at least one option"),
-    city: Yup.array().min(1, "Please select at least one option"),
+    companyName: Yup.string().max(
+      250,
+      "Brand Name cannot be longer than 250 characters."
+    ),
+    // .required("Brand Name is required"),
+    // industry: Yup.number().nullable().required("Industry is required"),
+    // subCategory: Yup.number().nullable().required("Sub-Category is required"),
+    // service: Yup.number().nullable().required("Service/Product is required"),
+    // yearFounded: Yup.number().nullable().required("Year Founded is required"),
+    // headquartersLocation: Yup.number()
+    //   .nullable()
+    //   .required("Location of Headquarters is required"),
+    // numberOfLocations: Yup.number()
+    //   .nullable()
+    //   .required("Current Number of Locations/Outlets is required"),
+    // brandDescription: Yup.string().required("Description is required"),
+    // usp: Yup.string().required("Unique Selling Proposition is required"),
+    // state: Yup.array().min(1, "Please select at least one option"),
+    // city: Yup.array().min(1, "Please select at least one option"),
   });
 
   const handleSubmit = async (
@@ -352,7 +354,9 @@ function SecondStep() {
     "Industry",
     "Sub-Category",
     "Service/Product",
-    "Year Founded",
+    "Business Commenced On",
+    "Franchise Commenced On",
+    // "Year Founded",
     "Location of Headquarters",
     "Current Number of Locations/Outlets",
   ];
@@ -361,7 +365,9 @@ function SecondStep() {
     "industry",
     "subCategory",
     "service",
-    "yearFounded",
+    "businessCommencedYear",
+    "franchiseCommencedYear",
+    // "yearFounded",
     "headquartersLocation",
     "numberOfLocations",
   ];
@@ -388,22 +394,23 @@ function SecondStep() {
               <div className="w-full mb-8 md:mb-7">
                 <Field
                   as={InputField}
-                  id="brandName"
-                  name="brandName"
+                  id="companyName"
+                  name="companyName"
                   type="text"
-                  label="Brand Name"
-                  required={true}
+                  label="Company Name"
                   className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-                    getIn(errors, "brandName") && getIn(touched, "brandName")
+                    getIn(errors, "companyName") &&
+                    getIn(touched, "companyName")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                 />
-                {getIn(errors, "brandName") && getIn(touched, "brandName") && (
-                  <div className="text-red-500 font-medium mb-2">
-                    {getIn(errors, "brandName")}
-                  </div>
-                )}
+                {getIn(errors, "companyName") &&
+                  getIn(touched, "companyName") && (
+                    <div className="text-red-500 font-medium mb-2">
+                      {getIn(errors, "companyName")}
+                    </div>
+                  )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2">
@@ -415,17 +422,30 @@ function SecondStep() {
                     <Field name={field}>
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
-                          {field === "yearFounded" ? (
+                          {field === "businessCommencedOn" ? (
                             <YearSelect
                               id="year-select"
-                              name="yearFounded"
+                              name={field}
                               className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                                 getIn(errors, field) && getIn(touched, field)
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                              label="Year Founded"
-                              required
+                              label={label[index]}
+                              // label="Year Founded"
+                              // required
+                              startYear={1900}
+                            />
+                          ) : field === "franchiseCommencedOn" ? (
+                            <YearSelect
+                              id="year-select"
+                              name={field}
+                              className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                                getIn(errors, field) && getIn(touched, field)
+                                  ? "border-red-500 mb-0.5"
+                                  : ""
+                              }`}
+                              label={label[index]}
                               startYear={1900}
                             />
                           ) : (
@@ -451,6 +471,7 @@ function SecondStep() {
                                   setFieldValue(field, value);
                                 }
                               }}
+                              searchable={true}
                               label={label[index]}
                               options={OptionMap[field] || []}
                             />
@@ -478,7 +499,7 @@ function SecondStep() {
                         : "Description"
                     }
                     placeholder="Your Message"
-                    required={true}
+                    // required={true}
                     rows={4}
                     className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                       getIn(errors, field) && getIn(touched, field)
@@ -493,6 +514,9 @@ function SecondStep() {
                   )}
                 </div>
               ))}
+              <p className="text-[var(--footer-bg)] text-base font-bold pb-4">
+                Please Select Your Brand expansion plan Across States and City
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {["state", "city"].map((field) => (
                   <div

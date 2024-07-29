@@ -7,8 +7,10 @@ interface SelectProps {
   name: string;
   label?: string;
   className?: string;
-  placeholder?: string; 
-  onChange?: (value: number) => void; 
+  placeholder?: string;
+  required?: boolean;
+  onChange?: (value: number) => void;
+  searchable?: boolean; // Optional prop to enable search functionality
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,15 +18,20 @@ const Select: React.FC<SelectProps> = ({
   name,
   label,
   className,
-  placeholder = "Please select an option", 
-  onChange, 
+  placeholder = "Please select an option",
+  required,
+  onChange,
+  searchable = false,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
   const { submitCount } = useFormikContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
+  const [dropUp, setDropUp] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,6 +52,24 @@ const Select: React.FC<SelectProps> = ({
     };
   }, [selectRef, helpers, isOpen]);
 
+  useEffect(() => {
+    if (isOpen && dropdownRef.current && selectRef.current) {
+      const dropdownRect = dropdownRef.current.getBoundingClientRect();
+      const selectRect = selectRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - selectRect.bottom;
+      const spaceAbove = selectRect.top;
+
+      if (
+        spaceBelow < dropdownRect.height &&
+        spaceAbove > dropdownRect.height
+      ) {
+        setDropUp(true);
+      } else {
+        setDropUp(false);
+      }
+    }
+  }, [isOpen]);
+
   const handleOptionClick = (option: { value: number; label: string }) => {
     helpers.setValue(option.value);
     setIsOpen(false);
@@ -52,13 +77,22 @@ const Select: React.FC<SelectProps> = ({
     if (onChange) {
       onChange(option.value);
     }
+    setSearchQuery(""); // Reset search query when an option is selected
   };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   const showError = (isTouched || submitCount > 0) && meta.error;
+
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const selectedLabel =
     options.find((option) => option.value === field.value)?.label || "";
@@ -71,7 +105,7 @@ const Select: React.FC<SelectProps> = ({
           htmlFor={name}
         >
           {label}
-          <span className="text-red-500 ml-1">*</span>
+          {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
       <div className="relative inline-block w-full" ref={selectRef}>
@@ -83,7 +117,7 @@ const Select: React.FC<SelectProps> = ({
           } `}
           onClick={toggleDropdown}
         >
-          <span className="font-medium">
+          <span className="font-medium w-full text-ellipsis overflow-hidden">
             {selectedLabel ? selectedLabel : placeholder}
           </span>
           <div className="flex items-center pl-2 pointer-events-none">
@@ -105,27 +139,49 @@ const Select: React.FC<SelectProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute  z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg`">
+          <div
+            className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg ${
+              dropUp ? "bottom-full mb-1" : ""
+            }`}
+            ref={dropdownRef}
+          >
+            {searchable && (
+              <div className="p-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search..."
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+            )}
             <div
               className={`max-h-60 overflow-y-auto ${styles.custom_scrollbar}`}
             >
-              {options.map((option, index) => (
-                <div
-                  key={index}
-                  className={` px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
-                    option.value === field.value ? "bg-gray-100 font-bold" : ""
-                  }`}
-                  onClick={() => handleOptionClick(option)}
-                >
-                  {option.label}
-                </div>
-              ))}
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option, index) => (
+                  <div
+                    key={index}
+                    className={`px-4 py-2 cursor-pointer hover:bg-gray-200 text-left ${
+                      option.value === field.value
+                        ? "bg-gray-100 font-bold"
+                        : ""
+                    }`}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    {option.label}
+                  </div>
+                ))
+              ) : (
+                <div className="px-4 py-2 text-gray-500">No options found</div>
+              )}
             </div>
           </div>
         )}
       </div>
       {/* {showError && (
-        <div className="text-red-500 text-sm mt-1">{meta.error}</div>
+        <div className="text-red-500 mt-2 text-sm">{meta.error}</div>
       )} */}
     </div>
   );

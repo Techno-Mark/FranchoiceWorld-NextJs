@@ -4,6 +4,7 @@
     border-radius: 10px;
     transition: all 0.3s;
     padding: 1rem 1.25rem;
+    max-width: 270px;
 }
 
 .franchiseItemImage {

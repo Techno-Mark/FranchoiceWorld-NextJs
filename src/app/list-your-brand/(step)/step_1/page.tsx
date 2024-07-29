@@ -32,7 +32,7 @@ function FirstStep() {
       phoneNumber: mobileNumber,
       countryCode: selectedCountry,
       email: "",
-      companyName: "",
+      brandName: "",
       websiteURL: "",
     },
     validationSchema: Yup.object({
@@ -43,15 +43,14 @@ function FirstStep() {
         .email("Invalid email address")
         .max(250, "Email Address cannot be longer than 250 characters.")
         .required("Email Address is required"),
-      companyName: Yup.string()
-        .max(250, "Company Name cannot be longer than 250 characters.")
-        .required("Company Name is required"),
-      websiteURL: Yup.string()
-        .matches(
-          /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-          "Invalid WebsiteURL!"
-        )
-        .required("Website URL is required"),
+      brandName: Yup.string()
+        .max(250, "Brand Name cannot be longer than 250 characters.")
+        .required("Brand Name is required"),
+      websiteURL: Yup.string().matches(
+        /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        "Invalid WebsiteURL!"
+      ),
+      // .required("Website URL is required"),
     }),
     onSubmit: async (values) => {
       setIsSubmitting(true);
@@ -91,7 +90,7 @@ function FirstStep() {
         phoneNumber: mobileNumber,
         countryCode: selectedCountry,
         email: data.email || "",
-        companyName: data.companyName || "",
+        brandName: data.brandName || "",
         websiteURL: data.websiteURL || "",
       });
     } catch (error) {
@@ -130,7 +129,7 @@ function FirstStep() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               required={true}
-              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+              className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
                 formik.touched.fullName && formik.errors.fullName
                   ? "border-red-500 mb-0.5"
                   : ""
@@ -163,7 +162,7 @@ function FirstStep() {
                 disabled={true}
                 type="text"
                 value={mobileNumber}
-                className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none font-medium md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium md:ml-2 !border-[1px] !border-[rgba(115,114,115,0.4)]`}
               />
             </div>
           </div>
@@ -178,7 +177,7 @@ function FirstStep() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none text-base font-medium ${
               formik.touched.email && formik.errors.email
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
@@ -192,23 +191,23 @@ function FirstStep() {
         </div>
         <div className="inline-block w-full md:mb-7 mb-8">
           <InputField
-            id="grid-company-name"
-            name="companyName"
+            id="grid-brand-name"
+            name="brandName"
             type="text"
-            label="Company Name"
-            value={formik.values.companyName}
+            label="Brand Name"
+            value={formik.values.brandName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-              formik.touched.companyName && formik.errors.companyName
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
+              formik.touched.brandName && formik.errors.brandName
                 ? "border-red-500 mb-0.5"
                 : "mb-3"
             }`}
           />
-          {formik.touched.companyName && formik.errors.companyName && (
+          {formik.touched.brandName && formik.errors.brandName && (
             <div className="text-red-500 font-medium mb-4">
-              {formik.errors.companyName}
+              {formik.errors.brandName}
             </div>
           )}
         </div>
@@ -221,8 +220,7 @@ function FirstStep() {
             value={formik.values.websiteURL}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            required={true}
-            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none text-base font-medium ${
               formik.touched.websiteURL && formik.errors.websiteURL
                 ? "border-red-500 mb-0.5"
                 : "mb-4"

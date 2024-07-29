@@ -8,6 +8,7 @@ interface MultiSelectProps {
   label?: string;
   className?: string;
   onChange?: (selectedValues: number[]) => void;
+  required?: boolean;
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
@@ -16,6 +17,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   label,
   className,
   onChange,
+  required,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -54,9 +56,6 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     const newValue = fieldValue.includes(option.value)
       ? fieldValue.filter((item: number) => item !== option.value)
       : [...fieldValue, option.value];
-
-    console.log("MultiSelect: New value", newValue);
-
     helpers.setValue(newValue);
 
     if (onChange) {
@@ -76,14 +75,14 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const showError = (isTouched || submitCount > 0) && meta.error;
+  // const showError = (isTouched || submitCount > 0) && meta.error;
 
-  const removeChip = (optionValue: string) => {
-    const newValue = (field.value || []).filter(
-      (item: string) => item !== optionValue
-    );
-    helpers.setValue(newValue);
-  };
+  // const removeChip = (optionValue: string) => {
+  //   const newValue = (field.value || []).filter(
+  //     (item: string) => item !== optionValue
+  //   );
+  //   helpers.setValue(newValue);
+  // };
 
   return (
     <div className="relative inline-block w-full">
@@ -92,7 +91,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         htmlFor={name}
       >
         {label}
-        <span className="text-red-500 ml-1">*</span>
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
       <div className="relative inline-block w-full" ref={selectRef}>
         <div
