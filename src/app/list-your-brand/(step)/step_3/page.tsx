@@ -44,6 +44,7 @@ interface FormValues {
   isAssistanceAvailable: boolean;
   isITSystemIncluded: boolean;
   isExpertGuidance: boolean;
+  tenurePeriod: number | null;
 }
 
 interface OptionType {
@@ -121,6 +122,7 @@ function SecondStep() {
     isAssistanceAvailable: true,
     isITSystemIncluded: true,
     isExpertGuidance: true,
+    tenurePeriod: null,
   });
 
   const OptionMap: OptionsMapType = {
@@ -376,6 +378,7 @@ function SecondStep() {
           data.isITSystemIncluded === "true",
         isExpertGuidance:
           data.isExpertGuidance === true || data.isExpertGuidance === "true",
+        tenurePeriod: data.tenurePeriod,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);

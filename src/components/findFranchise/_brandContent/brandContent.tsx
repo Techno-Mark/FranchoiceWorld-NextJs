@@ -6,6 +6,7 @@ import styles from "./brandcontent.module.css";
 import { getIndustry, getSector, getService } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 import InputField from "@/components/Fields/InputField";
+import { IoIosSearch } from "react-icons/io";
 interface OptionType {
   value: number;
   label: string;
@@ -30,14 +31,16 @@ const BrandContent = () => {
         <Form
           className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
         >
-          <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
+          <div className="relative mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
             <InputField
               id="grid-first-name"
               name="brandName"
               type="text"
               required={true}
-              className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+              placeholder="Search"
+              className={`block w-full rounded-lg py-2 pr-4 pl-10 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
             />
+            <IoIosSearch className={`absolute ${styles.searchIcn}`} size={15} />
           </div>
           <Button
             variant="highlighted"

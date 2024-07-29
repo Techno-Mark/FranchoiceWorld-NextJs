@@ -9,6 +9,7 @@ interface YearSelectProps {
   className?: string;
   disabled?: boolean;
   startYear?: number;
+  defaultYear?: number;
   onChange?: (value: number) => void;
 }
 
@@ -20,14 +21,18 @@ const YearSelect: React.FC<YearSelectProps> = ({
   className,
   disabled,
   startYear = 1900,
+  defaultYear,
   onChange,
 }) => {
-  const [field, meta, helpers] = useField(name);
+  const [field, meta, helpers] = useField({
+    name,
+    value: defaultYear || "",
+  });
   const { submitCount } = useFormikContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [localDisplayYear, setLocalDisplayYear] = useState(
-    new Date().getFullYear()
+    defaultYear || new Date().getFullYear()
   );
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -166,6 +171,9 @@ const YearSelect: React.FC<YearSelectProps> = ({
             ))}
           </div>
         </div>
+      )}
+      {showError && (
+        <div className="text-red-500 text-sm mt-1">{meta.error}</div>
       )}
     </div>
   );
