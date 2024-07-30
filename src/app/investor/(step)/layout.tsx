@@ -39,6 +39,72 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
     active: stepPaths.indexOf(pathname) >= index,
   }));
 
+  const faqItems = [
+    {
+      title: "How can I find franchises for investment on your portal?",
+      content: (
+        <>
+          <p>
+            You can go to the 'Find Your Franchise' tab on Home Page and select
+            the brand as per your required category, in terms of industry,
+            sector, and products/services. You can further filter based on your
+            desired location and investment criteria.
+          </p>
+        </>
+      ),
+    },
+    {
+      title:
+        "What benefits would I receive by investing in a franchise on your portal?",
+      content: (
+        <>
+          <p>
+            Investing in a franchise from Franchoice World would help you avail
+            ample benefits like:
+          </p>
+          <ul className="list-disc">
+            <li className="ml-4">Expert Guidance</li>
+            <li className="ml-4">Wide Range of Selection</li>
+            <li className="ml-4">End-to-End Support</li>
+            <li className="ml-4">Market Insights</li>
+          </ul>
+        </>
+      ),
+    },
+    {
+      title:
+        "What are the terms and conditions of investing in a franchise on your portal?",
+      content: (
+        <p>
+          To know about our policies and terms and conditions, head to our Terms
+          and Conditions (add page link) and Privacy Policy (add page link)
+          pages before filling the investor form.
+        </p>
+      ),
+    },
+    {
+      title: "How can I benefit from franchise growth services on your portal?",
+      content: (
+        <p>
+          Our Franchise Growth services consist of franchise modelling,
+          financial modelling, and franchise development that would help
+          nurture, develop, and expand your brand.
+        </p>
+      ),
+    },
+    {
+      title:
+        "How can I look for franchise investment opportunities in my location?",
+      content: (
+        <p>
+          Our 'Find Your Franchise' section on Home Page allows you to filter
+          out your franchises as per the categories, investment, and location of
+          your choice.
+        </p>
+      ),
+    },
+  ];
+
   return (
     <div>
       <section className={`relative pb-24 md:pb-36 ${styles.stepBanner}`}>
@@ -93,7 +159,12 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
           </div>
         </div>
       </section>
-      <Faq />
+      <Faq
+        title="FAQs"
+        description="Let us answer some of your most common queries."
+        additionalMessage="Feel free to contact us in case of any more questions!"
+        items={faqItems}
+      />
     </div>
   );
 };

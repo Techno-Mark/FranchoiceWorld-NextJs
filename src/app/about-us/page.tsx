@@ -122,7 +122,7 @@ const cardData = [
   },
   {
     image: "/images/aboutUs/Group_2.png",
-    title: "Independent Framchise Partner",
+    title: "Independent Franchise Partner",
     descriptions: [
       "To become a leading franchising partner to new and existing franchisors, growing them to excel and become best-in-class franchising organizations.",
       "Our goal is to provide top-notch, polished, and valuable superior quality services to franchisors and franchisees through our Independent Franchise Partners.",
@@ -152,7 +152,7 @@ const teamMembers = [
     imageSrc: "/images/aboutUs/team_photo_1.png",
   },
   {
-    name: "Mayanka jain",
+    name: "Mayanka Jain",
     position: "Sr. Manager",
     imageSrc: "/images/aboutUs/team_photo_2.png",
   },
@@ -235,7 +235,7 @@ const About_us = () => {
     <>
       <AboutSection
         title="Welcome to Franchoice World,"
-        subtitle="by Gyaata and Pacific Group of Companies. Our mission is to empower brands to achieve expansive growth through strategic franchise partnerships."
+        subtitle="by Gyaata and Pacific Group of Companies. Our mission is to empower brand to achieve expansive growth through strategic franchise partnerships."
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
         imageSrc="/images/aboutUs/about_us_Banner.svg"
         imageAlt="About Banner"
@@ -246,7 +246,10 @@ const About_us = () => {
         <div className="container">
           <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
             <div className="w-full md:w-2/4">
-              <Title title="Mission" titleClass="md:!text-[30px] !text-[30px]" />
+              <Title
+                title="Mission"
+                titleClass="md:!text-[30px] !text-[30px]"
+              />
               <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
                 Our mission at Franchoice World is to convert businesses into
                 successful franchises.
@@ -288,7 +291,7 @@ const About_us = () => {
 
       {/* Meet our team section */}
       <TeamSection
-        title="Meet our team"
+        title="Meet Our Team"
         description="Get to know the Franchoice World team - your partners in building thriving franchises with personalized guidance and industry knowledge."
         teamMembers={teamMembers}
       />
