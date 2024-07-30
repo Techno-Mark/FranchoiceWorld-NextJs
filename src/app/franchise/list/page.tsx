@@ -43,12 +43,11 @@ const ProductList = () => {
           value !== "" &&
           !(typeof value === "number" && isNaN(value)) &&
           !(excludeZero && value === 0) &&
-          key !== 'industry' || value !== 0
+          !(key === "industry" && value === 0)
         ) {
           params.append(key, String(value));
         }
       };
-      
 
       // Add industry if valid
       addParamIfValid("industry", industry);
@@ -75,8 +74,8 @@ const ProductList = () => {
             params.append("maxRange", maxRange);
           }
           break;
-          case "brand":
-            addParamIfValid("brandName",brandName)
+        case "brand":
+          addParamIfValid("brandName", brandName);
         default:
           console.warn("Unknown type:", type);
       }
