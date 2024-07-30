@@ -104,7 +104,7 @@ const quickLinksData = [
 const cardData = [
   {
     image: "/images/aboutUs/Group.png",
-    title: "Brands",
+    title: "Brand",
     descriptions: [
       "To become a top multi-brand franchising organization, servicing brands from different sectors, and to deliver the best growth opportunities.",
       "Our goal is to build stronger fundamental structures in each company and channel the investments towards building brands that ultimately lead to continuous success.",
@@ -235,7 +235,7 @@ const About_us = () => {
     <>
       <AboutSection
         title="Welcome to Franchoice World,"
-        subtitle="by Gyaata and Pacific Group of Companies. Our mission is to empower brand to achieve expansive growth through strategic franchise partnerships."
+        subtitle="by Gyaata and Pacific Group of Companies.We empower brands to achieve expansive growth through strategic franchise partnerships."
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
         imageSrc="/images/aboutUs/about_us_Banner.svg"
         imageAlt="About Banner"
