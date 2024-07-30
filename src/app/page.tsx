@@ -195,7 +195,7 @@ const serviceItems = [
     id: "second",
     serviceIcon: "/images/franchiseAdvisor.svg",
     serviceText: "Franchise Advisory",
-    redirectURL: "/service/franchise-advisor",
+    redirectURL: "/service/franchise-advisory",
   },
   {
     id: "third",
