@@ -53,6 +53,7 @@ const FindFranchise: React.FC<FranchiseProps> = ({ dark = false }) => {
           <Title
             title="Find Your Franchise"
             varient={dark ? "white" : "blue"}
+            titleClass="!pb-4"
           />
           <Tabs
             titleClassName={styles.franchiseType}
