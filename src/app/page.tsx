@@ -11,6 +11,7 @@ import OurService from "@/components/ourService/ourService";
 import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhyChoose from "@/components/whyChoose/whyChoose";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
 import { useEffect, useState } from "react";
 
 // interface HomeData {
@@ -222,7 +223,7 @@ export default function Home() {
         image: r.brandImages[0],
         title: r.brandName,
         category: r.subCategory,
-        investmentRange: r.investmentRange,
+        investmentRange: formatInvestmentRange(r.investmentRange),
         areaRequired: r.areaaRequired,
         franchiseOutlet: r.numberOfLocations,
         favorite: false,

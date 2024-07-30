@@ -9,6 +9,7 @@ import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhatWeDo from "@/components/whatWeDo/whatWeDo";
 import WhyChoose from "@/components/whyChoose/whyChoose";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
 import { useEffect, useState } from "react";
 
 const whyChooseUs = [
@@ -304,7 +305,7 @@ const Investor = () => {
         image: r.brandImages[0],
         title: r.brandName,
         category: r.subCategory,
-        investmentRange: r.investmentRange,
+        investmentRange: formatInvestmentRange(r.investmentRange),
         areaRequired: r.areaaRequired,
         franchiseOutlet: r.numberOfLocations,
         favorite: false,
