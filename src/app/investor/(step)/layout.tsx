@@ -45,10 +45,10 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
       content: (
         <>
           <p>
-            You can go to the 'Find Your Franchise' tab on Home Page and select
-            the brand as per your required category, in terms of industry,
-            sector, and products/services. You can further filter based on your
-            desired location and investment criteria.
+            You can go to the &apos;Find Your Franchise&apos; tab on Home Page
+            and select the brand as per your required category, in terms of
+            industry, sector, and products/services. You can further filter
+            based on your desired location and investment criteria.
           </p>
         </>
       ),
@@ -97,9 +97,9 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
         "How can I look for franchise investment opportunities in my location?",
       content: (
         <p>
-          Our 'Find Your Franchise' section on Home Page allows you to filter
-          out your franchises as per the categories, investment, and location of
-          your choice.
+          Our &apos;Find Your Franchise&apos; section on Home Page allows you to
+          filter out your franchises as per the categories, investment, and
+          location of your choice.
         </p>
       ),
     },
