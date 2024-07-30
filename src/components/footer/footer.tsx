@@ -11,7 +11,7 @@ const footerItem = [
     child: [
       {
         id: 1,
-        name: "About us",
+        name: "About Us",
         path: "/about-us",
       },
       // {
@@ -40,7 +40,7 @@ const footerItem = [
       //   path: "/help_center",
       // },
       {
-        name: "Terms of service",
+        name: "Terms of Use",
         path: "/term-conditions",
       },
       {
@@ -48,7 +48,7 @@ const footerItem = [
         path: "/legal",
       },
       {
-        name: "Privacy policy",
+        name: "Privacy Policy",
         path: "/privacy-policy",
       },
     ],

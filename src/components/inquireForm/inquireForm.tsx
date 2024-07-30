@@ -252,7 +252,7 @@ const InquireForm = () => {
                 <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
                   <Select
                     name="whoAmI"
-                    placeholder="Who Am I ?"
+                    placeholder="Who am I ?"
                     className={`flex items-center justify-between text-[12px] font-medium border border-[#73727366] rounded-lg py-2 px-4 cursor-pointer bg-white focus:outline-none ${
                       getIn(errors, "whoAmI") && getIn(touched, "whoAmI")
                         ? "border-red-500 mb-0.5"
@@ -300,7 +300,7 @@ const InquireForm = () => {
                     className="pl-2 leading-none font-medium text-white"
                   >
                     I agree to receive promotional calls/ SMS/ WhatsApp/ Email
-                    from Franchoice World
+                    from Franchoice World.
                   </label>
                 </div>
                 {/* {getIn(errors, "acceptTerms") &&
