@@ -39,7 +39,7 @@ interface FormValues {
   franchiseAgreement: number | null;
   franchiseDuration: number | null;
   isRenewable: number | null;
-  isOperatingManual: boolean;
+  isOperatingManuals: boolean;
   trainingLocation: boolean;
   isAssistanceAvailable: boolean;
   isITSystemIncluded: boolean;
@@ -117,7 +117,7 @@ function SecondStep() {
     franchiseAgreement: null,
     franchiseDuration: null,
     isRenewable: null,
-    isOperatingManual: true,
+    isOperatingManuals: true,
     trainingLocation: true,
     isAssistanceAvailable: true,
     isITSystemIncluded: true,
@@ -366,8 +366,8 @@ function SecondStep() {
         franchiseAgreement: data.franchiseAgreement === true ? 1 : 2 || null,
         franchiseDuration: data.franchiseDuration || null,
         isRenewable: data.isRenewable === true ? 1 : 2 || null,
-        isOperatingManual:
-          data.isOperatingManual === true || data.isOperatingManual === "true",
+        isOperatingManuals:
+          data.isOperatingManuals === true || data.isOperatingManuals === "true",
         trainingLocation:
           data.trainingLocation === true || data.trainingLocation === "true",
         isAssistanceAvailable:
@@ -565,7 +565,7 @@ function SecondStep() {
                   <label className="block mb-2 font-medium">
                     Detailed operating manuals for franchisees
                   </label>
-                  <Field name="isOperatingManual">
+                  <Field name="isOperatingManuals">
                     {({ field }: FieldProps) => (
                       <>
                         <RadioButton
@@ -578,7 +578,7 @@ function SecondStep() {
                             field.value === true || field.value === "true"
                           }
                           onChange={() =>
-                            setFieldValue("isOperatingManual", true)
+                            setFieldValue("isOperatingManuals", true)
                           }
                         />
                         <RadioButton
@@ -590,7 +590,7 @@ function SecondStep() {
                             field.value === false || field.value === "false"
                           }
                           onChange={() =>
-                            setFieldValue("isOperatingManual", false)
+                            setFieldValue("isOperatingManuals", false)
                           }
                         />
                       </>

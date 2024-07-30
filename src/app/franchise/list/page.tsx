@@ -4,6 +4,7 @@ import { getFranchiseList } from "@/api/home";
 import FranchiseListCard from "@/components/franchiseListCard/franchiseListCard";
 import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -89,7 +90,7 @@ const ProductList = () => {
         // franchiseImage: "/images/bussinessImage.jpg",
         title: categorie.brandName,
         category: categorie.subCategory,
-        investmentRange: categorie.investmentRange,
+        investmentRange: formatInvestmentRange(categorie.investmentRange),
         areaRequired: categorie.areaaRequired,
         franchiseOutlet: categorie.numberOfLocations,
         favorite: false,
