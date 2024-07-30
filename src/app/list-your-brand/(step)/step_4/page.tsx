@@ -27,6 +27,7 @@ interface FormValues {
   franchiseAggrementFile: File[];
   acceptTerms: boolean;
   submitInfo: boolean;
+  finalSubmit: boolean;
 }
 
 function FourthStep() {
@@ -52,6 +53,7 @@ function FourthStep() {
     franchiseAggrementFile: [],
     acceptTerms: true,
     submitInfo: true,
+    finalSubmit: true,
   });
 
   const FILE_SIZE = 5 * 1024 * 1024;
@@ -151,11 +153,12 @@ function FourthStep() {
 
     formData.append("phoneNumber", mobileNumber || "");
     formData.append("countryCode", selectedCountry || "");
+    formData.append("finalSubmit", "true");
 
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
-        { formData, finalSubmit: true },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
