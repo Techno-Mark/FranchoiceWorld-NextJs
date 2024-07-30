@@ -291,6 +291,7 @@ const FirstStep = () => {
                   {({ field, form }: any) => (
                     <Select
                       {...field}
+                      searchable
                       id="country"
                       name="country"
                       label="Country"
@@ -320,6 +321,7 @@ const FirstStep = () => {
                   {({ field, form }: any) => (
                     <Select
                       {...field}
+                      searchable
                       id="state"
                       name="state"
                       label="State"
@@ -351,6 +353,7 @@ const FirstStep = () => {
                   {({ field, form }: any) => (
                     <Select
                       {...field}
+                      searchable
                       id="city"
                       name="city"
                       label="City"

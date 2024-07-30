@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { useField, useFormikContext } from "formik";
-import styles from "./MultiSelect.module.css";
+import styles from "./select.module.css";
 
 interface SelectProps {
   options: { value: number; label: string }[];
@@ -10,7 +10,7 @@ interface SelectProps {
   placeholder?: string;
   required?: boolean;
   onChange?: (value: number) => void;
-  searchable?: boolean; // Optional prop to enable search functionality
+  searchable?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -30,8 +30,15 @@ const Select: React.FC<SelectProps> = ({
   const [isTouched, setIsTouched] = useState(false);
   const [dropUp, setDropUp] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Add these functions to handle focus and blur
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,17 +82,65 @@ const Select: React.FC<SelectProps> = ({
     setIsOpen(false);
     setIsTouched(true);
     if (onChange) {
-      onChange(option.value);
+      onChange(option?.value);
     }
-    setSearchQuery(""); // Reset search query when an option is selected
+    setSearchQuery("");
+    setFocusedOptionIndex(-1);
   };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      setFocusedOptionIndex(0);
+    }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+    setFocusedOptionIndex(0);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!isOpen) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleDropdown();
+      }
+    } else {
+      switch (event.key) {
+        case "ArrowDown":
+          event.preventDefault();
+          setFocusedOptionIndex((prevIndex) =>
+            Math.min(prevIndex + 1, filteredOptions.length - 1)
+          );
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          setFocusedOptionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+          break;
+        case "Enter":
+          event.preventDefault();
+          if (focusedOptionIndex >= 0) {
+            handleOptionClick(filteredOptions[focusedOptionIndex]);
+          }
+          break;
+        case "Escape":
+        case "Tab":
+          event.preventDefault();
+          setIsOpen(false);
+          setIsTouched(true);
+          helpers.setTouched(true);
+          if (event.key === "Tab") {
+            // Allow the default tab behavior after closing the dropdown
+            setTimeout(() => {
+              if (selectRef.current) {
+                selectRef.current.blur();
+              }
+            }, 0);
+          }
+          break;
+      }
+    }
   };
 
   const showError = (isTouched || submitCount > 0) && meta.error;
@@ -98,7 +153,7 @@ const Select: React.FC<SelectProps> = ({
     options.find((option) => option.value === field.value)?.label || "";
 
   return (
-    <div className="relative inline-block w-full">
+    <div className="relative inline-block w-full select-container">
       {label && (
         <label
           className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
@@ -108,13 +163,34 @@ const Select: React.FC<SelectProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      <div className="relative inline-block w-full" ref={selectRef}>
+      <div
+  className="relative inline-block w-full"
+  ref={selectRef}
+  onKeyDown={handleKeyDown}
+  onBlur={() => {
+    setTimeout(() => {
+      if (!selectRef.current?.contains(document.activeElement)) {
+        setIsOpen(false);
+        setIsTouched(true);
+        helpers.setTouched(true);
+        setIsFocused(false);
+      }
+    }, 0);
+  }}
+  tabIndex={0}
+  role="combobox"
+  aria-haspopup="listbox"
+  aria-expanded={isOpen}
+  aria-controls="select-dropdown"
+  onFocus={handleFocus}
+  style={{ outline: "none" }}
+>
         <div
-          className={`${
+          className={`select-display ${
             className
               ? className
-              : "flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-full items-center justify-between"
-          } `}
+              : "flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer h-full items-center justify-between"
+          } ${isFocused ? "ring-2 ring-gray-300 border-gray-300" : ""}`}
           onClick={toggleDropdown}
         >
           <span className="font-medium w-full text-ellipsis overflow-hidden">
@@ -140,10 +216,12 @@ const Select: React.FC<SelectProps> = ({
         </div>
         {isOpen && (
           <div
+            id="select-dropdown"
             className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg ${
               dropUp ? "bottom-full mb-1" : ""
             }`}
             ref={dropdownRef}
+            role="listbox"
           >
             {searchable && (
               <div className="p-2">
@@ -153,6 +231,7 @@ const Select: React.FC<SelectProps> = ({
                   onChange={handleSearchChange}
                   placeholder="Search..."
                   className="w-full p-2 border rounded focus:outline-none"
+                  ref={searchInputRef}
                 />
               </div>
             )}
@@ -167,8 +246,10 @@ const Select: React.FC<SelectProps> = ({
                       option.value === field.value
                         ? "bg-gray-100 font-bold"
                         : ""
-                    }`}
+                    } ${index === focusedOptionIndex ? "bg-blue-100" : ""}`}
                     onClick={() => handleOptionClick(option)}
+                    role="option"
+                    aria-selected={option.value === field.value}
                   >
                     {option.label}
                   </div>

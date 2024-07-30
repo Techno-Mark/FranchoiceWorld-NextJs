@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./MultiSelect.module.css";
 
@@ -25,7 +25,13 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Add these functions to handle focus and blur
+  const handleFocus = () => setIsFocused(true);
 
   const fieldValue = Array.isArray(field.value)
     ? field.value
@@ -57,6 +63,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       ? fieldValue.filter((item: number) => item !== option.value)
       : [...fieldValue, option.value];
     helpers.setValue(newValue);
+    setIsFocused(false);
 
     if (onChange) {
       onChange(newValue);
@@ -65,24 +72,68 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      setFocusedOptionIndex(0);
+      setTimeout(() => {
+        if (searchInputRef.current) {
+          searchInputRef.current.focus();
+        }
+      }, 0);
+    }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    setFocusedOptionIndex(0);
   };
 
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // const showError = (isTouched || submitCount > 0) && meta.error;
-
-  // const removeChip = (optionValue: string) => {
-  //   const newValue = (field.value || []).filter(
-  //     (item: string) => item !== optionValue
-  //   );
-  //   helpers.setValue(newValue);
-  // };
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!isOpen) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleDropdown();
+      }
+    } else {
+      switch (event.key) {
+        case "ArrowDown":
+          event.preventDefault();
+          setFocusedOptionIndex((prevIndex) =>
+            Math.min(prevIndex + 1, filteredOptions.length - 1)
+          );
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          setFocusedOptionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+          break;
+        case "Enter":
+          event.preventDefault();
+          if (focusedOptionIndex >= 0) {
+            handleOptionClick(filteredOptions[focusedOptionIndex]);
+          }
+          break;
+        case "Escape":
+        case "Tab":
+          event.preventDefault();
+          setIsOpen(false);
+          setIsTouched(true);
+          helpers.setTouched(true);
+          setIsFocused(false);
+          if (event.key === "Tab") {
+            // Allow the default tab behavior after closing the dropdown
+            setTimeout(() => {
+              if (selectRef.current) {
+                selectRef.current.blur();
+              }
+            }, 0);
+          }
+          break;
+      }
+    }
+  };
 
   return (
     <div className="relative inline-block w-full">
@@ -93,9 +144,32 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      <div className="relative inline-block w-full" ref={selectRef}>
+      <div
+        className="relative inline-block w-full"
+        ref={selectRef}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        style={{ outline: "none" }}
+        onFocus={handleFocus}
+        onBlur={() => {
+          setTimeout(() => {
+            if (!selectRef.current?.contains(document.activeElement)) {
+              setIsOpen(false);
+              setIsTouched(true);
+              helpers.setTouched(true);
+              setIsFocused(false);
+            }
+          }, 0);
+        }}
+        aria-controls="multiselect-dropdown"
+      >
         <div
-          className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[40px] items-center ${className}`}
+          className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[40px] items-center ${className}${
+            isFocused ? "ring-2 ring-gray-300 border-gray-300" : ""
+          }`}
           onClick={toggleDropdown}
         >
           {(Array.isArray(field.value) ? field.value : []).map(
@@ -142,7 +216,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+          <div
+            id="multiselect-dropdown"
+            className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg"
+            role="listbox"
+          >
             <div className="mt-1 w-full relative">
               <input
                 type="text"
@@ -151,6 +229,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 onChange={handleSearchChange}
                 className="w-full pl-10 py-2 font-medium border-b-[1px] border-gray-300  focus:outline-none"
                 onClick={(e) => e.stopPropagation()}
+                ref={searchInputRef}
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg
@@ -174,11 +253,15 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`px-4 py-2 cursor-pointer hover:bg-gray-200 flex items-center`}
+                    className={`px-4 py-2 cursor-pointer hover:bg-gray-200 flex items-center ${
+                      index === focusedOptionIndex ? "bg-blue-100" : ""
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleOptionClick(option);
                     }}
+                    role="option"
+                    aria-selected={fieldValue.includes(option.value)}
                   >
                     <div className="relative mr-2">
                       <input
