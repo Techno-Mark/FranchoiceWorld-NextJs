@@ -19,8 +19,8 @@ const AboutFranchoice = () => {
               Welcome to Franchoice World, by Gyaata and Pacific Group of
               Companies. Our mission is to empower brands to achieve expansive
               growth through strategic franchise partnerships. We want to be the
-              No.1 choice for brands looking to successfully pen an expansion
-              story.
+              No.1 choice for brands looking forward to penning a successful
+              expansion story.
             </p>
             <Link
               className="font-bold bg-[var(--highlighted-color)] text-white px-4 py-2 rounded hover:bg-[var(--highlighted-hover)]"

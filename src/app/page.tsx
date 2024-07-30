@@ -139,9 +139,9 @@ const innerBanner = {
   SectionTitle: "List Your Brand",
   desc: "Put your brand in the spotlight!",
   items: [
-    "Gain access to a broad audience of potential franchisees",
-    "Receive pre-screened, highly qualified leads from individuals.",
-    "Navigate expansion challenges and achieve sustainable growth.",
+    "Gain access to a wide audience of potential franchisees",
+    "Receive pre-screened, highly qualified leads from individuals",
+    "Navigate expansion challenges and achieve sustainable growth",
   ],
   noborder: true,
   imageOnLeft: true,
@@ -151,7 +151,11 @@ const cardBox = [
   {
     chooseImage: "/images/brandOwner.svg",
     chooseTitle: "Brand",
-    list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
+    list: [
+      "Increased Visibility",
+      "Qualified Leads",
+      "Niche Market Networking",
+    ],
     redirectURL: "/list-your-brand",
   },
   {
@@ -173,7 +177,7 @@ const cardBox = [
     list: [
       "Diversified Revenue Stream",
       "Steady Demand",
-      "Long-term Lease Agreements",
+      "Long-Term Lease Agreements",
     ],
     redirectURL: "/real-estate",
   },
