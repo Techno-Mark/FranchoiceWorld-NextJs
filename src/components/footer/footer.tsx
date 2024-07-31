@@ -43,10 +43,10 @@ const footerItem = [
         name: "Terms of service",
         path: "/term-conditions",
       },
-      {
-        name: "Legal",
-        path: "/legal",
-      },
+      // {
+      //   name: "Legal",
+      //   path: "/legal",
+      // },
       {
         name: "Privacy policy",
         path: "/privacy-policy",
