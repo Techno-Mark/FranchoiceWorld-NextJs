@@ -2,6 +2,7 @@ import CloseIcon from "@/assets/icons/closeIcon";
 import React, { useState, useEffect } from "react";
 import { GetOtp, VerifyOtp } from "@/api/investor";
 import { useRouter } from "next/navigation";
+import OtpIcon from "@/assets/icons/otpicon";
 
 interface OTPModalProps {
   isOpen: boolean;
@@ -23,13 +24,15 @@ const OTPModal: React.FC<OTPModalProps> = ({
   const [canResend, setCanResend] = useState(false);
   const [verificationError, setVerificationError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [attempts, setAttempts] = useState(2); // Set initial attempts to 2
+  const [attempts, setAttempts] = useState(2);
+  const [verifyDone, setVerifyDone] = useState(false);
   const router = useRouter();
 
   const otpGet = async () => {
     const params = {
       countryCode: countryCode,
       phoneNumber: mobileNumber,
+      pageFrom: submitUrl === "/list-your-brand/step_1" ? "brand" : "investor",
     };
     try {
       const response = await GetOtp(params);
@@ -58,6 +61,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      setVerifyDone(false);
       setCanResend(false);
       setTimer(60);
       setOtp(["", "", "", ""]);
@@ -138,6 +142,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
     setErrorMessage("");
     setAttempts(2); // Reset attempts when OTP is resent
     otpGet();
+    setVerifyDone(false);
     // Add your resend OTP logic here
   };
 
@@ -148,6 +153,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
     setVerificationError(false);
     setErrorMessage("");
     onClose();
+    setVerifyDone(false);
   };
 
   const handleVerify = async () => {
@@ -156,132 +162,143 @@ const OTPModal: React.FC<OTPModalProps> = ({
       countryCode: countryCode,
       phoneNumber: mobileNumber,
       submittedOTP: otpString,
+      pageFrom: submitUrl === "/list-your-brand/step_1" ? "brand" : "investor",
     };
     try {
       const response = await VerifyOtp(params);
       if (response.ResponseStatus === "success") {
-        console.log("OTP Verified Successfully");
         setVerificationError(false);
         setErrorMessage("");
-        router.push(submitUrl);
+        setVerifyDone(true);
+        // router.push(submitUrl);
         setAttempts(2);
-      } else {
-        // Handle verification failure
-
-        setAttempts((prev) => prev - 1);
-        if (attempts > 1) {
-          setVerificationError(true);
-          setErrorMessage(
-            `Invalid OTP. You have ${attempts - 1} attempt${
-              attempts - 1 > 1 ? "s" : ""
-            } left.`
-          );
-        } else {
-          setVerificationError(true);
-          setErrorMessage("Invalid OTP. Please try again after some time.");
-          // Optionally disable the verify button here if needed
-        }
+        setTimeout(() => {
+          router.push(submitUrl);
+        }, 3000);
+      }
+      if (response.ResponseStatus === "failure") {
+        setVerificationError(true);
+        setErrorMessage(response.Message);
+        setVerifyDone(false);
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
       setVerificationError(true);
-      setAttempts((prev) => prev - 1);
-      if (attempts > 1) {
-        setVerificationError(true);
-        setErrorMessage(
-          `Invalid OTP. You have ${attempts - 1} attempt${
-            attempts - 1 > 1 ? "s" : ""
-          } left.`
-        );
-      }
+      setVerifyDone(false);
+      setErrorMessage("Invalid OTP.Please try agian.");
     }
   };
+  const isOtpComplete = otp.every((digit) => digit !== "");
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
-      <div className="bg-white md:w-2/5 w-auto border rounded-lg">
-        <div className="flex !justify-end pt-4 pr-5">
-          <button
-            className="bg-transparent border-none text-2xl cursor-pointer"
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </button>
-        </div>
-        <div className="flex justify-center items-center p-14 flex-col pb-6">
-          <span className="text-[var(--footer-bg)] text-3xl pr-20 pb-2 font-bold">
-            OTP Verification
-          </span>
-          <div className="text-left pb-14 pl-12 text-sm">
-            Enter the verification code we just sent to your number{" "}
-            {countryCode} {maskedNumber}.
+      {!verifyDone ? (
+        <div className="bg-white md:w-2/5 w-auto border rounded-lg">
+          <div className="flex !justify-end pt-4 pr-8 md:pr-5">
+            <button
+              className="bg-transparent border-none text-2xl cursor-pointer"
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </button>
           </div>
-          <form className={`flex ${verificationError ? "" : "pb-14"}`}>
-            {otp.map((digit, index) => (
-              <div key={index} className="pr-7">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  pattern="\d{1}"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleChange(e.target, index)}
-                  onKeyDown={(e) => handleBackspace(e, index)}
-                  onFocus={(e) => e.target.select()}
-                  onPaste={handlePaste}
-                  className={`block w-10 border text-center rounded-lg py-2 px-2 focus:outline-none text-base font-semibold ${
-                    verificationError
-                      ? "border-red-500"
-                      : "border-[rgba(115,114,115,0.4)]"
-                  }`}
-                />
-              </div>
-            ))}
-          </form>
-          {verificationError && (
-            <div className="text-red-500 text-sm text-left pt-2 pb-9">
-              {errorMessage}
+          <div className="flex justify-center items-center px-14 py-7 flex-col pb-6">
+            <span className="text-[var(--footer-bg)] text-3xl pr-20 pb-2 font-bold">
+              OTP Verification
+            </span>
+            <div className="text-left pb-14 md:pl-12 text-sm">
+              Enter the verification code we just sent to your number{" "}
+              {countryCode} {maskedNumber}.
             </div>
-          )}
-          <div className="flex">
-            {canResend ? (
-              <>
-                <div className="flex">Didn&apos;t receive code?</div>
-                <button
-                  className="text-[var(--footer-bg)] underline ml-1 font-semibold"
-                  onClick={handleResend}
-                >
-                  Resend
-                </button>
-              </>
-            ) : (
-              <div>
-                Resend OTP in{" "}
-                {`${Math.floor(timer / 60)
-                  .toString()
-                  .padStart(2, "0")}:${(timer % 60)
-                  .toString()
-                  .padStart(2, "0")}`}
+            <form className={`flex ${verificationError ? "" : "pb-14"}`}>
+              {otp.map((digit, index) => (
+                <div key={index} className="pr-7">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="\d{1}"
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) => handleChange(e.target, index)}
+                    onKeyDown={(e) => handleBackspace(e, index)}
+                    onFocus={(e) => e.target.select()}
+                    onPaste={handlePaste}
+                    className={`block w-10 border text-center rounded-lg py-2 px-2 focus:outline-none text-base font-semibold ${
+                      verificationError
+                        ? "border-red-500"
+                        : "border-[rgba(115,114,115,0.4)]"
+                    }`}
+                  />
+                </div>
+              ))}
+            </form>
+            {verificationError && (
+              <div className="text-red-500 text-sm w-full text-left pt-2 pb-9 md:pl-20">
+                {errorMessage}
               </div>
             )}
+            <div className="flex">
+              {canResend ? (
+                <>
+                  <div className="flex text-sm">Didn&apos;t receive code?</div>
+                  <button
+                    className="text-[var(--resend-color)] underline ml-1 font-semibold"
+                    onClick={handleResend}
+                  >
+                    Resend
+                  </button>
+                </>
+              ) : (
+                <div>
+                  Resend OTP in{" "}
+                  {`${Math.floor(timer / 60)
+                    .toString()
+                    .padStart(2, "0")}:${(timer % 60)
+                    .toString()
+                    .padStart(2, "0")}`}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-between w-full pb-5 px-20">
+            <button
+              className={`px-5 py-2.5 border-none rounded-lg w-full cursor-pointer text-white ${
+                !isOtpComplete || attempts <= 0
+                  ? " bg-[rgba(115,114,115,0.5)] pointer-events-none cursor-not-allowed"
+                  : "bg-[rgba(210,31,52,1)] "
+              }`}
+              onClick={handleVerify}
+              disabled={!isOtpComplete || attempts <= 0}
+            >
+              <span className="flex items-center font-semibold justify-center">
+                Verify
+              </span>
+            </button>
           </div>
         </div>
-        <div className="flex justify-between w-full py-5 px-14">
-          <button
-            className={`px-5 py-2.5 border-none rounded-lg w-full cursor-pointer bg-[rgba(210,31,52,1)] text-white ${
-              attempts <= 0 ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            onClick={handleVerify}
-            disabled={attempts <= 0}
-          >
-            <span className="flex items-center font-semibold justify-center">
-              Verify
+      ) : (
+        <div className="bg-white md:w-2/5 w-auto border rounded-lg">
+          {" "}
+          <div className="flex !justify-end pt-4 pr-5">
+            <button
+              className="bg-transparent border-none text-2xl cursor-pointer"
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+          <div className="flex justify-center items-center px-14  flex-col pb-6">
+            <span className="text-[var(--footer-bg)] text-3xl  pb-14 font-bold">
+              <OtpIcon />
             </span>
-          </button>
+            <div className="text-center w-full font-bold text-[var(--footer-bg)] md:w-96 pb-14  text-3xl">
+              OTP Verification Successful
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

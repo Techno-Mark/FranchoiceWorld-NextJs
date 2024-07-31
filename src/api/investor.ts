@@ -31,6 +31,7 @@ interface GetVerifyOtp {
   phoneNumber: string | null;
   countryCode: string | null;
   submittedOTP: string | null;
+  pageFrom: string | null;
 }
 
 export const getInvestorData = async (data: GetInvestorDataProps) => {
