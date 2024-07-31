@@ -288,8 +288,6 @@ function SecondStep() {
     if (selectedStates.length > 0) {
       fetchCity(selectedStates);
     }
-
-    // Update cities based on selected states
     setFieldValue(
       "city",
       Array.isArray(formValues.city)
@@ -392,7 +390,7 @@ function SecondStep() {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="md:mt-8">
-              <div className="w-full mb-8 md:mb-7">
+              <div className="w-full mb-6 md:mb-7">
                 <Field
                   as={InputField}
                   id="companyName"
@@ -414,9 +412,9 @@ function SecondStep() {
                   )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4">
                 {mainFields.map((field: string, index: number) => (
-                  <div className="w-full" key={field}>
+                  <div className="w-full mb-6 md:mb-7" key={field}>
                     <Field name={field}>
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
@@ -461,7 +459,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {otherFields.map((field: string, index: number) => (
                   <div
-                    className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
+                    className={`w-full mb-6 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
                   >
                     <Field name={field}>
@@ -515,7 +513,7 @@ function SecondStep() {
               </div>
 
               {["brandDescription", "usp"].map((field) => (
-                <div className="w-full mb-8 md:mb-7" key={field}>
+                <div className="w-full mb-6 md:mb-7" key={field}>
                   <Field
                     as={TextArea}
                     id={field}
@@ -547,7 +545,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {["state", "city"].map((field) => (
                   <div
-                    className={`w-full mb-8 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
+                    className={`w-full mb-6 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
                     key={field}
                   >
                     <Field name={field}>

@@ -187,7 +187,7 @@ const FirstStep = () => {
         }) => (
           <Form className="md:mt-8">
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <InputField
                   id="fullName"
                   name="fullName"
@@ -209,7 +209,7 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full mb-8 md:mb-7 md:pl-2">
+              <div className="w-full mb-6 md:mb-7 md:pl-2">
                 <label
                   className="block mb-2 font-medium text-[var(--text-color)]"
                   htmlFor="phoneNumber"
@@ -235,7 +235,7 @@ const FirstStep = () => {
                 </div>
               </div>
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="email"
                 name="email"
@@ -257,7 +257,7 @@ const FirstStep = () => {
                 </div>
               )}
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="brandName"
                 name="brandName"
@@ -279,7 +279,7 @@ const FirstStep = () => {
                 </div>
               )}
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="websiteURL"
                 name="websiteURL"
@@ -301,7 +301,7 @@ const FirstStep = () => {
               )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full mb-8 pr-2 md:mb-7">
+              <div className="w-full mb-6 md:pr-2 md:mb-7">
                 <Field name="country">
                   {({ field, form }: any) => (
                     <Select
@@ -331,7 +331,7 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full mb-8 pl-2 md:mb-7">
+              <div className="w-full mb-6 md:pl-2 md:mb-7">
                 <Field name="userState">
                   {({ field, form }: any) => (
                     <Select
@@ -363,7 +363,7 @@ const FirstStep = () => {
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full mb-8 pr-2 md:mb-7">
+              <div className="w-full mb-6 pr-2 md:mb-7">
                 <Field name="userCity">
                   {({ field, form }: any) => (
                     <Select
