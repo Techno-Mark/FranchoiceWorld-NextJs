@@ -569,7 +569,7 @@ function InvestorSecondStep() {
                 type="submit"
                 className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
               >
-                Next
+                Submit
                 <ArrowIcon color="white" className="rotate-180 ml-2" />
               </Button>
             </div>
