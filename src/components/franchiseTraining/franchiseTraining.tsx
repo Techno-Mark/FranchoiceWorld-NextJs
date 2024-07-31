@@ -6,6 +6,7 @@ const FranchiseTraining: React.FC<TrainingProps> = ({
   brandName,
   trainingItems,
 }) => {
+
   return (
     <section className="py-4">
       <div className="container">

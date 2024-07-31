@@ -404,7 +404,7 @@ function FourthStep() {
                 </div>
               </div>
 
-              <div className="py-24">
+              <div className="py-8 md:py-24">
                 <span className="text-[rgba(23,73,138,1)] font-semibold text-sm">
                   Agree and Submit Your Information
                 </span>

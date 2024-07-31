@@ -11,6 +11,7 @@ import {
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import SpinnerLoader from "@/assets/icons/spinner";
 import InputField from "@/components/Fields/InputField";
+import RadioButton from "@/components/Fields/RadioButton";
 import TextArea from "@/components/Fields/TextArea";
 import Button from "@/components/button/button";
 import MultiSelect from "@/components/select/MultiSelect";
@@ -23,7 +24,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
-import RadioButton from "@/components/Fields/RadioButton";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -354,7 +354,6 @@ function SecondStep() {
       const data = response.data.ResponseData;
       setFormValues((prevValues) => ({
         ...prevValues,
-        email: "email@eemail.com",
         areaRequired: data?.areaRequired || null,
         investmentRange: data?.investmentRange || null,
         franchiseFee: Number(data?.franchiseFee) || null,
@@ -367,7 +366,8 @@ function SecondStep() {
         franchiseDuration: data.franchiseDuration || null,
         isRenewable: data.isRenewable === true ? 1 : 2 || null,
         isOperatingManuals:
-          data.isOperatingManuals === true || data.isOperatingManuals === "true",
+          data.isOperatingManuals === true ||
+          data.isOperatingManuals === "true",
         trainingLocation:
           data.trainingLocation === true || data.trainingLocation === "true",
         isAssistanceAvailable:
@@ -412,7 +412,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {fields.map((field, index) => (
                   <div
-                    className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
+                    className={`w-full mb-6 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
                   >
                     <Field name={field}>
@@ -447,7 +447,7 @@ function SecondStep() {
                           ) : field === "salesRevenueModel" ? (
                             <MultiSelect
                               name="salesRevenueModel"
-                              className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
+                              className={`flex w-full px-4 py-1 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[43.5px] items-center justify-between ${
                                 getIn(errors, field) && getIn(touched, field)
                                   ? "border-red-500 mb-0.5"
                                   : ""
@@ -478,11 +478,11 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
-              <div className="w-full mb-8 md:mb-7">
+              <div className="w-full mb-6 md:mb-7">
                 <MultiSelect
                   name="supportProvided"
                   label="Support Provided to Franchisees"
-                  className={`flex flex-wrap w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center ${
+                  className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                     getIn(errors, "supportProvided") &&
                     getIn(touched, "supportProvided")
                       ? "border-red-500 mb-0.5"
@@ -497,7 +497,7 @@ function SecondStep() {
                     </div>
                   )}
               </div>
-              <div className="w-full mb-8 md:mb-7">
+              <div className="w-full mb-6 md:mb-7">
                 <Field
                   as={TextArea}
                   name="otherApplicable"
@@ -510,7 +510,7 @@ function SecondStep() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {multiselectFields.map((field, index) => (
                   <div
-                    className={`w-full mb-8 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
+                    className={`w-full mb-6 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
                     key={field}
                   >
                     <Field name={field}>
@@ -521,7 +521,7 @@ function SecondStep() {
                               {({ field, form, meta }: FieldProps) => (
                                 <Select
                                   name={field.name}
-                                  className={`flex  w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                                  className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                                     getIn(errors, field.name) &&
                                     getIn(touched, field.name)
                                       ? "border-red-500 mb-0.5"
@@ -535,7 +535,7 @@ function SecondStep() {
                           ) : (
                             <Select
                               name={field.name}
-                              className={`flex  w-full px-2 py-2 leading-tight bg-white border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[45px] items-center justify-between ${
+                              className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                                 getIn(errors, field.name) &&
                                 getIn(touched, field.name)
                                   ? "border-red-500 mb-0.5"
@@ -561,7 +561,7 @@ function SecondStep() {
 
               {/* For radio button */}
               <div className=" mt-1 grid grid-cols-1 md:grid-cols-2">
-                <div className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}>
+                <div className={`w-full mb-6 md:pr-2 md:mb-7`}>
                   <label className="block mb-2 font-medium">
                     Detailed operating manuals for franchisees
                   </label>
@@ -597,7 +597,7 @@ function SecondStep() {
                     )}
                   </Field>
                 </div>
-                <div>
+                <div className="w-full mb-6 md:pl-2 md:mb-7">
                   <label className="block mb-2 font-medium">
                     Franchisee training location
                   </label>
@@ -635,8 +635,8 @@ function SecondStep() {
                 </div>
               </div>
 
-              <div className="mt-3 grid grid-cols-1 md:grid-cols-2">
-                <div className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}>
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className={`w-full mb-6 md:pr-2 md:mb-7`}>
                   <label className="block mb-2 font-medium">
                     Is field assistance available for franchisee?
                   </label>
@@ -672,7 +672,7 @@ function SecondStep() {
                     )}
                   </Field>
                 </div>
-                <div>
+                <div className="w-full mb-6 md:pl-2 md:mb-7">
                   <label className="block mb-2 font-medium">
                     Current IT systems will be included in the franchise
                   </label>
@@ -709,7 +709,7 @@ function SecondStep() {
                 </div>
               </div>
 
-              <div className="w-full mt-3 mb-8 ">
+              <div className="w-full mb-6">
                 <label className="block mb-2 font-medium">
                   Expert guidance from Head Office to franchisee in opening the
                   franchise

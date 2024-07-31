@@ -14,6 +14,7 @@ import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { updateStepProgress } from "@/utills/stepProgress";
 import { getCity, getCountry, getState } from "@/api/dropdown";
+import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 
 const FirstStep = () => {
   const router = useRouter();
@@ -27,8 +28,8 @@ const FirstStep = () => {
     brandName: "",
     websiteURL: "",
     country: null,
-    state: null,
-    city: null,
+    userState: null,
+    userCity: null,
     pincode: "",
   });
 
@@ -107,8 +108,8 @@ const FirstStep = () => {
       "Invalid WebsiteURL!"
     ),
     country: Yup.string().required("Country is required"),
-    state: Yup.string().required("State is required"),
-    city: Yup.string().required("City is required"),
+    userState: Yup.string().required("State is required"),
+    userCity: Yup.string().required("City is required"),
     pincode: Yup.string()
       .min(4, "Pin code must be atleast 4 characters")
       .max(12, "Pin Code cannot be longer than 12 characters.")
@@ -148,8 +149,8 @@ const FirstStep = () => {
         phoneNumber: mobileNumber,
         countryCode: selectedCountry,
       }));
-      if (data.state) {
-        fetchCities(data.state);
+      if (data.userState) {
+        fetchCities(data.userState);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -186,7 +187,7 @@ const FirstStep = () => {
         }) => (
           <Form className="md:mt-8">
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:pr-2 mb-8 md:mb-7">
+              <div className="w-full md:pr-2 mb-6 md:mb-7">
                 <InputField
                   id="fullName"
                   name="fullName"
@@ -208,19 +209,33 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full mb-8 md:mb-7 md:pl-2">
-                <InputField
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  type="text"
-                  label="Phone Number"
-                  value={values.phoneNumber}
-                  disabled={true}
-                  className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
-                />
+              <div className="w-full mb-6 md:mb-7 md:pl-2">
+                <label
+                  className="block mb-2 font-medium text-[var(--text-color)]"
+                  htmlFor="phoneNumber"
+                >
+                  Phone Number <span className="text-red-500 ml-1">*</span>
+                </label>
+                <div className="flex">
+                  <div className="w-[100px] pr-2">
+                    <CountryDropdown
+                      variant="formDropdown"
+                      className="!border-[rgba(115,114,115,0.4)]"
+                      disabled={true}
+                    />
+                  </div>
+                  <InputField
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="text"
+                    value={values.phoneNumber}
+                    disabled={true}
+                    className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                  />
+                </div>
               </div>
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="email"
                 name="email"
@@ -242,7 +257,7 @@ const FirstStep = () => {
                 </div>
               )}
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="brandName"
                 name="brandName"
@@ -264,7 +279,7 @@ const FirstStep = () => {
                 </div>
               )}
             </div>
-            <div className="inline-block w-full md:mb-7 mb-8">
+            <div className="inline-block w-full md:mb-7 mb-6">
               <InputField
                 id="websiteURL"
                 name="websiteURL"
@@ -286,7 +301,7 @@ const FirstStep = () => {
               )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full mb-8 pr-2 md:mb-7">
+              <div className="w-full mb-6 md:pr-2 md:mb-7">
                 <Field name="country">
                   {({ field, form }: any) => (
                     <Select
@@ -316,64 +331,64 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full mb-8 pl-2 md:mb-7">
-                <Field name="state">
+              <div className="w-full mb-6 md:pl-2 md:mb-7">
+                <Field name="userState">
                   {({ field, form }: any) => (
                     <Select
                       {...field}
                       searchable
-                      id="state"
-                      name="state"
+                      id="userState"
+                      name="userState"
                       label="State"
                       options={stateOptions}
                       onChange={(option) => {
-                        form.setFieldValue("state", option);
+                        form.setFieldValue("userState", option);
                         fetchCities([option]);
                       }}
                       onBlur={form.handleBlur}
                       required
                       className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                        form.touched.state && form.errors.state
+                        form.touched.userState && form.errors.userState
                           ? "border-red-500 mb-0.5"
                           : "mb-3"
                       }`}
                     />
                   )}
                 </Field>
-                {touched.state && errors.state && (
+                {touched.userState && errors.userState && (
                   <div className="text-red-500 font-medium mb-4">
-                    {errors.state}
+                    {errors.userState}
                   </div>
                 )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full mb-8 pr-2 md:mb-7">
-                <Field name="city">
+              <div className="w-full mb-6 pr-2 md:mb-7">
+                <Field name="userCity">
                   {({ field, form }: any) => (
                     <Select
                       {...field}
                       searchable
-                      id="city"
-                      name="city"
+                      id="userCity"
+                      name="userCity"
                       label="City"
                       options={cityOptions}
                       onChange={(option) => {
-                        form.setFieldValue("city", option);
+                        form.setFieldValue("userCity", option);
                       }}
                       onBlur={form.handleBlur}
                       required
                       className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                        form.touched.city && form.errors.city
+                        form.touched.userCity && form.errors.userCity
                           ? "border-red-500 mb-0.5"
                           : "mb-3"
                       }`}
                     />
                   )}
                 </Field>
-                {touched.city && errors.city && (
+                {touched.userCity && errors.userCity && (
                   <div className="text-red-500 font-medium mb-4">
-                    {errors.city}
+                    {errors.userCity}
                   </div>
                 )}
               </div>

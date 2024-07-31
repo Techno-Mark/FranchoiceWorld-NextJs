@@ -218,6 +218,7 @@ function InvestorSecondStep() {
       ...values,
       phoneNumber: mobileNumber,
       countryCode: selectedCountry,
+      finalSubmit: true,
     };
     try {
       const response = await CreateInvestorData(params);
@@ -242,17 +243,19 @@ function InvestorSecondStep() {
       setFormValues((prevValues) => ({
         ...prevValues,
         industryType: response.industryType || null,
-        needForLoan: response.needForLoan === true || response.needForLoan === "true",
+        needForLoan:
+          response.needForLoan === true || response.needForLoan === "true",
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,
         lookingForState: response.lookingForState || [],
         lookingForCity: response.lookingForCity || [],
-        ownProperty: response.ownProperty === true || response.ownProperty === "true",
+        ownProperty:
+          response.ownProperty === true || response.ownProperty === "true",
       }));
-      setSelectedState([response?.state]);
+      setSelectedState([response?.lookingForState]);
       if (selectedState?.length > 0) {
-        fetchCity(response?.state);
+        fetchCity(response?.lookingForState);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -566,7 +569,7 @@ function InvestorSecondStep() {
                 type="submit"
                 className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
               >
-                Next
+                Submit
                 <ArrowIcon color="white" className="rotate-180 ml-2" />
               </Button>
             </div>

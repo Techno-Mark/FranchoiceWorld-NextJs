@@ -293,7 +293,7 @@ const AskBanner = () => {
                         and{" "}
                         <Link
                           className="underline"
-                          href="/privacy-poilicy"
+                          href="/privacy-policy"
                           target="_blank"
                         >
                           Privacy Policy
