@@ -23,6 +23,7 @@
   --about-text: #161c2d;
   --cookie-bg-color: #f5f9fd;
   --bottom-border: #8a8a8a;
+  --resend-color: #0090c5;
 }
 
 * {
@@ -53,7 +54,6 @@ a {
 }
 
 @layer base {
-
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
