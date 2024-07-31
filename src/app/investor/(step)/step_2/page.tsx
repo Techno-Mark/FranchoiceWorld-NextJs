@@ -218,6 +218,7 @@ function InvestorSecondStep() {
       ...values,
       phoneNumber: mobileNumber,
       countryCode: selectedCountry,
+      finalSubmit: true,
     };
     try {
       const response = await CreateInvestorData(params);
@@ -242,13 +243,15 @@ function InvestorSecondStep() {
       setFormValues((prevValues) => ({
         ...prevValues,
         industryType: response.industryType || null,
-        needForLoan: response.needForLoan === true || response.needForLoan === "true",
+        needForLoan:
+          response.needForLoan === true || response.needForLoan === "true",
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,
         lookingForState: response.lookingForState || [],
         lookingForCity: response.lookingForCity || [],
-        ownProperty: response.ownProperty === true || response.ownProperty === "true",
+        ownProperty:
+          response.ownProperty === true || response.ownProperty === "true",
       }));
       setSelectedState([response?.state]);
       if (selectedState?.length > 0) {
