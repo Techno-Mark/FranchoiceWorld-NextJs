@@ -18,7 +18,49 @@ const FranchiseDetails: React.FC = () => {
     brandDesc: "",
     media: [],
   });
-
+  const traininglabels = [
+    {
+      label: "Detailed operating manuals for franchisees",
+      key: "isOperatingManuals",
+    },
+    { label: "Franchisee training location", key: "trainingLocation" },
+    {
+      label: "Is field assistance available for franchisee ?",
+      key: "isAssistanceAvailable",
+    },
+    {
+      label:
+        "Expert guidance from Head Office to franchisee in opening the franchise",
+      key: "isExpertGuidance",
+    },
+    {
+      label: "Current IT systems will be included in the franchise",
+      key: "isITSystemIncluded",
+    },
+  ];
+  // const trainingItems = [
+  //   {
+  //     label: "Detailed operating manuals for franchisees",
+  //     value: "Yes",
+  //   },
+  //   {
+  //     label: "Franchisee training location",
+  //     value: "Head office",
+  //   },
+  //   {
+  //     label: "Is field assistance available for franchisee ?",
+  //     value: "Yes",
+  //   },
+  //   {
+  //     label:
+  //       "Expert guidance from Head Office to franchisee in opening the franchise",
+  //     value: "Yes",
+  //   },
+  //   {
+  //     label: "Current IT systems will be included in the franchise",
+  //     value: "Yes",
+  //   },
+  // ];
   const [usp, setUsp] = useState<string[]>([]);
   const [franchiseCostInvest, setFranchiseCostInvest] =
     useState<FranchiseCostInvestmentProps>({
@@ -33,6 +75,15 @@ const FranchiseDetails: React.FC = () => {
         franchiseModel: [],
       },
     });
+  const [trainingData, setTrainingData] = useState<TrainingProps>({
+    brandName: "",
+    trainingItems: [
+      {
+        label: "",
+        value: "",
+      },
+    ],
+  });
 
   const fetchBrandDetails = async (id: number) => {
     try {
@@ -58,8 +109,8 @@ const FranchiseDetails: React.FC = () => {
       setFranchiseCostInvest({
         ...franchiseCostInvest,
         operations: {
-          commenced: response.ResponseData.yearFounded,
-          franchiseCommenced: response.ResponseData.yearFounded,
+          commenced: response.ResponseData.businessCommencedYear,
+          franchiseCommenced: response.ResponseData.franchiseCommencedYear,
         },
         franchiseDetails: {
           investment: response.ResponseData.investmentRangeAssociation.range,
@@ -68,6 +119,22 @@ const FranchiseDetails: React.FC = () => {
           franchiseModel: response.ResponseData.salesRevenueModel,
         },
       });
+      const training = traininglabels.map((item) => ({
+        label: item.label,
+        value:
+          item.key === "trainingLocation"
+            ? response.ResponseData[item.key]
+              ? "Head Office"
+              : "Online/HQ"
+            : response.ResponseData[item.key]
+            ? "Yes"
+            : "No",
+      }));
+
+      setTrainingData((prevData) => ({
+        ...prevData,
+        trainingItems: training,
+      }));
     } catch (err) {
       console.log(err);
     }
@@ -110,30 +177,6 @@ const FranchiseDetails: React.FC = () => {
     },
   ];
 
-  const trainingItems = [
-    {
-      label: "Detailed operating manuals for franchisees",
-      value: "Yes",
-    },
-    {
-      label: "Franchisee training location",
-      value: "Head office",
-    },
-    {
-      label: "Is field assistance available for franchisee ?",
-      value: "Yes",
-    },
-    {
-      label:
-        "Expert guidance from Head Office to franchisee in opening the franchise",
-      value: "Yes",
-    },
-    {
-      label: "Current IT systems will be included in the franchise",
-      value: "Yes",
-    },
-  ];
-
   return (
     <>
       <AboutBrand
@@ -150,7 +193,7 @@ const FranchiseDetails: React.FC = () => {
         <ExpansionPlan brandName={brandName} plans={expansionPlan} />
         <FranchiseTraining
           brandName={brandName}
-          trainingItems={trainingItems}
+          trainingItems={trainingData.trainingItems}
         />
         <section className="pt-10 pb-20">
           <div className="container">
