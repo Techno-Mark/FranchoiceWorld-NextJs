@@ -27,8 +27,8 @@ const FirstStep = () => {
     brandName: "",
     websiteURL: "",
     country: null,
-    state: null,
-    city: null,
+    userState: null,
+    userCity: null,
     pincode: "",
   });
 
@@ -107,8 +107,8 @@ const FirstStep = () => {
       "Invalid WebsiteURL!"
     ),
     country: Yup.string().required("Country is required"),
-    state: Yup.string().required("State is required"),
-    city: Yup.string().required("City is required"),
+    userState: Yup.string().required("State is required"),
+    userCity: Yup.string().required("City is required"),
     pincode: Yup.string()
       .min(4, "Pin code must be atleast 4 characters")
       .max(12, "Pin Code cannot be longer than 12 characters.")
@@ -317,63 +317,63 @@ const FirstStep = () => {
                 )}
               </div>
               <div className="w-full mb-8 pl-2 md:mb-7">
-                <Field name="state">
+                <Field name="userState">
                   {({ field, form }: any) => (
                     <Select
                       {...field}
                       searchable
-                      id="state"
-                      name="state"
+                      id="userState"
+                      name="userState"
                       label="State"
                       options={stateOptions}
                       onChange={(option) => {
-                        form.setFieldValue("state", option);
+                        form.setFieldValue("userState", option);
                         fetchCities([option]);
                       }}
                       onBlur={form.handleBlur}
                       required
                       className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                        form.touched.state && form.errors.state
+                        form.touched.userState && form.errors.userState
                           ? "border-red-500 mb-0.5"
                           : "mb-3"
                       }`}
                     />
                   )}
                 </Field>
-                {touched.state && errors.state && (
+                {touched.userState && errors.userState && (
                   <div className="text-red-500 font-medium mb-4">
-                    {errors.state}
+                    {errors.userState}
                   </div>
                 )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row">
               <div className="w-full mb-8 pr-2 md:mb-7">
-                <Field name="city">
+                <Field name="userCity">
                   {({ field, form }: any) => (
                     <Select
                       {...field}
                       searchable
-                      id="city"
-                      name="city"
+                      id="userCity"
+                      name="userCity"
                       label="City"
                       options={cityOptions}
                       onChange={(option) => {
-                        form.setFieldValue("city", option);
+                        form.setFieldValue("userCity", option);
                       }}
                       onBlur={form.handleBlur}
                       required
                       className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
-                        form.touched.city && form.errors.city
+                        form.touched.userCity && form.errors.userCity
                           ? "border-red-500 mb-0.5"
                           : "mb-3"
                       }`}
                     />
                   )}
                 </Field>
-                {touched.city && errors.city && (
+                {touched.userCity && errors.userCity && (
                   <div className="text-red-500 font-medium mb-4">
-                    {errors.city}
+                    {errors.userCity}
                   </div>
                 )}
               </div>

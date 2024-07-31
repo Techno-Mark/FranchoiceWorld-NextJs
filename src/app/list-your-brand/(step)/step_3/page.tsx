@@ -354,7 +354,6 @@ function SecondStep() {
       const data = response.data.ResponseData;
       setFormValues((prevValues) => ({
         ...prevValues,
-        email: "email@eemail.com",
         areaRequired: data?.areaRequired || null,
         investmentRange: data?.investmentRange || null,
         franchiseFee: Number(data?.franchiseFee) || null,
