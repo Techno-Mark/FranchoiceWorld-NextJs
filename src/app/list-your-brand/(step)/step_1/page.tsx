@@ -148,8 +148,8 @@ const FirstStep = () => {
         phoneNumber: mobileNumber,
         countryCode: selectedCountry,
       }));
-      if (data.state) {
-        fetchCities(data.state);
+      if (data.userState) {
+        fetchCities(data.userState);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
