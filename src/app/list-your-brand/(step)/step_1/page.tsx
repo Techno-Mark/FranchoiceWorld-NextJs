@@ -14,6 +14,7 @@ import Select from "@/components/select/Select";
 import Title from "@/components/title/title";
 import { updateStepProgress } from "@/utills/stepProgress";
 import { getCity, getCountry, getState } from "@/api/dropdown";
+import CountryDropdown from "@/components/countryDropdown/countryDropdown";
 
 const FirstStep = () => {
   const router = useRouter();
@@ -209,15 +210,29 @@ const FirstStep = () => {
                 )}
               </div>
               <div className="w-full mb-8 md:mb-7 md:pl-2">
-                <InputField
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  type="text"
-                  label="Phone Number"
-                  value={values.phoneNumber}
-                  disabled={true}
-                  className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
-                />
+                <label
+                  className="block mb-2 font-medium text-[var(--text-color)]"
+                  htmlFor="phoneNumber"
+                >
+                  Phone Number <span className="text-red-500 ml-1">*</span>
+                </label>
+                <div className="flex">
+                  <div className="w-[100px] pr-2">
+                    <CountryDropdown
+                      variant="formDropdown"
+                      className="!border-[rgba(115,114,115,0.4)]"
+                      disabled={true}
+                    />
+                  </div>
+                  <InputField
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="text"
+                    value={values.phoneNumber}
+                    disabled={true}
+                    className={`block w-full bg-[rgba(115,114,115,0.2)] rounded-lg py-2 px-4 focus:outline-none text-base font-medium !border-[1px] !border-[rgba(115,114,115,0.4)]`}
+                  />
+                </div>
               </div>
             </div>
             <div className="inline-block w-full md:mb-7 mb-8">
