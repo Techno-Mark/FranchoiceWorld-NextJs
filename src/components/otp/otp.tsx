@@ -185,7 +185,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
       console.error("Error verifying OTP:", error);
       setVerificationError(true);
       setVerifyDone(false);
-      setErrorMessage("Invalid OTP.Please try agian.");
+      setErrorMessage("Invalid OTP. Please try agian. ");
     }
   };
   const isOtpComplete = otp.every((digit) => digit !== "");
@@ -293,7 +293,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
             <span className="text-[var(--footer-bg)] text-3xl  pb-14 font-bold">
               <OtpIcon />
             </span>
-            <div className="text-center w-full font-bold text-[var(--footer-bg)] md:w-96 pb-14  text-3xl">
+            <div className="text-center w-full font-bold text-[var(--footer-bg)] md:w-96 pb-4  text-3xl">
               OTP Verification Successful
             </div>
           </div>
