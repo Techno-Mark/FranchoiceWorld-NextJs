@@ -27,6 +27,12 @@ interface CreateInvestorDataProps {
   ownProperty?: boolean | null;
 }
 
+interface GetVerifyOtp {
+  phoneNumber: string | null;
+  countryCode: string | null;
+  submittedOTP: string | null;
+}
+
 export const getInvestorData = async (data: GetInvestorDataProps) => {
   try {
     const response = await axios.post(`${API_URL}/investor-details/get`, data);
@@ -42,6 +48,24 @@ export const CreateInvestorData = async (body: CreateInvestorDataProps) => {
       `${API_URL}/investor-details/create`,
       body
     );
+    return response.data;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+
+export const GetOtp = async (body: GetInvestorDataProps) => {
+  try {
+    const response = await axios.post(`${API_URL}/form-details/getOTP`, body);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error fetching");
+  }
+};
+
+export const VerifyOtp = async (body: GetVerifyOtp) => {
+  try {
+    const response = await axios.post(`${API_URL}/form-details/verifyOTP`, body);
     return response.data;
   } catch (error) {
     throw new Error("Error fetching");

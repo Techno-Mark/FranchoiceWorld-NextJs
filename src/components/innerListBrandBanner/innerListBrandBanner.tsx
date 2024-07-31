@@ -13,6 +13,7 @@ import {
   updateInvestorStepProgress,
   updateStepProgress,
 } from "@/utills/stepProgress";
+import OTPModal from "../otp/otp";
 interface InnerBannerProps {
   className?: string;
   props: {
@@ -34,6 +35,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
   const [error, setError] = useState<string | null>(null);
+  const [showOTPModal, setShowOTPModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -60,7 +62,8 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
       localStorage.setItem("selectedCountry", selectedCountry);
       updateStepProgress("/list-your-brand/step_1");
     }
-    router.push(props.submitURL);
+    setShowOTPModal(true);
+    // router.push(props.submitURL);
   };
 
   return (
@@ -228,6 +231,13 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
           </div>
         </div>
       </div>
+      <OTPModal
+        submitUrl={props.submitURL}
+        isOpen={showOTPModal}
+        onClose={() => setShowOTPModal(false)}
+        mobileNumber={mobileNumber}
+        countryCode={selectedCountry}
+      />
     </section>
   );
 };
