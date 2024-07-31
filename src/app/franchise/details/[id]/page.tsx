@@ -38,30 +38,9 @@ const FranchiseDetails: React.FC = () => {
       key: "isITSystemIncluded",
     },
   ];
-  // const trainingItems = [
-  //   {
-  //     label: "Detailed operating manuals for franchisees",
-  //     value: "Yes",
-  //   },
-  //   {
-  //     label: "Franchisee training location",
-  //     value: "Head office",
-  //   },
-  //   {
-  //     label: "Is field assistance available for franchisee ?",
-  //     value: "Yes",
-  //   },
-  //   {
-  //     label:
-  //       "Expert guidance from Head Office to franchisee in opening the franchise",
-  //     value: "Yes",
-  //   },
-  //   {
-  //     label: "Current IT systems will be included in the franchise",
-  //     value: "Yes",
-  //   },
-  // ];
+
   const [usp, setUsp] = useState<string[]>([]);
+
   const [franchiseCostInvest, setFranchiseCostInvest] =
     useState<FranchiseCostInvestmentProps>({
       operations: {
@@ -75,6 +54,7 @@ const FranchiseDetails: React.FC = () => {
         franchiseModel: [],
       },
     });
+
   const [trainingData, setTrainingData] = useState<TrainingProps>({
     brandName: "",
     trainingItems: [
