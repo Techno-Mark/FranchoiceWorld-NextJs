@@ -60,9 +60,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
-    selectedFiles.forEach((file, index) => {
-      console.log(`Selected image ${index + 1} type:`, file.type);
-    });
     handleFiles(selectedFiles);
   };
 

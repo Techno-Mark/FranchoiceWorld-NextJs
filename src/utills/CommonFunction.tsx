@@ -1,6 +1,4 @@
 export function formatInvestmentRange(range: string): string {
-  console.log("🚀 ~ formatInvestmentRange ~ range:", range);
-
   // Remove the "Rs." prefix and trim any whitespace
   const sanitizedRange = range.replace("Rs.", "").trim();
 

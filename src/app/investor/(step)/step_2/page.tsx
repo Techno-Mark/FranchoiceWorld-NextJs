@@ -253,9 +253,9 @@ function InvestorSecondStep() {
         ownProperty:
           response.ownProperty === true || response.ownProperty === "true",
       }));
-      setSelectedState([response?.state]);
+      setSelectedState([response?.lookingForState]);
       if (selectedState?.length > 0) {
-        fetchCity(response?.state);
+        fetchCity(response?.lookingForState);
       }
     } catch (error) {
       console.error("Error fetching data:", error);

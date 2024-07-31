@@ -6,7 +6,6 @@ const FranchiseTraining: React.FC<TrainingProps> = ({
   brandName,
   trainingItems,
 }) => {
-  console.log("aa", trainingItems);
 
   return (
     <section className="py-4">
