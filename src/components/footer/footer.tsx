@@ -11,7 +11,7 @@ const footerItem = [
     child: [
       {
         id: 1,
-        name: "About us",
+        name: "About Us",
         path: "/about-us",
       },
       // {
@@ -40,7 +40,7 @@ const footerItem = [
       //   path: "/help_center",
       // },
       {
-        name: "Terms of service",
+        name: "Terms of Use",
         path: "/term-conditions",
       },
       // {
@@ -48,7 +48,7 @@ const footerItem = [
       //   path: "/legal",
       // },
       {
-        name: "Privacy policy",
+        name: "Privacy Policy",
         path: "/privacy-policy",
       },
     ],
@@ -77,22 +77,31 @@ const Footer = () => {
             </p>
             <ul className={`${styles.socialMedia}`}>
               <li key="1">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.instagram.com/franchoiceworld/"
+                >
                   <SlSocialInstagram />
                 </Link>
               </li>
               <li key="2">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.facebook.com/Franchoiceworld/"
+                >
                   <FaFacebook />
                 </Link>
               </li>
               <li key="3">
-                <Link href="#">
+                <Link target="_blank" href="https://x.com/franchoiceworld">
                   <FaXTwitter />
                 </Link>
               </li>
               <li key="4">
-                <Link href="#">
+                <Link
+                  target="_blank"
+                  href="https://www.linkedin.com/company/103189724/admin/feed/posts/"
+                >
                   <FaLinkedin />
                 </Link>
               </li>

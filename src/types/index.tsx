@@ -3,7 +3,6 @@ interface iconProps {
   color?: string;
 }
 
-
 interface InvestorDataResponse {
   id: number;
   fullName: string;
@@ -30,4 +29,19 @@ interface InvestorDataResponse {
 
 interface ApiResponse {
   ResponseData: InvestorDataResponse;
+}
+interface BusinessOpportunity {
+  id?: number;
+  title: string;
+  category: string;
+  image: string;
+  investmentRange: string;
+  areaRequired: string;
+  franchiseOutlet: string;
+  favorite: boolean;
+}
+
+interface TopBrandSliderProps {
+  sectionTitle: string;
+  items: BusinessOpportunity[];
 }

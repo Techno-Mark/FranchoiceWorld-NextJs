@@ -1,10 +1,14 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 import Card from "../card/card";
+import Pagination from "../pagination/pagination";
 import styles from "./franchiselistcard.module.css";
-import React from "react";
-import Button from "../button/button";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/`;
 
 interface FranchiseCard {
+  id?: number | null;
   franchiseImage: string;
   title: string;
   category: string;
@@ -12,26 +16,55 @@ interface FranchiseCard {
   areaRequired: string;
   franchiseOutlet: string;
   favorite?: boolean;
+  logo?: string;
 }
+
 interface FranchiseCardProps {
   className?: string;
   items: FranchiseCard[];
+  itemsPerPage?: number;
+  pagination?: boolean;
 }
 
 const FranchiseListCard: React.FC<FranchiseCardProps> = ({
   items,
   className,
+  pagination = true,
+  itemsPerPage = 12,
 }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const paginatedItems = items.slice(startIdx, startIdx + itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  if (items.length === 0) {
+    return (
+      <div className={`flex justify-center items-center h-64 ${className}`}>
+        <p className="text-xl font-semibold text-gray-500">No data found</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      <div className={`flex flex-wrap ${className}`}>
-        {items.map((card, index) => (
-          <Card key={index} className={`mx-2 my-4 ${styles.franchiseItemCard}`}>
+      <div
+        className={`flex flex-wrap justify-center xl:justify-start pb-8 ${className}`}
+      >
+        {paginatedItems.map((card, index) => (
+          <Card
+            key={index}
+            className={`mx-2 my-4 ${styles.franchiseItemCard}`}
+          >
             <div className="bg-white overflow-hidden">
               <Image
-                src={card.franchiseImage}
+                src={`${API_URL}${card.franchiseImage}`}
                 alt={card.title}
-                className={`${styles.franchiseItemImage}`}
+                className={`object-top ${styles.franchiseItemImage}`}
                 width={230}
                 height={110}
               />
@@ -39,22 +72,23 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                 <div className="flex justify-between items-center">
                   <div className={styles.BrandTitleSection}>
                     <h3
-                      className={`text-lg font-medium ${styles.franchiseItemCategory}`}
+                      className={`text-[12px] font-medium ${styles.franchiseItemCategory}`}
                     >
                       {card.category}
                     </h3>
-                    <h4
-                      className={`text-xl font-bold ${styles.franchiseItemTitle}`}
-                    >
+                    <h4 className={`font-bold ${styles.franchiseItemTitle}`}>
                       {card.title}
                     </h4>
                   </div>
-
-                  {/* {favorite ? (
-                    <FaHeart className="text-[#D21F34]" size={20} />
-                  ) : (
-                    <FaRegHeart className="text-gray-500" size={20} />
-                  )} */}
+                  {card.logo && (
+                    <Image
+                      className="object-contain px-2"
+                      src={card.logo}
+                      alt={card.title}
+                      width={80}
+                      height={70}
+                    />
+                  )}
                 </div>
                 <ul className={styles.franchiseItemDetails}>
                   <li className="flex justify-between">
@@ -67,17 +101,30 @@ const FranchiseListCard: React.FC<FranchiseCardProps> = ({
                     Franchise Outlet: <span>{card.franchiseOutlet}</span>
                   </li>
                 </ul>
-                <Button
-                  variant="secondary"
-                  className={`w-full text-bold ${styles.franchiseItemButton}`}
+                <Link
+                  className={`inline-block text-center font-bold px-4 py-1 rounded-lg w-full ${styles.franchiseItemButton}`}
+                  href={`/franchise/details/${card.id}`}
                 >
                   Know More
-                </Button>
+                </Link>
+                {/* <Button
+                  variant="secondary"
+                  className={`w-full text-bold rounded-lg !py-1 `}
+                >
+                  Know More
+                </Button> */}
               </div>
             </div>
           </Card>
         ))}
       </div>
+      {pagination && items.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };

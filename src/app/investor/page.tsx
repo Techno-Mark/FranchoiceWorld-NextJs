@@ -1,13 +1,16 @@
 "use client";
+import { getFranchiseList } from "@/api/home";
 import Faq from "@/components/faq/faq";
 import FindFranchise from "@/components/findFranchise/findFranchise";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
-import TrandingVideo from "@/components/trandingVideo/trandingVideo";
 import WhatWeDo from "@/components/whatWeDo/whatWeDo";
 import WhyChoose from "@/components/whyChoose/whyChoose";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
+import { useEffect, useState } from "react";
 
 const whyChooseUs = [
   {
@@ -31,54 +34,55 @@ const whyChooseUs = [
     desc: "Gain valuable insights into market trends and opportunities to make informed investment decisions.",
   },
 ];
-const opportunity = {
-  sectionTitle: "Top Business Opportunities",
-  items: [
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-  ],
-};
+// const opportunity = {
+//   sectionTitle: "Top Business Opportunities",
+//   items: [
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//   ],
+// };
+
 const testimonials = [
-  {
-    message:
-      "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
-    author: "Connplex",
-    companyLogo: "/images/testimonial/connplex.jpg",
-  },
+  // {
+  //   message:
+  //     "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
+  //   author: "Connplex",
+  //   companyLogo: "/images/testimonial/connplex.jpg",
+  // },
   {
     message:
       "Choosing Gyaata to expand our franchises was one of the best decisions we made. Their dedicated and creative team enhanced our brand reputation and run result-driven lead generation campaigns. We saw significant growth within a short span of time. If you are looking for your brand's franchise growth, this is the one!",
@@ -98,34 +102,36 @@ const testimonials = [
     companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
-const trandingVideo = {
-  items: [
-    {
-      id: "1",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "2",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "3",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-  ],
-};
+
+// const trandingVideo = {
+//   items: [
+//     {
+//       id: "1",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "2",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "3",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//   ],
+// };
+
 const whatWeDo = {
   title: "What Will We Do to Get You a Suitable Brand?",
   titleDesc:
@@ -147,14 +153,14 @@ const whatWeDo = {
         "Optimize your project's financial outcome while maintaining the highest quality standards.",
       ],
     },
-    {
-      title: "Evaluating Franchisor Support",
-      image: "/images/whatWeDo/evaluating.jpg",
-      content: [
-        "Evaluate training programs and ongoing support offered by franchisors.",
-        "Offer an understanding of the operational guidance provided by the franchisor brand.",
-      ],
-    },
+    // {
+    //   title: "Evaluating Franchisor Support",
+    //   image: "/images/whatWeDo/evaluating.jpg",
+    //   content: [
+    //     "Evaluate training programs and ongoing support offered by franchisors.",
+    //     "Offer an understanding of the operational guidance provided by the franchisor brand.",
+    //   ],
+    // },
     {
       title: "Understanding the Franchise Agreement",
       image: "/images/whatWeDo/understanding_FA.jpg",
@@ -283,6 +289,41 @@ const quickLinksData = [
 ];
 
 const Investor = () => {
+  const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
+    sectionTitle: "Top Business Opportunities",
+    items: [],
+  });
+
+  const fetchTopOppData = async () => {
+    try {
+      const res = await getFranchiseList(
+        "/form-details/list?type=categories&limit=4"
+      );
+
+      const oppArray = res.map((r: any) => ({
+        id: r.id,
+        image: r.brandImages[0],
+        title: r.brandName,
+        category: r.subCategory,
+        investmentRange: formatInvestmentRange(r.investmentRange),
+        areaRequired: r.areaaRequired,
+        franchiseOutlet: r.numberOfLocations,
+        favorite: false,
+      }));
+
+      setOpportunity({
+        ...opportunity,
+        items: oppArray,
+      });
+    } catch (error) {
+      console.error("Error fetching list Top franchise:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTopOppData();
+  }, []);
+
   const innerBanner = {
     bannerImage: "/images/innerInvestorBanner.png",
     submitURL: "/investor/step_1",
@@ -295,26 +336,101 @@ const Investor = () => {
     ],
     noborder: true,
   };
+
+  const faqItems = [
+    {
+      title: "How can I find franchises for investment on your portal?",
+      content: (
+        <>
+          <p>
+            You can go to the &apos;Find Your Franchise&apos; tab on Home Page
+            and select the brand as per your required category, in terms of
+            industry, sector, and products/services. You can further filter
+            based on your desired location and investment criteria.
+          </p>
+        </>
+      ),
+    },
+    {
+      title:
+        "What benefits would I receive by investing in a franchise on your portal?",
+      content: (
+        <>
+          <p>
+            Investing in a franchise from Franchoice World would help you avail
+            ample benefits like:
+          </p>
+          <ul className="list-disc">
+            <li className="ml-4">Expert Guidance</li>
+            <li className="ml-4">Wide Range of Selection</li>
+            <li className="ml-4">End-to-End Support</li>
+            <li className="ml-4">Market Insights</li>
+          </ul>
+        </>
+      ),
+    },
+    {
+      title:
+        "What are the terms and conditions of investing in a franchise on your portal?",
+      content: (
+        <p>
+          To know about our policies and terms and conditions, head to our Terms
+          and Conditions (add page link) and Privacy Policy (add page link)
+          pages before filling the investor form.
+        </p>
+      ),
+    },
+    {
+      title: "How can I benefit from franchise growth services on your portal?",
+      content: (
+        <p>
+          Our Franchise Growth services consist of franchise modelling,
+          financial modelling, and franchise development that would help
+          nurture, develop, and expand your brand.
+        </p>
+      ),
+    },
+    {
+      title:
+        "How can I look for franchise investment opportunities in my location?",
+      content: (
+        <p>
+          Our &apos;Find Your Franchise&apos; section on Home Page allows you to
+          filter out your franchises as per the categories, investment, and
+          location of your choice.
+        </p>
+      ),
+    },
+  ];
+
   return (
     <>
       <InnerListBrandBanner props={innerBanner} />
-      <FindFranchise dark={true} />
-      <div className="py-12">
-        <WhyChoose cardBox={whyChooseUs} hideKnowMore={true} />
+      <div className="relative">
+        <FindFranchise dark={true} />
+        <div className="py-12">
+          <WhyChoose cardBox={whyChooseUs} hideKnowMore={true} />
+        </div>
+        <TopBrandSlider
+          sectionTitle={opportunity.sectionTitle}
+          items={opportunity.items}
+        />
+        <Testimonial title="Success Stories" testimonials={testimonials} />
+        {/* <TrandingVideo items={trandingVideo.items} /> */}
+        <WhatWeDo
+          sectionTitle={whatWeDo.title}
+          titleDesc={whatWeDo.titleDesc}
+          items={whatWeDo.items}
+        />
+        <Faq
+          title="FAQs"
+          description="Let us answer some of your most common queries."
+          additionalMessage="Feel free to contact us in case of any more questions!"
+          items={faqItems}
+        />
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm />
       </div>
-      <TopBrandSlider
-        sectionTitle={opportunity.sectionTitle}
-        items={opportunity.items}
-      />
-      <Testimonial title="Success Stories" testimonials={testimonials} />
-      <TrandingVideo items={trandingVideo.items} />
-      <WhatWeDo
-        sectionTitle={whatWeDo.title}
-        titleDesc={whatWeDo.titleDesc}
-        items={whatWeDo.items}
-      />
-      <Faq />
-      <QuickLinks quickLink={quickLinksData} />
     </>
   );
 };

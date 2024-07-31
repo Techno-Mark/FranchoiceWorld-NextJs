@@ -4,6 +4,8 @@ import Button from "@/components/button/button";
 import Select from "@/components/select/Select";
 import styles from "./categoriescontent.module.css";
 import { getIndustry, getSector, getService } from "@/api/dropdown";
+import { useRouter } from "next/navigation";
+import { getFranchiseList } from "@/api/home";
 interface OptionType {
   value: number;
   label: string;
@@ -12,6 +14,7 @@ const CategoriesContent = () => {
   const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
   const [sectorOptions, setSectorOptions] = useState<OptionType[]>([]);
   const [productOptions, setProductOptions] = useState<OptionType[]>([]);
+  const router = useRouter();
 
   const fetchIndustryData = async () => {
     try {
@@ -34,7 +37,7 @@ const CategoriesContent = () => {
         label: sector.name,
       }));
       setSectorOptions(formattedSector);
-      setProductOptions([]); // Clear the product options when the industry changes
+      setProductOptions([]);
     } catch (err) {
       console.log("Error while fetching sectors", err);
     }
@@ -64,9 +67,10 @@ const CategoriesContent = () => {
         sector: null,
         product: null,
       }}
-      onSubmit={(values) => {
-        // Handle form submission logic here
-        console.log(values);
+      onSubmit={async (values) => {
+        router.push(
+          `/franchise/list?type=categories&industry=${values.industry}&sector=${values.sector}&service=${values.product}`
+        );
       }}
     >
       {({ values, setFieldValue }) => (

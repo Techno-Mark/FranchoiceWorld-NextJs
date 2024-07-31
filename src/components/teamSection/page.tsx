@@ -49,7 +49,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
           <div className="text-[16px] pb-8">{description}</div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 px-6 text-left">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 px-32 text-left">
           {teamMembers.map((member, index) => (
             <TeamMember key={index} {...member} />
           ))}

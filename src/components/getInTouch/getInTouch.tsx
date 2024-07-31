@@ -12,7 +12,7 @@ const GetInTouch = ({ location }: any) => {
     <section className="py-8">
       <div className="container">
         <div className="text-center md:text-left">
-          <Title title="Fancy a Chat? Get in Touch with Us" />
+          <Title title="Fancy a Chat? Get in Touch with Us." />
         </div>
         <div className="grid py-6 grid-cols-1 md:grid-cols-2">
           <Image

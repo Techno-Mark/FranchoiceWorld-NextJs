@@ -1,15 +1,117 @@
-import React from "react";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+"use client";
+
+import { getFranchiseList } from "@/api/home";
 import FranchiseListCard from "@/components/franchiseListCard/franchiseListCard";
-import { FaChevronRight } from "react-icons/fa";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ProductList = () => {
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Our Mission", href: "/about/our-mission" },
-  ];
+  const searchParams = useSearchParams();
+
+  const [brandData, setBrandData] = useState([]);
+
+  // Access the query parameters
+  const type = searchParams.get("type");
+  const industry = Number(searchParams.get("industry"));
+
+  const sector = Number(searchParams.get("sector"));
+  const service = Number(searchParams.get("service"));
+  const state = searchParams.get("state");
+  const city = searchParams.get("city");
+  const minRange = searchParams.get("minRange");
+  const maxRange = searchParams.get("maxRange");
+  const brandName = searchParams.get("brandName");
+
+  const fetchdata = async () => {
+    try {
+      const params = new URLSearchParams();
+
+      // Always add type
+      params.append("type", String(type));
+
+      // Helper function to add param if it's a valid, non-empty value
+      const addParamIfValid = (
+        key: string,
+        value: string | number | null | undefined,
+        excludeZero = false
+      ) => {
+        if (
+          value !== null &&
+          value !== undefined &&
+          value !== "" &&
+          !(typeof value === "number" && isNaN(value)) &&
+          !(excludeZero && value === 0) &&
+          !(key === "industry" && value === 0)
+        ) {
+          params.append(key, String(value));
+        }
+      };
+
+      // Add industry if valid
+      addParamIfValid("industry", industry);
+
+      // Add additional parameters based on the type
+      switch (type) {
+        case "categories":
+          addParamIfValid("sector", sector);
+          addParamIfValid("service", service);
+          break;
+        case "location":
+          if (typeof state === "number" && !isNaN(state)) {
+            addParamIfValid("state", state);
+          }
+          if (typeof city === "number" && !isNaN(city)) {
+            addParamIfValid("city", city);
+          }
+          break;
+        case "investment":
+          if (minRange !== null && minRange !== "" && minRange !== "null") {
+            params.append("minRange", minRange);
+          }
+          if (maxRange !== null && maxRange !== "" && maxRange !== "null") {
+            params.append("maxRange", maxRange);
+          }
+          break;
+        case "brand":
+          addParamIfValid("brandName", brandName);
+        default:
+          console.warn("Unknown type:", type);
+      }
+
+      const url = `/form-details/list?${params.toString()}`;
+
+      const response = await getFranchiseList(url);
+      const formattedData = response.map((categorie: any) => ({
+        id: categorie.id,
+        franchiseImage: categorie.brandImages[0],
+        // franchiseImage: "/images/bussinessImage.jpg",
+        title: categorie.brandName,
+        category: categorie.subCategory,
+        investmentRange: formatInvestmentRange(categorie.investmentRange),
+        areaRequired: categorie.areaaRequired,
+        franchiseOutlet: categorie.numberOfLocations,
+        favorite: false,
+        // logo: categorie.logo,
+      }));
+      setBrandData(formattedData);
+    } catch (error) {
+      console.error("Error fetching categories types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, [type, industry, sector, service, state, city, minRange, maxRange]);
+
+  // const breadcrumbItems = [
+  //   { label: "Home", href: "/" },
+  //   { label: "Food & Beverage", href: "javascript:void(0);" },
+  //   { label: "Quick Bites", href: "javascript:void(0);" },
+  //   { label: "Quick Service Restaurants", href: "javascript:void(0);" },
+  // ];
   const quickLinksData = [
     {
       title: "Browse By Investment Range",
@@ -104,313 +206,25 @@ const ProductList = () => {
     },
   ];
 
-  const cardListitems = [
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      franchiseImage: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-  ];
-
   return (
     <>
-      <div className="bg-[#f1f1f2] py-6">
+      {/* <div className="bg-[#f1f1f2] py-4 md:py-6">
         <div className="container">
           <Breadcrumbs
             items={breadcrumbItems}
             separator={<FaChevronRight size={12} />}
           />
         </div>
-      </div>
-      <div className="my-10">
+      </div> */}
+      <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
-          <FranchiseListCard items={cardListitems} />
+          <FranchiseListCard items={brandData} />
         </div>
       </div>
-      <QuickLinks quickLink={quickLinksData} />
+      <div className="relative">
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm />
+      </div>
     </>
   );
 };

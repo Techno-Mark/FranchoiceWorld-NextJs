@@ -12,14 +12,20 @@
     background: var(--footer-bg);
     border-radius: 0.5rem;
     max-width: 270px;
+    font-weight: 600;
 }
-.categoryButton:hover{
+
+.categoryButton:hover {
     background: var(--footer-hover);
 }
+
 @media only screen and (max-width:767px) {
     .categoryButton {
         padding: 0.7rem;
         font-size: 0.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .halfBanner {

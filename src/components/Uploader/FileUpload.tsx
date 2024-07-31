@@ -5,10 +5,11 @@ import UploadIcon from "@/assets/icons/uploadIcon";
 import CloseIcon from "@/assets/icons/closeIcon";
 import PdfIcon from "@/assets/icons/pdfIcon";
 import ImageIcon from "@/assets/imageIcon";
-
+import WordIcon from "@/assets/icons/wordIcon";
 
 interface FileUploadProps {
   label?: string;
+  accept?: string;
   required?: boolean;
   className?: string;
   desc?: string;
@@ -26,6 +27,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   descClass,
   name,
   onChange,
+  accept,
   existingFiles = [],
 }) => {
   const [files, setFiles] = useState<
@@ -101,6 +103,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
     switch (fileType) {
       case "pdf":
         return <PdfIcon className="mr-2" />;
+      case "doc":
+      case "docx":
+        return <WordIcon className="mr-2" />;
       case "png":
       case "jpg":
       case "jpeg":
@@ -134,7 +139,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
               className="hidden"
               ref={fileInputRef}
               onChange={handleFileChange}
-              accept=".pdf,.png,.jpg,.jpeg"
+              accept={accept ? accept : ".pdf,.png,.jpg,.jpeg"}
               name={name}
             />
             <div className="text-center min-w-[198px] h-[128px]">

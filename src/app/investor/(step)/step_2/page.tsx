@@ -159,7 +159,7 @@ function InvestorSecondStep() {
     phoneNumber: mobileNumber,
     industryType: null,
     availableCapital: null,
-    needForLoan: true,
+    needForLoan: false,
     likeToInvest: null,
     lookingFor: null,
     lookingForState: [],
@@ -174,18 +174,18 @@ function InvestorSecondStep() {
   };
 
   const validationSchema = Yup.object({
-    industryType: Yup.number().required("Industry is required"),
-    availableCapital: Yup.number().required("Available Capital is required"),
-    likeToInvest: Yup.number().required("Investment Time is required"),
-    lookingFor: Yup.number().required("Looking For is required"),
-    lookingForState: Yup.array().min(1, "State is required"),
-    lookingForCity: Yup.array().min(1, "City is required"),
-    acceptTerms: Yup.boolean()
-      .oneOf([true], "You must agree to submit your form")
-      .required("You must accept the Terms & Conditions."),
-    submitInfo: Yup.boolean()
-      .oneOf([true], "You must accept the T&C for future processing data")
-      .required("You must accept the Terms & Conditions."),
+    // industryType: Yup.number().required("Industry is required"),
+    // availableCapital: Yup.number().required("Available Capital is required"),
+    // likeToInvest: Yup.number().required("Investment Time is required"),
+    // lookingFor: Yup.number().required("Looking For is required"),
+    // lookingForState: Yup.array().min(1, "State is required"),
+    // lookingForCity: Yup.array().min(1, "City is required"),
+    // acceptTerms: Yup.boolean()
+    //   .oneOf([true], "You must agree to submit your form")
+    //   .required("You must accept the Terms & Conditions."),
+    // submitInfo: Yup.boolean()
+    //   .oneOf([true], "You must accept the T&C for future processing data")
+    //   .required("You must accept the Terms & Conditions."),
   });
 
   const handleStateChange = (
@@ -218,6 +218,7 @@ function InvestorSecondStep() {
       ...values,
       phoneNumber: mobileNumber,
       countryCode: selectedCountry,
+      finalSubmit: true,
     };
     try {
       const response = await CreateInvestorData(params);
@@ -242,17 +243,19 @@ function InvestorSecondStep() {
       setFormValues((prevValues) => ({
         ...prevValues,
         industryType: response.industryType || null,
-        needForLoan: response.needForLoan || true,
+        needForLoan:
+          response.needForLoan === true || response.needForLoan === "true",
         availableCapital: response.availableCapital || null,
         likeToInvest: response.likeToInvest || null,
         lookingFor: response.lookingFor || null,
         lookingForState: response.lookingForState || [],
         lookingForCity: response.lookingForCity || [],
-        ownProperty: response.ownProperty || true,
+        ownProperty:
+          response.ownProperty === true || response.ownProperty === "true",
       }));
-      setSelectedState(response?.state);
+      setSelectedState([response?.lookingForState]);
       if (selectedState?.length > 0) {
-        fetchCity(response?.state);
+        fetchCity(response?.lookingForState);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -348,9 +351,7 @@ function InvestorSecondStep() {
                   )}
               </div>
               <div className="w-full md:pl-2 mb-6 md:mb-7">
-                <label className="block mb-2 font-medium">
-                  Need for Loan?<span className="text-red-500 ml-1">*</span>
-                </label>
+                <label className="block mb-2 font-medium">Need for Loan?</label>
                 <div className="mt-4">
                   <Field name="needForLoan">
                     {({ field }: FieldProps) => (
@@ -360,7 +361,9 @@ function InvestorSecondStep() {
                           label="Yes"
                           value="true"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() => setFieldValue("needForLoan", true)}
                         />
                         <RadioButton
@@ -368,7 +371,9 @@ function InvestorSecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() => setFieldValue("needForLoan", false)}
                         />
                       </>
@@ -443,7 +448,6 @@ function InvestorSecondStep() {
               <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <label className="block mb-2 font-medium">
                   Do you own a property?
-                  <span className="text-red-500 ml-1">*</span>
                 </label>
                 <div className="mt-4">
                   <Field name="ownProperty">
@@ -454,7 +458,9 @@ function InvestorSecondStep() {
                           label="Yes"
                           value="true"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === true}
+                          checked={
+                            field.value === true || field.value === "true"
+                          }
                           onChange={() => setFieldValue("ownProperty", true)}
                         />
                         <RadioButton
@@ -462,7 +468,9 @@ function InvestorSecondStep() {
                           label="No"
                           value="false"
                           className={`${styles.RadioBox}`}
-                          checked={field.value === false}
+                          checked={
+                            field.value === false || field.value === "false"
+                          }
                           onChange={() => setFieldValue("ownProperty", false)}
                         />
                       </>
@@ -561,7 +569,7 @@ function InvestorSecondStep() {
                 type="submit"
                 className="rounded-md text-base font-medium flex items-center !py-4 !px-5"
               >
-                Next
+                Submit
                 <ArrowIcon color="white" className="rotate-180 ml-2" />
               </Button>
             </div>

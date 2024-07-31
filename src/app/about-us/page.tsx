@@ -104,11 +104,12 @@ const quickLinksData = [
 const cardData = [
   {
     image: "/images/aboutUs/Group.png",
-    title: "Brands",
+    title: "Brand",
     descriptions: [
       "To become a top multi-brand franchising organization, servicing brands from different sectors, and to deliver the best growth opportunities.",
       "Our goal is to build stronger fundamental structures in each company and channel the investments towards building brands that ultimately lead to continuous success.",
     ],
+    url: "/list-your-brand",
   },
   {
     image: "/images/aboutUs/Group_1.png",
@@ -117,14 +118,16 @@ const cardData = [
       "To become an extraordinary franchising platform, bringing together varied market leaders, entrepreneurs, and visionaries for a deep franchising landscape.",
       "We strive to build a proactive franchising solutions platform to help investors find their favorite brands and accelerate growth.",
     ],
+    url: "/investor",
   },
   {
     image: "/images/aboutUs/Group_2.png",
-    title: "Independent Framchise Partner",
+    title: "Independent Franchise Partner",
     descriptions: [
       "To become a leading franchising partner to new and existing franchisors, growing them to excel and become best-in-class franchising organizations.",
       "Our goal is to provide top-notch, polished, and valuable superior quality services to franchisors and franchisees through our Independent Franchise Partners.",
     ],
+    url: "/ifp",
   },
   {
     image: "/images/aboutUs/Group_3.png",
@@ -133,6 +136,7 @@ const cardData = [
       "To be recognized as the leader in world-class real estate franchise development firm across all industries in real estate products and concepts.",
       "Our mission is to provide integrated services from strategic planning to turnkey solutions, characterized by creativity, cost-effectiveness, and an individualized response to our clients.",
     ],
+    url: "/real-estate",
   },
 ];
 
@@ -148,7 +152,7 @@ const teamMembers = [
     imageSrc: "/images/aboutUs/team_photo_1.png",
   },
   {
-    name: "Mayanka jain",
+    name: "Mayanka Jain",
     position: "Sr. Manager",
     imageSrc: "/images/aboutUs/team_photo_2.png",
   },
@@ -231,18 +235,21 @@ const About_us = () => {
     <>
       <AboutSection
         title="Welcome to Franchoice World,"
-        subtitle="by Gyaata and Pacific Group of Companies. Our mission is to empower brands to achieve expansive growth through strategic franchise partnerships."
+        subtitle="by Gyaata and Pacific Group of Companies.We empower brands to achieve expansive growth through strategic franchise partnerships."
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
         imageSrc="/images/aboutUs/about_us_Banner.svg"
         imageAlt="About Banner"
         description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
       />
-      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 lg:py-24">
+      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:py-10 ">
         <div className="container">
           <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
             <div className="w-full md:w-2/4">
-              <Title title="Mission" />
+              <Title
+                title="Mission"
+                titleClass="md:!text-[30px] !text-[30px]"
+              />
               <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
                 Our mission at Franchoice World is to convert businesses into
                 successful franchises.
@@ -261,7 +268,7 @@ const About_us = () => {
       </section>
 
       {/* values section */}
-      <section className="bg-[rgba(203,224,244,0.2)] ">
+      <section className="py-8 md:py-16">
         <div className="container">
           <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
             <ImageGallery column={2} galleryImages={ValueImages} />
@@ -284,7 +291,7 @@ const About_us = () => {
 
       {/* Meet our team section */}
       <TeamSection
-        title="Meet our team"
+        title="Meet Our Team"
         description="Get to know the Franchoice World team - your partners in building thriving franchises with personalized guidance and industry knowledge."
         teamMembers={teamMembers}
       />

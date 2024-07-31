@@ -1,7 +1,12 @@
-import { getIndustry, getInvestmentRange } from "@/api/dropdown";
+import {
+  getIndustry,
+  getMaxInvestmentRange,
+  getMinInvestmentRange,
+} from "@/api/dropdown";
 import Button from "@/components/button/button";
 import Select from "@/components/select/Select";
 import { Form, Formik } from "formik";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./investmentContent.module.css";
 
@@ -18,7 +23,9 @@ interface FormValues {
 
 const InvestmentContent = () => {
   const [industryOptions, setIndustryOptions] = useState<OptionType[]>([]);
-  const [minMaxOption, setMinMaxOption] = useState<OptionType[]>([]);
+  const [minOption, setMinOption] = useState<OptionType[]>([]);
+  const [maxOption, setMaxOption] = useState<OptionType[]>([]);
+  const router = useRouter();
 
   const fetchIndustryData = async () => {
     try {
@@ -33,14 +40,31 @@ const InvestmentContent = () => {
     }
   };
 
-  const fetchMinMaxData = async () => {
+  const fetchMinData = async () => {
     try {
-      const resp = await getInvestmentRange("/dropdown/min-max-investments");
-      const formattedMinMax = resp.map((mm: any) => ({
+      const resp = await getMinInvestmentRange("/dropdown/minimim-values");
+      const formattedMin = resp.map((mm: any) => ({
         value: mm.id,
-        label: mm.range,
+        label: mm.name,
       }));
-      setMinMaxOption(formattedMinMax);
+      setMinOption(formattedMin);
+    } catch (err) {
+      console.log("Error while fetching State Data", err);
+    }
+  };
+  const fetchMaxData = async (minId: number) => {
+    try {
+      const resp = await getMaxInvestmentRange(
+        "/dropdown/maximum-values",
+        {
+          minId: minId,
+        }
+      );
+      const formattedMax = resp.map((mm: any) => ({
+        value: mm.id,
+        label: mm.name,
+      }));
+      setMaxOption(formattedMax);
     } catch (err) {
       console.log("Error while fetching State Data", err);
     }
@@ -48,7 +72,7 @@ const InvestmentContent = () => {
 
   useEffect(() => {
     fetchIndustryData();
-    fetchMinMaxData();
+    fetchMinData();
   }, []);
 
   return (
@@ -59,17 +83,12 @@ const InvestmentContent = () => {
         max: null,
       }}
       onSubmit={(values) => {
-        // Handle form submission logic here
-        console.log(values);
+        router.push(
+          `/franchise/list?type=investment&industry=${values.industry}&minRange=${values.min}&maxRange=${values.max}`
+        );
       }}
     >
       {({ values, setFieldValue }) => {
-        // Filter max options based on min selection
-        const filteredMaxOptions =
-          values.min !== null
-            ? minMaxOption.filter((option) => option.value > values.min!)
-            : minMaxOption;
-
         return (
           <Form
             className={`flex flex-col justify-center md:flex-row ${styles.findForm}`}
@@ -89,11 +108,11 @@ const InvestmentContent = () => {
               <Select
                 name="min"
                 className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-                options={minMaxOption}
+                options={minOption}
                 placeholder="Select Min Investment"
                 onChange={(value) => {
                   setFieldValue("min", value);
-                  setFieldValue("max", null); // Reset max when min changes
+                  fetchMaxData(value);
                 }}
               />
             </div>
@@ -101,7 +120,7 @@ const InvestmentContent = () => {
               <Select
                 name="max"
                 className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
-                options={filteredMaxOptions}
+                options={maxOption}
                 placeholder="Select Max Investment"
                 onChange={(value) => setFieldValue("max", value)}
               />

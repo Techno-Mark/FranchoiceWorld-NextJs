@@ -14,17 +14,23 @@ import {
   updateStepProgress,
 } from "@/utills/stepProgress";
 interface InnerBannerProps {
+  className?: string;
   props: {
-    bannerImage: string;
+    bannerImage?: string;
     submitURL: string;
     SectionTitle: string;
     desc?: string;
     items: string[];
     noborder?: boolean;
+    imageOnLeft?: boolean;
+    bannerImageTxt?: string;
   };
 }
 
-const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
+const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
+  props,
+  className,
+}) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
   const [error, setError] = useState<string | null>(null);
@@ -58,14 +64,58 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
   };
 
   return (
-    <section className={`py-8 md:py-20 ${styles.innerListBrandBanner}`}>
+    <section
+      className={`py-8 md:py-20 ${styles.innerListBrandBanner} ${className}`}
+    >
       <div className="container">
-        <div className="flex items-start flex-wrap lg:flex-nowrap gap-8">
-          <div className={`w-full ${styles.listBrandBannerText}`}>
-            <h3 className={`font-extrabold ${styles.innerBrandTitle}`}>
+        <div
+          className={`flex items-start flex-wrap lg:flex-nowrap gap-8 ${
+            props.imageOnLeft ? "" : "flex-row-reverse"
+          }`}
+        >
+          <div
+            className={`w-full max-w-[250px] mx-auto md:max-w-full ${
+              props.imageOnLeft ? "lg:ml-auto" : "lg:mr-auto"
+            }`}
+          >
+            {props.bannerImage && (
+              <Image
+                className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0  ${
+                  props.imageOnLeft ? "lg:mr-auto lg:ml-0" : "lg:ml-auto"
+                }`}
+                src={props.bannerImage}
+                alt="List your Brand"
+                width={461}
+                height={378}
+              />
+            )}
+            {props.bannerImageTxt && (
+              <h3 className="text-3xl md:text-5xl font-light text-right ml-auto max-w-[400px] mt-8 md:mt-20">
+                {props.bannerImageTxt}
+              </h3>
+            )}
+          </div>
+          <div
+            className={`w-full ${styles.listBrandBannerText} ${
+              props.imageOnLeft ? "lg:pl-8" : "lg:pr-8"
+            }`}
+          >
+            <h3
+              className={`font-extrabold ${styles.innerBrandTitle}  ${
+                props.imageOnLeft ? styles.innerBrandTitleHome : ""
+              }`}
+            >
               {props.SectionTitle}
             </h3>
-            <h4 className={styles.innerBrandSubtitle}>{props.desc}</h4>
+            <h4
+              className={
+                props.imageOnLeft
+                  ? styles.innerBrandDescHome
+                  : styles.innerBrandSubtitle
+              }
+            >
+              {props.desc}
+            </h4>
             <form
               className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
@@ -159,32 +209,22 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({ props }) => {
               >
                 Terms of Use
               </Link>
-              ,{" "}
+              &{" "}
               <Link
                 className="underline decoration-current"
                 href="/privacy-policy"
                 target="_blank"
               >
                 Privacy
-              </Link>{" "}
-              &{" "}
-              <Link
+              </Link>
+              {/* <Link
                 className="underline decoration-current"
                 href="/legal"
                 target="_blank"
               >
                 Infringement Policy
-              </Link>
+              </Link> */}
             </p>
-          </div>
-          <div className={`w-full max-w-[250px] mx-auto md:max-w-full`}>
-            <Image
-              className={`w-full object-contain max-w-[461px] ml-auto md:mr-auto lg:mr-0`}
-              src={props.bannerImage}
-              alt="List your Brand"
-              width={461}
-              height={378}
-            />
           </div>
         </div>
       </div>

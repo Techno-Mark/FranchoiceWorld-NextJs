@@ -5,12 +5,24 @@
     padding-bottom: 1rem;
 }
 
+.innerBrandTitle.innerBrandTitleHome {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: normal;
+}
+
 .innerBrandSubtitle {
     font-size: 1.5rem;
     line-height: normal;
     padding-bottom: 3rem;
     font-weight: 500;
     max-width: 420px;
+}
+
+.innerBrandDescHome {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
 }
 
 .InputStyle {

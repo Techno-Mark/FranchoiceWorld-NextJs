@@ -1,15 +1,18 @@
 "use client";
-import Banner from "@/components/banner/banner";
-import HalfBanner from "@/components/halfBanner/halfBanner";
-import WhyChoose from "@/components/whyChoose/whyChoose";
-import FindFranchise from "@/components/findFranchise/findFranchise";
-import ListBrandBanner from "@/components/listBrandBanner/listBrandBanner";
-import TopBrandSlider from "@/components/topBrands/topBrands";
-import Testimonial from "@/components/testimonial/testimonial";
-import TrandingVideo from "@/components/trandingVideo/trandingVideo";
-import OurService from "@/components/ourService/ourService";
+import { getFranchiseList } from "@/api/home";
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
+import Banner from "@/components/banner/banner";
+import FindFranchise from "@/components/findFranchise/findFranchise";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
+import HalfBanner from "@/components/halfBanner/halfBanner";
+import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
+import InquireForm from "@/components/inquireForm/inquireForm";
+import OurService from "@/components/ourService/ourService";
+import Testimonial from "@/components/testimonial/testimonial";
+import TopBrandSlider from "@/components/topBrands/topBrands";
+import WhyChoose from "@/components/whyChoose/whyChoose";
+import { formatInvestmentRange } from "@/utills/CommonFunction";
+import { useEffect, useState } from "react";
 
 // interface HomeData {
 //   banner: any[];
@@ -26,95 +29,56 @@ import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry"
 //     items: [];
 //   };
 // }
-const opportunity = {
-  sectionTitle: "Top Business Opportunities",
-  items: [
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-  ],
-};
-const international = {
-  sectionTitle: "Top International Brands",
-  items: [
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: false,
-    },
-    {
-      image: "/images/bussinessImage.jpg",
-      title: "Froozo",
-      category: "F&B",
-      investmentRange: "₹30L - 50L",
-      areaRequired: "1000 - 1500",
-      franchiseOutlet: "20 - 50",
-      favorite: true,
-    },
-  ],
-};
+
+// const international = {
+//   sectionTitle: "Top International Brands",
+//   items: [
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: false,
+//     },
+//     {
+//       image: "/images/bussinessImage.jpg",
+//       title: "Froozo",
+//       category: "F&B",
+//       investmentRange: "₹30L - 50L",
+//       areaRequired: "1000 - 1500",
+//       franchiseOutlet: "20 - 50",
+//       favorite: true,
+//     },
+//   ],
+// };
+
 const testimonials = [
-  {
-    message:
-      "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
-    author: "Connplex",
-    companyLogo: "/images/testimonial/connplex.jpg",
-  },
+  // {
+  //   message:
+  //     "Through excellent marketing work, Sunil and his entire team have been a great help in developing our brand. It has been a very convenient process to work with the team. They have great communication skills and strong technical knowledge. You guys rock!",
+  //   author: "Connplex",
+  //   companyLogo: "/images/testimonial/connplex.jpg",
+  // },
   {
     message:
       "Choosing Gyaata to expand our franchises was one of the best decisions we made. Their dedicated and creative team enhanced our brand reputation and run result-driven lead generation campaigns. We saw significant growth within a short span of time. If you are looking for your brand's franchise growth, this is the one!",
@@ -134,44 +98,65 @@ const testimonials = [
     companyLogo: "/images/testimonial/tcr.jpg",
   },
 ];
-const trandingVideo = {
-  items: [
-    {
-      id: "1",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "2",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-    {
-      id: "3",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
-      videoThumbnail: "/images/banner.jpg",
-    },
-  ],
-};
+
+// const trandingVideo = {
+//   items: [
+//     {
+//       id: "1",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "2",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//     {
+//       id: "3",
+//       title:
+//         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//       videoUrl: "https://www.youtube.com/watch?v=YZ_dqk317A4",
+//       videoThumbnail: "/images/banner.jpg",
+//     },
+//   ],
+// };
+
 const banner = {
   imgUrl: "/images/banner.jpg",
   imgAlt: "Banner image",
   bannerTitle: "Welcome to the World of Franchising",
 };
+
+const innerBanner = {
+  bannerImage: "/images/leftInnerListBrandBanner.png",
+  submitURL: "/list-your-brand/step_1",
+  SectionTitle: "List Your Brand",
+  desc: "Put your brand in the spotlight!",
+  items: [
+    "Gain access to a wide audience of potential franchisees",
+    "Receive pre-screened, highly qualified leads from individuals",
+    "Navigate expansion challenges and achieve sustainable growth",
+  ],
+  noborder: true,
+  imageOnLeft: true,
+};
+
 const cardBox = [
   {
     chooseImage: "/images/brandOwner.svg",
-    chooseTitle: "Brand Owner",
-    list: ["Increased Visibility", "Qualified Leads", "Expert Matching"],
+    chooseTitle: "Brand",
+    list: [
+      "Increased Visibility",
+      "Qualified Leads",
+      "Niche Market Networking",
+    ],
     redirectURL: "/list-your-brand",
   },
   {
@@ -193,59 +178,96 @@ const cardBox = [
     list: [
       "Diversified Revenue Stream",
       "Steady Demand",
-      "Long-term Lease Agreements",
+      "Long-Term Lease Agreements",
     ],
     redirectURL: "/real-estate",
   },
 ];
+
+const serviceItems = [
+  {
+    id: "first",
+    serviceIcon: "/images/franchiseListing.svg",
+    serviceText: "Franchise Listing",
+    redirectURL:
+      "franchise/list?type=categories&industry=null&sector=null&service=null",
+  },
+  {
+    id: "second",
+    serviceIcon: "/images/franchiseAdvisor.svg",
+    serviceText: "Franchise Advisory",
+    redirectURL: "/service/franchise-advisory",
+  },
+  {
+    id: "third",
+    serviceIcon: "/images/franchiseGrowth.svg",
+    serviceText: "Franchise Growth",
+    redirectURL: "/service/franchise-growth",
+  },
+];
+
 export default function Home() {
-  // const [homeData, setHomeData] = useState<HomeData | null>(null);
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [error, setError] = useState<string | null>(null);
-  // const pathname = usePathname();
+  const [opportunity, setOpportunity] = useState<TopBrandSliderProps>({
+    sectionTitle: "Top Business Opportunities",
+    items: [],
+  });
 
-  // const fetchData = async () => {
-  //   try {
-  //     const res = await getData(pathname);
-  //     if (res) {
-  //       setHomeData(res.responseData);
-  //     } else {
-  //       throw new Error("Something went wrong...!!!");
-  //     }
-  //   } catch (err: any) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchTopOppData = async () => {
+    try {
+      const res = await getFranchiseList(
+        "/form-details/list?type=categories&limit=4"
+      );
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [pathname]);
+      const oppArray = res.map((r: any) => ({
+        id: r.id,
+        image: r.brandImages[0],
+        title: r.brandName,
+        category: r.subCategory,
+        investmentRange: formatInvestmentRange(r.investmentRange),
+        areaRequired: r.areaaRequired,
+        franchiseOutlet: r.numberOfLocations,
+        favorite: false,
+      }));
 
-  // if (loading) return <Loading />;
-  // if (error) return <div>Error: {error}</div>;
-
+      setOpportunity({
+        ...opportunity,
+        items: oppArray,
+      });
+    } catch (error) {
+      console.error("Error fetching list Top franchise:", error);
+    }
+  };
+  useEffect(() => {
+    fetchTopOppData();
+  }, []);
   return (
     <>
       <Banner props={banner} />
       <HalfBanner />
-      <WhyChoose cardBox={cardBox} />
-      <FindFranchise />
-      <ListBrandBanner />
-      <TopBrandSlider
-        sectionTitle={opportunity.sectionTitle}
-        items={opportunity.items}
-      />
-      <Testimonial title="Success Stories" testimonials={testimonials} />
-      <FranchiseIndustry />
-      <AboutFranchoice />
-      <OurService />
-      <TopBrandSlider
+      <div className="relative">
+        <WhyChoose
+          title="Why Choose Franchoice World?"
+          desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+          cardBox={cardBox}
+        />
+        <InnerListBrandBanner props={innerBanner} className="md:!pb-10" />
+        <FindFranchise />
+        {/* <ListBrandBanner /> */}
+        <TopBrandSlider
+          sectionTitle={opportunity.sectionTitle}
+          items={opportunity.items}
+        />
+        <FranchiseIndustry />
+        <AboutFranchoice />
+        <OurService services={serviceItems} />
+        {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
         items={international.items}
       />
-      <TrandingVideo items={trandingVideo.items} />
+      <TrandingVideo items={trandingVideo.items} /> */}
+        <Testimonial title="Success Stories" testimonials={testimonials} />
+        <InquireForm />
+      </div>
     </>
   );
 }

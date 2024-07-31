@@ -24,8 +24,10 @@ interface FormValues {
   logo: File[];
   brandImages: File[];
   video?: File[];
+  franchiseAggrementFile: File[];
   acceptTerms: boolean;
   submitInfo: boolean;
+  finalSubmit: boolean;
 }
 
 function FourthStep() {
@@ -48,8 +50,10 @@ function FourthStep() {
     logo: [],
     brandImages: [],
     video: [],
+    franchiseAggrementFile: [],
     acceptTerms: true,
     submitInfo: true,
+    finalSubmit: true,
   });
 
   const FILE_SIZE = 5 * 1024 * 1024;
@@ -62,13 +66,11 @@ function FourthStep() {
   ];
 
   const validationSchema = Yup.object({
-    brochure: Yup.array()
-      .min(1, "Brochure is required")
-      .test("fileSize", "File size is too large", (value) =>
-        value && value[0] ? value[0].size <= FILE_SIZE : true
-      ),
+    brochure: Yup.array().test("fileSize", "File size is too large", (value) =>
+      value && value[0] ? value[0].size <= FILE_SIZE : true
+    ),
+    // .min(1, "Brochure is required")
     logo: Yup.array()
-      .min(1, "Logo is required")
       .test("fileSize", "File size is too large", (value) =>
         value && value[0] ? value[0].size <= FILE_SIZE : true
       )
@@ -77,8 +79,8 @@ function FourthStep() {
           ? SUPPORTED_IMAGE_FORMATS.includes(value[0].type)
           : true
       ),
+    // .min(1, "Logo is required")
     brandImages: Yup.array()
-      .min(1, "At least one logo is required")
       .max(5, "Maximum 5 logos allowed")
       .test("fileSize", "Files are too large", (value) =>
         value ? value.every((file) => file.size <= FILE_SIZE) : true
@@ -88,6 +90,7 @@ function FourthStep() {
           ? value.every((file) => SUPPORTED_IMAGE_FORMATS.includes(file.type))
           : true
       ),
+    // .min(1, "At least one logo is required")
     video: Yup.array()
       .test(
         "fileSize",
@@ -99,6 +102,11 @@ function FourthStep() {
           ? SUPPORTED_VIDEO_FORMATS.includes(value[0].type)
           : true
       ),
+    franchiseAggrementFile: Yup.array().test(
+      "fileSize",
+      "File size is too large",
+      (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 2 : true)
+    ),
     acceptTerms: Yup.boolean()
       .oneOf([true], "You must accept the Terms & Conditions.")
       .required("You must accept the Terms & Conditions."),
@@ -139,8 +147,13 @@ function FourthStep() {
       });
     }
 
+    values.franchiseAggrementFile.forEach((file) => {
+      formData.append(`franchiseAggrementFile`, file);
+    });
+
     formData.append("phoneNumber", mobileNumber || "");
     formData.append("countryCode", selectedCountry || "");
+    formData.append("finalSubmit", "true");
 
     try {
       const response = await axios.post(
@@ -165,9 +178,7 @@ function FourthStep() {
   const createFileFromPath = async (filePath: string, fileName: string) => {
     try {
       const url = `${API_URL}/${filePath}`;
-
       const response = await fetch(url);
-
       const blob = await response.blob();
 
       // Determine the MIME type based on the file extension
@@ -194,6 +205,13 @@ function FourthStep() {
             break;
           case "avi":
             mimeType = "video/x-msvideo";
+            break;
+          case "doc":
+            mimeType = "application/msword";
+            break;
+          case "docx":
+            mimeType =
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             break;
         }
       }
@@ -245,6 +263,13 @@ function FourthStep() {
         )
       );
 
+      const fileAgreement = data.franchiseAggrementFile
+        ? await createFileFromPath(
+            data.franchiseAggrementFile,
+            extractFileName(data.franchiseAggrementFile)
+          )
+        : null;
+
       setFormValues((prevValues) => ({
         ...prevValues,
         phoneNumber: data.phoneNumber || null,
@@ -253,6 +278,7 @@ function FourthStep() {
         logo: logoFile ? [logoFile] : [],
         brandImages: brandImageFiles.filter(Boolean),
         video: videoFile ? [videoFile] : [],
+        franchiseAggrementFile: fileAgreement ? [fileAgreement] : [],
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -291,7 +317,7 @@ function FourthStep() {
                     label="Upload Brochure"
                     desc="Formats accepted are .pdf .png and .jpeg Not more then 25 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     name="brochure"
                     onChange={(file) => {
                       const fileArray = file ? [file] : [];
@@ -310,7 +336,7 @@ function FourthStep() {
                     label="Upload Logo"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     name="logo"
                     onChange={(files) => setFieldValue("logo", files)}
                     existingFiles={formValues.logo}
@@ -327,7 +353,7 @@ function FourthStep() {
                     label="Upload Brand Images"
                     desc="Formats accepted are .png and .jpeg Not more then 5 MB."
                     descClass="text-xs mt-5 font-customBorder font-medium"
-                    required
+                    // required
                     multiple
                     maxFiles={5}
                     name="brandImages"
@@ -355,9 +381,30 @@ function FourthStep() {
                     </div>
                   )}
                 </div>
+                <div>
+                  <FileUpload
+                    label="Upload Current Franchise Agreement"
+                    desc="Formats accepted are .pdf .word Not more than 10 MB."
+                    descClass="text-xs mt-5 font-customBorder font-medium"
+                    // required
+                    name="franchiseAggrementFile"
+                    accept=".pdf,.docx,.doc"
+                    onChange={(file) => {
+                      const fileArray = file ? [file] : [];
+                      setFieldValue("franchiseAggrementFile", fileArray);
+                    }}
+                    existingFiles={formValues.franchiseAggrementFile}
+                  />
+                  {errors.franchiseAggrementFile &&
+                    touched.franchiseAggrementFile && (
+                      <div className="text-red-500">
+                        {errors.franchiseAggrementFile as ReactNode}
+                      </div>
+                    )}
+                </div>
               </div>
 
-              <div className="py-24">
+              <div className="py-8 md:py-24">
                 <span className="text-[rgba(23,73,138,1)] font-semibold text-sm">
                   Agree and Submit Your Information
                 </span>

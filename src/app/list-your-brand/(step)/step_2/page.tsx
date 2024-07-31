@@ -29,7 +29,7 @@ import YearSelect from "@/components/Fields/yearSelect";
 interface FormValues {
   phoneNumber: string | null;
   countryCode: string | null;
-  brandName: string;
+  companyName: string;
   industry: number | null;
   subCategory: number | null;
   service: number | null;
@@ -80,7 +80,7 @@ function SecondStep() {
   const [formValues, setFormValues] = useState<FormValues>({
     phoneNumber: mobileNumber,
     countryCode: selectedCountry,
-    brandName: "",
+    companyName: "",
     industry: null,
     subCategory: null,
     service: null,
@@ -245,10 +245,12 @@ function SecondStep() {
       const data = response.data?.ResponseData;
       setFormValues((prevValues) => ({
         ...prevValues,
-        brandName: data?.brandName || "",
+        companyName: data?.companyName || "",
         industry: data?.industry || null,
         subCategory: data?.subCategory || null,
         service: data?.service || null,
+        businessCommencedYear: Number(data?.businessCommencedYear) || null,
+        franchiseCommencedYear: Number(data?.franchiseCommencedYear) || null,
         yearFounded: data?.yearFounded || null,
         headquartersLocation: data?.headquartersLocation || null,
         numberOfLocations: data?.numberOfLocations || null,
@@ -286,34 +288,36 @@ function SecondStep() {
     if (selectedStates.length > 0) {
       fetchCity(selectedStates);
     }
-
-    // Update cities based on selected states
     setFieldValue(
       "city",
-      formValues.city.filter((cityId) =>
-        selectedStates.includes(cityStateMapping[cityId])
-      )
+      Array.isArray(formValues.city)
+        ? formValues.city.filter((cityId) =>
+            selectedStates.includes(cityStateMapping[cityId])
+          )
+        : []
     );
   };
 
   const validationSchema = Yup.object({
-    brandName: Yup.string()
-      .max(250, "Brand Name cannot be longer than 250 characters.")
-      .required("Brand Name is required"),
-    industry: Yup.number().nullable().required("Industry is required"),
-    subCategory: Yup.number().nullable().required("Sub-Category is required"),
-    service: Yup.number().nullable().required("Service/Product is required"),
-    yearFounded: Yup.number().nullable().required("Year Founded is required"),
-    headquartersLocation: Yup.number()
-      .nullable()
-      .required("Location of Headquarters is required"),
-    numberOfLocations: Yup.number()
-      .nullable()
-      .required("Current Number of Locations/Outlets is required"),
-    brandDescription: Yup.string().required("Description is required"),
-    usp: Yup.string().required("Unique Selling Proposition is required"),
-    state: Yup.array().min(1, "Please select at least one option"),
-    city: Yup.array().min(1, "Please select at least one option"),
+    companyName: Yup.string().max(
+      250,
+      "Brand Name cannot be longer than 250 characters."
+    ),
+    // .required("Brand Name is required"),
+    // industry: Yup.number().nullable().required("Industry is required"),
+    // subCategory: Yup.number().nullable().required("Sub-Category is required"),
+    // service: Yup.number().nullable().required("Service/Product is required"),
+    // yearFounded: Yup.number().nullable().required("Year Founded is required"),
+    // headquartersLocation: Yup.number()
+    //   .nullable()
+    //   .required("Location of Headquarters is required"),
+    // numberOfLocations: Yup.number()
+    //   .nullable()
+    //   .required("Current Number of Locations/Outlets is required"),
+    // brandDescription: Yup.string().required("Description is required"),
+    // usp: Yup.string().required("Unique Selling Proposition is required"),
+    // state: Yup.array().min(1, "Please select at least one option"),
+    // city: Yup.array().min(1, "Please select at least one option"),
   });
 
   const handleSubmit = async (
@@ -352,16 +356,17 @@ function SecondStep() {
     "Industry",
     "Sub-Category",
     "Service/Product",
-    "Year Founded",
+    "Business Commenced On",
+    "Franchise Commenced On",
+    // "Year Founded",
     "Location of Headquarters",
     "Current Number of Locations/Outlets",
   ];
 
-  const fields = [
-    "industry",
-    "subCategory",
-    "service",
-    "yearFounded",
+  const mainFields = ["industry", "subCategory", "service"];
+  const otherFields = [
+    "businessCommencedYear",
+    "franchiseCommencedYear",
     "headquartersLocation",
     "numberOfLocations",
   ];
@@ -385,47 +390,96 @@ function SecondStep() {
         >
           {({ errors, touched, setFieldValue }) => (
             <Form className="md:mt-8">
-              <div className="w-full mb-8 md:mb-7">
+              <div className="w-full mb-6 md:mb-7">
                 <Field
                   as={InputField}
-                  id="brandName"
-                  name="brandName"
+                  id="companyName"
+                  name="companyName"
                   type="text"
-                  label="Brand Name"
-                  required={true}
+                  label="Company Name"
                   className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-                    getIn(errors, "brandName") && getIn(touched, "brandName")
+                    getIn(errors, "companyName") &&
+                    getIn(touched, "companyName")
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
                 />
-                {getIn(errors, "brandName") && getIn(touched, "brandName") && (
-                  <div className="text-red-500 font-medium mb-2">
-                    {getIn(errors, "brandName")}
+                {getIn(errors, "companyName") &&
+                  getIn(touched, "companyName") && (
+                    <div className="text-red-500 font-medium mb-2">
+                      {getIn(errors, "companyName")}
+                    </div>
+                  )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4">
+                {mainFields.map((field: string, index: number) => (
+                  <div className="w-full mb-6 md:mb-7" key={field}>
+                    <Field name={field}>
+                      {({ field: fieldProps, form }: FieldProps) => (
+                        <>
+                          <Select
+                            name={field}
+                            className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
+                              getIn(errors, field) && getIn(touched, field)
+                                ? "border-red-500 mb-0.5"
+                                : ""
+                            }`}
+                            onChange={(value) => {
+                              if (field === "industry") {
+                                setSelectedIndustry(value);
+                                setFieldValue("industry", value);
+                                setFieldValue("subCategory", null);
+                                setFieldValue("service", null);
+                                setSelectedSubCat(null);
+                              } else if (field === "subCategory") {
+                                setSelectedSubCat(value);
+                                setFieldValue("subCategory", value);
+                                setFieldValue("service", null);
+                              } else {
+                                setFieldValue(field, value);
+                              }
+                            }}
+                            searchable={true}
+                            label={label[mainFields.indexOf(field)]}
+                            options={OptionMap[field] || []}
+                          />
+                          {getIn(errors, field) && getIn(touched, field) && (
+                            <div className="text-red-500 font-medium">
+                              {getIn(errors, field)}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </Field>
                   </div>
-                )}
+                ))}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {fields.map((field: string, index: number) => (
+                {otherFields.map((field: string, index: number) => (
                   <div
-                    className={`w-full mb-8 md:even:pl-2 md:odd:pr-2 md:mb-7`}
+                    className={`w-full mb-6 md:even:pl-2 md:odd:pr-2 md:mb-7`}
                     key={field}
                   >
                     <Field name={field}>
                       {({ field: fieldProps, form }: FieldProps) => (
                         <>
-                          {field === "yearFounded" ? (
+                          {field === "businessCommencedYear" ||
+                          field === "franchiseCommencedYear" ? (
                             <YearSelect
                               id="year-select"
-                              name="yearFounded"
+                              name={field}
                               className={`flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none h-full items-center justify-between ${
                                 getIn(errors, field) && getIn(touched, field)
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                              label="Year Founded"
-                              required
+                              label={
+                                label[
+                                  mainFields.length + otherFields.indexOf(field)
+                                ]
+                              }
                               startYear={1900}
                             />
                           ) : (
@@ -436,22 +490,13 @@ function SecondStep() {
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
-                              onChange={(value) => {
-                                if (field === "industry") {
-                                  setSelectedIndustry(value);
-                                  setFieldValue("industry", value);
-                                  setFieldValue("subCategory", null);
-                                  setFieldValue("service", null);
-                                  setSelectedSubCat(null);
-                                } else if (field === "subCategory") {
-                                  setSelectedSubCat(value);
-                                  setFieldValue("subCategory", value);
-                                  setFieldValue("service", null);
-                                } else {
-                                  setFieldValue(field, value);
-                                }
-                              }}
-                              label={label[index]}
+                              onChange={(value) => setFieldValue(field, value)}
+                              searchable={true}
+                              label={
+                                label[
+                                  mainFields.length + otherFields.indexOf(field)
+                                ]
+                              }
                               options={OptionMap[field] || []}
                             />
                           )}
@@ -466,8 +511,9 @@ function SecondStep() {
                   </div>
                 ))}
               </div>
+
               {["brandDescription", "usp"].map((field) => (
-                <div className="w-full mb-8 md:mb-7" key={field}>
+                <div className="w-full mb-6 md:mb-7" key={field}>
                   <Field
                     as={TextArea}
                     id={field}
@@ -478,7 +524,6 @@ function SecondStep() {
                         : "Description"
                     }
                     placeholder="Your Message"
-                    required={true}
                     rows={4}
                     className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                       getIn(errors, field) && getIn(touched, field)
@@ -493,10 +538,14 @@ function SecondStep() {
                   )}
                 </div>
               ))}
+
+              <p className="text-[var(--footer-bg)] text-base font-bold pb-4">
+                Please Select Your Brand expansion plan Across States and City
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {["state", "city"].map((field) => (
                   <div
-                    className={`w-full mb-8 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
+                    className={`w-full mb-6 md:mb-7 md:even:pl-2 md:odd:pr-2 `}
                     key={field}
                   >
                     <Field name={field}>

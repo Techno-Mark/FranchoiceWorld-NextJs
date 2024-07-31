@@ -1,29 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import styled from "styled-components";
-import Button from "../button/button";
 import Card from "../card/card";
+import Title from "../title/title";
 import styles from "./topBrands.module.css";
 // import { FaHeart, FaRegHeart } from "react-icons/fa";
-
-interface BusinessOpportunity {
-  id?: number;
-  title: string;
-  category: string;
-  image: string;
-  investmentRange: string;
-  areaRequired: string;
-  franchiseOutlet: string;
-  favorite: boolean;
-}
-
-interface TopBrandSliderProps {
-  sectionTitle: string;
-  items: BusinessOpportunity[];
-}
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const StyledSlider = styled(Slider)`
   .slick-list {
@@ -68,16 +54,17 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
   return (
     <section className={`pt-6 md:pt-12 ${styles.topBrandSection}`}>
       <div className="container mx-auto">
-        <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal text-center md:text-left">
+        <Title title={sectionTitle} titleClass="!pb-4" />
+        {/* <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal text-center md:text-left">
           {sectionTitle}
-        </h2>
+        </h2> */}
         <StyledSlider {...settings}>
           {items.map((opportunity) => (
             <div key={opportunity.id}>
               <Card className={`mx-3 ${styles.topBrandCard}`}>
                 <div className="bg-white overflow-hidden">
                   <Image
-                    src={opportunity.image}
+                    src={`${API_URL}/${opportunity.image}`}
                     alt={opportunity.title}
                     className={`w-full object-cover ${styles.topBrandImage}`}
                     width={230}
@@ -117,12 +104,18 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
                         <span>{opportunity.franchiseOutlet}</span>
                       </li>
                     </ul>
-                    <Button
+                    <Link
+                      href={`/franchise/details/${opportunity.id}`}
+                      className={`inline-block px-4 py-2 rounded-lg text-center w-full text-bold ${styles.topBrandButton}`}
+                    >
+                      Know More
+                    </Link>
+                    {/* <Button
                       variant="secondary"
                       className={`w-full text-bold ${styles.topBrandButton}`}
                     >
                       Know More
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </Card>

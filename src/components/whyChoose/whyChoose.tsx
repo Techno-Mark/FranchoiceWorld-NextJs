@@ -14,20 +14,26 @@ interface CardItem {
 
 interface WhyChooseProps {
   cardBox: CardItem[];
+  title?: string;
+  desc?: string;
   hideKnowMore?: boolean;
+  disableLi?: boolean;
 }
 
 const WhyChoose: React.FC<WhyChooseProps> = ({
   cardBox,
+  title,
+  desc,
   hideKnowMore = false,
+  disableLi = false,
 }) => {
   return (
     <section className={styles.whyChoose}>
       <div className="container">
         <div className={`text-center ${styles.titlePart}`}>
           <Title
-            title="Why Choose Franchoice World?"
-            desc="Access expert insights and tailored franchise opportunities that align with your goal, only with Franchoice World."
+            title={title ? title : ""}
+            desc={desc ? desc : ""}
             descClass="font-medium"
           />
         </div>
@@ -37,11 +43,17 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
               { chooseImage, chooseTitle, list, desc, redirectURL = "#" },
               index
             ) => (
-              <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4">
-                <Card className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard}`}>
+              <div key={index} className="px-2 md:px-3 w-1/2 lg:w-1/4 ">
+                <Card
+                  className={`h-full mb-4 md:mb-0 ${styles.whyChooseCard} hover:bg-[var(--footer-bg)] group`}
+                >
                   <Link
                     href={redirectURL}
-                    className={`w-full flex flex-col justify-between h-full ${styles.cardItems}`}
+                    className={`w-full flex flex-col ${
+                      redirectURL ? "cursor-pointer" : "cursor-none"
+                    } justify-between h-full ${
+                      styles.cardItems
+                    } group-hover:text-[var(--white-color)]`}
                   >
                     <div
                       className={`flex justify-start ${
@@ -61,9 +73,15 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
                       {desc && <p className="font-medium pb-4">{desc}</p>}
                       {list && (
                         <ul className={styles.chooseBenifits}>
-                          {list.map((benefit, idx) => (
-                            <li key={idx}>{benefit}</li>
-                          ))}
+                          {list.map((benefit, idx) =>
+                            disableLi ? (
+                              <span key={idx} className={styles.benefitItem}>
+                                {benefit}
+                              </span>
+                            ) : (
+                              <li key={idx}>{benefit}</li>
+                            )
+                          )}
                         </ul>
                       )}
                     </div>
