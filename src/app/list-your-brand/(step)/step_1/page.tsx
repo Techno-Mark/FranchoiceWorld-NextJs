@@ -103,10 +103,14 @@ const FirstStep = () => {
     brandName: Yup.string()
       .max(250, "Brand Name cannot be longer than 250 characters.")
       .required("Brand Name is required"),
-    websiteURL: Yup.string().matches(
-      /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      "Invalid WebsiteURL!"
-    ),
+    websiteURL: Yup.string()
+      .nullable()
+      .test("is-url-or-empty", "Invalid Website URL", function (value) {
+        if (!value) return true; // Allow empty or null values
+        return /[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/.test(
+          value
+        );
+      }),
     country: Yup.string().required("Country is required"),
     userState: Yup.string().required("State is required"),
     userCity: Yup.string().required("City is required"),

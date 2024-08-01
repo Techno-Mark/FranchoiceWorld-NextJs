@@ -37,10 +37,16 @@ const OTPModal: React.FC<OTPModalProps> = ({
     try {
       const response = await GetOtp(params);
       if (response.ResponseStatus === "success") {
-        // Handle success case
+        setCanResend(false);
+        setTimer(60);
+      } else {
+        setVerificationError(true)
+        setErrorMessage("Resend OTP is Failed. Please try again later.");
       }
     } catch (error) {
+      console.log("Hello");
       console.error("Error getting OTP:", error);
+      setErrorMessage("Resend OTP is Failed. Please try again later.");
     }
   };
 
@@ -130,14 +136,14 @@ const OTPModal: React.FC<OTPModalProps> = ({
     if (inputs) {
       const nextEmptyIndex = newOtp.findIndex((val) => val === "");
       const focusIndex = nextEmptyIndex === -1 ? 5 : nextEmptyIndex;
-      (inputs[focusIndex] as HTMLInputElement).focus();
+      (inputs[focusIndex] as HTMLInputElement)?.focus();
     }
   };
 
   const handleResend = () => {
     setOtp(["", "", "", ""]);
-    setTimer(60);
-    setCanResend(false);
+
+    // setCanResend(false);
     setVerificationError(false);
     setErrorMessage("");
     setAttempts(2); // Reset attempts when OTP is resent
@@ -170,7 +176,6 @@ const OTPModal: React.FC<OTPModalProps> = ({
         setVerificationError(false);
         setErrorMessage("");
         setVerifyDone(true);
-        // router.push(submitUrl);
         setAttempts(2);
         setTimeout(() => {
           router.push(submitUrl);
