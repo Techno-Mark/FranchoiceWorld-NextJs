@@ -174,7 +174,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
         setAttempts(2);
         setTimeout(() => {
           router.push(submitUrl);
-        }, 3000);
+        }, 2000);
       }
       if (response.ResponseStatus === "failure") {
         setVerificationError(true);
