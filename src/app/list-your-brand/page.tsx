@@ -98,10 +98,10 @@ function ListYourBrand() {
       ),
     },
     {
-      title: "How can I become a franchisee on your portal?",
+      title: "How can my brand be discovered on your portal?",
       content: (
         <p>
-          Once your brand is listed with us,it can be discovered by investors
+          Once your brand is listed with us, it can be discovered by investors
           when they look for the franchise of their choice in the &apos;Find
           Your Franchise&apos; section of our Home Page.
         </p>

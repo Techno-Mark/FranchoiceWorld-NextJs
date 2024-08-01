@@ -255,7 +255,7 @@ const About_us = () => {
     <>
       <AboutSection
         title="Welcome to Franchoice World,"
-        subtitle="by Gyaata and Pacific Group of Companies.We empower brands to achieve expansive growth through strategic franchise partnerships."
+        subtitle="by Gyaata and Pacific Group of Companies. We empower brands to achieve expansive growth through strategic franchise partnerships."
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
         imageSrc="/images/aboutUs/about_us_Banner.svg"
         imageAlt="About Banner"

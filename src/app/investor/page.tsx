@@ -10,6 +10,7 @@ import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhatWeDo from "@/components/whatWeDo/whatWeDo";
 import WhyChoose from "@/components/whyChoose/whyChoose";
 import { formatInvestmentRange } from "@/utills/CommonFunction";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const whyChooseUs = [
@@ -353,7 +354,7 @@ const Investor = () => {
     items: [
       "Unveil our registered and listed franchise brands looking for investors.",
       "Gain access to the franchiser brand and investment details.",
-      "Unlock growth by investing in the most suitable brand of your choice.",
+      "Unlock growth by investing in the most suitable brand of your choice",
     ],
     noborder: true,
   };
@@ -395,9 +396,10 @@ const Investor = () => {
         "What are the terms and conditions of investing in a franchise on your portal?",
       content: (
         <p>
-          To know about our policies and terms and conditions, head to our Terms
-          and Conditions (add page link) and Privacy Policy (add page link)
-          pages before filling the investor form.
+          To know about our policies and terms and conditions, head to our{" "}
+          <Link href="/term-conditions">Terms of Use </Link>
+          {" "}and{" "}<Link href="/privacy-policy">Privacy Policy</Link>
+          {" "}pages before filling the investor form.
         </p>
       ),
     },

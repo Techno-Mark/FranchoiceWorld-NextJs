@@ -210,15 +210,15 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                 href="/term-conditions"
                 target="_blank"
               >
-                Terms of Use
+                Terms of Use{" "}
               </Link>
-              &{" "}
+              and{" "}
               <Link
                 className="underline decoration-current"
                 href="/privacy-policy"
                 target="_blank"
               >
-                Privacy
+                Privacy Policy
               </Link>
               {/* <Link
                 className="underline decoration-current"
