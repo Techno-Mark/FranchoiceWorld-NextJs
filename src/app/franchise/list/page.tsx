@@ -122,31 +122,31 @@ const ProductList = () => {
         { content: "Under 5 Lakh" },
         {
           content: "Under 10 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 15 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 20 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 25 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 30 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 50 Lakh",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
         {
           content: "Under 1 Crore",
-          path: "/list?type=categories&industry=null&sector=null&service=null",
+          path: "/franchise/list?type=categories&industry=null&sector=null&service=null",
         },
       ],
     },
