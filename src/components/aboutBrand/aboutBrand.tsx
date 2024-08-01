@@ -1,16 +1,26 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaCirclePlay } from "react-icons/fa6";
 import styles from "./aboutbrand.module.css";
 
-const AboutBrand: React.FC<BrandContent> = ({
-  brandTitle,
-  brandDesc,
-  media,
-}) => {
-  const [mainMedia, setMainMedia] = useState(media[0]);
+interface MediaItem {
+  type: "image" | "video";
+  src: string;
+  poster?: string;
+}
+
+interface BrandContentProps {
+  brandTitle: string;
+  brandDesc: string;
+  media: MediaItem[];
+}
+
+const AboutBrand: React.FC<BrandContentProps> = ({ brandTitle, brandDesc, media }) => {
+  const [mainMedia, setMainMedia] = useState<MediaItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (media && media.length > 0) {
@@ -18,9 +28,21 @@ const AboutBrand: React.FC<BrandContent> = ({
     }
   }, [media]);
 
-  const handleThumbnailClick = (mediaItem: typeof mainMedia) => {
+  const handleThumbnailClick = (mediaItem: MediaItem) => {
     setMainMedia(mediaItem);
     setIsLoading(true);
+    setIsPlaying(false);
+  };
+
+  const handlePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
   return (
@@ -41,20 +63,35 @@ const AboutBrand: React.FC<BrandContent> = ({
             </div>
           </div>
           <div className="w-full md:w-1/2 max-w-[562px]">
-            {/* Brand gallery component */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full h-[200px] md:h-[360px] bg-gray-200 rounded-xl">
+              <div className="relative w-full h-[200px] md:h-[360px] bg-gray-200 rounded-xl overflow-hidden">
                 {isLoading && (
                   <div className="absolute inset-0 bg-gray-200"></div>
                 )}
                 {mainMedia?.type === "video" ? (
-                  <video
-                    controls
-                    className="w-full h-full object-cover rounded-xl"
-                  >
-                    <source src={mainMedia.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                  <>
+                    <video
+                      ref={videoRef}
+                      className="w-full h-full object-cover"
+                      poster={mainMedia.poster || "/default-video-poster.jpg"}
+                      onLoadedData={() => setIsLoading(false)}
+                      onError={(e) => console.error("Video error:", e)}
+                      onPlay={() => setIsPlaying(true)}
+                      onPause={() => setIsPlaying(false)}
+                      controls={isPlaying}
+                    >
+                      <source src={mainMedia.src} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    {!isPlaying && (
+                      <div 
+                        className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer"
+                        onClick={handlePlayPause}
+                      >
+                        <FaCirclePlay className="text-white text-5xl" />
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <Image
                     className="object-cover w-full h-full rounded-xl"
@@ -68,7 +105,7 @@ const AboutBrand: React.FC<BrandContent> = ({
                 )}
               </div>
               <ul className="flex mt-6 justify-between w-full">
-                {media.map((item, index) => (
+                {media.map((item: MediaItem, index: number) => (
                   <li key={index} className="cursor-pointer mx-1 rounded-lg">
                     {item.type === "image" ? (
                       <Image

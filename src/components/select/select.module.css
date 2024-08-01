@@ -1,11 +1,11 @@
-
 /* Cross-browser scrollbar styling */
 .custom_scrollbar {
-    overflow-y: scroll; /* Ensure scrollbar is visible for testing */
+    overflow: scroll; /* Ensure both scrollbars are visible for testing */
 }
 
 .custom_scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 8px;  /* Vertical scrollbar width */
+    height: 8px; /* Horizontal scrollbar height */
 }
 
 .custom_scrollbar::-webkit-scrollbar-track {

@@ -1,7 +1,14 @@
+/* .chooseBenifits li {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.4rem;
+    font-size: 13px;
+    font-weight: 500;
+}
+
 .chooseBenifits li::before {
     content: "";
     width: 5px;
     height: 5px;
     border-radius: 50px;
-    background: var(--highlighted-color);
-}
+} */
