@@ -24,10 +24,12 @@ interface FormValues {
   otherInformation: string;
   whoAmI: number | null;
   acceptTerms: boolean;
+  pageFrom: string;
 }
 
 interface ContactProps {
   underDevelopment?: string;
+  pageFroms: string;
 }
 
 const whoOption = [
@@ -39,7 +41,10 @@ const whoOption = [
   },
   { label: "Real Estate Developer", value: 4 },
 ];
-const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
+const ContactBanner: React.FC<ContactProps> = ({
+  underDevelopment,
+  pageFroms,
+}) => {
   const router = useRouter();
 
   const initialValues: FormValues = {
@@ -50,6 +55,7 @@ const ContactBanner: React.FC<ContactProps> = ({ underDevelopment }) => {
     phoneNumber: "",
     otherInformation: "",
     acceptTerms: true,
+    pageFrom: pageFroms,
   };
 
   const validationSchema = Yup.object({

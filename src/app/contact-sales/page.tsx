@@ -5,7 +5,7 @@ import React from "react";
 const ContactSales = () => {
   return (
     <>
-      <ContactBanner />
+      <ContactBanner pageFroms="Contact Us"/>
       <GetInTouch location="Ahmedabad | Mumbai"/>
     </>
   );

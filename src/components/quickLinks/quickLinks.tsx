@@ -3,7 +3,7 @@ import styles from "./quickLinks.module.css";
 
 interface QuickLink {
   content: string;
-  path: string;
+  path?: string;
 }
 
 interface QuickLinkProps {
@@ -27,8 +27,10 @@ const QuickLinks: React.FC<QuickLinkProps> = ({ quickLink }) => {
                   key={subIndex}
                 >
                   <Link
-                    className="hover:text-[var(--footer-bg)] hover:underline pointer-events-none"
-                    href={x.path}
+                    className={`hover:text-[var(--footer-bg)] hover:underline ${
+                      !x.path && "pointer-events-none"
+                    }`}
+                    href={x.path ? x.path : "javascript:void(0)"}
                   >
                     {x.content}
                   </Link>

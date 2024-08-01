@@ -99,6 +99,7 @@ const LocationContent = () => {
                 setFieldValue("city", null);
                 fetchCityData(value);
               }}
+              searchable={true}
             />
           </div>
           <div className="mb-5 md:mb-0 md:mr-3 lg:mr-4 w-full max-w-[327px] md:max-w-[280px]">
@@ -108,6 +109,7 @@ const LocationContent = () => {
               options={cityOptions}
               placeholder="Select City"
               onChange={(value) => setFieldValue("city", value)}
+              searchable={true}
             />
           </div>
           <Button
