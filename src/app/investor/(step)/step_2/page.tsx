@@ -509,7 +509,7 @@ function InvestorSecondStep() {
                 >
                   I agree to the{" "}
                   <Link className="underline" href="/term-conditions">
-                    Terms & Conditions.
+                    Terms of Use.
                   </Link>
                 </label>
               </div>

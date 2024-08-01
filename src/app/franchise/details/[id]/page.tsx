@@ -187,16 +187,16 @@ const FranchiseDetails: React.FC = () => {
               the accuracy and reliability of all information mentioned. For
               further details, please check our{" "}
               <Link href="/term-conditions" target="_blank">
-                Terms & Conditions
+                Terms of Use
               </Link>
-              ,
+              {" "}and{" "}
               <Link href="/privacy-policy" target="_blank">
                 Privacy Policy
               </Link>
-              , and
+              {/* , and
               <Link href="/legal" target="_blank">
                 Legal and Infringement Policy
-              </Link>
+              </Link> */}
               .
             </p>
           </div>

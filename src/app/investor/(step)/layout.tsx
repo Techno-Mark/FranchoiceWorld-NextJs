@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import styles from "./investorsteps.module.css";
 import { getInvestorStepProgress } from "@/utills/stepProgress";
 import Faq from "@/components/faq/faq";
+import Link from "next/link"
 
 const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -76,9 +77,10 @@ const InvestorStepLayout: React.FC<{ children: React.ReactNode }> = ({
         "What are the terms and conditions of investing in a franchise on your portal?",
       content: (
         <p>
-          To know about our policies and terms and conditions, head to our Terms
-          and Conditions (add page link) and Privacy Policy (add page link)
-          pages before filling the investor form.
+          To know about our policies and terms and conditions, head to our{" "}
+          <Link href="/term-conditions">Terms of Use </Link> and{" "}
+          <Link href="/privacy-policy">Privacy Policy</Link>{" "} pages before
+          filling the investor form.
         </p>
       ),
     },

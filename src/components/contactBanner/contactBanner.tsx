@@ -87,7 +87,7 @@ const ContactBanner: React.FC<ContactProps> = ({
     ),
     acceptTerms: Yup.boolean().oneOf(
       [true],
-      "You must accept the terms and conditions"
+      "You must accept the terms of use."
     ),
   });
 
@@ -360,7 +360,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                           href="/term-conditions"
                           target="_blank"
                         >
-                          Terms & Conditions
+                          Terms of Use
                         </Link>{" "}
                         and{" "}
                         <Link

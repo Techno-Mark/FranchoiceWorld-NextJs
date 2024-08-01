@@ -108,8 +108,8 @@ function FourthStep() {
       (value) => (value && value[0] ? value[0].size <= FILE_SIZE * 2 : true)
     ),
     acceptTerms: Yup.boolean()
-      .oneOf([true], "You must accept the Terms & Conditions.")
-      .required("You must accept the Terms & Conditions."),
+      .oneOf([true], "You must accept the Terms of Use.")
+      .required("You must accept the Terms of Use."),
 
     submitInfo: Yup.boolean()
       .oneOf([true], "You must accept the T&C for future processing data")
@@ -421,7 +421,7 @@ function FourthStep() {
                   >
                     I agree to the{" "}
                     <Link className="underline" href="/term-conditions">
-                      Terms & Conditions.
+                      Terms of Use.
                     </Link>
                   </label>
                 </div>
