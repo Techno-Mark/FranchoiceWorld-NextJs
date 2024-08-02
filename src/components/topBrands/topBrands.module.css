@@ -56,7 +56,12 @@
     background: var(--highlighted-color);
 }
 
-@media only screen and (max-width:767px) {
+.slick-slider {
+    display: table !important;
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+@media only screen and (max-width: 767px) {
     .topBrandCard:hover {
         transform: scale(1);
         padding: 1rem;
