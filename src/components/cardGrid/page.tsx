@@ -9,7 +9,7 @@ export default function CardGrid({ cardData }: any) {
           <div key={index} className="flex pb-8 md:pb-12">
             <div className="pr-4 md:pr-7">
               <Image
-                className="object-contain"
+                className="object-contain max-w-16"
                 src={card.image}
                 alt={card.title}
                 width={70}

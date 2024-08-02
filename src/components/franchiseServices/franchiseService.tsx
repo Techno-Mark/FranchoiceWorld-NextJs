@@ -11,6 +11,7 @@ interface ServiceItem {
 
 interface OurServiceGridProps {
   title: string;
+  title1?: string;
   subtitle?: string;
   bottomDesc?: string;
   services: ServiceItem[];
@@ -18,6 +19,7 @@ interface OurServiceGridProps {
 
 const FranchiseService: React.FC<OurServiceGridProps> = ({
   title = "Our Services",
+  title1,
   subtitle,
   services,
   bottomDesc,
@@ -25,13 +27,21 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
   return (
     <section className={`py-10 md:pt-20 ${styles.ourService}`}>
       <div className="container">
-        <div className="w-full md:w-4/6 mx-auto">
+        <div className="w-full md:w-9/12 mx-auto">
           <Title
             title={title}
             desc={subtitle ? subtitle : ""}
             descClass="font-medium text-xl !text-center text-[var(--white-color)]"
             titleClass="!text-center !text-xl md:!text-3xl !text-[var(--white-color)]"
           />
+          {title1 && (
+            <Title
+              title={title1}
+              desc={subtitle ? subtitle : ""}
+              descClass="font-medium text-xl !text-center text-[var(--white-color)]"
+              titleClass="!text-center !text-xl md:!text-3xl !text-[var(--white-color)] !w-full"
+            />
+          )}
         </div>
         <div className="flex justify-center flex-wrap mt-14">
           {services.map((service) => (

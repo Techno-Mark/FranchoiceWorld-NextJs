@@ -34,12 +34,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             {mission}
           </div>
         </div>
-        <div>
+        <div className="w-[90%] mx-auto ">
           <Image
             src={imageSrc}
             alt={imageAlt}
             width={978}
-            className="flex items-center w-full max-h-[523px] object-contain"
+            className="flex items-center w-full h-full rounded-xl md:rounded-sm md:max-h-[523px] object-contain md:mb-9 mb-7"
             height={523}
           />
         </div>

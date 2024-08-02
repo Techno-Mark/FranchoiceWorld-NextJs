@@ -97,7 +97,8 @@ const FranchiseAdvisory = () => {
       <FranchiseBanner props={innerBanner} />
       <div className="relative">
         <FranchiseService
-          title="While this is a booming industry, there are several challenges that franchises face."
+          title="While this is a booming industry,"
+          title1="there are several challenges that franchises face."
           subtitle=""
           services={serviceItems}
         />

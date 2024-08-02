@@ -257,7 +257,7 @@ const About_us = () => {
         title="Welcome to Franchoice World,"
         subtitle="by Gyaata and Pacific Group of Companies. We empower brands to achieve expansive growth through strategic franchise partnerships."
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
-        imageSrc="/images/aboutUs/about_us_Banner.svg"
+        imageSrc="/images/IMG.png"
         imageAlt="About Banner"
         description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
