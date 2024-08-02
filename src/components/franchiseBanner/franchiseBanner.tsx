@@ -48,13 +48,13 @@ const FranchiseBanner: React.FC<BannerProps> = ({ props }) => {
   };
 
   return (
-    <section className={`py-8 md:py-24 ${styles.innerListBrandBanner}`}>
+    <section className={`py-14 md:py-24 ${styles.innerListBrandBanner}`}>
       <div className="container">
         <div className="flex flex-col lg:flex-row items-start">
           <div
             className={`w-full lg:w-1/2 ${styles.listBrandBannerText} lg:pr-8 order-1 `}
           >
-            <div className="w-11/12">
+            <div className="w-[95%] md:w-11/12">
               <h4
                 className={`font-extrabold border-[var(--bottom-border)] border-b-[0.5px] ${styles.innerBrandTitle}`}
               >
@@ -72,7 +72,7 @@ const FranchiseBanner: React.FC<BannerProps> = ({ props }) => {
               </ul>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 mt-8 lg:mt-0 order-2 ">
+          <div className="w-full lg:w-1/2 lg:mt-0 order-2 ">
             <Image
               className="w-full object-contain max-w-[461px] mx-auto lg:mr-0"
               src={props.bannerImage}

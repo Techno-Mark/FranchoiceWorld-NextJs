@@ -23,6 +23,9 @@
 
 .serviceBox:hover h4 {
     color: var(--footer-bg);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
 }
 
 .serviceBox:hover .serviceIcn {

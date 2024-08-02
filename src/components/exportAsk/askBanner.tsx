@@ -147,11 +147,11 @@ const AskBanner = () => {
                   <Title
                     title="Ask Our Experts"
                     desc="Enter Your Personal Details"
-                    descClass="md:!px-0 pb-8 font-medium text-xl"
+                    descClass="md:!px-0 pb-8 !font-medium !text-xl "
                     titleClass="md:!pb-2.5"
                   />
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:pr-2 mb-3">
+                    <div className="w-full md:pr-6 mb-7 md:mb-8">
                       <Field
                         as={InputField}
                         id="grid-first-name"
@@ -173,7 +173,7 @@ const AskBanner = () => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full md:pl-2 mb-3">
+                    <div className="w-full md:pl-2 mb-7 md:mb-8">
                       <label
                         className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
                         htmlFor="phoneNumber"
@@ -186,7 +186,7 @@ const AskBanner = () => {
                           <div className="w-[100px] text-[12px]">
                             <CountryDropdown
                               variant="small"
-                              className="!border-[rgba(115,114,115,0.4)]"
+                              className="!border-[rgba(115,114,115,0.4)] !font-medium"
                             />
                           </div>
                           <Field
@@ -223,13 +223,13 @@ const AskBanner = () => {
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:pr-2 mb-3">
+                    <div className="w-full md:pr-6 mb-7 md:mb-8">
                       <Field
                         as={InputField}
                         id="emailId"
                         name="emailId"
                         type="email"
-                        label="Email ID"
+                        label="Email Address"
                         required={true}
                         className={`block w-full border border-[#73727366] rounded-lg py-2.5 px-4 focus:outline-none ${
                           getIn(errors, "emailId") && getIn(touched, "emailId")
@@ -244,10 +244,11 @@ const AskBanner = () => {
                           </div>
                         )}
                     </div>
-                    <div className="w-full md:pl-2 mb-3">
+                    <div className="w-full md:pl-2  md:mb-8">
                       <Select
                         name="city"
                         label="City"
+                        required
                         searchable
                         className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                           getIn(errors, "city") && getIn(touched, "city")
@@ -264,7 +265,7 @@ const AskBanner = () => {
                     </div>
                   </div>
 
-                  <div className="mb-3 mt-6 md:mb-6">
+                  <div className="mb-8 mt-6 md:mb-4">
                     <div className="flex justify-center items-center">
                       <Field
                         as={Checkbox}
@@ -311,7 +312,7 @@ const AskBanner = () => {
                     <Button
                       variant="highlighted"
                       type="submit"
-                      className="rounded-md justify-center text-base font-semibold flex items-center !py-2 !px-5"
+                      className="rounded-md justify-center text-base font-semibold flex items-center !py-4 !px-11"
                     >
                       Submit
                     </Button>

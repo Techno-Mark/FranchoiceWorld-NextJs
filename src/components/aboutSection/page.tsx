@@ -34,13 +34,15 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             {mission}
           </div>
         </div>
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          width={978}
-          className="flex items-center w-full max-h-[523px] object-contain"
-          height={523}
-        />
+        <div>
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            width={978}
+            className="flex items-center w-full max-h-[523px] object-contain"
+            height={523}
+          />
+        </div>
         <div className="w-full md:w-4/6 opacity-70 mx-auto">
           <div className="md:text-[16px]  text-sm text-[var(--about-text)]">
             {description}

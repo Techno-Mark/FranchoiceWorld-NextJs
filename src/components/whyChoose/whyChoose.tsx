@@ -68,7 +68,9 @@ const WhyChoose: React.FC<WhyChooseProps> = ({
                           width={60}
                           height={60}
                         />
-                        <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
+                        <div className="min-h-[75px]">
+                          <h4 className={styles.chooseTitle}>{chooseTitle}</h4>
+                        </div>
                       </div>
                       {desc && <p className="font-medium pb-4">{desc}</p>}
                       {list && (

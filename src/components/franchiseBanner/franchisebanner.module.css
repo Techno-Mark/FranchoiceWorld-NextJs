@@ -9,7 +9,7 @@
     padding-top: 1.32rem;
     font-size: 1.37rem;
     line-height: normal;
-    padding-bottom: 1.32rem;
+    /* padding-bottom: 1.32rem; */
     font-weight: 600;
     max-width: 420px;
 }
@@ -18,19 +18,8 @@
     border-bottom: 0.5px solid var(--text-color);
 }
 
-.arrowIcn {
-    position: relative;
-    left: 0;
-    animation: moveRight 0.8s infinite;
-}
 
 @media only screen and (max-width: 767px) {
-    .InputStyle {
-        max-width: 190px;
-        padding: 0.4rem;
-        font-size: 11px;
-    }
-
     .innerBrandTitle {
         font-size: 2.1rem;
         line-height: 3.125rem;
@@ -39,48 +28,25 @@
 
     .innerBrandSubtitle {
         font-size: 1.25rem;
-        padding-bottom: 2.5rem;
+        /* padding-bottom: 2.5rem; */
         max-width: 100%;
     }
 }
 
 @media only screen and (max-width: 575px) {
-    .InputStyle {
-        max-width: 175px;
-        padding: 0.3rem;
-    }
+  
 
     .innerBrandTitle {
-        font-size: 1.6rem;
+        font-size: 1.25rem;
         line-height: 2.5rem;
     }
 
     .innerBrandSubtitle {
         font-size: 1rem;
+        padding-top: 0.75rem;
     }
 
-    .arrowIcn {
-        width: 15px;
-        height: 15px;
-    }
+   
 }
 
-@media only screen and (max-width: 374px) {
-    .InputStyle {
-        max-width: 125px;
-    }
-}
 
-@keyframes moveRight {
-    0% {
-        left: 0;
-    }
-
-    50% {
-        left: -4px;
-    }
-
-    to {
-        left: 0;
-    }
-}
