@@ -46,8 +46,7 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
         breakpoint: 480,
         settings: {
           slidesToShow: 1.3,
-          vertical: true,
-          verticalSwiping: true,
+          
         },
       },
     ],
