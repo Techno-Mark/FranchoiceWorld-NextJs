@@ -14,6 +14,9 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 const StyledSlider = styled(Slider)`
   .slick-list {
     padding: 1.2rem 0 4rem;
+    display: table !important;
+    table-layout: fixed !important;
+    width: 100% !important;
   }
 `;
 
@@ -46,7 +49,6 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
         breakpoint: 480,
         settings: {
           slidesToShow: 1.3,
-          
         },
       },
     ],
