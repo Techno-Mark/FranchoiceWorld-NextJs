@@ -26,12 +26,11 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
 }) => {
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     space: "10px",
-    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -43,12 +42,13 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
+          centerMode: true,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1.3,
+          slidesToShow: 1.5,
         },
       },
     ],

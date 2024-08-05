@@ -24,7 +24,7 @@ const innerBanner = {
 const serviceItems = [
   {
     id: "first",
-    serviceIcon: "/images/franchise-groth/FranchiseModal.svg",
+    serviceIcon: "/images/franchise-groth/Blue-Franchise.svg",
     serviceText: "Franchise Modelling",
   },
   {
@@ -34,7 +34,7 @@ const serviceItems = [
   },
   {
     id: "third",
-    serviceIcon: "/images/franchise-groth/Franchise.svg",
+    serviceIcon: "/images/franchise-groth/Blue-FranchiseDevelopment.svg",
     serviceText: "Franchise Development ",
   },
 ];
