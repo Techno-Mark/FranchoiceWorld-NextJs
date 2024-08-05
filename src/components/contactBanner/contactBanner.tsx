@@ -30,6 +30,8 @@ interface FormValues {
 
 interface ContactProps {
   underDevelopment?: string;
+  title?: string;
+  desc?: string;
   pageFroms: string;
 }
 
@@ -44,6 +46,8 @@ const whoOption = [
 ];
 const ContactBanner: React.FC<ContactProps> = ({
   underDevelopment,
+  title = "Contact Our Team",
+  desc = "We are here to answer your queries, help you navigate the franchising journey, and be at your assistance at all times.",
   pageFroms,
 }) => {
   const router = useRouter();
@@ -133,18 +137,13 @@ const ContactBanner: React.FC<ContactProps> = ({
           <div className={`w-full lg:w-1/2 ${styles.contactContent}`}>
             <div className="w-full lg:max-w-[467px]">
               {underDevelopment && (
-                <p className="text-white text-[14px] md:text-[16px] lg:text-[20px] font-medium pb-10">
+                <p className="text-white text-[14px] md:text-[16px] font-medium pb-10">
                   {underDevelopment}
                 </p>
               )}
-              <Title
-                varient="white"
-                title="Contact Our Team"
-                titleClass="!pb-2"
-              />
+              <Title varient="white" title={title} titleClass="!pb-2" />
               <p className="text-white text-[14px] lg:text-[16px] font-bold mb-5 md:mb-10">
-                We are here to answer your queries, help you navigate the
-                franchising journey, and be at your assistance at all times.
+                {desc}
               </p>
               {!underDevelopment && (
                 <ul className="text-white">
