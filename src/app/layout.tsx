@@ -26,6 +26,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
+        <link rel="shortcut icon" href="/images/favicon.ico" sizes="/any" />
       </head>
       <body className="mainBody">
         {/* <ListBrandProvider> */}

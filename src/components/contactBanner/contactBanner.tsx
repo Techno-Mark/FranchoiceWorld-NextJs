@@ -14,6 +14,7 @@ import Button from "../button/button";
 import Select from "../select/Select";
 import { useRouter } from "next/navigation";
 import { CreateContact } from "@/api/contact";
+import { BiTrim } from "react-icons/bi";
 
 interface FormValues {
   fullName: string;
@@ -65,6 +66,7 @@ const ContactBanner: React.FC<ContactProps> = ({
         /^[a-zA-Z0-9\s]*$/,
         "Full Name cannot contain special characters"
       )
+      .trim()
       .required("Full Name is required"),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
@@ -79,6 +81,7 @@ const ContactBanner: React.FC<ContactProps> = ({
         /^[a-zA-Z0-9\s]*$/,
         "Company Name cannot contain special characters"
       )
+      .trim()
       .required("Company Name is required"),
     whoAmI: Yup.string().required("This field is required"),
     otherInformation: Yup.string().max(
