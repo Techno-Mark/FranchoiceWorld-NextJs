@@ -190,7 +190,7 @@ const serviceItems = [
     serviceIcon: "/images/franchiseListing.svg",
     serviceText: "Franchise Listing",
     redirectURL:
-      "franchise/list?type=categories&industry=null&sector=null&service=null",
+      "/list-your-brand",
   },
   {
     id: "second",

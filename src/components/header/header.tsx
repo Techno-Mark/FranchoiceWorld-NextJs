@@ -20,24 +20,19 @@ const Header = () => {
       // path: "/services",
       submenu: [
         {
-          name: "Brand Owner",
+          name: "Franchise Listing",
           path: "/list-your-brand",
-          icons: "/images/brandOwner.svg",
+          icons: "/images/franchiseListing.svg",
         },
         {
-          name: "Investor",
-          path: "/investor",
-          icons: "/images/investor.svg",
+          name: "Franchise Advisory",
+          path: "/service/franchise-advisory",
+          icons: "/images/franchiseAdvisor.svg",
         },
         {
-          name: "Independent Franchise Partner",
-          path: "/ifp",
-          icons: "/images/independentPartner.svg",
-        },
-        {
-          name: "Real Estate Developer",
-          path: "/real-estate",
-          icons: "/images/realestate.svg",
+          name: "Franchise Growth",
+          path: "/service/franchise-growth",
+          icons: "/images/franchiseGrowth.svg",
         },
       ],
     },

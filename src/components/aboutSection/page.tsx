@@ -23,14 +23,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   return (
     <section className="py-4 md:py-16">
       <div className="container text-center">
-        <div className="w-full md:w-4/6 mx-auto">
+        <div className="w-full md:w-9/12  mx-auto">
           <div className="text-[var(--footer-bg)] text-2xl pb-10 md:text-5xl font-extrabold max-w-[600px] mx-auto">
             {title}
           </div>
-          <div className="md:text-[16px] opacity-80 text-sm text-[var(--about-text)]">
+          <div className="md:text-[16px] opacity-80 md:pb-0 pb-9  text-sm text-[var(--about-text)]">
             {subtitle}
           </div>
-          <div className="md:text-[18px] opacity-80 text-sm pb-8 pt-4 md:pb-10 font-semibold text-[var(--about-text)]">
+          <div className="md:text-[18px] opacity-80 text-sm pb-8  md:pb-10 font-semibold text-[var(--about-text)]">
             {mission}
           </div>
         </div>
