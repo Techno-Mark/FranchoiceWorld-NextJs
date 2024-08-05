@@ -9,9 +9,9 @@ const Terms_conditions = () => {
         <div className="mb-8 text-footer-bg font-bold text-4xl">
           Terms and Conditions
         </div>
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">General Terms</div>
-          <div className="text-lg pb-3 font-normal ">
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">General Terms</div>
+          <div className="text-lg font-normal ">
             The website domain www.franchoiceworld.com (referred to as the
             &quot;Site&quot;) is owned and operated by Franchoice World
             (referred to as &quot;Company&quot;/ &quot;we&quot;/ &quot;us&quot;/
@@ -25,10 +25,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Disclaimer Notice:</div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Disclaimer Notice:</div>
           <div className="text-lg font-normal ">
-            <ol className="list-decimal p-3">
+            <ol className="list-decimal pl-3">
               <li>
                 Purchasing a franchise requires careful consideration. Hence, we
                 advise you to seek guidance from a lawyer, accountant, and
@@ -63,10 +63,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Legal Disclaimer:</div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Legal Disclaimer:</div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>
                 We shall not be liable for any direct, indirect, punitive,
                 incidental, special, or consequential damages in any event;
@@ -132,10 +132,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Obligations:</div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Obligations:</div>
           <div className="text-lg font-normal ">
-            <ol className="list-decimal p-3">
+            <ol className="list-decimal pl-3">
               <li>
                 Any kind of unlawful, fraudulent, damaging, or harmful use of
                 the services and features provided on the Site is strictly
@@ -258,12 +258,12 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">
             Email/Newsletter Subscription and Membership obligations:
           </div>
           <div className="text-lg font-normal ">
-            <ol className="list-decimal p-3">
+            <ol className="list-decimal pl-3">
               <li>
                 If you join our community, subscribe to our newsletter or
                 membership, or opt to receive emails from the Site, the
@@ -297,12 +297,12 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">
             Franchoice World Verified:
           </div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>
                 The &quot;Franchoice World Verified&quot; is limited assurance
                 offered by the Company that the name and contact information of
@@ -322,10 +322,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Governing Law:</div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Governing Law:</div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>
                 Laws of India govern the Terms of the Site. Users hereby give
                 irrevocable consent to the exclusive jurisdiction and venue of
@@ -362,10 +362,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Refund Policy:</div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Refund Policy:</div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>Refund will take maximum 30 Business days.</li>
               <li>
                 A minimum of 75 days cancellation notice before event is
@@ -385,10 +385,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Variation: </div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Variation: </div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>
                 We reserve the right to amend or modify these Terms and
                 Conditions at any time without notice.{" "}
@@ -397,10 +397,10 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Contact Information: </div>
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-1 font-bold">Contact Information: </div>
           <div className="text-lg font-normal ">
-            <ol className="list-disc p-3">
+            <ol className="list-disc pl-3">
               <li>
                 Your privacy is very important to us. If you have further
                 questions or feedback, please email us at
@@ -410,7 +410,7 @@ const Terms_conditions = () => {
           </div>
         </div>
 
-        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+        <div className="font-normal pb-7 text-[rgba(0,0,0,0.6)]">
           <div className="text-xl pb-3 ">
             Thank you for visiting www.franchoiceworld.com.{" "}
           </div>
