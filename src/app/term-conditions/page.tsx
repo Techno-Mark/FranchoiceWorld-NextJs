@@ -13,15 +13,15 @@ const Terms_conditions = () => {
           <div className="text-xl pb-3 font-bold">General Terms</div>
           <div className="text-lg pb-3 font-normal ">
             The website domain www.franchoiceworld.com (referred to as the
-            "Site") is owned and operated by Franchoice World (referred to as
-            "Company"/ "we"/ "us"/ "our"). The Terms and Conditions mentioned
-            below define and regulate your use of the Site and is a legally
-            binding agreement between you (user), and the Company (owner of the
-            Site). By accessing, browsing, and/or using the Site, you
-            acknowledge to have read, understood, and agreed to comply with
-            these Terms and Conditions. The services provided by the Company
-            through the Site are governed by these terms and must be complied
-            with.
+            &quot;Site&quot;) is owned and operated by Franchoice World
+            (referred to as &quot;Company&quot;/ &quot;we&quot;/ &quot;us&quot;/
+            &quot;our&quot;). The Terms and Conditions mentioned below define
+            and regulate your use of the Site and is a legally binding agreement
+            between you (user), and the Company (owner of the Site). By
+            accessing, browsing, and/or using the Site, you acknowledge to have
+            read, understood, and agreed to comply with these Terms and
+            Conditions. The services provided by the Company through the Site
+            are governed by these terms and must be complied with.
           </div>
         </div>
 
@@ -53,7 +53,7 @@ const Terms_conditions = () => {
               </li>
               <li>
                 The success of a franchise depends upon numerous factors. While
-                the Company strives to ensure all its members' initial
+                the Company strives to ensure all its members&apos; initial
                 compliance with the code, policy, and system of practice, we do
                 not guarantee that any member fully complies with it or that
                 choosing a franchise operated by any member will ensure you
@@ -177,9 +177,10 @@ const Terms_conditions = () => {
                 refuse service to any user at our discretion.
               </li>
               <li>
-                An "Advertiser" is a person, company, or entity wishing to
-                advertise and use Company services, as indicated by the name
-                adjacent to "Advertiser's Name" on the contract.
+                An &quot;Advertiser&quot; is a person, company, or entity
+                wishing to advertise and use Company services, as indicated by
+                the name adjacent to &quot;Advertiser&apos;s Name&quot; on the
+                contract.
               </li>
               <li>
                 The Company reserves the right to change advertising rates at
@@ -199,8 +200,8 @@ const Terms_conditions = () => {
               </li>
               <li>
                 Unless otherwise agreed in writing, the Advertisement (excluding
-                the Advertiser's trademarks and/or trade names) created by the
-                Company becomes the exclusive property of the Company. The
+                the Advertiser&apos;s trademarks and/or trade names) created by
+                the Company becomes the exclusive property of the Company. The
                 Advertiser warrants not to reproduce or assign the Advertisement
                 for reproduction in any form without prior written consent from
                 the Company.
@@ -208,7 +209,7 @@ const Terms_conditions = () => {
               <li>
                 Advertising agencies placing Advertisements on behalf of an
                 Ultimate Customer warrant authority to modify as per the
-                Advertiser's instructions without committing any offense or
+                Advertiser&apos;s instructions without committing any offense or
                 tort. The Advertiser agrees to indemnify and hold the Company
                 harmless from costs, damages, or charges arising from disputes
                 by the Ultimate Customer regarding Advertisement display on the
@@ -216,7 +217,7 @@ const Terms_conditions = () => {
               </li>
               <li>
                 The Advertiser agrees to notify the Company in writing of any
-                change in ownership or authorization after this contract's
+                change in ownership or authorization after this contract&apos;s
                 execution.
               </li>
               <li>
@@ -229,8 +230,8 @@ const Terms_conditions = () => {
                 subscriptions for any reason.
               </li>
               <li>
-                The Company's liability under any circumstances is limited to
-                the fees paid by the Advertiser to the Company, if any.
+                The Company&apos;s liability under any circumstances is limited
+                to the fees paid by the Advertiser to the Company, if any.
               </li>
               <li>
                 Any dispute between the Advertiser and the Company, in relation
@@ -303,11 +304,11 @@ const Terms_conditions = () => {
           <div className="text-lg font-normal ">
             <ol className="list-disc p-3">
               <li>
-                The "Franchoice World Verified" is limited assurance offered by
-                the Company that the name and contact information of the
-                advertiser and the category in which the advertiser is listed on
-                the Site, have been verified as existing and correct at the time
-                of the advertiser's registration at the Site.
+                The &quot;Franchoice World Verified&quot; is limited assurance
+                offered by the Company that the name and contact information of
+                the advertiser and the category in which the advertiser is
+                listed on the Site, have been verified as existing and correct
+                at the time of the advertiser&apos;s registration at the Site.
               </li>
               <li>
                 The Company makes no representations or guarantees, whether
