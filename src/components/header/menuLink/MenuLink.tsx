@@ -40,7 +40,7 @@ const MenuLink = ({ item }: any) => {
           <div className={styles.menuItem} ref={menuRef}>
             <button
               onClick={toggleSubmenu}
-              className={`p-2 xl:px-3 capitalize inline-block flex gap-1 lg:gap-2 items-center ${styles.menuItem} ${styles.menuButton}`}
+              className={`p-2 xl:px-3 capitalize flex gap-1 lg:gap-2 items-center ${styles.menuItem} ${styles.menuButton}`}
             >
               {item.name}
               <svg

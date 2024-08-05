@@ -9,152 +9,409 @@ const Terms_conditions = () => {
         <div className="mb-8 text-footer-bg font-bold text-4xl">
           Terms and Conditions
         </div>
-        <div className="mt-6">
-          <div className="font-normal pb-14 text-lg text-[rgba(0,0,0,0.6)]">
-            Your use of our website is governed by the following terms and
-            conditions (“Terms of Use”), as well as the CARDONE CAPITAL Privacy
-            Policy and other operating rules, minimum qualifications and
-            cautions posted throughout the website or presented to you
-            individually during the course of your use of the website
-            (collectively, the “Terms”). The Terms govern your use of the
-            website and CARDONE CAPITAL reserves the right to update or replace
-            the Terms any time without notice. You are advised to review the
-            Terms for any changes when you visit the website even if you have
-            not received a notification of changes as you are bound by them even
-            if you have not reviewed them. Your viewing and use of the website
-            after such change constitutes your acceptance of the Terms and any
-            changes to such terms. If at any time you do not want to be bound by
-            the Terms you should logout, exit and cease using the website
-            immediately.
-          </div>
-        </div>
         <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Intended Use of Website</div>
+          <div className="text-xl pb-3 font-bold">General Terms</div>
           <div className="text-lg pb-3 font-normal ">
-            CARDONE CAPITAL is not a broker-dealer or placement agent. At no
-            time does CARDONE CAPITAL offer, broker, advise, purchase, sell or
-            otherwise transact in securities regulated by the SEC or federal or
-            state law. CARDONE CAPITAL does not accept, hold or transfer cash or
-            securities. CARDONE CAPITAL does not guarantee that a Company
-            seeking investment will achieve any level of success or that any
-            proposed offering will qualify under applicable federal and state
-            securities laws.
-          </div>
-          <div className="text-lg pb-3 font-normal ">
-            CARDONE CAPITAL is not a personal financial advisor. CARDONE
-            CAPITAL, whether through the website or otherwise, does not provide
-            personal financial advice, loans or credit, banking, consumer credit
-            ratings, credit decisions, financial products, brokerage accounts,
-            insurance, tax advice, legal advice, or financial or legal services
-            of any kind.
-          </div>
-          <div className="text-lg pb-3 font-normal ">
-            CARDONE CAPITAL does not guarantee any results to anyone. All users
-            of the website are responsible for making their own decisions to use
-            the website and for any activity taken on the website, including
-            without limitation registering and making an investment or
-            otherwise.
+            The website domain www.franchoiceworld.com (referred to as the
+            "Site") is owned and operated by Franchoice World (referred to as
+            "Company"/ "we"/ "us"/ "our"). The Terms and Conditions mentioned
+            below define and regulate your use of the Site and is a legally
+            binding agreement between you (user), and the Company (owner of the
+            Site). By accessing, browsing, and/or using the Site, you
+            acknowledge to have read, understood, and agreed to comply with
+            these Terms and Conditions. The services provided by the Company
+            through the Site are governed by these terms and must be complied
+            with.
           </div>
         </div>
+
         <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">User Registration</div>
-          <div className="text-lg pb-3 font-normal ">
-            If you are accepting the Terms on behalf of an organization or
-            entity, rather than in an individual capacity, you represent and
-            warrant that you are authorized to accept the Terms on that
-            organization or entity&apos;s behalf and bind them to these Terms
-            (in which case, the references to “you” and “your” in these Terms,
-            except for in this sentence, refer to that organization or entity).
-          </div>
-          <div className="text-lg pb-3 font-normal ">
-            Only real persons at or above the age of 18 may register for an
-            account and use the website. Registering for an account on the
-            website creates no commitment or obligation on the registered user
-            to make any investment or seek any investment. All information you
-            provide to the website must be truthful, accurate and complete in
-            all material respects. Our registration process may use third-party
-            validation technology, including those provided by third-party
-            social media sites, to attempt to confirm your qualification to use
-            the website.
-          </div>
-          <div className="text-lg pb-3 font-normal ">
-            CARDONE CAPITAL may reject any application to register an individual
-            or an organization or entity for failure to achieve validation
-            through available methods or otherwise meet CARDONE CAPITAL&apos;s
-            registration requirements.
-          </div>
-          <div className="text-lg pb-3 font-normal ">
-            Your registration and the use of any third-party site is subject to
-            the terms and conditions and policies of such sites and CARDONE
-            CAPITAL is not responsible or liable for any harm resulting from the
-            use or misuse of those sites, including when such harm could or does
-            affect your account on this website or use of the website.
+          <div className="text-xl pb-3 font-bold">Disclaimer Notice:</div>
+          <div className="text-lg font-normal ">
+            <ol className="list-decimal p-3">
+              <li>
+                Purchasing a franchise requires careful consideration. Hence, we
+                advise you to seek guidance from a lawyer, accountant, and
+                experienced franchise consultant before making a commitment.{" "}
+              </li>
+              <li>
+                Franchoice World (www.franchoiceworld.com) does not accept the
+                responsibility for the accuracy of any information on this site
+                or linked sites and relies on the accuracy of information
+                provided by the organizations listed herein. It is the
+                user&apos;s responsibility to verify the accuracy and
+                reliability of the information provided.{" "}
+              </li>
+              <li>
+                The organizations mentioned on the Site are members, partners,
+                and sponsors of Franchoice World. The Company does not imply any
+                kind of endorsement of their products, services, and/or business
+                opportunities, and is not an agent for these organizations. You
+                are solely responsible to assess all aspects of any specific
+                franchise opportunity or business with independent inquiries and
+                professional consultation.
+              </li>
+              <li>
+                The success of a franchise depends upon numerous factors. While
+                the Company strives to ensure all its members' initial
+                compliance with the code, policy, and system of practice, we do
+                not guarantee that any member fully complies with it or that
+                choosing a franchise operated by any member will ensure you
+                successful business.
+              </li>
+            </ol>
           </div>
         </div>
+
         <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
-          <div className="text-xl pb-3 font-bold">Content Use Limitations</div>
-          <div className="text-lg pb-3 font-normal ">
-            Your use of the website and its videos, webinars, images,
-            infographics, alerts, text, articles, assessments, checklists,
-            forms, ratings, design, data, source code, analytics, photos,
-            software, trademarks, copyrights, and other information (“Content”)
-            may only be used for the lawful and intended purposes expressly
-            authorized by CARDONE CAPITAL. If you access this website from
-            outside the United States, you are solely responsible for ensuring
-            compliance with the laws of your specific jurisdiction, as well as
-            any restrictions that you may be subject to by a department of the
-            United States government. Any misuse or unauthorized use of the
-            website and its Content, or other violations of the Terms may
-            violate Applicable Law (see below), including without limitation SEC
-            regulations and applicable state securities laws, copyright laws
-            (including the Digital Millennium Copyright Act), trademark laws,
-            the laws of privacy, laws of publicity, identity theft and
-            communications statutes and regulations, in which case CARDONE
-            CAPITAL is authorized to terminate your account and access to the
-            website at any time and without notice and report you to the
-            appropriate authorities and other interested parties.
+          <div className="text-xl pb-3 font-bold">Legal Disclaimer:</div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>
+                We shall not be liable for any direct, indirect, punitive,
+                incidental, special, or consequential damages in any event;
+                including but not limited to damages for loss of use, data, or
+                profits, arising from the use of information provided on the
+                Site, our performance, delay or inability to use the Site or our
+                services, or any related services. This includes the provision
+                or failure to provide services, or for any information,
+                services, and related services obtained through the Site or our
+                services, regardless of whether such damages arise from
+                contract, tort, negligence, strict liability, or otherwise, even
+                if you have been advised of the possibility of such damages.
+                Neither we nor the Site endorse any advertisers or their content
+                on the web pages. Users are responsible for verifying the
+                reliability and appropriateness of such content. We are not
+                liable for any consequential damages resulting from users
+                relying on advertiser content.
+              </li>
+              <li>
+                Before sharing any content on the Site, ensure you have the
+                right to do so. We reserve the right to use, reproduce, and
+                modify all content submitted by you to the Site, including
+                comments published by you. We are dedicated to use our absolute
+                discretion in exercising this right.
+              </li>
+              <li>
+                All content, links, and listings provided on the Site and
+                related sites are for informational purposes only. We do not
+                provide warranties and are not liable for any actions or
+                representations of any company listed on the Site or related
+                sites.
+              </li>
+              <li>
+                It is advisable to seek independent advice before acting on any
+                information on the Site.
+              </li>
+              <li>
+                While we strive for accuracy in the information we provide, we
+                are not responsible for any loss suffered as a result of actions
+                taken or not taken based on our information. It is solely the
+                responsibility of prospective investors and Site users to obtain
+                all necessary documents and verify information independently.{" "}
+              </li>
+              <li>
+                We do not hold any responsibility for the content published on
+                the Site. If you believe any content is inappropriate, please
+                promptly contact us at info@franchoiceworld.com. We will address
+                your request as soon as reasonably possible.
+              </li>
+              <li>
+                All content and code on the Site are copyright © 1999-2022,
+                owned by the Company. All rights reserved. We reserve the right
+                to refuse any submitted advertising or information at our sole
+                discretion.
+              </li>
+              <li>
+                We are not liable for transactions between investors and
+                franchisors listed on the Site. Listing of franchisors and
+                investors on the Site is for informational purposes only and
+                does not imply endorsement or recommendation by the Company.
+              </li>
+            </ol>
           </div>
         </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">Obligations:</div>
+          <div className="text-lg font-normal ">
+            <ol className="list-decimal p-3">
+              <li>
+                Any kind of unlawful, fraudulent, damaging, or harmful use of
+                the services and features provided on the Site is strictly
+                prohibited. This includes using them for competitive
+                intelligence, reverse engineering, or copying any of its content
+                or functionality.
+              </li>
+              <li>
+                You are liable and agree to respect other users of the Site and
+                refrain from interfering with their legitimate use of the Site
+                and our services.
+              </li>
+              <li>
+                You are liable and agree to indemnify us against all costs,
+                claims, liabilities, demands, or expenses incurred due to any
+                breach of these Terms by you.
+              </li>
+              <li>
+                We reserve the right to block your access to the Site or delete
+                your user account at any time as per our discretion.
+              </li>
+              <li>
+                You must not publish or cause to be published any unlawful,
+                defamatory, obscene, threatening, offensive, harmful, or
+                otherwise objectionable content. By submitting content to the
+                Site, you confirm to be the author and waive all moral rights
+                and copyrights to such content.
+              </li>
+              <li>
+                A GST of 18% applies to all transactions related to dotcom
+                services. Activation of the account will occur upon realization
+                of the cheque, granting paid clients access to investor details.
+                Notify us via email for any changes to be made to your account.
+              </li>
+              <li>
+                When requesting information about our sponsors, ensure all
+                submitted information is truthful, non-misleading, and complies
+                with laws and regulations. However, we reserve the right to
+                refuse service to any user at our discretion.
+              </li>
+              <li>
+                An "Advertiser" is a person, company, or entity wishing to
+                advertise and use Company services, as indicated by the name
+                adjacent to "Advertiser's Name" on the contract.
+              </li>
+              <li>
+                The Company reserves the right to change advertising rates at
+                any time without notice.
+              </li>
+              <li>
+                All advertising materials supplied to the Company must be owned
+                or legally authorized for use by the Advertiser. The
+                Advertisement must not be obscene, offensive, or unlawful and
+                must comply with all applicable laws, rules, and regulations.
+              </li>
+              <li>
+                The Company endeavors to accurately upload information provided
+                by Advertisers but is not liable for errors or omissions. The
+                Company will make corrections upon written notification by the
+                Advertiser where possible.
+              </li>
+              <li>
+                Unless otherwise agreed in writing, the Advertisement (excluding
+                the Advertiser's trademarks and/or trade names) created by the
+                Company becomes the exclusive property of the Company. The
+                Advertiser warrants not to reproduce or assign the Advertisement
+                for reproduction in any form without prior written consent from
+                the Company.
+              </li>
+              <li>
+                Advertising agencies placing Advertisements on behalf of an
+                Ultimate Customer warrant authority to modify as per the
+                Advertiser's instructions without committing any offense or
+                tort. The Advertiser agrees to indemnify and hold the Company
+                harmless from costs, damages, or charges arising from disputes
+                by the Ultimate Customer regarding Advertisement display on the
+                website.
+              </li>
+              <li>
+                The Advertiser agrees to notify the Company in writing of any
+                change in ownership or authorization after this contract's
+                execution.
+              </li>
+              <li>
+                The Advertiser assumes responsibility and liability for
+                protecting its intellectual property rights in any visual or
+                textual content included in the Advertisement.
+              </li>
+              <li>
+                No refunds will be issued for cancelled advertisements or
+                subscriptions for any reason.
+              </li>
+              <li>
+                The Company's liability under any circumstances is limited to
+                the fees paid by the Advertiser to the Company, if any.
+              </li>
+              <li>
+                Any dispute between the Advertiser and the Company, in relation
+                to the contract, will be resolved exclusively by courts in
+                Delhi, India, to the exclusion of all other jurisdictions.
+              </li>
+              <li>
+                This contract will be governed and construed in accordance with
+                Indian law, without regard to its conflict of laws principles.
+              </li>
+              <li>
+                In addition to the terms in this contract, the Advertiser
+                acknowledges that the User Agreement/Terms and Conditions on the
+                tradeindia.com website apply and are incorporated by reference.
+                In case of conflict, the User Agreement/Terms and Conditions
+                prevail.
+              </li>
+              <li>
+                Correspondence to the Advertiser should be sent to the address
+                provided, and all correspondence to the Company should be
+                addressed to our Registered Office.
+              </li>
+            </ol>
+          </div>
+        </div>
+
         <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
           <div className="text-xl pb-3 font-bold">
-            Prospective Investor Accounts
+            Email/Newsletter Subscription and Membership obligations:
           </div>
-          <div className="text-lg pb-3 font-normal ">
-            Any person or entity that is considering making an investment with a
-            Company that posts its fundraising plans on the website, or, after
-            the fundraising plan becomes a qualified offering, makes an
-            investment, does so at his or her own risk. All investment carries
-            risk that you may lose some or all of your investment. No Content on
-            the website is a replacement for performing your own due diligence,
-            exercising good judgement, and seeking financial, investment, tax or
-            legal advice from qualified and licensed professionals with
-            knowledge of your personal circumstances. Any registered financial,
-            legal or tax representatives or firm working for or with CARDONE
-            CAPITAL or communicating with you or users in general through the
-            website are not your personal advisors and do not have knowledge
-            about your personal circumstances and anything they post is for
-            informational purposes only and may not be accurate to your
-            situation and you agree that you shall not rely on Content on the
-            website in making personal decisions about an investment or the
-            potential legal, tax or financial consequences of such investment.
-            You are encouraged to seek personal professional advice from
-            qualified and licensed professionals.
+          <div className="text-lg font-normal ">
+            <ol className="list-decimal p-3">
+              <li>
+                If you join our community, subscribe to our newsletter or
+                membership, or opt to receive emails from the Site, the
+                information you provide on the registration form will be used to
+                send you franchise industry newsletters, special promotions, and
+                other information. If you no longer wish to receive these
+                emails, you can unsubscribe by following the instructions
+                provided at the bottom of the email. By submitting your details
+                to the Site and consenting to share your information with
+                advertisers, you agree to receive telephone calls and/or emails
+                regarding franchise and business opportunities, even if you are
+                registered with us or on any Do Not Call List.
+              </li>
+              <li>
+                You agree to provide accurate and truthful personal information,
+                including your real first and last name, during registration.
+              </li>
+              <li>
+                You agree to safeguard your username and password from
+                third-party use and not to share your registration details with
+                anyone else.
+              </li>
+              <li>
+                You agree to indemnify the Company against any unauthorized use
+                of your username and password, regardless of the cause. We
+                reserve the right to modify the membership information you
+                provide, and to delete, disable, and/or restrict your account at
+                our sole discretion.
+              </li>
+            </ol>
           </div>
-          <div className="text-lg pb-3 font-normal ">
-            You are solely responsible for your investment decisions. While you
-            may be asked about your identity, individual financial circumstance
-            and investment experience and sophistication during your engagement
-            with the website, CARDONE CAPITAL and its advisors and vendors are
-            not responsible to verify the veracity of the information that you
-            provide, even if you certify to its truth or undergo a suitability
-            review. Whether you are an “Accredited Investor”, as such is defined
-            under securities law, or a non-accredited investor, or an
-            institutional investor, CARDONE CAPITAL and the Companies seeking
-            investment are relying on your representations with respect to your
-            investment experience, your financial status and your eligibility to
-            invest. You may, further, be held personally liable for your fraud,
-            negligence and other bad acts that may result from any false
-            representations you make.
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">
+            Franchoice World Verified:
+          </div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>
+                The "Franchoice World Verified" is limited assurance offered by
+                the Company that the name and contact information of the
+                advertiser and the category in which the advertiser is listed on
+                the Site, have been verified as existing and correct at the time
+                of the advertiser's registration at the Site.
+              </li>
+              <li>
+                The Company makes no representations or guarantees, whether
+                express or implied, including but not limited to guarantees of
+                the continued existence and/or operations of the advertiser, or
+                the reliability, quality, or support, of services as a
+                franchisor for taking a franchise offered by the advertiser.
+                Buying franchise from advertisers shall be at your own risk.
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">Governing Law:</div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>
+                Laws of India govern the Terms of the Site. Users hereby give
+                irrevocable consent to the exclusive jurisdiction and venue of
+                the Delhi, India, in all disputes arising out of or relating to
+                the use of the Site or its related services. Users agree to
+                indemnify and hold the Site and the Company and its
+                subsidiaries, affiliates, officers, and employees harmless from
+                any claim, demand, or damage, including reasonable attorney’s
+                fees, asserted by any third party due to or arising out of users
+                own usage of or conduct on the Site. The Site/Company reserves
+                the right to disclose any personal information about the users
+                or use of the Site, including its contents, without the user’s
+                prior permission, if the Company has good faith belief that such
+                action is necessary to: (1) Conform to legal recommendations or
+                comply with legal process; (2) Protect and defend the rights or
+                property of the Company or its affiliated companies; (3) Enforce
+                the terms or use; or (4) Act to protect the interests of its
+                members or others. If any part of this contract is determined to
+                be invalid or unenforceable pursuant to any applicable law
+                including, but not limited to, the warranty disclaimers and
+                liability limitations set forth above, then the invalid or
+                unenforceable provision will be deemed superseded by a valid,
+                unenforceable provision that most closely matches the intent of
+                the original provision and the remainder of the contract (as and
+                when amended) shall continue in effect. Unless otherwise
+                specified herein, this contract constitutes the entire agreement
+                between the user and the Company with respect to the Site and
+                its related services and it supersedes all prior or
+                contemporaneous communications and proposals, whether
+                electronic, oral or written, between the user and Company with
+                respect to the use of the Site and its services.
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">Refund Policy:</div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>Refund will take maximum 30 Business days.</li>
+              <li>
+                A minimum of 75 days cancellation notice before event is
+                required to be given; in the absence of the same, no refund will
+                be processed. Annual package deals will not be a part of this.{" "}
+              </li>
+              <li>
+                Cheque payments will be refunded via cheque, payable to the
+                person or organization named on the original cheque presented
+                for payment.{" "}
+              </li>
+              <li>
+                Credit Card payments will be refunded to the original credit
+                card presented for payment.
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">Variation: </div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>
+                We reserve the right to amend or modify these Terms and
+                Conditions at any time without notice.{" "}
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 font-bold">Contact Information: </div>
+          <div className="text-lg font-normal ">
+            <ol className="list-disc p-3">
+              <li>
+                Your privacy is very important to us. If you have further
+                questions or feedback, please email us at
+                info@franchoiceworld.com.
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="font-normal pb-14 text-[rgba(0,0,0,0.6)]">
+          <div className="text-xl pb-3 ">
+            Thank you for visiting www.franchoiceworld.com.{" "}
           </div>
         </div>
       </div>
