@@ -134,6 +134,41 @@ const banner = {
   bannerTitle: "Welcome to the World of Franchising",
 };
 
+const franchiseData = {
+  title: {
+    text: "Franchise Industry at a Glance",
+    style: "font-normal", // Dynamic font style for the title
+  },
+  paragraphs: [
+    {
+      text: "Entrepreneurs today wish to replicate a successful business model, use brand recognition and get thorough training to skyrocket towards growth. Franchise business is one of the most attractive entrepreneurial prospects in contemporary times. It is booming in India, 2nd largest in the world and growing at over 15% annually.",
+      style: "font-medium", // Dynamic font style for the paragraph
+    },
+    {
+      text: "Indian franchise market is expected to reach $150 billion in five years.",
+      style: "font-bold", // Dynamic font style for the paragraph
+    },
+    {
+      text: "Franchoice World is here to help you discover and nurture your ideal franchise brand for growth.",
+      style: "font-medium", // Dynamic font style for the paragraph
+    },
+  ],
+  linkText: "Know More",
+  linkHref: "/franchise-glance",
+};
+
+const aboutData = {
+  title: "About Franchoice World",
+  content:
+    "Welcome to Franchoice World, by Gyaata and Pacific Group of Companies. Our mission is to empower brands to achieve expansive growth through strategic franchise partnerships. We want to be the No.1 choice for brands looking forward to penning a successful expansion story.",
+  linkText: "Learn More",
+  linkHref: "/about-us",
+  imageSrc: "/images/about.jpg",
+  imageAlt: "About",
+  imageWidth: 600,
+  imageHeight: 250,
+};
+
 const innerBanner = {
   bannerImage: "/images/leftInnerListBrandBanner.png",
   submitURL: "/list-your-brand/step_1",
@@ -189,8 +224,7 @@ const serviceItems = [
     id: "first",
     serviceIcon: "/images/franchiseListing.svg",
     serviceText: "Franchise Listing",
-    redirectURL:
-      "/list-your-brand",
+    redirectURL: "/list-your-brand",
   },
   {
     id: "second",
@@ -257,8 +291,22 @@ export default function Home() {
           sectionTitle={opportunity.sectionTitle}
           items={opportunity.items}
         />
-        <FranchiseIndustry />
-        <AboutFranchoice />
+        <FranchiseIndustry
+          title={franchiseData.title}
+          paragraphs={franchiseData.paragraphs}
+          linkText={franchiseData.linkText}
+          linkHref={franchiseData.linkHref}
+        />
+        <AboutFranchoice
+          title={aboutData.title}
+          content={aboutData.content}
+          linkText={aboutData.linkText}
+          linkHref={aboutData.linkHref}
+          imageSrc={aboutData.imageSrc}
+          imageAlt={aboutData.imageAlt}
+          imageWidth={aboutData.imageWidth}
+          imageHeight={aboutData.imageHeight}
+        />
         <OurService services={serviceItems} />
         {/* <TopBrandSlider
         sectionTitle={international.sectionTitle}
@@ -266,7 +314,7 @@ export default function Home() {
       />
       <TrandingVideo items={trandingVideo.items} /> */}
         <Testimonial title="Success Stories" testimonials={testimonials} />
-        <InquireForm pageForm="Home"/>
+        <InquireForm pageForm="Home" />
       </div>
     </>
   );

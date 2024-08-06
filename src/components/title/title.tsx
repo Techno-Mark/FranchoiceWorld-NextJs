@@ -16,10 +16,12 @@ const Title: React.FC<TitleProps> = ({
   descClass,
   titleClass,
 }) => {
+  console.log(titleClass);
+
   return (
     <>
       <h3
-        className={`font-bold ${styles.title} ${titleClass} ${
+        className={`font-bold ${styles.title} ${titleClass && titleClass} ${
           varient === "white" ? "!text-white" : ""
         }`}
       >
