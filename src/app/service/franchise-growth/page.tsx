@@ -81,6 +81,7 @@ const FranchiseGroth = () => {
           subtitle="We at Franchoice World offer franchise growth services that provide the right momentum for your brand&s franchising business."
           services={serviceItems}
           bottomDesc="Make your brand franchising experience seamless and rewarding with us."
+          className="min-h-[56px] mx-1 w-1/2 mb-4 md:mb-8 max-w-[156px] md:mx-7 md:w-full lg:w-1/4 md:max-w-[270px] md:h-[114px] p-4"
         />
         <div className="my-20">
           <WhyChoose

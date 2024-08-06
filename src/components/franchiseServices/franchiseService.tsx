@@ -15,6 +15,7 @@ interface OurServiceGridProps {
   subtitle?: string;
   bottomDesc?: string;
   services: ServiceItem[];
+  className?: string;
 }
 
 const FranchiseService: React.FC<OurServiceGridProps> = ({
@@ -23,6 +24,7 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
   subtitle,
   services,
   bottomDesc,
+  className,
 }) => {
   return (
     <section className={`py-10 md:pt-20 ${styles.ourService}`}>
@@ -47,7 +49,11 @@ const FranchiseService: React.FC<OurServiceGridProps> = ({
           {services.map((service) => (
             <div
               key={service.id}
-              className={`${styles.serviceBox} min-h-[56px] mx-1 w-1/2 mb-4 md:mb-8 max-w-[156px] md:mx-2 md:w-full lg:w-1/4 md:max-w-[270px] md:h-[114px] p-4`}
+              className={`${styles.serviceBox} ${
+                className
+                  ? className
+                  : "min-h-[56px] mx-1 w-1/2 mb-4 md:mb-8 max-w-[156px] md:mx-2 md:w-full lg:w-1/4 md:max-w-[270px] md:h-[114px] p-4"
+              }`}
             >
               <Link
                 className="flex items-center justify-center h-full"
