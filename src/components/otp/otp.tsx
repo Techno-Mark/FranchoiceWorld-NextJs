@@ -40,7 +40,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
         setCanResend(false);
         setTimer(60);
       } else {
-        setVerificationError(true)
+        setVerificationError(true);
         setErrorMessage("Resend OTP is Failed. Please try again later.");
       }
     } catch (error) {
@@ -200,7 +200,7 @@ const OTPModal: React.FC<OTPModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
       {!verifyDone ? (
-        <div className="bg-white md:w-2/5 w-auto border rounded-lg">
+        <div className="bg-white md:max-w-[450px] max-w-[300px] border rounded-lg">
           <div className="flex !justify-end pt-4 pr-8 md:pr-5">
             <button
               className="bg-transparent border-none text-2xl cursor-pointer"
@@ -209,17 +209,19 @@ const OTPModal: React.FC<OTPModalProps> = ({
               <CloseIcon />
             </button>
           </div>
-          <div className="flex justify-center items-center px-14 py-7 flex-col pb-6">
-            <span className="text-[var(--footer-bg)] text-3xl pr-20 pb-2 font-bold">
+          <div className="flex justify-center items-center px-7 md:px-14 md:py-7 flex-col pb-6">
+            <span className="text-[var(--footer-bg)] text-base md:text-3xl pr-[100px] md:pr-20 pb-2 font-bold">
               OTP Verification
             </span>
-            <div className="text-left pb-14 md:pl-12 text-sm">
+            <div className="text-left pb-7 md:pb-14  text-sm">
               Enter the verification code we just sent to your number{" "}
               {countryCode} {maskedNumber}.
             </div>
-            <form className={`flex ${verificationError ? "" : "pb-14"}`}>
+            <form
+              className={`flex ${verificationError ? "" : "pb-5 md:pb-14"}`}
+            >
               {otp.map((digit, index) => (
-                <div key={index} className="pr-7">
+                <div key={index} className="md:px-3 px-1">
                   <input
                     type="text"
                     inputMode="numeric"
