@@ -6,11 +6,10 @@ import InqForm from "./_form";
 import styles from "./inquireform.module.css";
 interface FormProps {
   classNames?: string;
+  pageForm?: string;
 }
 
-const InquireForm: React.FC<FormProps> = ({ classNames }) => {
-  console.log(classNames);
-
+const InquireForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
   // const [citiesOption, setCitiesOption] = useState([]);
   // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [enqFormPopup, setEnqFormPopup] = useState<boolean>(false);
@@ -122,7 +121,7 @@ const InquireForm: React.FC<FormProps> = ({ classNames }) => {
         className={`bg-[var(--footer-bg)] py-2 lg:sticky lg:bottom-0 ${styles.inquiryForm} hidden lg:block`}
       >
         <div className={`container ${classNames}`}>
-          <InqForm />
+          <InqForm pageForm={pageForm} />
           {/* <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -321,7 +320,7 @@ const InquireForm: React.FC<FormProps> = ({ classNames }) => {
               <h3 className="w-7/12 md:w-2/5 text-[var(--footer-bg)] text-xl pb-[20px] leading-none font-extrabold">
                 Investment Inquire Form!
               </h3>
-              <InqForm varient="dark" />
+              <InqForm varient="dark" pageForm={pageForm} />
             </div>
           </div>
         </div>

@@ -114,6 +114,7 @@ const ContactBanner: React.FC<ContactProps> = ({
         whoAmI: values.whoAmI,
         phoneNumber: values.phoneNumber.toString(),
         otherInformation: values.otherInformation,
+        pageForm:values.pageFrom
       });
       if (response.ResponseStatus === "success") {
         router.push(`/thankyou`);
@@ -303,6 +304,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                   <div className="w-full mb-3">
                     <Select
                       name="whoAmI"
+                      required
                       label="Who am I?"
                       className={`flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium border border-gray-300 rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                         getIn(errors, "whoAmI") && getIn(touched, "whoAmI")

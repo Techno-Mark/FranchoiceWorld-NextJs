@@ -452,7 +452,7 @@ const Investor = () => {
           items={faqItems}
         />
         <QuickLinks quickLink={quickLinksData} />
-        <InquireForm />
+        <InquireForm  pageForm="Investor"/>
       </div>
     </>
   );

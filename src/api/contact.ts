@@ -9,6 +9,7 @@ interface ContactForm {
   companyName: string;
   otherInformation: string;
   whoAmI: number | null;
+  pageForm?: string
   //   acceptTerms?: boolean;
 }
 export const CreateContact = async (body: ContactForm) => {
@@ -28,6 +29,7 @@ interface inquiryForm {
   city: number | null;
   whoAmI: string;
   termsAggrement: boolean;
+  pageForm: string;
 }
 
 export const CreateInquiry = async (body: inquiryForm) => {

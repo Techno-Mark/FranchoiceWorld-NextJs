@@ -125,7 +125,7 @@ function ListYourBrand() {
           additionalMessage="Feel free to contact us in case of any more questions!"
           items={faqItems}
         />
-        <InquireForm />
+        <InquireForm pageForm="List Your Brand"/>
       </div>
       {/* <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />

@@ -201,7 +201,7 @@ const FranchiseDetails: React.FC = () => {
             </p>
           </div>
         </section>
-        <InquireForm />
+        <InquireForm pageForm="Brand Detail"/>
       </div>
     </>
   );

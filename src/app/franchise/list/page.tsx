@@ -244,7 +244,7 @@ const ProductList = () => {
       </div>
       <div className="relative">
         <QuickLinks quickLink={quickLinksData} />
-        <InquireForm />
+        <InquireForm pageForm="Brand List"/>
       </div>
     </>
   );

@@ -21,9 +21,10 @@ interface FormValues {
 }
 interface EnquireProps {
   varient?: "white" | "dark";
+  pageForm?: string;
 }
 
-const InqForm: React.FC<EnquireProps> = ({ varient = "white" }) => {
+const InqForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
   const [citiesOption, setCitiesOption] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -108,6 +109,7 @@ const InqForm: React.FC<EnquireProps> = ({ varient = "white" }) => {
         city: values.city,
         whoAmI: values.whoAmI,
         termsAggrement: values.acceptTerms,
+        pageForm: pageForm || "",
       };
       const response = await CreateInquiry(params);
       if (response.ResponseStatus === "success") {
@@ -128,7 +130,11 @@ const InqForm: React.FC<EnquireProps> = ({ varient = "white" }) => {
     >
       {({ errors, touched, setFieldValue }) => (
         <Form className="w-full">
-          <div className={`flex flex-col items-center md:items-start md:flex-row whitespace-nowrap ${varient === "dark"? "md:flex-col whitespace-normal":""}`}>
+          <div
+            className={`flex flex-col items-center md:items-start md:flex-row whitespace-nowrap ${
+              varient === "dark" ? "md:flex-col whitespace-normal" : ""
+            }`}
+          >
             <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
               <Field
                 as={InputField}

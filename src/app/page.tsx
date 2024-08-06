@@ -266,7 +266,7 @@ export default function Home() {
       />
       <TrandingVideo items={trandingVideo.items} /> */}
         <Testimonial title="Success Stories" testimonials={testimonials} />
-        <InquireForm />
+        <InquireForm pageForm="Home"/>
       </div>
     </>
   );

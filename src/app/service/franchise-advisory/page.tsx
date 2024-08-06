@@ -104,7 +104,7 @@ const FranchiseAdvisory = () => {
         />
         <AdvisoryService props={advisoryServiceData} />
         <AskBanner />
-        <InquireForm />
+        <InquireForm pageForm="Franchise Advisory"/>
       </div>
     </>
   );

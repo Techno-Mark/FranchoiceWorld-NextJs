@@ -92,7 +92,7 @@ const FranchiseGroth = () => {
           />
         </div>
         <AskBanner />
-        <InquireForm />
+        <InquireForm pageForm="Franchise Growth"/>
       </div>
     </>
   );
