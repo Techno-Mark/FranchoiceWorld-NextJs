@@ -94,7 +94,7 @@ const FirstStep = () => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
-      .max(250, "Full Name cannot be longer than 250 characters.")
+      .max(300, "Full Name cannot be longer than 250 characters.")
       .required("Full Name is required"),
     email: Yup.string()
       .email("Invalid email address")

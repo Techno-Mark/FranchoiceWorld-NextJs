@@ -4,8 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import InqForm from "./_form";
 import styles from "./inquireform.module.css";
+interface FormProps {
+  classNames?: string;
+}
 
-const InquireForm = () => {
+const InquireForm: React.FC<FormProps> = ({ classNames }) => {
+  console.log(classNames);
+
   // const [citiesOption, setCitiesOption] = useState([]);
   // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [enqFormPopup, setEnqFormPopup] = useState<boolean>(false);
@@ -116,7 +121,7 @@ const InquireForm = () => {
       <section
         className={`bg-[var(--footer-bg)] py-2 lg:sticky lg:bottom-0 ${styles.inquiryForm} hidden lg:block`}
       >
-        <div className="container">
+        <div className={`container ${classNames}`}>
           <InqForm />
           {/* <Formik
             initialValues={initialValues}

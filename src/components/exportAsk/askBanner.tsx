@@ -131,7 +131,7 @@ const AskBanner = () => {
         width={1920}
         height={533}
       />
-      <div className="container">
+      <div className="container max-w-[956px]">
         <div className="flex flex-col lg:flex-row mt-8 md:mt-20">
           <Formik
             initialValues={initialValues}
