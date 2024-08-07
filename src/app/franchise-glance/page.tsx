@@ -67,6 +67,7 @@ const FranchiseGlance = () => {
         className="md:pt-20 md:pb-10"
         imageSrc="/images/franchise-glance/GlanceBanner.png"
         imageAlt="Franchoice Team"
+        imageClass="!h-auto  object-contain "
         imageWidth={475}
         imageHeight={364}
         responsiveClass={true}
