@@ -1,9 +1,17 @@
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
 import Link from "next/link";
+import { Paragraph } from "@/components/franchiseIndustry/franchiseIndustry";
 import React from "react";
 
-const franchiseData = {
+type FranchiseData = {
+  title: { text: string; style: string };
+  paragraphs: Paragraph[];
+  linkText: string;
+  linkHref: string;
+};
+
+const franchiseData: FranchiseData = {
   title: {
     text: "$150 billion in five years",
     style: "font-normal", // Dynamic font style for the title
@@ -14,25 +22,20 @@ const franchiseData = {
       style: "font-normal", // Dynamic font style for the paragraph
     },
     {
-      text: "Franchise industry has been a driving force for the economy that fuels employment opportunities and offers more than just an upward mobility. It offers flexibility and work-life balance that individuals are looking for, now, more than ever. According to Forbes, more individuals chose starting their own franchise business over corporate work in 2023.",
-      style: "font-normal", // Dynamic font style for the paragraph
+      text: [
+        "Franchise industry has been a driving force for the economy that fuels employment opportunities and offers more than just an upward mobility. It offers flexibility and work-life balance that individuals are looking for, now, more than ever. According to Forbes, more individuals chose starting their own ",
+        {
+          type: "link",
+          text: "franchise business",
+          href: "https://www.forbes.com/sites/stevenbeagelman/2023/12/20/reflecting-on-the-franchising-industry-in-2023-and-the-trends-for-2024/",
+        },
+        " over corporate work in 2023.",
+      ],
+      style: "font-normal",
     },
   ],
   linkText: "Know More",
   linkHref: "/franchise-glance",
-};
-
-const aboutData = {
-  title: "About Franchoice World",
-  titleClass: "font-bold !text-5xl",
-  content:
-    "Welcome to Franchoice World, by Gyaata and Pacific Group of Companies. Our mission is to empower brands to achieve expansive growth through strategic franchise partnerships. We want to be the No.1 choice for brands looking forward to penning a successful expansion story.",
-  linkText: "Learn More",
-  linkHref: "/about-us",
-  imageSrc: "/images/about.jpg",
-  imageAlt: "About",
-  imageWidth: 600,
-  imageHeight: 250,
 };
 
 const aboutContent = (
@@ -74,20 +77,18 @@ const aboutContent = (
 const FranchiseGlance = () => {
   return (
     <>
-      <div className="">
-        <AboutFranchoice
-          title="Franchise Industry at a Glance"
-          titleClass="md:!text-5xl md:pb-0 !pb-4 !text-left max-w-[520px]"
-          content="Entrepreneurs today wish to replicate a successful business model, use brand recognition and get thorough training to skyrocket towards growth. Franchise business is one of the most attractive entrepreneurial prospects in contemporary times. It is booming in India, 2nd largest in the world and growing at over 15% annually."
-          contentClass=" md:border-none  border-b text-left "
-          className="md:py-10"
-          imageSrc="/images/franchise-glance/GlanceBanner.png"
-          imageAlt="Franchoice Team"
-          imageWidth={475}
-          imageHeight={364}
-          responsiveClass={true}
-        />
-      </div>
+      <AboutFranchoice
+        title="Franchise Industry at a Glance"
+        titleClass="md:!text-5xl md:pb-0 !pb-4 !text-left max-w-[520px]"
+        content="Entrepreneurs today wish to replicate a successful business model, use brand recognition and get thorough training to skyrocket towards growth. Franchise business is one of the most attractive entrepreneurial prospects in contemporary times. It is booming in India, 2nd largest in the world and growing at over 15% annually."
+        contentClass=" md:border-none  border-b text-left "
+        className="md:pt-20 md:pb-10"
+        imageSrc="/images/franchise-glance/GlanceBanner.png"
+        imageAlt="Franchoice Team"
+        imageWidth={475}
+        imageHeight={364}
+        responsiveClass={true}
+      />
       <FranchiseIndustry
         title={franchiseData.title}
         topTitle=" Indian franchise market is expected to reach"

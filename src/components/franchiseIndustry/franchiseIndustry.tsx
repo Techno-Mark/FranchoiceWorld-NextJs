@@ -8,8 +8,14 @@ interface Title {
   style: string;
 }
 
-interface Paragraph {
+export type LinkObject = {
+  type: "link";
   text: string;
+  href: string;
+};
+
+export interface Paragraph {
+  text: string | (string | LinkObject)[];
   style: string;
 }
 
@@ -80,7 +86,21 @@ const FranchiseIndustry: React.FC<FranchiseIndustryProps> = ({
                   paragraph.style
                 }`}
               >
-                {paragraph.text}
+                {Array.isArray(paragraph.text)
+                  ? paragraph.text.map((item, i) =>
+                      typeof item === "string" ? (
+                        item
+                      ) : item.type === "link" ? (
+                        <a
+                          key={i}
+                          href={item.href}
+                          className="text-[--hyper-link] underline"
+                        >
+                          {item.text}
+                        </a>
+                      ) : null
+                    )
+                  : paragraph.text}
               </p>
             ))}
             {linkText && linkHref && (
