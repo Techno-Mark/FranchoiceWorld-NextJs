@@ -23,13 +23,7 @@ const franchiseData: FranchiseData = {
     },
     {
       text: [
-        "Franchise industry has been a driving force for the economy that fuels employment opportunities and offers more than just an upward mobility. It offers flexibility and work-life balance that individuals are looking for, now, more than ever. According to Forbes, more individuals chose starting their own ",
-        {
-          type: "link",
-          text: "franchise business",
-          href: "https://www.forbes.com/sites/stevenbeagelman/2023/12/20/reflecting-on-the-franchising-industry-in-2023-and-the-trends-for-2024/",
-        },
-        " over corporate work in 2023.",
+        "Franchise industry has been a driving force for the economy that fuels employment opportunities and offers more than just an upward mobility. It offers flexibility and work-life balance that individuals are looking for, now, more than ever. According to Forbes, more individuals chose starting their own franchise business over corporate work in 2023.",
       ],
       style: "font-normal",
     },
@@ -41,31 +35,19 @@ const franchiseData: FranchiseData = {
 const aboutContent = (
   <>
     <p className="text-left md:pt-0 pt-5">
-      McKinsey & Well Company&apos;s{" "}
-      <Link
-        className="text-[--hyper-link] underline"
-        href="https://mckinseywell.com/products/global-franchise-market-2023-2027"
-      >
-        Global Franchise Market 2023-2027
-      </Link>{" "}
-      report forecasts that the franchise market is likely to grow at a CAGR of
-      9.58%, i.e., an increase of USD 1634.71 billion during 2022-27.
+      McKinsey & Well Company&apos;s Global Franchise Market 2023-2027 report
+      forecasts that the franchise market is likely to grow at a CAGR of 9.58%,
+      i.e., an increase of USD 1634.71 billion during 2022-27.
     </p>
     <p className="pt-8 text-left">
       Franchising is gradually becoming an omnipresent industry that encompasses
       multiple sectors across all corners of the world. According to Global
       Council for the Promotion of International Trade, the global franchise
-      industry holds a staggering{" "}
-      <Link
-        className="text-[--hyper-link] underline"
-        href="https://gcpit.org/cultivating-excellence-the-evolving-landscape-of-global-franchising/"
-      >
-        valuation of $5 trillion
-      </Link>{" "}
-      promising an excellent future with numerous advantages. These advantages
-      include brand recognition, established business model, and franchisor
-      support, amongst the others. Entrepreneurs and investors find these
-      particularly benefitting over conventional businesses.
+      industry holds a staggering valuation of $5 trillion promising an
+      excellent future with numerous advantages. These advantages include brand
+      recognition, established business model, and franchisor support, amongst
+      the others. Entrepreneurs and investors find these particularly
+      benefitting over conventional businesses.
     </p>
     <p className="text-sm italic pt-8 text-left">
       Source: Forbes, McKinsey & Well Company, Global Council for the Promotion
