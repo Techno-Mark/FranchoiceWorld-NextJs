@@ -32,7 +32,7 @@ const AdvisoryService: React.FC<AdvisoryServiceProps> = ({ props }) => {
               <span className="text-[var(--text-color)] text-base md:text-xl font-semibold md:font-medium">
                 {subtitle}
               </span>
-              <div className="mt-7 ml-5 md:ml-7 md:mt-9 text-[var(--text-color)]">
+              <div className="mt-7 ml-3 md:mt-9 text-[var(--text-color)]">
                 <ul
                   className={`${styles.chooseBenifits} list-disc text-base md:text-xl`}
                 >

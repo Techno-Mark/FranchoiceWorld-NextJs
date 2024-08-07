@@ -1,13 +1,19 @@
 .chooseBenifits li {
     font-size: 20px;
     font-weight: 400;
+    display: flex;
+    align-items: flex-start;
 }
 
 .chooseBenifits li::before {
     content: "";
-    width: 1px;
-    height: 1px;
+    position: relative;
+    top: 11px;
+    width: 3px;
+    height: 3px;
     border-radius: 50px;
+    margin-right: 10px;
+    background: var(--text-color);
 }
 
 .chooseBenifits > li::marker {
