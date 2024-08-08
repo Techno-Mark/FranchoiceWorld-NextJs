@@ -39,6 +39,16 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const router = useRouter();
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Detect if the user is on an iOS device
+    const userAgent =
+      typeof navigator !== "undefined" ? navigator.userAgent : "";
+    setIsIOS(
+      /iPad|iPhone|iPod/.test(userAgent) && !userAgent.includes("Windows")
+    );
+  }, []);
 
   useEffect(() => {
     localStorage.clear();
@@ -135,7 +145,6 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                 className={`rounded-md w-full font-medium text-lg bg-white border border-gray-300 cursor-pointer focus:outline-none ${styles.InputStyle}`}
                 pattern="[0-9]{5} [0-9]{5}"
                 value={mobileNumber}
-                input-security="no-zoom"
                 onChange={(e) => {
                   const value = e.target.value;
                   // Allow only numbers and limit to 10 digits
@@ -165,6 +174,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                   }
                 }}
                 maxLength={10}
+                autoFocus={isIOS}
               />
               <Button
                 variant="highlighted"
