@@ -3,6 +3,7 @@ import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry"
 import Link from "next/link";
 import { Paragraph } from "@/components/franchiseIndustry/franchiseIndustry";
 import React from "react";
+import InquireForm from "@/components/inquireForm/inquireForm";
 
 type FranchiseData = {
   title: { text: string; style: string };
@@ -72,30 +73,33 @@ const FranchiseGlance = () => {
         imageHeight={364}
         responsiveClass={true}
       />
-      <FranchiseIndustry
-        title={franchiseData.title}
-        topTitle=" Indian franchise market is expected to reach"
-        topTitleClass="font-extrabold text-left md:text-lg !text-lg"
-        mainTitle="$150 billion in five years"
-        mainTitleClass="!relative md:!text-5xl md:pb-0 !pb-5 !text-2xl  text-left !font-extrabold !max-w-[450px] after:bg-[--text-color] after:w-[156px] mb-4 md:after:w-[170px] after:h-[1px] after:absolute after:left-0 after:bottom-0  after:mx-auto"
-        paragraphs={franchiseData.paragraphs}
-        paraStyle="pb-5 md:border-none  last:border-b  text-left"
-        image="/images/franchise-glance/FiveYear.png"
-        imagewidth={465}
-        imageHeight={400}
-      />
-      <AboutFranchoice
-        title="Global Franchise Industry Forecast"
-        titleClass="md:!text-5xl md:!pb-10 !text-left !font-bold max-w-[520px]"
-        content={aboutContent}
-        imageSrc="/images/franchise-glance/ForeCast.png"
-        imageAlt="Franchoice Team"
-        imageWidth={378}
-        className="py-6 md:pb-16"
-        imageClass="!h-auto  object-contain "
-        imageHeight={400}
-        responsiveClass={true}
-      />
+      <div className="relative">
+        <FranchiseIndustry
+          title={franchiseData.title}
+          topTitle=" Indian franchise market is expected to reach"
+          topTitleClass="font-extrabold text-left md:text-lg !text-lg"
+          mainTitle="$150 billion in five years"
+          mainTitleClass="!relative md:!text-5xl md:pb-0 !pb-5 !text-2xl  text-left !font-extrabold !max-w-[450px] after:bg-[--text-color] after:w-[156px] mb-4 md:after:w-[170px] after:h-[1px] after:absolute after:left-0 after:bottom-0  after:mx-auto"
+          paragraphs={franchiseData.paragraphs}
+          paraStyle="pb-5 md:border-none  last:border-b  text-left"
+          image="/images/franchise-glance/FiveYear.png"
+          imagewidth={465}
+          imageHeight={400}
+        />
+        <AboutFranchoice
+          title="Global Franchise Industry Forecast"
+          titleClass="md:!text-5xl md:!pb-10 !text-left !font-bold max-w-[520px]"
+          content={aboutContent}
+          imageSrc="/images/franchise-glance/ForeCast.png"
+          imageAlt="Franchoice Team"
+          imageWidth={378}
+          className="py-6 md:pb-16"
+          imageClass="!h-auto  object-contain "
+          imageHeight={400}
+          responsiveClass={true}
+        />
+        <InquireForm pageForm="Franchise Glance" />
+      </div>
     </>
   );
 };
