@@ -396,10 +396,10 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full md:pl-2 mb-6 md:mb-7">
+              <div className="w-full md:pl-2 mb-6 md:mb-7"> 
                 <Field
                   as={InputField}
-                  id="grid-pincode"
+                  id="pincode"
                   name="pincode"
                   type="number"
                   label="Pin Code"
