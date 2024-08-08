@@ -114,7 +114,7 @@ const ContactBanner: React.FC<ContactProps> = ({
         whoAmI: values.whoAmI,
         phoneNumber: values.phoneNumber.toString(),
         otherInformation: values.otherInformation,
-        pageForm:values.pageFrom
+        pageForm: values.pageFrom,
       });
       if (response.ResponseStatus === "success") {
         router.push(`/thankyou`);
@@ -193,7 +193,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                         type="text"
                         label="Full Name"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                        className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "fullName") &&
                           getIn(touched, "fullName")
                             ? "border-red-500 mb-0.5"
@@ -215,7 +215,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                         type="text"
                         label="Company Name"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                        className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "companyName") &&
                           getIn(touched, "companyName")
                             ? "border-red-500 mb-0.5"
@@ -239,7 +239,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                         type="email"
                         label="Email ID"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                        className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "emailId") && getIn(touched, "emailId")
                             ? "border-red-500 mb-0.5"
                             : ""
@@ -284,7 +284,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                                 setFieldValue("phoneNumber", value);
                               }
                             }}
-                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
+                            className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
                               getIn(errors, "phoneNumber") &&
                               getIn(touched, "phoneNumber")
                                 ? "border-red-500 mb-0.5"
@@ -326,7 +326,7 @@ const ContactBanner: React.FC<ContactProps> = ({
                       name="otherInformation"
                       label="Is there any other information you would like to share with us?"
                       required={false}
-                      className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                      className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                         getIn(errors, "information") &&
                         getIn(touched, "information")
                           ? "border-red-500 mb-0.5"
