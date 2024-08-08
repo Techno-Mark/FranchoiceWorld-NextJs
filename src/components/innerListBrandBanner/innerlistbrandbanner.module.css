@@ -56,7 +56,7 @@
     .InputStyle {
         max-width: 190px;
         padding: 0.4rem;
-        font-size: 11px;
+        font-size: 16px;
     }
 
     .innerBrandTitle {
@@ -76,6 +76,7 @@
     .InputStyle {
         max-width: 175px;
         padding: 0.3rem;
+        font-size: 16px;
     }
 
     .innerBrandTitle {
@@ -96,6 +97,8 @@
 @media only screen and (max-width: 374px) {
     .InputStyle {
         max-width: 125px;
+        font-size: 16px;
+        
     }
 }
 
