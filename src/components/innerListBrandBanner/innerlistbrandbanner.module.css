@@ -11,8 +11,7 @@
     line-height: normal;
 }
 
-input {
-    font-size: 16px;
+.InputStyle {
     -webkit-text-size-adjust: 100%;
 }
 
