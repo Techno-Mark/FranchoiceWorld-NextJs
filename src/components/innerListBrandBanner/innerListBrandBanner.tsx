@@ -135,6 +135,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                 className={`rounded-md w-full font-medium text-lg bg-white border border-gray-300 cursor-pointer focus:outline-none ${styles.InputStyle}`}
                 pattern="[0-9]{5} [0-9]{5}"
                 value={mobileNumber}
+                input-security="no-zoom"
                 onChange={(e) => {
                   const value = e.target.value;
                   // Allow only numbers and limit to 10 digits
