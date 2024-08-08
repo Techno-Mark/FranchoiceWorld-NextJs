@@ -122,7 +122,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
               {props.desc}
             </h4>
             <form
-              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
+              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal  lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown

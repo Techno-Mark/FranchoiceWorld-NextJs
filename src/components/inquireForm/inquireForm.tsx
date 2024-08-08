@@ -296,7 +296,7 @@ const InquireForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
           </Formik> */}
         </div>
       </section>
-      <div className="block lg:hidden fixed bottom-5 text-center w-full z-9">
+      <div className="block lg:hidden fixed bottom-3 text-center w-full z-9">
         <Link
           href="javascript:void(0)"
           onClick={() => setEnqFormPopup(true)}
