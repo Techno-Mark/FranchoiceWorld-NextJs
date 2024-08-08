@@ -12,7 +12,6 @@
 .serviceIcn {
     filter: brightness(0) invert(1);
     transition: all 0.3s;
-
 }
 
 .serviceBox:hover {
@@ -23,13 +22,18 @@
 
 .serviceBox:hover h4 {
     color: var(--footer-bg);
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
+   
 }
 
 .serviceBox:hover .serviceIcn {
     filter: none;
+}
+@media only screen and (min-width: 768px) {
+    .serviceBox:hover h4 {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 25px;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -44,7 +48,6 @@
 }
 
 @media only screen and (max-width: 347px) {
-
     .serviceBox {
         max-width: 142px;
         height: 56px;

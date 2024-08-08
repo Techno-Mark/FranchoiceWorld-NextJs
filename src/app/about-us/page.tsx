@@ -2,6 +2,7 @@
 import AboutSection from "@/components/aboutSection/page";
 import CardGrid from "@/components/cardGrid/page";
 import ImageGallery from "@/components/imageGallery/ImageGallery";
+import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import TeamSection from "@/components/teamSection/page";
 import Title from "@/components/title/title";
@@ -262,61 +263,65 @@ const About_us = () => {
         description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
       />
-      <section className="bg-[rgba(203,224,244,0.2)] py-10 md:pb-4 md:pt-8">
-        <div className="container">
-          <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
-            <div className="w-full md:w-2/4">
-              <Title
-                title="Mission"
-                titleClass="md:!text-[30px] !text-[30px]"
-              />
-              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
-                Our mission at Franchoice World is to convert businesses into
-                successful franchises.
+      <div className="relative">
+        <section className="bg-[rgba(203,224,244,0.2)] py-10 md:pb-4 md:pt-8">
+          <div className="container">
+            <div className="flex justify-between items-center flex-col md:flex-row w-full lg:w-4/5 mx-auto">
+              <div className="w-full md:w-2/4">
+                <Title
+                  title="Mission"
+                  titleClass="md:!text-[30px] !text-[30px]"
+                />
+                <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
+                  Our mission at Franchoice World is to convert businesses into
+                  successful franchises.
+                </div>
+                <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
+                  We offer a range of services that are meant to take you
+                  through the entire process of franchising, from the stage of
+                  conceptualization to actual support.
+                </div>
               </div>
-              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
-                We offer a range of services that are meant to take you through
-                the entire process of franchising, from the stage of
-                conceptualization to actual support.
-              </div>
-            </div>
-            <ImageGallery column={2} galleryImages={galleryImages} />
-          </div>
-        </div>
-
-        <CardGrid cardData={cardData} />
-      </section>
-
-      {/* values section */}
-      <section className="py-8 md:py-16">
-        <div className="container">
-          <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
-            <ImageGallery column={2} galleryImages={ValueImages} />
-            <div className="w-full md:w-2/4">
-              <Title title="Values" />
-              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
-                Franchoice World provides a strategic approach to franchise
-                growth, combining creative methods and custom support.
-              </div>
-              <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
-                We make pathways available for investors into unexplored
-                markets, and offer a bright business future to brands,
-                investors, independent franchise partners, and real estate
-                developers, establishing us as the leading choice for expansion.
-              </div>
+              <ImageGallery column={2} galleryImages={galleryImages} />
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Meet our team section */}
-      <TeamSection
-        title="Meet Our Team"
-        description="Get to know the Franchoice World team - your partners in building thriving franchises with personalized guidance and industry knowledge."
-        teamMembers={teamMembers}
-      />
+          <CardGrid cardData={cardData} />
+        </section>
 
-      <QuickLinks quickLink={quickLinksData} />
+        {/* values section */}
+        <section className="py-8 md:py-16">
+          <div className="container">
+            <div className="flex justify-between items-center flex-col-reverse md:flex-row w-full lg:w-4/5 mx-auto">
+              <ImageGallery column={2} galleryImages={ValueImages} />
+              <div className="w-full md:w-2/4">
+                <Title title="Values" />
+                <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-semibold">
+                  Franchoice World provides a strategic approach to franchise
+                  growth, combining creative methods and custom support.
+                </div>
+                <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
+                  We make pathways available for investors into unexplored
+                  markets, and offer a bright business future to brands,
+                  investors, independent franchise partners, and real estate
+                  developers, establishing us as the leading choice for
+                  expansion.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Meet our team section */}
+        <TeamSection
+          title="Meet Our Team"
+          description="Get to know the Franchoice World team - your partners in building thriving franchises with personalized guidance and industry knowledge."
+          teamMembers={teamMembers}
+        />
+
+        <QuickLinks quickLink={quickLinksData} />
+        <InquireForm pageForm="About us" />
+      </div>
     </>
   );
 };

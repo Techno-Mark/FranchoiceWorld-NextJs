@@ -16,6 +16,7 @@ import {
 import OTPModal from "../otp/otp";
 interface InnerBannerProps {
   className?: string;
+  resonsiveReverseOrder?: boolean;
   props: {
     bannerImage?: string;
     submitURL: string;
@@ -31,6 +32,7 @@ interface InnerBannerProps {
 const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
   props,
   className,
+  resonsiveReverseOrder = false,
 }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
@@ -74,12 +76,12 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
         <div
           className={`flex items-start flex-wrap lg:flex-nowrap gap-8 ${
             props.imageOnLeft ? "" : "flex-row-reverse"
-          }`}
+          } ${resonsiveReverseOrder ? "!flex-row" : ""}`}
         >
           <div
             className={`w-full max-w-[250px] mx-auto md:max-w-full ${
               props.imageOnLeft ? "lg:ml-auto" : "lg:mr-auto"
-            }`}
+            } ${resonsiveReverseOrder ? "order-2 md:order-1" : ""}`}
           >
             {props.bannerImage && (
               <Image
@@ -93,7 +95,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
               />
             )}
             {props.bannerImageTxt && (
-              <h3 className="text-3xl md:text-5xl font-light text-right ml-auto max-w-[400px] mt-8 md:mt-20">
+              <h3 className="text-3xl md:text-5xl font-light text-center lg:text-right mx-auto lg:ml-auto md:max-w-[400px] mt-8 md:mt-20">
                 {props.bannerImageTxt}
               </h3>
             )}
