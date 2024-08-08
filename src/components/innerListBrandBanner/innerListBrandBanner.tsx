@@ -39,6 +39,16 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const router = useRouter();
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Detect if the user is on an iOS device
+    const userAgent =
+      typeof navigator !== "undefined" ? navigator.userAgent : "";
+    setIsIOS(
+      /iPad|iPhone|iPod/.test(userAgent) && !userAgent.includes("Windows")
+    );
+  }, []);
 
   useEffect(() => {
     localStorage.clear();
@@ -122,7 +132,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
               {props.desc}
             </h4>
             <form
-              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
+              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal  lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown
@@ -164,6 +174,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                   }
                 }}
                 maxLength={10}
+                autoFocus={isIOS}
               />
               <Button
                 variant="highlighted"
