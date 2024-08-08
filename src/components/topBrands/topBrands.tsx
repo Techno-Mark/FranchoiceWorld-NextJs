@@ -55,7 +55,9 @@ const TopBrandSlider: React.FC<TopBrandSliderProps> = ({
   };
 
   return (
-    <section className={`pt-6 md:pt-12 ${styles.topBrandSection}`}>
+    <section
+      className={`pt-6 md:pt-12 overflow-hidden ${styles.topBrandSection}`}
+    >
       <div className="container mx-auto">
         <Title title={sectionTitle} titleClass="!pb-4" />
         {/* <h2 className="text-xl md:text-2xl ml-3 font-bold leading-normal text-center md:text-left">

@@ -90,11 +90,35 @@ const Header = () => {
   }, [isMenuOpen]);
 
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+    setIsMenuOpen((prev) => {
+      const newIsMenuOpen = !prev;
+      const headerElement = document.querySelector("header");
+      if (headerElement) {
+        if (newIsMenuOpen) {
+          headerElement.classList.add("headerBg");
+        } else {
+          headerElement.classList.remove("headerBg");
+        }
+      }
+      document.body.classList.toggle("menu-open", newIsMenuOpen);
+      return newIsMenuOpen;
+    });
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
     const headerElement = document.querySelector("header");
-    headerElement?.classList.toggle("headerBg", !isMenuOpen);
-    document.body.classList.toggle("menu-open", !isMenuOpen);
-    setToggleClass(!isMenuOpen);
+    headerElement?.classList.remove("headerBg");
+    document.body.classList.remove("menu-open");
+  };
+
+  const handleMenuItemClick = (e: any, menu: any) => {
+    if (menu.submenu) {
+      e.stopPropagation();
+      // Toggle submenu visibility here
+    } else {
+      setIsMenuOpen(false);
+    }
   };
 
   return (
@@ -143,10 +167,10 @@ const Header = () => {
                   type="button"
                   className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none z-[2]"
                   aria-controls="mega-menu-full"
-                  aria-expanded="false"
+                  aria-expanded={isMenuOpen}
                 >
                   <span className="sr-only">Open main menu</span>
-                  {!toggleClass ? (
+                  {!isMenuOpen ? (
                     <svg
                       className="w-5 h-5"
                       aria-hidden="true"
@@ -204,8 +228,13 @@ const Header = () => {
                       <li
                         className={`relative w-full md:w-auto ${styles.menuLists}`}
                         key={menu.name}
+                        onClick={(e) => handleMenuItemClick(e, menu)}
                       >
-                        <MenuLink item={menu} key={menu.name} />
+                        <MenuLink
+                          item={menu}
+                          key={menu.name}
+                          closeMainMenu={closeMenu}
+                        />
                       </li>
                     ))}
                   </ul>
