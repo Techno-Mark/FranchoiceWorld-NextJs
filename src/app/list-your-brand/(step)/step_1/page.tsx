@@ -396,7 +396,7 @@ const FirstStep = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full md:pl-2 mb-6 md:mb-7"> 
+              <div className="w-full md:pl-2 mb-6 md:mb-7">
                 <Field
                   as={InputField}
                   id="pincode"
@@ -404,7 +404,7 @@ const FirstStep = () => {
                   type="number"
                   label="Pin Code"
                   required={true}
-                  className={`block w-full rounded-lg py-2 px-4 focus:outline-none font-medium !border-[1px] !border-[rgba(115,114,115,0.4)] ${
+                  className={`block text w-full rounded-lg py-2 px-4 focus:outline-none font-medium text-base !border-[1px] !border-[rgba(115,114,115,0.4)] ${
                     errors.pincode && touched.pincode
                       ? "!border-red-500 mb-0.5"
                       : ""
