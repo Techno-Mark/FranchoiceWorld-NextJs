@@ -260,7 +260,7 @@ const About_us = () => {
         mission="We aim to be the No.1 choice for brands to write their successful expansion story."
         imageSrc="/images/IMG.png"
         imageAlt="About Banner"
-        description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to scale success in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
+        description="With strategic franchise development, we help brands to expand into every nook and corner and entrepreneurs to succeed in their business. With our firm grounding in the Indian market and a vision to extend globally, we provide wide-ranging services for franchise listing, advisory, and growth. Our personalized support, local expertise, and data-driven strategies make us the go-to platform for successful franchise expansion."
         callToAction="Join us and realize the potential of your brand."
       />
       <div className="relative">
@@ -278,8 +278,8 @@ const About_us = () => {
                 </div>
                 <div className="text-[var(--about-text)] text-lg pt-6 tracking-tight opacity-70 font-normal">
                   We offer a range of services that are meant to take you
-                  through the entire process of franchising, from the stage of
-                  conceptualization to actual support.
+                  through the entire process of franchising right from
+                  conceptualization to ongoing operational support.
                 </div>
               </div>
               <ImageGallery column={2} galleryImages={galleryImages} />

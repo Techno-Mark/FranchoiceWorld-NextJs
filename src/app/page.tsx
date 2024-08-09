@@ -141,7 +141,7 @@ const franchiseData = {
   },
   paragraphs: [
     {
-      text: "Entrepreneurs today wish to replicate a successful business model, use brand recognition and get thorough training to skyrocket towards growth. Franchise business is one of the most attractive entrepreneurial prospects in contemporary times. It is booming in India, 2nd largest in the world and growing at over 15% annually.",
+      text: "Entrepreneurs today wish to replicate a successful business model, use brand recognition and get thorough training to skyrocket towards growth. Franchise business is one of the most attractive entrepreneurial prospects in contemporary times. It is booming in India, ranks 2nd largest in the world and is growing at over 15% annually.",
       style: "font-medium", // Dynamic font style for the paragraph
     },
     {

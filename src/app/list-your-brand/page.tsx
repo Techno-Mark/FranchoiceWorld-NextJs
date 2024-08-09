@@ -52,10 +52,7 @@ function ListYourBrand() {
       title: "How can I list my franchise on your portal?",
       content: (
         <>
-          <p>
-            You can follow just four simple steps to list your franchise on our
-            portal:
-          </p>
+          <p>You can list your brand on portal with just 4 simple step:</p>
           <p>1. Enter your personal confidential information.</p>
           <p>2. Enter your essential brand details.</p>
           <p>3. Enter your investment details.</p>
@@ -92,7 +89,7 @@ function ListYourBrand() {
         <p>
           With our expert franchise advisory services, your brand can thrive to
           achieve end-to-end growth and development. Our services are especially
-          curated and customized to meet your unique brand requirement to
+          curated and customized to meet your unique brand requirement and to
           achieve successful brand expansion.
         </p>
       ),
