@@ -11,6 +11,12 @@
     line-height: normal;
 }
 
+.InputStyle {
+    -webkit-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+}
+
 .innerBrandSubtitle {
     font-size: 1.5rem;
     line-height: normal;
@@ -33,7 +39,7 @@
 }
 
 .InputStyle:focus {
-    border: 1.31px solid var(--secondary-color)
+    border: 1.31px solid var(--secondary-color);
 }
 
 .agreePolicy {
@@ -43,14 +49,14 @@
 .arrowIcn {
     position: relative;
     left: 0;
-    animation: moveRight .8s infinite;
+    animation: moveRight 0.8s infinite;
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
     .InputStyle {
         max-width: 190px;
         padding: 0.4rem;
-        font-size: 11px;
+        font-size: 16px;
     }
 
     .innerBrandTitle {
@@ -66,10 +72,11 @@
     }
 }
 
-@media only screen and (max-width:575px) {
+@media only screen and (max-width: 575px) {
     .InputStyle {
         max-width: 175px;
         padding: 0.3rem;
+        font-size: 16px;
     }
 
     .innerBrandTitle {
@@ -87,22 +94,24 @@
     }
 }
 
-@media only screen and (max-width:374px) {
+@media only screen and (max-width: 374px) {
     .InputStyle {
         max-width: 125px;
+        font-size: 16px;
+        
     }
 }
 
 @keyframes moveRight {
     0% {
-        left: 0
+        left: 0;
     }
 
     50% {
-        left: -4px
+        left: -4px;
     }
 
     to {
-        left: 0
+        left: 0;
     }
 }

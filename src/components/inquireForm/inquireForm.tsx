@@ -296,7 +296,7 @@ const InquireForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
           </Formik> */}
         </div>
       </section>
-      <div className="block lg:hidden fixed bottom-5 text-center w-full z-9">
+      <div className="block lg:hidden fixed bottom-3 text-center w-full z-9">
         <Link
           href="javascript:void(0)"
           onClick={() => setEnqFormPopup(true)}
@@ -318,7 +318,7 @@ const InquireForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
             </div>
             <div className="flex p-4 flex-col">
               <h3 className="w-7/12 md:w-2/5 text-[var(--footer-bg)] text-xl pb-[20px] leading-none font-extrabold">
-                Investment Inquire Form!
+                Enquire Now!
               </h3>
               <InqForm varient="dark" pageForm={pageForm} />
             </div>

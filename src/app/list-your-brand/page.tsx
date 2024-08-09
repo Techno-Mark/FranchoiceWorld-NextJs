@@ -111,7 +111,7 @@ function ListYourBrand() {
 
   return (
     <>
-      <InnerListBrandBanner props={innerBanner} />
+      <InnerListBrandBanner resonsiveReverseOrder={true} props={innerBanner} />
       <div className="relative">
         <ListingSimpleSteps />
         {/* <TrandingVideo
@@ -125,7 +125,7 @@ function ListYourBrand() {
           additionalMessage="Feel free to contact us in case of any more questions!"
           items={faqItems}
         />
-        <InquireForm pageForm="List Your Brand"/>
+        <InquireForm pageForm="List Your Brand" />
       </div>
       {/* <div className="pt-4 md:py-12">
         <ListBrandBanner className="pb-0" />

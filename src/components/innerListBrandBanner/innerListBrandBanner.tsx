@@ -16,6 +16,7 @@ import {
 import OTPModal from "../otp/otp";
 interface InnerBannerProps {
   className?: string;
+  resonsiveReverseOrder?: boolean;
   props: {
     bannerImage?: string;
     submitURL: string;
@@ -31,12 +32,23 @@ interface InnerBannerProps {
 const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
   props,
   className,
+  resonsiveReverseOrder = false,
 }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("+91");
   const [error, setError] = useState<string | null>(null);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const router = useRouter();
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Detect if the user is on an iOS device
+    const userAgent =
+      typeof navigator !== "undefined" ? navigator.userAgent : "";
+    setIsIOS(
+      /iPad|iPhone|iPod/.test(userAgent) && !userAgent.includes("Windows")
+    );
+  }, []);
 
   useEffect(() => {
     localStorage.clear();
@@ -74,12 +86,12 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
         <div
           className={`flex items-start flex-wrap lg:flex-nowrap gap-8 ${
             props.imageOnLeft ? "" : "flex-row-reverse"
-          }`}
+          } ${resonsiveReverseOrder ? "!flex-row" : ""}`}
         >
           <div
             className={`w-full max-w-[250px] mx-auto md:max-w-full ${
               props.imageOnLeft ? "lg:ml-auto" : "lg:mr-auto"
-            }`}
+            } ${resonsiveReverseOrder ? "order-2 md:order-1" : ""}`}
           >
             {props.bannerImage && (
               <Image
@@ -93,7 +105,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
               />
             )}
             {props.bannerImageTxt && (
-              <h3 className="text-3xl md:text-5xl font-light text-right ml-auto max-w-[400px] mt-8 md:mt-20">
+              <h3 className="text-3xl md:text-5xl font-light text-center lg:text-right mx-auto lg:ml-auto md:max-w-[400px] mt-8 md:mt-20">
                 {props.bannerImageTxt}
               </h3>
             )}
@@ -120,7 +132,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
               {props.desc}
             </h4>
             <form
-              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal justify-center lg:justify-start w-full md:max-w-[565px]`}
+              className={`relative flex gap-1 md:gap-3 md:flex-row md:items-normal  lg:justify-start w-full md:max-w-[565px]`}
               onSubmit={handleListBrandSubmit}
             >
               <CountryDropdown
@@ -162,6 +174,7 @@ const InnerListBrandBanner: React.FC<InnerBannerProps> = ({
                   }
                 }}
                 maxLength={10}
+                autoFocus={isIOS}
               />
               <Button
                 variant="highlighted"

@@ -230,7 +230,7 @@ const Select: React.FC<SelectProps> = ({
                   value={searchQuery}
                   onChange={handleSearchChange}
                   placeholder="Search..."
-                  className="w-full p-2 border rounded focus:outline-none"
+                  className="w-full p-2 text-base border rounded focus:outline-none"
                   ref={searchInputRef}
                 />
               </div>

@@ -59,7 +59,7 @@ const Footer = () => {
     <footer className={`${styles.footerContainer}`}>
       <div className="container mx-auto w-full py-4">
         <div className="flex md:justify-between flex-col md:flex-row">
-          <div className="flex flex-col gap-5 text-white order-2 md:order-1 mt-8 md:mt-0">
+          <div className="flex flex-col justify-center items-center gap-5 text-white order-2 md:order-1 mt-8 md:mt-0">
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/footerLogo.svg"

@@ -397,7 +397,7 @@ function SecondStep() {
                   name="companyName"
                   type="text"
                   label="Company Name"
-                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+                  className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                     getIn(errors, "companyName") &&
                     getIn(touched, "companyName")
                       ? "border-red-500 mb-0.5"
@@ -525,7 +525,7 @@ function SecondStep() {
                     }
                     placeholder="Your Message"
                     rows={4}
-                    className={`block w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+                    className={`block text-base w-full border resize-none border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                       getIn(errors, field) && getIn(touched, field)
                         ? "border-red-500 mb-0.5"
                         : ""

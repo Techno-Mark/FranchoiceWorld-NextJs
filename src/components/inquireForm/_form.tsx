@@ -143,7 +143,7 @@ const InqForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                 type="text"
                 placeholder="Full Name"
                 required={true}
-                className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none text-[12px] font-medium${
+                className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none text-[12px] font-medium${
                   getIn(errors, "fullName") && getIn(touched, "fullName")
                     ? "!border-red-500"
                     : ""
@@ -178,7 +178,7 @@ const InqForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                         setFieldValue("phoneNumber", value);
                       }
                     }}
-                    className={`block w-full border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-1 focus:outline-none mb-0.5 ${
+                    className={`block w-full text-base border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-1 focus:outline-none mb-0.5 ${
                       getIn(errors, "phoneNumber") &&
                       getIn(touched, "phoneNumber")
                         ? "border-red-500"
@@ -202,7 +202,7 @@ const InqForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                 type="email"
                 placeholder="Email ID"
                 required={true}
-                className={`block w-full border border-[#73727366] rounded-lg text-[12px] font-medium py-2 px-4 focus:outline-none ${
+                className={`block text-base w-full border border-[#73727366] rounded-lg text-[12px] font-medium py-2 px-4 focus:outline-none ${
                   getIn(errors, "emailId") && getIn(touched, "emailId")
                     ? "border-red-500 mb-0.5"
                     : ""

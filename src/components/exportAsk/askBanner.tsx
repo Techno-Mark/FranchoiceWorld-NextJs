@@ -159,7 +159,7 @@ const AskBanner = () => {
                         type="text"
                         label="Full Name"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
+                        className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 focus:outline-none ${
                           getIn(errors, "fullName") &&
                           getIn(touched, "fullName")
                             ? "border-red-500 mb-0.5"
@@ -205,7 +205,7 @@ const AskBanner = () => {
                                 setFieldValue("phoneNumber", value);
                               }
                             }}
-                            className={`block w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
+                            className={`block text-base w-full border border-[#73727366] rounded-lg py-2 px-4 ml-2 focus:outline-none ${
                               getIn(errors, "phoneNumber") &&
                               getIn(touched, "phoneNumber")
                                 ? "border-red-500 mb-0.5"
@@ -231,7 +231,7 @@ const AskBanner = () => {
                         type="email"
                         label="Email Address"
                         required={true}
-                        className={`block w-full border border-[#73727366] rounded-lg py-2.5 px-4 focus:outline-none ${
+                        className={`block text-base w-full border border-[#73727366] rounded-lg py-2.5 px-4 focus:outline-none ${
                           getIn(errors, "emailId") && getIn(touched, "emailId")
                             ? "border-red-500 mb-0.5"
                             : ""

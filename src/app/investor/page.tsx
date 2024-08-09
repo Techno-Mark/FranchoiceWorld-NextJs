@@ -397,9 +397,9 @@ const Investor = () => {
       content: (
         <p>
           To know about our policies and terms and conditions, head to our{" "}
-          <Link href="/term-conditions">Terms of Use </Link>
-          {" "}and{" "}<Link href="/privacy-policy">Privacy Policy</Link>
-          {" "}pages before filling the investor form.
+          <Link href="/term-conditions">Terms of Use </Link> and{" "}
+          <Link href="/privacy-policy">Privacy Policy</Link> pages before
+          filling the investor form.
         </p>
       ),
     },
@@ -428,7 +428,7 @@ const Investor = () => {
 
   return (
     <>
-      <InnerListBrandBanner props={innerBanner} />
+      <InnerListBrandBanner resonsiveReverseOrder={true} props={innerBanner} />
       <div className="relative">
         <FindFranchise dark={true} />
         <div className="py-12">
@@ -452,7 +452,7 @@ const Investor = () => {
           items={faqItems}
         />
         <QuickLinks quickLink={quickLinksData} />
-        <InquireForm  pageForm="Investor"/>
+        <InquireForm pageForm="Investor" />
       </div>
     </>
   );

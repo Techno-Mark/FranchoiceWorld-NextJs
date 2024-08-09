@@ -436,7 +436,7 @@ function SecondStep() {
                                         : Number(e.target.value);
                                     form.setFieldValue(field.name, value);
                                   }}
-                                  className={`w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg focus:outline-none ${
+                                  className={`w-full text-base px-4 py-3 leading-tight bg-white border border-gray-300 rounded-lg focus:outline-none ${
                                     meta.touched && meta.error
                                       ? "border-red-500 mb-0.5"
                                       : ""
@@ -504,7 +504,7 @@ function SecondStep() {
                   label="Others if applicable"
                   placeholder="Your Message"
                   rows={3}
-                  className={`block w-full border border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none`}
+                  className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none`}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
