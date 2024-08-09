@@ -1,12 +1,18 @@
 "use client";
 
 import { getFranchiseList } from "@/api/home";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import BrandFilter from "@/components/Filter/filter";
 import FranchiseListCard from "@/components/franchiseListCard/franchiseListCard";
 import InquireForm from "@/components/inquireForm/inquireForm";
 import QuickLinks from "@/components/quickLinks/quickLinks";
 import { formatInvestmentRange } from "@/utills/CommonFunction";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaChevronRight } from "react-icons/fa";
+import RealEstateIcon from "@/assets/icons/realEstateIcon";
+import BeverageIcon from "@/assets/icons/beverageIcon";
+import RetailServiceIcon from "@/assets/icons/retailServiceIcon";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -106,12 +112,12 @@ const ProductList = () => {
     fetchdata();
   }, [type, industry, sector, service, state, city, minRange, maxRange]);
 
-  // const breadcrumbItems = [
-  //   { label: "Home", href: "/" },
-  //   { label: "Food & Beverage", href: "javascript:void(0);" },
-  //   { label: "Quick Bites", href: "javascript:void(0);" },
-  //   { label: "Quick Service Restaurants", href: "javascript:void(0);" },
-  // ];
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Food & Beverage", href: "javascript:void(0);" },
+    { label: "Quick Bites", href: "javascript:void(0);" },
+    { label: "Quick Service Restaurants", href: "javascript:void(0);" },
+  ];
   const quickLinksData = [
     {
       title: "Browse By Investment Range",
@@ -227,16 +233,24 @@ const ProductList = () => {
     },
   ];
 
+  const brandItems = [
+    { icon: RealEstateIcon, text: "Fitness & Sports" },
+    { icon: BeverageIcon, text: "Beverages" },
+    { icon: RetailServiceIcon, text: "Retail Services" },
+    // Add more items as needed
+  ];
+
   return (
     <>
-      {/* <div className="bg-[#f1f1f2] py-4 md:py-6">
+      <div className="bg-[#f1f1f2] py-4 md:py-6">
         <div className="container">
           <Breadcrumbs
             items={breadcrumbItems}
             separator={<FaChevronRight size={12} />}
           />
         </div>
-      </div> */}
+      </div>
+      <BrandFilter brandItems={brandItems} />
       <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
           <FranchiseListCard items={brandData} />
@@ -244,7 +258,7 @@ const ProductList = () => {
       </div>
       <div className="relative">
         <QuickLinks quickLink={quickLinksData} />
-        <InquireForm pageForm="Brand List"/>
+        <InquireForm pageForm="Brand List" />
       </div>
     </>
   );
