@@ -159,11 +159,13 @@ const FranchiseDetails: React.FC = () => {
 
   return (
     <>
-      <AboutBrand
-        brandTitle={brandName}
-        brandDesc={aboutBrandContent.brandDesc}
-        media={aboutBrandContent.media}
-      />
+     
+        <AboutBrand
+          brandTitle={brandName}
+          brandDesc={aboutBrandContent.brandDesc}
+          media={aboutBrandContent.media}
+        />
+     
       <div className="relative">
         <UspPoint imagePath="/images/brands/usp.png" uspPoints={usp} />
         <FranchiseCostInvestment
@@ -188,8 +190,8 @@ const FranchiseDetails: React.FC = () => {
               further details, please check our{" "}
               <Link href="/term-conditions" target="_blank">
                 Terms of Use
-              </Link>
-              {" "}and{" "}
+              </Link>{" "}
+              and{" "}
               <Link href="/privacy-policy" target="_blank">
                 Privacy Policy
               </Link>
@@ -201,7 +203,7 @@ const FranchiseDetails: React.FC = () => {
             </p>
           </div>
         </section>
-        <InquireForm pageForm="Brand Detail"/>
+        <InquireForm pageForm="Brand Detail" />
       </div>
     </>
   );
