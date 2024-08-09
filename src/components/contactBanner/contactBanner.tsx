@@ -47,7 +47,7 @@ const whoOption = [
 const ContactBanner: React.FC<ContactProps> = ({
   underDevelopment,
   title = "Contact Our Team",
-  desc = "We are here to answer your queries, help you navigate the franchising journey, and be at your assistance at all times.",
+  desc = "We are here to answer your queries, help you navigate the franchising journey, and assist you round the clock.",
   pageFroms,
 }) => {
   const router = useRouter();

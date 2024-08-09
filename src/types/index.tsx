@@ -34,7 +34,7 @@ interface BusinessOpportunity {
   id?: number;
   title: string;
   category: string;
-  image: string;
+  image?: string;
   investmentRange: string;
   areaRequired: string;
   franchiseOutlet: string;

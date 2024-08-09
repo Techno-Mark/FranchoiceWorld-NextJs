@@ -14,7 +14,7 @@ const innerBanner = {
       text: "Franchising is a rapidly growing business that has taken over the global market.",
     },
     {
-      text: "Global franchise market hits $100.7 billion in 2021-22, and is projected to grow at a CAGR of 9.73% by 2030.",
+      text: "Global franchise market hit $100.7 billion in 2021-22, and is projected to grow at a CAGR of 9.73% by 2030.",
       boldParts: ["$100.7 billion in 2021-22,", "CAGR of 9.73% by 2030."],
     },
     {
@@ -76,7 +76,7 @@ const serviceItems = [
 
 const advisoryServiceData = {
   title:
-    "Our comprehensive Franchise Advisory Services are designed to assist you overcome these problems and challenges to achieve smooth operations with desired growth.",
+    "Our comprehensive Franchise Advisory Services are designed to assist you overcome these challenges to achieve smooth operations with desired growth.",
   subtitle: "We offer the following advisory services:",
   listItems: [
     { text: "Brand Audit and Development" },
