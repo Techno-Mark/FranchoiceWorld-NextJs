@@ -218,7 +218,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         {isOpen && (
           <div
             id="multiselect-dropdown"
-            className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg"
+            className="absolute z-30 w-full bg-white border border-gray-300 rounded-lg shadow-lg"
             role="listbox"
           >
             <div className="mt-1 w-full relative">

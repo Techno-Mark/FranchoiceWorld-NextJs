@@ -10,9 +10,21 @@ import { formatInvestmentRange } from "@/utills/CommonFunction";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import RealEstateIcon from "@/assets/icons/realEstateIcon";
-import BeverageIcon from "@/assets/icons/beverageIcon";
-import RetailServiceIcon from "@/assets/icons/retailServiceIcon";
+import RealEstateIcon from "@/assets/icons/advance-filter/realEstateIcon";
+import BeverageIcon from "@/assets/icons/advance-filter/beverageIcon";
+import RetailServiceIcon from "@/assets/icons/advance-filter/retailServiceIcon";
+import EducationIcon from "@/assets/icons/advance-filter/educationIcon";
+import HealthCareIcon from "@/assets/icons/advance-filter/healthCareIcon";
+import HomeBasedIcon from "@/assets/icons/advance-filter/homeBasedIcon";
+import BusinessServiceIcon from "@/assets/icons/advance-filter/businessServiceIcon";
+import FinanceIcon from "@/assets/icons/advance-filter/financeIcon";
+import AutomotiveIcon from "@/assets/icons/advance-filter/automotiveIcon";
+import EntertainmentIcon from "@/assets/icons/advance-filter/entertainmentIcon";
+import DealersIcon from "@/assets/icons/advance-filter/dealersIcon";
+import FashionIcon from "@/assets/icons/advance-filter/fashionIcon";
+import HospitalityIcon from "@/assets/icons/advance-filter/hospitalityIcon";
+import FitnessIcon from "@/assets/icons/advance-filter/fitnessIcon";
+import BeautyCareIcon from "@/assets/icons/advance-filter/beautyCareIcon";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -234,10 +246,21 @@ const ProductList = () => {
   ];
 
   const brandItems = [
-    { icon: RealEstateIcon, text: "Fitness & Sports" },
-    { icon: BeverageIcon, text: "Beverages" },
-    { icon: RetailServiceIcon, text: "Retail Services" },
-    // Add more items as needed
+    { icon: RealEstateIcon, text: "Real Estate" },
+    { icon: BeverageIcon, text: "Food & Beverage" },
+    { icon: RetailServiceIcon, text: "Retail" },
+    { icon: EducationIcon, text: "Education" },
+    { icon: HealthCareIcon, text: "Healthcare" },
+    { icon: BeautyCareIcon, text: "Beauty & Healthcare" },
+    { icon: HomeBasedIcon, text: "Home Based Business" },
+    { icon: BusinessServiceIcon, text: "Business Services" },
+    { icon: FinanceIcon, text: "Finance" },
+    { icon: AutomotiveIcon, text: "Automotive" },
+    { icon: EntertainmentIcon, text: "Entertainment" },
+    { icon: DealersIcon, text: "Dealers & Distributors" },
+    { icon: FashionIcon, text: "Fashion" },
+    { icon: HospitalityIcon, text: "Hospitality" },
+    { icon: FitnessIcon, text: "Fitness & Sports" },
   ];
 
   return (
@@ -250,7 +273,9 @@ const ProductList = () => {
           />
         </div>
       </div>
-      <BrandFilter brandItems={brandItems} />
+      {/* <div className="container">
+        <BrandFilter brandItems={brandItems} />
+      </div> */}
       <div className="mt-8 mb-12 md:mt-10 md:mb-8">
         <div className="container">
           <FranchiseListCard items={brandData} />
