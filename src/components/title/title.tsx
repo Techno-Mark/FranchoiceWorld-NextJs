@@ -16,7 +16,6 @@ const Title: React.FC<TitleProps> = ({
   descClass,
   titleClass,
 }) => {
-  console.log(titleClass);
 
   return (
     <>

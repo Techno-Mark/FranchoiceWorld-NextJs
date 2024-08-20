@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 const footerItem = [
   {
-    id: "11",
+    // id: "11",
     title: "Company",
     child: [
       {
@@ -32,22 +32,26 @@ const footerItem = [
     ],
   },
   {
-    id: "22",
+    // id: "22",
     title: "Support",
     child: [
       // {
+        // id:4,
       //   name: "Help Center",
       //   path: "/help_center",
       // },
       {
+        id:5,
         name: "Terms of Use",
         path: "/term-conditions",
       },
       // {
+        // id:6,
       //   name: "Legal",
       //   path: "/legal",
       // },
       {
+        id:7,
         name: "Privacy Policy",
         path: "/privacy-policy",
       },
@@ -108,8 +112,8 @@ const Footer = () => {
             </ul>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-24 order-1 md:order-2">
-            {footerItem?.map((x: any) => (
-              <div key={x.id}>
+            {footerItem?.map((x: any,index:number) => (
+              <div key={index}>
                 <h3 className="mb-5 font-medium text-white capitilize text-xl">
                   {x.title}
                 </h3>

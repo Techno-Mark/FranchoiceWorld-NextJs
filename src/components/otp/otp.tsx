@@ -44,7 +44,6 @@ const OTPModal: React.FC<OTPModalProps> = ({
         setErrorMessage("Resend OTP is Failed. Please try again later.");
       }
     } catch (error) {
-      console.log("Hello");
       console.error("Error getting OTP:", error);
       setErrorMessage("Resend OTP is Failed. Please try again later.");
     }
