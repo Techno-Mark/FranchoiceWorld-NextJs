@@ -23,8 +23,14 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_2.module.css";
 
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 import SpinnerLoader from "@/assets/icons/spinner";
 import YearSelect from "@/components/Fields/yearSelect";
+import ReactQuillField from "@/components/Fields/TextEditor";
 
 interface FormValues {
   phoneNumber: string | null;
@@ -92,6 +98,7 @@ function SecondStep() {
     state: [],
     city: [],
   });
+  console.log("🚀 ~ SecondStep ~ formValues:", formValues);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -255,7 +262,7 @@ function SecondStep() {
         headquartersLocation: data?.headquartersLocation || null,
         numberOfLocations: data?.numberOfLocations || null,
         brandDescription: data?.brandDescription || "",
-        usp: data?.brandDescription || "",
+        usp: data?.usp || "",
         state: data?.state || [],
         city: data?.city || [],
       }));
@@ -512,7 +519,7 @@ function SecondStep() {
                 ))}
               </div>
 
-              {["brandDescription", "usp"].map((field) => (
+              {/* {["brandDescription", "usp"].map((field) => (
                 <div className="w-full mb-6 md:mb-7" key={field}>
                   <Field
                     as={TextArea}
@@ -537,7 +544,78 @@ function SecondStep() {
                     </div>
                   )}
                 </div>
-              ))}
+              ))} */}
+              <style jsx global>{`
+                .ql-toolbar.ql-snow {
+                  border:none;
+                  border-bottom: 1px solid #73727366; !important
+                }
+                  .ql-container.ql-snow {
+                  border:none;
+                  
+                }
+                
+              `}</style>
+
+              <div className="w-full mb-6 md:mb-7">
+                <label
+                  htmlFor={`brandDescription`}
+                  className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
+                >
+                  Description
+                </label>
+                <ReactQuillField
+                  id="brandDescription"
+                  name="brandDescription"
+                  theme="snow"
+                  modules={{
+                    toolbar: [
+                      ["bold", "italic", "underline", "strike"],
+                      ["blockquote", "code-block"],
+                      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                      [{ list: "ordered" }, { list: "bullet" }],
+                      [{ script: "sub" }, { script: "super" }],
+                      [{ indent: "-1" }, { indent: "+1" }],
+                      [{ direction: "rtl" }],
+                      [{ color: [] }, { background: [] }],
+                      [{ align: [] }],
+                      ["clean"],
+                    ],
+                  }}
+                  placeholder="Your Message"
+                  className={`block text-base w-full border resize-none border-[#73727366] rounded-lg  focus:bg-white focus:outline-none `}
+                />
+              </div>
+
+              <div className="w-full mb-6 md:mb-7">
+                <label
+                  htmlFor={`usp`}
+                  className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
+                >
+                  Unique Selling Proposition (USP)
+                </label>
+                <ReactQuillField
+                  id="usp"
+                  name="usp"
+                  theme="snow"
+                  modules={{
+                    toolbar: [
+                      ["bold", "italic", "underline", "strike"],
+                      ["blockquote", "code-block"],
+                      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                      [{ list: "ordered" }, { list: "bullet" }],
+                      [{ script: "sub" }, { script: "super" }],
+                      [{ indent: "-1" }, { indent: "+1" }],
+                      [{ direction: "rtl" }],
+                      [{ color: [] }, { background: [] }],
+                      [{ align: [] }],
+                      ["clean"],
+                    ],
+                  }}
+                  placeholder="Your Message"
+                  className={`block text-base w-full border resize-none border-[#73727366] rounded-lg  focus:bg-white focus:outline-none `}
+                />
+              </div>
 
               <p className="text-[var(--footer-bg)] text-base font-bold pb-4">
                 Please Select Your Brand expansion plan Across States and City
