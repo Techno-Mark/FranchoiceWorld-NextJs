@@ -98,7 +98,6 @@ function SecondStep() {
     state: [],
     city: [],
   });
-  console.log("🚀 ~ SecondStep ~ formValues:", formValues);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
