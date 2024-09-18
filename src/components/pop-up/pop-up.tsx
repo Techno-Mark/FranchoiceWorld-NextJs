@@ -53,6 +53,14 @@ const MainPopup = () => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowConsent(true);
+    }, 15000); 
+
+    return () => clearTimeout(timer); // Clean up timer on component unmount
+  }, []);
+
   const fetchCity = async (cityId: number[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
@@ -107,7 +115,6 @@ const MainPopup = () => {
       }
     } catch (error: any) {
       const errorMessage = error.message || "An unknown error occurred";
-      console.log("🚀 ~ MainPopup ~ errorMessage:", errorMessage);
       console.error("Error submitting form:", error);
     } finally {
       setIsSubmitting(false);
@@ -116,23 +123,12 @@ const MainPopup = () => {
   };
 
   useEffect(() => {
-    const consent = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("cookieConsent="));
-    if (!consent) {
-      setShowConsent(true);
-    }
-  }, []);
-
-  useEffect(() => {
     if (formValues.state.length) {
       fetchCity(formValues.state); // Fetch cities when state is selected
     }
   }, [formValues.state]);
 
   const handleAction = () => {
-    document.cookie =
-      "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365;
     setShowConsent(false);
   };
 
