@@ -11,6 +11,7 @@ interface SelectProps {
   required?: boolean;
   onChange?: (value: number) => void;
   searchable?: boolean;
+  disabled?: boolean; // Add the disabled prop here
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -22,6 +23,7 @@ const Select: React.FC<SelectProps> = ({
   required,
   onChange,
   searchable = false,
+  disabled = false, // Default to false if not provided
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -36,7 +38,6 @@ const Select: React.FC<SelectProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
 
-  // Add these functions to handle focus and blur
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
@@ -89,9 +90,12 @@ const Select: React.FC<SelectProps> = ({
   };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
-      setFocusedOptionIndex(0);
+    if (!disabled) {
+      // Only allow toggle if not disabled
+      setIsOpen(!isOpen);
+      if (!isOpen) {
+        setFocusedOptionIndex(0);
+      }
     }
   };
 
@@ -101,44 +105,46 @@ const Select: React.FC<SelectProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (!isOpen) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleDropdown();
-      }
-    } else {
-      switch (event.key) {
-        case "ArrowDown":
+    if (!disabled) {
+      // Skip all key events if the select is disabled
+      if (!isOpen) {
+        if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          setFocusedOptionIndex((prevIndex) =>
-            Math.min(prevIndex + 1, filteredOptions.length - 1)
-          );
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          setFocusedOptionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-          break;
-        case "Enter":
-          event.preventDefault();
-          if (focusedOptionIndex >= 0) {
-            handleOptionClick(filteredOptions[focusedOptionIndex]);
-          }
-          break;
-        case "Escape":
-        case "Tab":
-          event.preventDefault();
-          setIsOpen(false);
-          setIsTouched(true);
-          helpers.setTouched(true);
-          if (event.key === "Tab") {
-            // Allow the default tab behavior after closing the dropdown
-            setTimeout(() => {
-              if (selectRef.current) {
-                selectRef.current.blur();
-              }
-            }, 0);
-          }
-          break;
+          toggleDropdown();
+        }
+      } else {
+        switch (event.key) {
+          case "ArrowDown":
+            event.preventDefault();
+            setFocusedOptionIndex((prevIndex) =>
+              Math.min(prevIndex + 1, filteredOptions.length - 1)
+            );
+            break;
+          case "ArrowUp":
+            event.preventDefault();
+            setFocusedOptionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+            break;
+          case "Enter":
+            event.preventDefault();
+            if (focusedOptionIndex >= 0) {
+              handleOptionClick(filteredOptions[focusedOptionIndex]);
+            }
+            break;
+          case "Escape":
+          case "Tab":
+            event.preventDefault();
+            setIsOpen(false);
+            setIsTouched(true);
+            helpers.setTouched(true);
+            if (event.key === "Tab") {
+              setTimeout(() => {
+                if (selectRef.current) {
+                  selectRef.current.blur();
+                }
+              }, 0);
+            }
+            break;
+        }
       }
     }
   };
@@ -164,57 +170,65 @@ const Select: React.FC<SelectProps> = ({
         </label>
       )}
       <div
-  className="relative inline-block w-full"
-  ref={selectRef}
-  onKeyDown={handleKeyDown}
-  onBlur={() => {
-    setTimeout(() => {
-      if (!selectRef.current?.contains(document.activeElement)) {
-        setIsOpen(false);
-        setIsTouched(true);
-        helpers.setTouched(true);
-        setIsFocused(false);
-      }
-    }, 0);
-  }}
-  tabIndex={0}
-  role="combobox"
-  aria-haspopup="listbox"
-  aria-expanded={isOpen}
-  aria-controls="select-dropdown"
-  onFocus={handleFocus}
-  style={{ outline: "none" }}
->
+        className="relative inline-block w-full"
+        ref={selectRef}
+        onKeyDown={handleKeyDown}
+        onBlur={() => {
+          setTimeout(() => {
+            if (!selectRef.current?.contains(document.activeElement)) {
+              setIsOpen(false);
+              setIsTouched(true);
+              helpers.setTouched(true);
+              setIsFocused(false);
+            }
+          }, 0);
+        }}
+        tabIndex={disabled ? -1 : 0} // Skip tabindex when disabled
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-controls="select-dropdown"
+        onFocus={handleFocus}
+        style={{ outline: "none" }}
+      >
         <div
           className={`select-display ${
             className
               ? className
               : "flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer h-full items-center justify-between"
-          } ${isFocused ? "ring-2 ring-gray-300 border-gray-300" : ""}`}
+          } ${isFocused ? "ring-2 ring-gray-300 border-gray-300" : ""} ${
+            disabled ? "bg-gray-100 cursor-not-allowed" : ""
+          }`} // Add disabled styling here
           onClick={toggleDropdown}
         >
-          <span className="font-medium w-full text-ellipsis overflow-hidden">
+          <span
+            className={`font-medium w-full text-ellipsis overflow-hidden ${
+              disabled ? "text-gray-500" : ""
+            }`}
+          >
             {selectedLabel ? selectedLabel : placeholder}
           </span>
-          <div className="flex items-center pl-2 pointer-events-none">
-            <svg
-              className={`w-4 h-4 text-footer-bg transition-transform duration-200 ${
-                isOpen ? "transform rotate-180" : ""
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
+          {!disabled && (
+            <div className="flex items-center pl-2 pointer-events-none">
+              <svg
+                className={`w-4 h-4 text-footer-bg transition-transform duration-200 ${
+                  isOpen ? "transform rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-        {isOpen && (
+        {isOpen && !disabled && (
           <div
             id="select-dropdown"
             className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg ${
@@ -232,6 +246,7 @@ const Select: React.FC<SelectProps> = ({
                   placeholder="Search..."
                   className="w-full p-2 text-base border rounded focus:outline-none"
                   ref={searchInputRef}
+                  disabled={disabled} // Disable search when select is disabled
                 />
               </div>
             )}
@@ -261,9 +276,6 @@ const Select: React.FC<SelectProps> = ({
           </div>
         )}
       </div>
-      {/* {showError && (
-        <div className="text-red-500 mt-2 text-sm">{meta.error}</div>
-      )} */}
     </div>
   );
 };

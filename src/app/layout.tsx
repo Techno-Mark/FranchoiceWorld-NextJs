@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import CookieConsent from "@/components/cookie/cookie";
+import MainPopup from "@/components/pop-up/pop-up";
 
 export const metadata: Metadata = {
   title: {
@@ -67,6 +68,7 @@ export default function RootLayout({
           <Header />
           {children}
           <CookieConsent />
+          <MainPopup />
         </main>
         <Footer />
       </body>

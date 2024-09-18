@@ -67,8 +67,8 @@ const AskBanner = () => {
       )
       .required("Full Name is required"),
     phoneNumber: Yup.string()
-      .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits")
-      .required("Phone Number is required"),
+      .required("Phone Number is required")
+      .matches(/^\d{10}$/, "Phone Number must be exactly 10 digits"),
     emailId: Yup.string()
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")

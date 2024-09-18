@@ -24,10 +24,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import styles from "./step_3.module.css";
-import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface FormValues {
   phoneNumber: string | null;
@@ -501,48 +497,14 @@ function SecondStep() {
                     </div>
                   )}
               </div>
-              <style jsx global>{`
-                .ql-toolbar.ql-snow {
-                  border:none;
-                  border-bottom: 1px solid #73727366; !important
-                }
-                  .ql-container.ql-snow {
-                  border:none;
-                  
-                }
-                
-              `}</style>
               <div className="w-full mb-6 md:mb-7">
-                <label
-                  htmlFor={`otherApplicable`}
-                  className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
-                >
-                  Others if applicable
-                </label>
                 <Field
-                  as={ReactQuill}
-                  id="otherApplicable"
-                  onChange={(value: any) =>
-                    setFieldValue("otherApplicable", value)
-                  }
+                  as={TextArea}
                   name="otherApplicable"
-                  theme="snow"
-                  modules={{
-                    toolbar: [
-                      ["bold", "italic", "underline", "strike"],
-                      ["blockquote", "code-block"],
-                      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      [{ script: "sub" }, { script: "super" }],
-                      [{ indent: "-1" }, { indent: "+1" }],
-                      [{ direction: "rtl" }],
-                      [{ color: [] }, { background: [] }],
-                      [{ align: [] }],
-                      ["clean"],
-                    ],
-                  }}
+                  label="Others if applicable"
                   placeholder="Your Message"
-                  className={`block text-base w-full border resize-none border-[#73727366] rounded-lg  focus:bg-white focus:outline-none `}
+                  rows={3}
+                  className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none`}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
