@@ -11,10 +11,12 @@ import Button from "../button/button";
 import SpinnerLoader from "@/assets/icons/spinner";
 import ArrowIcon from "@/assets/icons/arrowIcon";
 import Select from "../select/Select";
-import { getCity } from "@/api/dropdown";
+import { getCity, getIndustry } from "@/api/dropdown";
+import { useRouter } from "next/navigation";
+import { eventRegister } from "@/api/home";
 
 interface FormValues {
-  yourName: string;
+  name: string;
   email: string;
   phoneNumber: string;
   state: number[];
@@ -22,22 +24,39 @@ interface FormValues {
 }
 
 const MainPopup = () => {
+  const router = useRouter();
   const [showConsent, setShowConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [citiesOption, setCitiesOption] = useState([]);
   const [stateOption, setStateOption] = useState([]);
+  const [selectedState, setSelectedState] = useState<number[]>([]);
+  const [showSuccessMessage, setShowSuccessMessage] = useState<string>("");
+
   const [formValues, setFormValues] = useState<FormValues>({
-    yourName: "",
+    name: "",
     email: "",
     phoneNumber: "",
     state: [],
     city: [],
   });
 
-  const fetchCity = async (cityId: []) => {
+  const fetchState = async () => {
+    try {
+      const response = await getIndustry("/dropdown/states");
+      const formattedstate = response.map((state: any) => ({
+        value: state.id,
+        label: state.name,
+      }));
+      setStateOption(formattedstate);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+
+  const fetchCity = async (cityId: number[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
-        stateId: cityId,
+        stateId: [cityId],
       });
       const formattedCity = response.map((city: any) => ({
         value: city.id,
@@ -51,39 +70,47 @@ const MainPopup = () => {
   };
 
   useEffect(() => {
-    fetchCity([]);
+    fetchState();
   }, []);
 
+  useEffect(() => {
+    if (selectedState.length != 0) {
+      fetchCity(selectedState); // Fetch cities when state is selected
+    } else {
+      setCitiesOption([]); // Clear cities when no state is selected
+    }
+  }, [selectedState]);
+
   const validationSchema = Yup.object({
-    yourName: Yup.string()
+    name: Yup.string()
       .max(250, "Name cannot be longer than 250 characters.")
       .required("Name is required"),
     email: Yup.string().required("Email is required"),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
       .required("Contact Number is required"),
-    state: Yup.array().min(1, "Please select at least one option"),
-    city: Yup.array().min(1, "Please select at least one option"),
   });
 
   const handleSubmit = async (
     values: typeof formValues,
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
-    Object.keys(values).forEach((fieldName) => {
-      setFieldTouched(fieldName, true);
-    });
+    setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/form-details/create`,
-        {
-          ...values,
-        }
-      );
-    } catch (error) {
+      const response = await eventRegister(values);
+      if (response.success) {
+        router.push(`/thankyou`);
+        setShowConsent(false);
+      } else {
+        setShowSuccessMessage(response.message);
+      }
+    } catch (error: any) {
+      const errorMessage = error.message || "An unknown error occurred";
+      console.log("🚀 ~ MainPopup ~ errorMessage:", errorMessage);
       console.error("Error submitting form:", error);
     } finally {
+      setIsSubmitting(false);
       setSubmitting(false);
     }
   };
@@ -96,6 +123,12 @@ const MainPopup = () => {
       setShowConsent(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (formValues.state.length) {
+      fetchCity(formValues.state); // Fetch cities when state is selected
+    }
+  }, [formValues.state]);
 
   const handleAction = () => {
     document.cookie =
@@ -176,22 +209,21 @@ const MainPopup = () => {
                           <div className="w-full mb-3 md:mb-4">
                             <Field
                               as={InputField}
-                              id="yourName"
-                              name="yourName"
+                              id="name"
+                              name="name"
                               type="text"
                               required
                               label="Your Name"
                               className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-                                getIn(errors, "yourName") &&
-                                getIn(touched, "yourName")
+                                getIn(errors, "name") && getIn(touched, "name")
                                   ? "border-red-500 mb-0.5"
                                   : ""
                               }`}
                             />
-                            {getIn(errors, "yourName") &&
-                              getIn(touched, "yourName") && (
+                            {getIn(errors, "name") &&
+                              getIn(touched, "name") && (
                                 <div className="text-red-500 font-medium mb-2">
-                                  {getIn(errors, "yourName")}
+                                  {getIn(errors, "name")}
                                 </div>
                               )}
                           </div>
@@ -258,7 +290,12 @@ const MainPopup = () => {
                                 label="State"
                                 searchable
                                 className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center`}
-                                options={citiesOption}
+                                options={stateOption}
+                                onChange={(value: any) => {
+                                  setFieldValue("state", value);
+                                  setFieldValue("city", []); // Reset city field when state changes
+                                  setSelectedState(value); // Update selectedState to trigger city fetch
+                                }}
                               />
                             </div>
                             <div className="w-full mb-2 md:mb-3">
@@ -266,12 +303,16 @@ const MainPopup = () => {
                                 name="city"
                                 label="City"
                                 searchable
-                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center`}
+                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg 
+                                    focus:outline-none min-h-[45px] items-center`}
                                 options={citiesOption}
+                                onChange={(value: any) =>
+                                  setFieldValue("city", value)
+                                }
                               />
                             </div>
                           </div>
-                          <div className="flex justify-end md:mb-6 mt-3">
+                          <div className="flex justify-end md:mb-2 mt-3">
                             <Button
                               variant="highlighted"
                               type="submit"
@@ -292,6 +333,12 @@ const MainPopup = () => {
                               )}
                             </Button>
                           </div>
+
+                          {showSuccessMessage && (
+                            <div className="text-red-500 text-center font-bold">
+                              {showSuccessMessage}
+                            </div>
+                          )}
                         </Form>
                       )}
                     </Formik>
