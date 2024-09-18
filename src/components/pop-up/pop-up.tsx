@@ -14,6 +14,11 @@ import Select from "../select/Select";
 import { getCity, getIndustry } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 import { eventRegister } from "@/api/home";
+import localFont from "next/font/local";
+const myFont = localFont({
+  src: "./impact-webfont.woff2",
+  display: "swap",
+});
 
 interface FormValues {
   name: string;
@@ -52,6 +57,14 @@ const MainPopup = () => {
       console.error("Error fetching states:", error);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowConsent(true);
+    }, 15000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const fetchCity = async (cityId: number[]) => {
     try {
@@ -107,7 +120,6 @@ const MainPopup = () => {
       }
     } catch (error: any) {
       const errorMessage = error.message || "An unknown error occurred";
-      console.log("🚀 ~ MainPopup ~ errorMessage:", errorMessage);
       console.error("Error submitting form:", error);
     } finally {
       setIsSubmitting(false);
@@ -116,23 +128,12 @@ const MainPopup = () => {
   };
 
   useEffect(() => {
-    const consent = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("cookieConsent="));
-    if (!consent) {
-      setShowConsent(true);
-    }
-  }, []);
-
-  useEffect(() => {
     if (formValues.state.length) {
       fetchCity(formValues.state); // Fetch cities when state is selected
     }
   }, [formValues.state]);
 
   const handleAction = () => {
-    document.cookie =
-      "cookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365;
     setShowConsent(false);
   };
 
@@ -169,8 +170,12 @@ const MainPopup = () => {
               <div className="flex flex-col pt-10 px-7">
                 <div>
                   <div className="text-footer-bg text-center uppercase">
-                    <p className="text-3xl md:text-5xl font-bold">Success ka</p>
-                    <p className="text-2xl md:text-4xl">ultimate destination</p>
+                    <p className="text-3xl md:text-5xl font-extrabold font-impact">
+                      Success ka
+                    </p>
+                    <p className={` text-2xl md:text-4xl font-extrabold font-impact`}>
+                      ultimate destination
+                    </p>
                   </div>
 
                   <div className="py-3 md:max-w-[500px]">
