@@ -14,6 +14,11 @@ import Select from "../select/Select";
 import { getCity, getIndustry } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 import { eventRegister } from "@/api/home";
+import localFont from "next/font/local";
+const myFont = localFont({
+  src: "./impact-webfont.woff2",
+  display: "swap",
+});
 
 interface FormValues {
   name: string;
@@ -56,9 +61,9 @@ const MainPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
-    }, 15000); 
+    }, 15000);
 
-    return () => clearTimeout(timer); // Clean up timer on component unmount
+    return () => clearTimeout(timer);
   }, []);
 
   const fetchCity = async (cityId: number[]) => {
@@ -165,8 +170,12 @@ const MainPopup = () => {
               <div className="flex flex-col pt-10 px-7">
                 <div>
                   <div className="text-footer-bg text-center uppercase">
-                    <p className="text-3xl md:text-5xl font-bold">Success ka</p>
-                    <p className="text-2xl md:text-4xl">ultimate destination</p>
+                    <p className="text-3xl md:text-5xl font-extrabold font-impact">
+                      Success ka
+                    </p>
+                    <p className={` text-2xl md:text-4xl font-extrabold font-impact`}>
+                      ultimate destination
+                    </p>
                   </div>
 
                   <div className="py-3 md:max-w-[500px]">
