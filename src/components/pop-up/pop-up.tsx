@@ -1,6 +1,5 @@
 "use client";
 import CloseIcon from "@/assets/icons/closeIcon";
-import axios from "axios";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
@@ -15,9 +14,11 @@ import { getCity, getIndustry } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 import { eventRegister } from "@/api/home";
 import localFont from "next/font/local";
+import styles from "./pop-up.module.css"
+
 const myFont = localFont({
-  src: "./impact-webfont.woff2",
-  display: "swap",
+  src: "../../../public/font/impact-webfont.woff",
+  variable: "--font-impact",
 });
 
 interface FormValues {
@@ -96,12 +97,23 @@ const MainPopup = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
+      .trim()
       .max(250, "Name cannot be longer than 250 characters.")
-      .required("Name is required"),
-    email: Yup.string().required("Email is required"),
+      .required("Name is required")
+      .test(
+        "no-only-spaces",
+        "Name cannot consist only of spaces",
+        (value) => (value ? value.trim().length > 0 : false) // Return boolean
+      ),
+    email: Yup.string()
+      .required("Email is required")
+      .matches(
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, // Custom regex for stricter email format
+        "Please enter a valid email address"
+      ),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
-      .required("Contact Number is required"),
+      .required("Contact No is required"),
   });
 
   const handleSubmit = async (
@@ -145,7 +157,9 @@ const MainPopup = () => {
   return (
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
-        <div className="bg-white w-auto inline-block ">
+        <div
+          className={`bg-white w-auto max-h-[480px] md:max-h-[622px] mx-3   overflow-auto inline-block ${styles.custom_scrollbar}`}
+        >
           <div className="flex relative">
             <button
               className="bg-transparent absolute right-3 top-3 border-none text-2xl cursor-pointer"
@@ -166,14 +180,18 @@ const MainPopup = () => {
                 />
               </div>
             </div>
-            <div className="w-auto md:max-w-[700px] md:px-8 ">
-              <div className="flex flex-col pt-10 px-7">
+            <div className="w-auto md:max-w-[700px]  md:px-8 ">
+              <div className="flex flex-col pt-10 px-3 md:px-7">
                 <div>
                   <div className="text-footer-bg text-center uppercase">
-                    <p className="text-3xl md:text-5xl font-extrabold font-impact">
+                    <p
+                      className={`${myFont.className} text-5xl md:text-[80px]  font-impact`}
+                    >
                       Success ka
                     </p>
-                    <p className={` text-2xl md:text-4xl font-extrabold font-impact`}>
+                    <p
+                      className={`${myFont.className} text-3xl md:text-[43px]  font-impact`}
+                    >
                       ultimate destination
                     </p>
                   </div>
@@ -181,22 +199,22 @@ const MainPopup = () => {
                   <div className="py-3 md:max-w-[500px]">
                     <div className="flex justify-center items-center">
                       <div className="h-1 w-8 md:w-16 bg-[var(--highlighted-color)]"></div>
-                      <p className="md:mx-4 mx-2 text-gray-600 font-bold text-center text-sm md:text-xl">
+                      <p className="md:mx-4 mx-2 text-gray-600 font-bold text-base md:text-lg">
                         Kickstart your business
                       </p>
                       <div className="h-1 w-8 md:w-16 bg-[var(--highlighted-color)]"></div>
                     </div>
-                    <p className="text-gray-600 text-center font-bold text-xl">
+                    <p className="text-gray-600 text-center font-bold text-base md:text-lg">
                       with top franchise opportunities
                     </p>
                   </div>
 
                   <div className="flex items-center justify-center">
                     <div>
-                      <p className="bg-footer-bg text-white text-base text-center font-bold px-6">
+                      <p className="bg-footer-bg text-white text-sm md:text-lg text-center font-bold px-6">
                         Franchoice World Business Summit{" "}
                       </p>
-                      <p className="font-bold p-2">
+                      <p className="font-bold text-[10px] md:text-base p-2">
                         19th Oct | 9:30am - 6:00pm | Andheri East, Mumbai
                       </p>
                     </div>
@@ -232,7 +250,7 @@ const MainPopup = () => {
                                 </div>
                               )}
                           </div>
-                          <div className="grid grid-cols-1 gap-2 md:gap-10 md:grid-cols-2">
+                          <div className="grid grid-cols-2 gap-2 md:gap-10">
                             <div className="w-full md:mb-2">
                               <Field
                                 as={InputField}
@@ -288,7 +306,7 @@ const MainPopup = () => {
                                 )}
                             </div>
                           </div>
-                          <div className="grid grid-cols-1 gap-2 md:gap-10 md:grid-cols-2">
+                          <div className="grid  gap-2 md:gap-10 grid-cols-2">
                             <div className="w-full mb-3 md:mb-4">
                               <Select
                                 name="state"
@@ -317,7 +335,7 @@ const MainPopup = () => {
                               />
                             </div>
                           </div>
-                          <div className="flex justify-end md:mb-2 mt-3">
+                          <div className="flex justify-center md:justify-end mb-2">
                             <Button
                               variant="highlighted"
                               type="submit"
@@ -338,9 +356,8 @@ const MainPopup = () => {
                               )}
                             </Button>
                           </div>
-
                           {showSuccessMessage && (
-                            <div className="text-red-500 text-center font-bold">
+                            <div className="text-red-500 text-center md:mb-2 font-bold">
                               {showSuccessMessage}
                             </div>
                           )}
