@@ -38,10 +38,6 @@ const MainPopup = () => {
   const [stateOption, setStateOption] = useState([]);
   const [selectedState, setSelectedState] = useState<number[]>([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState<string>("");
-  const [showThankYou, setShowThankYou] = useState(false);
-  const [titleMessage, setTitleMessage] = useState("");
-  const [descriptionMessage, setDescriptionMessage] = useState("");
-  const [buttonText, setButtonText] = useState("");
 
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
@@ -67,7 +63,7 @@ const MainPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
-    }, 1500);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);
