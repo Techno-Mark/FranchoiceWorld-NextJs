@@ -14,7 +14,8 @@ import { getCity, getIndustry } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
 import { eventRegister } from "@/api/home";
 import localFont from "next/font/local";
-import styles from "./pop-up.module.css"
+import styles from "./pop-up.module.css";
+import ThankYou from "@/app/thankyou/page";
 
 const myFont = localFont({
   src: "../../../public/font/impact-webfont.woff",
@@ -37,6 +38,10 @@ const MainPopup = () => {
   const [stateOption, setStateOption] = useState([]);
   const [selectedState, setSelectedState] = useState<number[]>([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState<string>("");
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [titleMessage, setTitleMessage] = useState("");
+  const [descriptionMessage, setDescriptionMessage] = useState("");
+  const [buttonText, setButtonText] = useState("");
 
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
@@ -62,7 +67,7 @@ const MainPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
-    }, 15000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -125,7 +130,7 @@ const MainPopup = () => {
     try {
       const response = await eventRegister(values);
       if (response.success) {
-        router.push(`/thankyou`);
+        router.push(`/registerThankyou`);
         setShowConsent(false);
       } else {
         setShowSuccessMessage(response.message);
@@ -311,6 +316,7 @@ const MainPopup = () => {
                               <Select
                                 name="state"
                                 label="State"
+                                placeholder="Please select a state"
                                 searchable
                                 className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center`}
                                 options={stateOption}
@@ -326,6 +332,7 @@ const MainPopup = () => {
                                 name="city"
                                 label="City"
                                 searchable
+                                placeholder="Please select a city"
                                 className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg 
                                     focus:outline-none min-h-[45px] items-center`}
                                 options={citiesOption}
