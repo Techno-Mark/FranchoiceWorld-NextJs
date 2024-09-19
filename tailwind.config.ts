@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        impact: ["var(--font-impact)"] // Add your custom font here
+      },
       container: {
         screens: {
           desktop: "1180px",
