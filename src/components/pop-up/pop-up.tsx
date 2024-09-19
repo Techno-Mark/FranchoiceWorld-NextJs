@@ -159,7 +159,7 @@ const MainPopup = () => {
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
         <div
-          className={`bg-white w-auto max-h-[480px] md:max-h-[622px] mx-3   overflow-auto inline-block ${styles.custom_scrollbar}`}
+          className={`bg-white w-auto max-h-[600px] md:max-h-[650px] mx-3   overflow-auto inline-block ${styles.custom_scrollbar}`}
         >
           <div className="flex relative">
             <button
@@ -191,7 +191,7 @@ const MainPopup = () => {
                       Success ka
                     </p>
                     <p
-                      className={`${myFont.className} text-3xl md:text-[43px]  font-impact`}
+                      className={`${myFont.className} text-[26px] md:text-[43px]  font-impact`}
                     >
                       ultimate destination
                     </p>
