@@ -1,6 +1,6 @@
 /* Cross-browser scrollbar styling */
 .custom_scrollbar {
-    overflow-y: scroll; /* Ensure scrollbar is visible for testing */
+    overflow-y: auto; /* Ensure scrollbar is visible for testing */
 }
 
 .custom_scrollbar::-webkit-scrollbar {
@@ -32,4 +32,10 @@
 
 .custom_scrollbar::-ms-scrollbar {
     display: none; /* IE and Edge */
+}
+
+@media only screen and (max-width: 1499px) and (min-width:768px) {
+   .businessReg{
+    transform: scale(0.8);
+   }
 }
