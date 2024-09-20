@@ -159,7 +159,7 @@ const MainPopup = () => {
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
         <div
-          className={`bg-white w-auto max-h-[600px] md:max-h-[650px] mx-3   overflow-auto inline-block ${styles.custom_scrollbar}`}
+          className={`bg-white w-auto max-h-[600px] md:max-h-[650px] mx-3   overflow-auto inline-block ${styles.businessReg} ${styles.custom_scrollbar}`}
         >
           <div className="flex relative">
             <button
@@ -169,9 +169,9 @@ const MainPopup = () => {
               <CloseIcon />
             </button>
             <div className="bg-footer-bg hidden md:flex p-8 justify-between flex-col">
-              <div>
+              {/* <div> */}
                 <PopupLogo />
-              </div>
+              {/* </div> */}
               <div className="absolute bottom-0 left-8">
                 <Image
                   alt="lady_img"
@@ -182,7 +182,7 @@ const MainPopup = () => {
               </div>
             </div>
             <div className="w-auto md:max-w-[700px]  md:px-8 ">
-              <div className="flex flex-col pt-10 px-3 md:px-7">
+              <div className="flex flex-col py-5 px-3 md:px-7">
                 <div>
                   <div className="text-footer-bg text-center uppercase">
                     <p
@@ -221,7 +221,7 @@ const MainPopup = () => {
                     </div>
                   </div>
 
-                  <div className="">
+                  <div className="max-w-[440px]">
                     <Formik<FormValues>
                       initialValues={formValues}
                       validationSchema={validationSchema}
@@ -338,11 +338,11 @@ const MainPopup = () => {
                               />
                             </div>
                           </div>
-                          <div className="flex justify-center md:justify-end mb-2">
+                          <div className="flex justify-center md:justify-end">
                             <Button
                               variant="highlighted"
                               type="submit"
-                              className="rounded-lg text-xs font-semibold flex items-center !py-4 !px-7"
+                              className="rounded-lg font-semibold flex items-center !py-4 !px-7"
                             >
                               {isSubmitting ? (
                                 <>
