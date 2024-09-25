@@ -98,7 +98,7 @@ export default function RootLayout({
           <Header />
           {children}
           <CookieConsent />
-          <MainPopup />
+         
         </main>
         <Footer />
       </body>

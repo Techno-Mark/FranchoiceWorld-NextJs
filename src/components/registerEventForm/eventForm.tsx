@@ -10,12 +10,6 @@ interface FormProps {
 
 const EventForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
 
-  const handleOpen = () => {
-    window.scrollTo({
-      top: 150,
-      behavior: "smooth", // Smooth scroll to the top
-    });
-  };
 
   return (
     <>
@@ -26,15 +20,7 @@ const EventForm: React.FC<FormProps> = ({ classNames, pageForm }) => {
           <EnvForm pageForm={pageForm} />
         </div>
       </section>
-      <div className="block lg:hidden fixed bottom-3 text-center w-full z-9">
-        <Link
-          href="javascript:void(0)"
-          onClick={handleOpen}
-          className="inline-block px-[20px] py-[11px] text-white border border-white font-bold rounded-lg bg-[var(--highlighted-color)]"
-        >
-          Register to Attend
-        </Link>
-      </div>
+
     </>
   );
 };

@@ -128,12 +128,12 @@ const BussinessSummitForm = () => {
         <div className="py-4 md:max-w-[500px]">
           <div className="flex justify-center items-center">
             <div className="h-[1px] w-8 md:w-16 bg-[var(--highlighted-color)]"></div>
-            <p className="md:mx-4 mx-2 font-bold text-base md:text-lg">
+            <p className="md:mx-4 mx-2 font-bold text-sm md:text-lg">
               Kickstart your business
             </p>
             <div className="h-[1px] w-8 md:w-16 bg-[var(--highlighted-color)]"></div>
           </div>
-          <p className="text-center font-bold text-base md:text-lg">
+          <p className="text-center font-bold text-sm md:text-lg">
             with top franchise opportunities
           </p>
         </div>
@@ -161,7 +161,7 @@ const BussinessSummitForm = () => {
                       name="name"
                       type="text"
                       required
-                      className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+                      className={`block w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4 focus:bg-white focus:outline-none ${
                         getIn(errors, "name") && getIn(touched, "name")
                           ? "border-red-500 mb-0.5"
                           : ""
@@ -186,17 +186,18 @@ const BussinessSummitForm = () => {
                       name="jobTitle"
                       type="text"
                       required
-                      className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+                      className={`block w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4 focus:bg-white focus:outline-none ${
                         getIn(errors, "jobTitle") && getIn(touched, "jobTitle")
                           ? "border-red-500 mb-0.5"
                           : ""
                       }`}
                     />
-                    {getIn(errors, "jobTitle") && getIn(touched, "jobTitle") && (
-                      <div className="text-red-500 font-medium mb-2">
-                        {getIn(errors, "jobTitle")}
-                      </div>
-                    )}
+                    {getIn(errors, "jobTitle") &&
+                      getIn(touched, "jobTitle") && (
+                        <div className="text-red-500 font-medium mb-2">
+                          {getIn(errors, "jobTitle")}
+                        </div>
+                      )}
                   </div>
                 </div>
                 <div className="w-full mb-[10px]">
@@ -211,7 +212,7 @@ const BussinessSummitForm = () => {
                     name="investmentCapital"
                     placeholder=" "
                     searchable
-                    className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                    className={`flex justify-between !px-1 md:px-2 !py-1 md:py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[37px] md:min-h-[45px] items-center ${
                       getIn(errors, "investmentCapital") &&
                       getIn(touched, "investmentCapital")
                         ? "border-red-500 mb-0.5"
@@ -240,7 +241,7 @@ const BussinessSummitForm = () => {
                       name="email"
                       type="text"
                       required
-                      className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+                      className={`block w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4  focus:bg-white focus:outline-none  ${
                         getIn(errors, "email") && getIn(touched, "email")
                           ? "border-red-500 mb-0.5"
                           : ""
@@ -273,7 +274,7 @@ const BussinessSummitForm = () => {
                           setFieldValue("phoneNumber", value);
                         }
                       }}
-                      className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+                      className={`block w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4 focus:bg-white focus:outline-none ${
                         getIn(errors, "phoneNumber") &&
                         getIn(touched, "phoneNumber")
                           ? "border-red-500 mb-0.5"

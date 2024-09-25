@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ImageGallery from "@/components/imageGallery/ImageGallery";
 import Title from "@/components/title/title";
 import Image from "next/image";
@@ -83,7 +83,7 @@ function EventLandingPage() {
         <div className="relative container z-[1]">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="flex flex-col items-start text-white max-w-[500px] lg:max-w-[650px] text-center lg:text-left mb-8 lg:mb-0">
-              <h3 className="text-3xl md:text-5xl font-bold !leading-normal">
+              <h3 className="text-3xl md:text-5xl pt-16 font-bold !leading-normal">
                 Franchoice World Business Summit
               </h3>
               <p className="text-lg border-t border-white pt-4 mt-4 mx-auto lg:ml-0">
@@ -105,7 +105,7 @@ function EventLandingPage() {
               titleClass="text-center !text-[var(--text-color)] max-w-[450px] mx-auto mb-8"
             />
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-1/3">
+              <div className="w-full max-w-[300px] mx-auto my-2 md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/impactful.svg"
@@ -123,7 +123,7 @@ function EventLandingPage() {
                   </p>
                 </div>
               </div>
-              <div className="w-full md:w-1/3">
+              <div className="w-full max-w-[300px] mx-auto my-2 md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/multiBrand.svg"
@@ -142,7 +142,7 @@ function EventLandingPage() {
                   </p>
                 </div>
               </div>
-              <div className="w-full md:w-1/3">
+              <div className="w-full max-w-[300px] mx-auto my-2 md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/industrySupport.svg"
@@ -176,7 +176,7 @@ function EventLandingPage() {
               <div className="w-full md:w-3/5 pl-3 max-w-[600px]">
                 <Title
                   title="About the Event"
-                  titleClass="!text-[var(--text-color)]"
+                  titleClass="!text-[var(--text-color)] text-center md:!text-left"
                 />
                 <div className="text-[var(--text-color)] text-base pt-6 tracking-tight">
                   Franchoice World Business Summit is a one-day mega event set
@@ -213,8 +213,10 @@ function EventLandingPage() {
                       height="50"
                     />
                     <div className="flex flex-col text-white pl-3">
-                      <h3 className="text-4xl font-semibold mb-2">When</h3>
-                      <p className="font-semibold text-base">
+                      <h3 className="text-2xl md:text-4xl font-semibold mb-2">
+                        When
+                      </h3>
+                      <p className="font-semibold text-sm md:text-base">
                         19th Oct | 9:30am - 6:00pm
                       </p>
                     </div>
@@ -229,23 +231,25 @@ function EventLandingPage() {
                       height="50"
                     />
                     <div className="flex flex-col text-white pl-3">
-                      <h3 className="text-4xl font-semibold mb-2">Where</h3>
-                      <p className="font-semibold text-base">
+                      <h3 className="text-2xl md:text-4xl font-semibold mb-2">
+                        Where
+                      </h3>
+                      <p className="font-semibold text-sm md:text-base">
                         Andheri East, Mumbai
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="w-full md:w-1/3 lg:w-1/5 py-3 flex items-center justify-center md:justify-end md:max-w-[205px]">
+              <div className="w-full md:w-1/3 lg:w-1/5 py-3 flex items-center justify-start md:justify-end md:max-w-[205px]">
                 <Link
-                  className="bg-[var(--highlighted-color)] rounded-lg text-white text-[15px] py-3 px-4 flex w-max items-center font-semibold"
+                  className="bg-[var(--highlighted-color)] rounded-lg text-white text-[15px] py-2 md:py-3 px-2 md:px-4 flex w-max items-center font-semibold"
                   href="javascript:void(0)"
                   onClick={handleScrollTop}
                 >
                   Register to Attend
                   <svg
-                    className={`${styles.arrowIcn} ml-1 xl:ml-2`}
+                    className={`${styles.arrowIcn} ml-2 xl:ml-2`}
                     width="19"
                     height="19"
                     viewBox="0 0 19 19"
@@ -308,7 +312,7 @@ function EventLandingPage() {
                   <li>
                     <Link
                       href="#"
-                      className="text-xl font-semibold flex items-center mb-6"
+                      className="text-base md:text-xl font-semibold flex flex-col md:flex-row items-center mb-6"
                     >
                       <Image
                         className="mr-4"
@@ -323,7 +327,7 @@ function EventLandingPage() {
                   <li>
                     <Link
                       href="tel:+916357439829"
-                      className="text-xl font-semibold flex items-center mb-6"
+                      className="text-base md:text-xl font-semibold flex flex-col md:flex-row items-center mb-6"
                     >
                       <Image
                         className="mr-4"
