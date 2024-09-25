@@ -112,7 +112,7 @@ const InvestmentContent = () => {
                 placeholder="Select Min Investment"
                 onChange={(value) => {
                   setFieldValue("min", value);
-                  fetchMaxData(value);
+                  fetchMaxData(Number(value));
                 }}
               />
             </div>

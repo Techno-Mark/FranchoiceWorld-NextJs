@@ -94,7 +94,7 @@ const LocationContent = () => {
               className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
               options={stateOptions}
               placeholder="Select State"
-              onChange={(value) => {
+              onChange={(value:any) => {
                 setFieldValue("state", value);
                 setFieldValue("city", null);
                 fetchCityData(value);

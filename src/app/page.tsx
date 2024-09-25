@@ -8,6 +8,7 @@ import HalfBanner from "@/components/halfBanner/halfBanner";
 import InnerListBrandBanner from "@/components/innerListBrandBanner/innerListBrandBanner";
 import InquireForm from "@/components/inquireForm/inquireForm";
 import OurService from "@/components/ourService/ourService";
+import MainPopup from "@/components/pop-up/pop-up";
 import Testimonial from "@/components/testimonial/testimonial";
 import TopBrandSlider from "@/components/topBrands/topBrands";
 import WhyChoose from "@/components/whyChoose/whyChoose";
@@ -314,6 +315,7 @@ export default function Home() {
       />
       <TrandingVideo items={trandingVideo.items} /> */}
         <Testimonial title="Success Stories" testimonials={testimonials} />
+        <MainPopup />
         <InquireForm pageForm="Home" />
       </div>
     </>
