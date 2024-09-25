@@ -1,3 +1,4 @@
+"use client"
 import ImageGallery from "@/components/imageGallery/ImageGallery";
 import Title from "@/components/title/title";
 import Image from "next/image";
@@ -7,6 +8,8 @@ import styles from "./event.module.css";
 import OurBrand from "@/components/ourBrand/ourBrand";
 import EventOpportunity from "@/components/eventOpportunity/eventOpportunity";
 import BussinessSummitForm from "@/components/bussinessSummitForm/bussinessSummitForm";
+import InquireForm from "@/components/inquireForm/inquireForm";
+import EventForm from "@/components/registerEventForm/eventForm";
 
 function EventLandingPage() {
   const ValueImages = [
@@ -39,6 +42,14 @@ function EventLandingPage() {
       column: 0,
     },
   ];
+
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scroll to the top
+    });
+  };
+
   const opportunities = [
     {
       title: "Food & Restaurant",
@@ -67,26 +78,25 @@ function EventLandingPage() {
   ];
   return (
     <>
-      <div className="relative">
-        {/* Banner */}
-        <section className="py-8 lg:mb-8 bg-[url(/images/event/banner.jpg)] bg-[length:100%_50%] lg:bg-cover bg-no-repeat relative before:bg-black before:absolute before:w-full before:h-1/2 lg:before:h-full before:opacity-60 before:top-0">
-          <div className="relative container z-[1]">
-            <div className="flex flex-col lg:flex-row items-center">
-              <div className="flex flex-col items-start text-white max-w-[500px] lg:max-w-[650px] text-center lg:text-left mb-8 lg:mb-0">
-                <h3 className="text-3xl md:text-5xl font-bold !leading-normal">
-                  Franchoice World Business Summit
-                </h3>
-                <p className="text-lg border-t border-white pt-4 mt-4 mx-auto lg:ml-0">
-                  19th Oct | 9:30am - 6:00pm | Andheri East, Mumbai
-                </p>
-              </div>
-              <div className="bg-white rounded-lg md:mb-8 shadow-lg lg:shadow-none">
-                <BussinessSummitForm />
-              </div>
+      {/* Banner */}
+      <section className="py-8 lg:mb-8 bg-[url(/images/event/banner.jpg)] bg-[length:100%_50%] lg:bg-cover bg-no-repeat relative before:bg-black before:absolute before:w-full before:h-1/2 lg:before:h-full before:opacity-60 before:top-0">
+        <div className="relative container z-[1]">
+          <div className="flex flex-col lg:flex-row items-center">
+            <div className="flex flex-col items-start text-white max-w-[500px] lg:max-w-[650px] text-center lg:text-left mb-8 lg:mb-0">
+              <h3 className="text-3xl md:text-5xl font-bold !leading-normal">
+                Franchoice World Business Summit
+              </h3>
+              <p className="text-lg border-t border-white pt-4 mt-4 mx-auto lg:ml-0">
+                19th Oct | 9:30am - 6:00pm | Andheri East, Mumbai
+              </p>
+            </div>
+            <div className="bg-white rounded-lg md:mb-8 shadow-lg lg:shadow-none">
+              <BussinessSummitForm />
             </div>
           </div>
-        </section>
-
+        </div>
+      </section>
+      <div className="relative">
         {/* Why attend event */}
         <div className="py-6 lg:py-12">
           <div className="container">
@@ -227,10 +237,11 @@ function EventLandingPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-full md:w-1/3 lg:w-1/5 py-3 flex items-center justify-center md:justify-end md:max-w-[200px]">
+              <div className="w-full md:w-1/3 lg:w-1/5 py-3 flex items-center justify-center md:justify-end md:max-w-[205px]">
                 <Link
                   className="bg-[var(--highlighted-color)] rounded-lg text-white text-[15px] py-3 px-4 flex w-max items-center font-semibold"
-                  href="#"
+                  href="javascript:void(0)"
+                  onClick={handleScrollTop}
                 >
                   Register to Attend
                   <svg
@@ -338,6 +349,7 @@ function EventLandingPage() {
 
         {/* Sticky bottom */}
         {/* <section className="sticky bottom-0">Hello</section> */}
+        <EventForm pageForm="Home" />
       </div>
     </>
   );

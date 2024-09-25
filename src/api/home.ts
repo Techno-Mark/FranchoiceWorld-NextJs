@@ -3,10 +3,10 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 interface EventRegisterProp {
   name: string;
+  jobTitle:string;
+  investmentCapital: number[];
   email: string;
   phoneNumber: string;
-  state: number[];
-  city: number[];
 }
 
 const extractErrorMessage = (error: any) => {
@@ -43,7 +43,7 @@ export const getFranchiseList = async (param: string) => {
 
 export const eventRegister = async (param: EventRegisterProp) => {
   try {
-    const response = await axios.post(`${API_URL}/register-eventdetails/create` ,param);
+    const response = await axios.post(`http://localhost:3007/api/register-eventdetails/create` ,param);
 
     if (response.data.ResponseStatus === "failure") {
       const errorMessage = response.data.Message || "An unknown error occurred";

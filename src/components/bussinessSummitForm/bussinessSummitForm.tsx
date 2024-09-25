@@ -14,50 +14,36 @@ import Select from "../select/Select";
 
 interface FormValues {
   name: string;
-  job: string;
+  jobTitle: string;
   email: string;
   phoneNumber: string;
-  state: number[];
-  city: number[];
+  investmentCapital: number[];
 }
 
 const myFont = localFont({
   src: "../../../public/font/impact-webfont.woff",
   variable: "--font-impact",
 });
+
+const option = [
+  { label: "20L - 30L", value: "20L - 30L" },
+  { label: "31L - 40L", value: "31L - 40L" },
+  { label: "41L - 55L", value: "41L - 55L" },
+  { label: "56L and above", value: "56L and above" },
+];
+
 const BussinessSummitForm = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [citiesOption, setCitiesOption] = useState([]);
-  const [stateOption, setStateOption] = useState([]);
-  const [selectedState, setSelectedState] = useState<number[]>([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState<string>("");
 
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
-    job: "",
+    jobTitle: "",
     email: "",
     phoneNumber: "",
-    state: [],
-    city: [],
+    investmentCapital: [],
   });
-
-  const fetchState = async () => {
-    try {
-      const response = await getIndustry("/dropdown/states");
-      const formattedstate = response.map((state: any) => ({
-        value: state.id,
-        label: state.name,
-      }));
-      setStateOption(formattedstate);
-    } catch (error) {
-      console.error("Error fetching states:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchState();
-  }, []);
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -75,6 +61,26 @@ const BussinessSummitForm = () => {
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, // Custom regex for stricter email format
         "Please enter a valid email address"
       ),
+    jobTitle: Yup.string()
+      .trim()
+      .max(250, "Job Title cannot be longer than 250 characters.")
+      .required("Job Title is required")
+      .test(
+        "no-only-spaces",
+        "Job Title cannot consist only of spaces",
+        (value) => (value ? value.trim().length > 0 : false) // Return boolean
+      ),
+    investmentCapital: Yup.mixed().test(
+      "is-not-empty",
+      "Investment Capital is required",
+      (value) => {
+        return (
+          value &&
+          (typeof value === "string" ||
+            (Array.isArray(value) && value.length > 0))
+        );
+      }
+    ),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
       .required("Contact No is required"),
@@ -85,7 +91,6 @@ const BussinessSummitForm = () => {
     { setSubmitting, setFieldTouched }: FormikHelpers<typeof formValues>
   ) => {
     setIsSubmitting(true);
-
     try {
       const response = await eventRegister(values);
       if (response.success) {
@@ -171,25 +176,25 @@ const BussinessSummitForm = () => {
                   <div className="w-full mb-[10px]">
                     <label
                       className="text-sm text-[var(--text-color)]"
-                      htmlFor="job"
+                      htmlFor="jobTitle"
                     >
                       Job Title<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       as={InputField}
-                      id="job"
-                      name="job"
+                      id="jobTitle"
+                      name="jobTitle"
                       type="text"
                       required
                       className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
-                        getIn(errors, "job") && getIn(touched, "job")
+                        getIn(errors, "jobTitle") && getIn(touched, "jobTitle")
                           ? "border-red-500 mb-0.5"
                           : ""
                       }`}
                     />
-                    {getIn(errors, "job") && getIn(touched, "job") && (
+                    {getIn(errors, "jobTitle") && getIn(touched, "jobTitle") && (
                       <div className="text-red-500 font-medium mb-2">
-                        {getIn(errors, "job")}
+                        {getIn(errors, "jobTitle")}
                       </div>
                     )}
                   </div>
@@ -197,23 +202,29 @@ const BussinessSummitForm = () => {
                 <div className="w-full mb-[10px]">
                   <label
                     className="text-sm text-[var(--text-color)]"
-                    htmlFor="state"
+                    htmlFor="investmentCapital"
                   >
                     Investment Capital (INR in Lakhs)
                     <sup className="text-red-500">*</sup>
                   </label>
                   <Select
-                    name="state"
+                    name="investmentCapital"
                     placeholder=" "
                     searchable
-                    className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center`}
-                    options={stateOption}
-                    onChange={(value: any) => {
-                      setFieldValue("state", value);
-                      setFieldValue("city", []); // Reset city field when state changes
-                      setSelectedState(value); // Update selectedState to trigger city fetch
-                    }}
+                    className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                      getIn(errors, "investmentCapital") &&
+                      getIn(touched, "investmentCapital")
+                        ? "border-red-500 mb-0.5"
+                        : ""
+                    }`}
+                    options={option}
                   />
+                  {getIn(errors, "investmentCapital") &&
+                    getIn(touched, "investmentCapital") && (
+                      <div className="text-red-500 font-medium mb-2">
+                        {getIn(errors, "investmentCapital")}
+                      </div>
+                    )}
                 </div>
                 <div className="grid grid-cols-2 gap-2 md:gap-10">
                   <div className="w-full mb-[10px]">
@@ -278,7 +289,9 @@ const BussinessSummitForm = () => {
                   </div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-[var(--highlighted-color)] text-base py-2 font-bold">Get special VIP passes</div>
+                  <div className="text-[var(--highlighted-color)] text-base py-2 font-bold">
+                    Get special VIP passes
+                  </div>
                   <Button
                     variant="highlighted"
                     type="submit"
@@ -297,7 +310,7 @@ const BussinessSummitForm = () => {
                   </Button>
                 </div>
                 {showSuccessMessage && (
-                  <div className="text-green-500 text-center md:mb-2 font-bold">
+                  <div className="text-red-500 text-center md:mt-2 font-bold">
                     {showSuccessMessage}
                   </div>
                 )}

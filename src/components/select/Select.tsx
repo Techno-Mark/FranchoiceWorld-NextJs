@@ -2,16 +2,21 @@ import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./select.module.css";
 
+interface Option {
+  value: number | string;
+  label: string;
+}
+
 interface SelectProps {
-  options: { value: number; label: string }[];
+  options: Option[];
   name: string;
   label?: string;
   className?: string;
   placeholder?: string;
   required?: boolean;
-  onChange?: (value: number) => void;
+  onChange?: (value: number | string) => void;
   searchable?: boolean;
-  disabled?: boolean; // Add the disabled prop here
+  disabled?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -23,7 +28,7 @@ const Select: React.FC<SelectProps> = ({
   required,
   onChange,
   searchable = false,
-  disabled = false, // Default to false if not provided
+  disabled = false,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -78,12 +83,12 @@ const Select: React.FC<SelectProps> = ({
     }
   }, [isOpen]);
 
-  const handleOptionClick = (option: { value: number; label: string }) => {
+  const handleOptionClick = (option: Option) => {
     helpers.setValue(option.value);
     setIsOpen(false);
     setIsTouched(true);
     if (onChange) {
-      onChange(option?.value);
+      onChange(option.value);
     }
     setSearchQuery("");
     setFocusedOptionIndex(-1);
@@ -91,7 +96,6 @@ const Select: React.FC<SelectProps> = ({
 
   const toggleDropdown = () => {
     if (!disabled) {
-      // Only allow toggle if not disabled
       setIsOpen(!isOpen);
       if (!isOpen) {
         setFocusedOptionIndex(0);
@@ -106,7 +110,6 @@ const Select: React.FC<SelectProps> = ({
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!disabled) {
-      // Skip all key events if the select is disabled
       if (!isOpen) {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
@@ -162,7 +165,7 @@ const Select: React.FC<SelectProps> = ({
     <div className="relative inline-block w-full select-container">
       {label && (
         <label
-          className="block mb-2 font-medium text-[rgba(115,114,115,1)]"
+          className="block mb-2 font-medium text-[var(--text-color)]"
           htmlFor={name}
         >
           {label}
@@ -183,7 +186,7 @@ const Select: React.FC<SelectProps> = ({
             }
           }, 0);
         }}
-        tabIndex={disabled ? -1 : 0} // Skip tabindex when disabled
+        tabIndex={disabled ? -1 : 0}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -198,7 +201,7 @@ const Select: React.FC<SelectProps> = ({
               : "flex w-full px-4 py-3 leading-tight bg-white border border-gray-300 rounded cursor-pointer h-full items-center justify-between"
           } ${isFocused ? "ring-2 ring-gray-300 border-gray-300" : ""} ${
             disabled ? "bg-gray-100 cursor-not-allowed" : ""
-          }`} // Add disabled styling here
+          }`}
           onClick={toggleDropdown}
         >
           <span
@@ -246,7 +249,7 @@ const Select: React.FC<SelectProps> = ({
                   placeholder="Search..."
                   className="w-full p-2 text-base border rounded focus:outline-none"
                   ref={searchInputRef}
-                  disabled={disabled} // Disable search when select is disabled
+                  disabled={disabled}
                 />
               </div>
             )}

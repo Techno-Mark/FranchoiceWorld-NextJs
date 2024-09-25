@@ -5,7 +5,6 @@ import Select from "@/components/select/Select";
 import styles from "./categoriescontent.module.css";
 import { getIndustry, getSector, getService } from "@/api/dropdown";
 import { useRouter } from "next/navigation";
-import { getFranchiseList } from "@/api/home";
 interface OptionType {
   value: number;
   label: string;
@@ -83,11 +82,11 @@ const CategoriesContent = () => {
               className="flex justify-between px-2 py-2 leading-tight bg-white text-[var(--text-color)] font-medium shadow-lg rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center"
               options={industryOptions}
               placeholder="Select Industries"
-              onChange={(value) => {
+              onChange={(value) => {                
                 setFieldValue("industry", value);
                 setFieldValue("sector", null);
                 setFieldValue("product", null);
-                fetchSectorData(value);
+                fetchSectorData(Number(value));
               }}
             />
           </div>
@@ -100,7 +99,7 @@ const CategoriesContent = () => {
               onChange={(value) => {
                 setFieldValue("sector", value);
                 setFieldValue("product", null);
-                fetchServiceData(value);
+                fetchServiceData(Number(value));
               }}
               // disabled={!values.industry}
             />

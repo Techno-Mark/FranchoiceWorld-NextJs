@@ -76,7 +76,7 @@ const FirstStep = () => {
     }
   };
 
-  const fetchCities = async (stateId: number[]) => {
+  const fetchCities = async (stateId: (string | number)[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
         stateId: stateId,
