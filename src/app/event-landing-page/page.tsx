@@ -95,7 +95,7 @@ function EventLandingPage() {
               titleClass="text-center !text-[var(--text-color)] max-w-[450px] mx-auto mb-8"
             />
             <div className="flex flex-col md:flex-row">
-              <div className="w-1/3">
+              <div className="w-full md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/impactful.svg"
@@ -113,7 +113,7 @@ function EventLandingPage() {
                   </p>
                 </div>
               </div>
-              <div className="w-1/3">
+              <div className="w-full md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/multiBrand.svg"
@@ -132,7 +132,7 @@ function EventLandingPage() {
                   </p>
                 </div>
               </div>
-              <div className="w-1/3">
+              <div className="w-full md:w-1/3">
                 <div className="flex flex-col justify-center text-center bg-white shadow-md max-w-[300px] p-6 rounded-lg">
                   <Image
                     src="/images/event/industrySupport.svg"
