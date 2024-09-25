@@ -6,6 +6,7 @@ import InputField from "../Fields/InputField";
 import Select from "../select/Select";
 import { eventRegister } from "@/api/home";
 import styles from "./eventform.module.css";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
   name: string;
@@ -28,6 +29,7 @@ interface EnquireProps {
 }
 
 const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
+  const router = useRouter();
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -93,9 +95,10 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
         phoneNumber: values.phoneNumber.toString(),
       };
       const response = await eventRegister(params);
-      if (response.success) {        
+      if (response.success) {
         resetForm();
-        setSuccessMessage(response.message)
+        router.push(`/registerThankyou`);
+        setSuccessMessage(response.message);
       } else {
         setErrorMessage(response.message);
       }
