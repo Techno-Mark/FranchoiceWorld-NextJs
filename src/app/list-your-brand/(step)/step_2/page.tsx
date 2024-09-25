@@ -426,14 +426,16 @@ function SecondStep() {
                                 : ""
                             }`}
                             onChange={(value) => {
+                              const numericValue =
+                                value === null ? null : Number(value);
                               if (field === "industry") {
-                                setSelectedIndustry(value);
+                                setSelectedIndustry(numericValue);
                                 setFieldValue("industry", value);
                                 setFieldValue("subCategory", null);
                                 setFieldValue("service", null);
                                 setSelectedSubCat(null);
                               } else if (field === "subCategory") {
-                                setSelectedSubCat(value);
+                                setSelectedSubCat(numericValue);
                                 setFieldValue("subCategory", value);
                                 setFieldValue("service", null);
                               } else {

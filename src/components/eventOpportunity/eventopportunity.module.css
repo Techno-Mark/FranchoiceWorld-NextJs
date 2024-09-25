@@ -1,0 +1,9 @@
+.eventOpptext {
+    position: relative;
+    width: 90%;
+    top: -10%;
+    background: #F5F7FA;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px #ABBED166;
+}

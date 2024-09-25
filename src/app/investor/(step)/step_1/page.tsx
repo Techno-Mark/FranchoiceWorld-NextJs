@@ -84,7 +84,7 @@ function InvestorFirstStep() {
       console.error("Error fetching states:", error);
     }
   };
-  const fetchCity = async (stateIds: number[]) => {
+  const fetchCity = async (stateIds: (string | number)[]) => {
     try {
       const response = await getCity("/dropdown/cities", {
         stateId: stateIds,
@@ -319,7 +319,7 @@ function InvestorFirstStep() {
                       ? "border-red-500 mb-0.5"
                       : ""
                   }`}
-                  onChange={(value: number) => {
+                  onChange={(value) => {
                     fetchCity([value]);
                   }}
                   options={stateOptions}

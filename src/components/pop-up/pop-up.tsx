@@ -24,11 +24,18 @@ const myFont = localFont({
 
 interface FormValues {
   name: string;
+  jobTitle: string;
   email: string;
   phoneNumber: string;
-  state: number[];
-  city: number[];
+  investmentCapital: number[];
 }
+
+const option = [
+  { label: "20L - 30L", value: "20L - 30L" },
+  { label: "31L - 40L", value: "31L - 40L" },
+  { label: "41L - 55L", value: "41L - 55L" },
+  { label: "56L and above", value: "56L and above" },
+];
 
 const MainPopup = () => {
   const router = useRouter();
@@ -41,10 +48,10 @@ const MainPopup = () => {
 
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
+    jobTitle: "",
     email: "",
     phoneNumber: "",
-    state: [],
-    city: [],
+    investmentCapital: [],
   });
 
   const fetchState = async () => {
@@ -112,6 +119,26 @@ const MainPopup = () => {
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, // Custom regex for stricter email format
         "Please enter a valid email address"
       ),
+    jobTitle: Yup.string()
+      .trim()
+      .max(250, "Job Title cannot be longer than 250 characters.")
+      .required("Job Title is required")
+      .test(
+        "no-only-spaces",
+        "Job Title cannot consist only of spaces",
+        (value) => (value ? value.trim().length > 0 : false) // Return boolean
+      ),
+    investmentCapital: Yup.mixed().test(
+      "is-not-empty",
+      "Investment Capital is required",
+      (value) => {
+        return (
+          value &&
+          (typeof value === "string" ||
+            (Array.isArray(value) && value.length > 0))
+        );
+      }
+    ),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
       .required("Contact No is required"),
@@ -140,12 +167,6 @@ const MainPopup = () => {
     }
   };
 
-  useEffect(() => {
-    if (formValues.state.length) {
-      fetchCity(formValues.state); // Fetch cities when state is selected
-    }
-  }, [formValues.state]);
-
   const handleAction = () => {
     setShowConsent(false);
   };
@@ -170,7 +191,7 @@ const MainPopup = () => {
             </button>
             <div className="bg-footer-bg hidden md:flex p-8 justify-between flex-col">
               {/* <div> */}
-                <PopupLogo />
+              <PopupLogo />
               {/* </div> */}
               <div className="absolute bottom-0 left-8">
                 <Image
@@ -186,7 +207,7 @@ const MainPopup = () => {
                 <div>
                   <div className="text-footer-bg text-center uppercase">
                     <p
-                      className={`${myFont.className} text-5xl md:text-[80px]  font-impact`}
+                      className={`${myFont.className} text-5xl md:text-[80px] font-impact`}
                     >
                       Success ka
                     </p>
@@ -230,35 +251,89 @@ const MainPopup = () => {
                     >
                       {({ errors, touched, setFieldValue }) => (
                         <Form>
-                          <div className="w-full mb-3 md:mb-4">
-                            <Field
-                              as={InputField}
-                              id="name"
-                              name="name"
-                              type="text"
-                              required
-                              label="Your Name"
-                              className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
-                                getIn(errors, "name") && getIn(touched, "name")
-                                  ? "border-red-500 mb-0.5"
-                                  : ""
-                              }`}
-                            />
-                            {getIn(errors, "name") &&
-                              getIn(touched, "name") && (
-                                <div className="text-red-500 font-medium mb-2">
-                                  {getIn(errors, "name")}
-                                </div>
-                              )}
-                          </div>
                           <div className="grid grid-cols-2 gap-2 md:gap-10">
                             <div className="w-full md:mb-2">
                               <Field
                                 as={InputField}
+                                id="name"
+                                name="name"
+                                type="text"
+                                required
+                                label="Your Name"
+                                className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+                                  getIn(errors, "name") &&
+                                  getIn(touched, "name")
+                                    ? "border-red-500 mb-0.5"
+                                    : ""
+                                }`}
+                              />
+                              {getIn(errors, "name") &&
+                                getIn(touched, "name") && (
+                                  <div className="text-red-500 font-medium mb-2">
+                                    {getIn(errors, "name")}
+                                  </div>
+                                )}
+                            </div>
+                            <div className="w-full mb-2">
+                              <Field
+                                as={InputField}
+                                id="jobTitle"
+                                name="jobTitle"
+                                type="text"
+                                label="Job Title"
+                                required
+                                className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
+                                  getIn(errors, "jobTitle") &&
+                                  getIn(touched, "jobTitle")
+                                    ? "border-red-500 mb-0.5"
+                                    : ""
+                                }`}
+                              />
+                              {getIn(errors, "jobTitle") &&
+                                getIn(touched, "jobTitle") && (
+                                  <div className="text-red-500 font-medium mb-2">
+                                    {getIn(errors, "jobTitle")}
+                                  </div>
+                                )}
+                            </div>
+                          </div>
+                          <div className="w-full  mb-3 md:mb-4">
+                            <div className="w-full md:mb-2">
+                              <label
+                                className="text-sm text-[var(--text-color)]"
+                                htmlFor="investmentCapital"
+                              >
+                                Investment Capital (INR in Lakhs)
+                                <sup className="text-red-500">*</sup>
+                              </label>
+                              <Select
+                                name="investmentCapital"
+                                placeholder=" "
+                                searchable
+                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                                  getIn(errors, "investmentCapital") &&
+                                  getIn(touched, "investmentCapital")
+                                    ? "border-red-500 mb-0.5"
+                                    : ""
+                                }`}
+                                options={option}
+                              />
+                              {getIn(errors, "investmentCapital") &&
+                                getIn(touched, "investmentCapital") && (
+                                  <div className="text-red-500 font-medium mb-2">
+                                    {getIn(errors, "investmentCapital")}
+                                  </div>
+                                )}
+                            </div>
+                          </div>
+                          <div className="grid  gap-2 md:gap-10 grid-cols-2">
+                            <div className="w-full mb-3 md:mb-4">
+                              <Field
+                                as={InputField}
                                 id="email"
                                 name="email"
-                                type="text"
                                 label="Email"
+                                type="text"
                                 required
                                 className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
                                   getIn(errors, "email") &&
@@ -274,7 +349,7 @@ const MainPopup = () => {
                                   </div>
                                 )}
                             </div>
-                            <div className="w-full mb-2">
+                            <div className="w-full mb-2 md:mb-3">
                               <Field
                                 as={InputField}
                                 id="phoneNumber"
@@ -305,37 +380,6 @@ const MainPopup = () => {
                                     {getIn(errors, "phoneNumber")}
                                   </div>
                                 )}
-                            </div>
-                          </div>
-                          <div className="grid  gap-2 md:gap-10 grid-cols-2">
-                            <div className="w-full mb-3 md:mb-4">
-                              <Select
-                                name="state"
-                                label="State"
-                                placeholder="Please select a state"
-                                searchable
-                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center`}
-                                options={stateOption}
-                                onChange={(value: any) => {
-                                  setFieldValue("state", value);
-                                  setFieldValue("city", []); // Reset city field when state changes
-                                  setSelectedState(value); // Update selectedState to trigger city fetch
-                                }}
-                              />
-                            </div>
-                            <div className="w-full mb-2 md:mb-3">
-                              <Select
-                                name="city"
-                                label="City"
-                                searchable
-                                placeholder="Please select a city"
-                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg 
-                                    focus:outline-none min-h-[45px] items-center`}
-                                options={citiesOption}
-                                onChange={(value: any) =>
-                                  setFieldValue("city", value)
-                                }
-                              />
                             </div>
                           </div>
                           <div className="flex justify-center md:justify-end">
