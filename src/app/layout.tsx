@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import CookieConsent from "@/components/cookie/cookie";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
-import CookieConsent from "@/components/cookie/cookie";
 import MainPopup from "@/components/pop-up/pop-up";
-import Script from 'next/script';
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     
       <head>
         <meta
           name="viewport"
@@ -55,10 +53,11 @@ export default function RootLayout({
             gtag('config', 'G-N8S5PBBZZV');`, // Replace GA-TRACKING_ID with your Google Analytics ID
           }}
         />
-      
 
-      <script type="text/javascript" dangerouslySetInnerHTML={{
-          __html: `
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
             adroll_adv_id = "IBJE2MI5PBBDTD4KJ6ULLS";
             adroll_pix_id = "5STVHOG2TRENJIZ7HYTFAE";
             adroll_version = "2.0";
@@ -81,14 +80,15 @@ export default function RootLayout({
                 o.parentNode.insertBefore(e, o);
             })(window, document);
             adroll.track("pageView");
-          `
-        }} />
+          `,
+          }}
+        />
       </head>
       <body className="mainBody">
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NXCN43GS" 
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NXCN43GS"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}

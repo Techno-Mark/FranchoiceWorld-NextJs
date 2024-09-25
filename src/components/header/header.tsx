@@ -47,7 +47,7 @@ const Header = () => {
   ];
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [toggleClass, setToggleClass] = useState(false);
+  // const [toggleClass, setToggleClass] = useState(false);
   // const [listBrand, setListBrand] = useState(false);
   // const [stepList, setStepList] = useState(false);
   // const [loading, setLoading] = useState<boolean>(true);

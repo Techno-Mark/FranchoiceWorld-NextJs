@@ -170,7 +170,7 @@ const MainPopup = () => {
             </button>
             <div className="bg-footer-bg hidden md:flex p-8 justify-between flex-col">
               {/* <div> */}
-                <PopupLogo />
+              <PopupLogo />
               {/* </div> */}
               <div className="absolute bottom-0 left-8">
                 <Image
@@ -186,7 +186,7 @@ const MainPopup = () => {
                 <div>
                   <div className="text-footer-bg text-center uppercase">
                     <p
-                      className={`${myFont.className} text-5xl md:text-[80px]  font-impact`}
+                      className={`${myFont.className} text-5xl md:text-[80px] font-impact`}
                     >
                       Success ka
                     </p>

@@ -32,7 +32,7 @@ const ImageGallery: React.FC<GalleryProps> = ({
   });
 
   return (
-    <div className={`flex my-6 md:my-0${className}`}>
+    <div className={`flex my-6 md:my-0 ${className}`}>
       {columns.map((col, colIndex) => (
         <div
           key={colIndex}
