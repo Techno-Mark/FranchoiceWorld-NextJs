@@ -253,12 +253,6 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
               </svg>
             </Button>
           </div>
-          {successMessage && (
-            <div className="text-green-500 text-center mt-4">
-              {successMessage}
-            </div>
-          )}
-
           {errorMessage && (
             <div className="text-red-500 text-center mt-4">{errorMessage}</div>
           )}
