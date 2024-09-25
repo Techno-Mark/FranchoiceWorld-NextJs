@@ -30,8 +30,8 @@ interface EnquireProps {
 
 const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
   const router = useRouter();
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const initialValues: FormValues = {
     name: "",
@@ -83,8 +83,8 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
       setFieldTouched(fieldName, true);
     });
 
-    setSuccessMessage(""); // Reset messages before each submit
-    setErrorMessage("");
+    setSuccessMessage(null); // Reset messages before each submit
+    setErrorMessage(null);
 
     try {
       const params = {
@@ -97,10 +97,15 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
       const response = await eventRegister(params);
       if (response.success) {
         resetForm();
-        router.push(`/registerThankyou`);
         setSuccessMessage(response.message);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 7000);
       } else {
         setErrorMessage(response.message);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 7000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -256,9 +261,13 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
               </svg>
             </Button>
           </div>
-          {errorMessage && (
+          {errorMessage ? (
             <div className="text-red-500 text-center mt-4">{errorMessage}</div>
-          )}
+          ) : successMessage ? (
+            <div className="text-green-500 text-center mt-4">
+              {successMessage}
+            </div>
+          ) : null}
         </Form>
       )}
     </Formik>
