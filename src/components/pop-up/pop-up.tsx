@@ -56,7 +56,7 @@ const MainPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
-    }, 15000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -258,7 +258,7 @@ const MainPopup = () => {
                           <div className="w-full mb-2">
                             <div className="w-full">
                               <label
-                                className="text-sm text-[var(--text-color)]"
+                                className="text-sm font-medium  text-[var(--text-color)]"
                                 htmlFor="investmentCapital"
                               >
                                 Investment Capital (INR in Lakhs)
@@ -267,7 +267,7 @@ const MainPopup = () => {
                               <Select
                                 name="investmentCapital"
                                 placeholder=" "
-                                className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
+                                className={`flex justify-between mt-2 px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                                   getIn(errors, "investmentCapital") &&
                                   getIn(touched, "investmentCapital")
                                     ? "border-red-500 mb-0.5"
