@@ -138,7 +138,7 @@ const banner = {
 const franchiseData = {
   title: {
     text: "Franchise Industry at a Glance",
-    style: "font-normal", // Dynamic font style for the title
+    style: "font-normal", 
   },
   paragraphs: [
     {

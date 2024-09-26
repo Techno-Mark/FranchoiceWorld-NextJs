@@ -16,6 +16,8 @@ import { eventRegister } from "@/api/home";
 import localFont from "next/font/local";
 import styles from "./pop-up.module.css";
 import ThankYou from "@/app/thankyou/page";
+import CountryDropdown from "../countryDropdown/countryDropdown";
+import NumberField from "../Fields/CustomNumberBox";
 
 const myFont = localFont({
   src: "../../../public/font/impact-webfont.woff",
@@ -41,9 +43,6 @@ const MainPopup = () => {
   const router = useRouter();
   const [showConsent, setShowConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [citiesOption, setCitiesOption] = useState([]);
-  const [stateOption, setStateOption] = useState([]);
-  const [selectedState, setSelectedState] = useState<number[]>([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState<string>("");
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -54,19 +53,6 @@ const MainPopup = () => {
     investmentCapital: [],
   });
 
-  const fetchState = async () => {
-    try {
-      const response = await getIndustry("/dropdown/states");
-      const formattedstate = response.map((state: any) => ({
-        value: state.id,
-        label: state.name,
-      }));
-      setStateOption(formattedstate);
-    } catch (error) {
-      console.error("Error fetching states:", error);
-    }
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
@@ -74,34 +60,6 @@ const MainPopup = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const fetchCity = async (cityId: number[]) => {
-    try {
-      const response = await getCity("/dropdown/cities", {
-        stateId: [cityId],
-      });
-      const formattedCity = response.map((city: any) => ({
-        value: city.id,
-        label: city.name,
-      }));
-
-      setCitiesOption(formattedCity);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchState();
-  }, []);
-
-  useEffect(() => {
-    if (selectedState.length != 0) {
-      fetchCity(selectedState); // Fetch cities when state is selected
-    } else {
-      setCitiesOption([]); // Clear cities when no state is selected
-    }
-  }, [selectedState]);
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -193,12 +151,12 @@ const MainPopup = () => {
               {/* <div> */}
               <PopupLogo />
               {/* </div> */}
-              <div className="absolute bottom-0 left-8">
+              <div className="absolute bottom-0 left-5">
                 <Image
                   alt="lady_img"
                   src="/images/Lady.png"
-                  height={480}
-                  width={219}
+                  height={413}
+                  width={188}
                 />
               </div>
             </div>
@@ -350,12 +308,19 @@ const MainPopup = () => {
                                 )}
                             </div>
                             <div className="w-full mb-2 md:mb-3">
+                              <label
+                                className="block mb-2 font-medium text-[var(--text-color)]"
+                                htmlFor="phoneNumber"
+                              >
+                                Contact No{" "}
+                                <span className="text-red-500 ml-1">*</span>
+                              </label>
+
                               <Field
-                                as={InputField}
+                                as={NumberField}
                                 id="phoneNumber"
                                 name="phoneNumber"
                                 type="Number"
-                                label="Contact No"
                                 required
                                 maxLength={10}
                                 onChange={(
@@ -367,7 +332,7 @@ const MainPopup = () => {
                                     setFieldValue("phoneNumber", value);
                                   }
                                 }}
-                                className={`block w-full border text-base border-[#73727366] rounded-lg py-2 px-4  focus:bg-white focus:outline-none ${
+                                className={`block w-full !pl-14 border text-base border-[#73727366] rounded-lg py-2 px-4 focus:bg-white focus:outline-none ${
                                   getIn(errors, "phoneNumber") &&
                                   getIn(touched, "phoneNumber")
                                     ? "border-red-500 mb-0.5"
@@ -382,11 +347,11 @@ const MainPopup = () => {
                                 )}
                             </div>
                           </div>
-                          <div className="flex justify-center md:justify-end">
+                          <div className="flex justify-center ">
                             <Button
                               variant="highlighted"
                               type="submit"
-                              className="rounded-lg font-semibold flex items-center !py-4 !px-7"
+                              className="rounded-lg text-sm font-bold flex items-center !py-4 !px-7"
                             >
                               {isSubmitting ? (
                                 <>
@@ -394,7 +359,7 @@ const MainPopup = () => {
                                 </>
                               ) : (
                                 <>
-                                  Register to Attend
+                                  Get special VIP passes | Register Now
                                   <ArrowIcon
                                     color="white"
                                     className="rotate-180 ml-2"
