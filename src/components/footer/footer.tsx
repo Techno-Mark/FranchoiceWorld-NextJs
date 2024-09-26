@@ -170,24 +170,19 @@ const Footer = () => {
             <div className="container mx-auto w-full py-4">
               <div className="flex justify-center ">
                 <div className="flex flex-col justify-center items-center gap-5 text-white order-2 md:order-1 mt-8 md:mt-0">
-                  <Link href="/" className="flex items-center">
-                    <Image
-                      src="/images/footerLogo.svg"
-                      className={`h-14 w-auto me-3${styles.footerLogo}`}
-                      alt="Logo"
-                      width={100}
-                      height={100}
-                    />
-                  </Link>
+                  <Image
+                    src="/images/footerLogo.svg"
+                    className={`h-14 w-auto me-3${styles.footerLogo}`}
+                    alt="Logo"
+                    width={100}
+                    height={100}
+                  />
                   <p>
                     <small>
-                      Copyright © 2024 Franchoiceworld 
-                      All rights reserved
+                      Copyright © 2024 Franchoiceworld All rights reserved
                     </small>
                   </p>
-                 
                 </div>
-               
               </div>
             </div>
           </footer>{" "}

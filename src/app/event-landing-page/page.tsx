@@ -321,7 +321,7 @@ function EventLandingPage() {
                         width={30}
                         height={40}
                       />
-                      Andehri East, Mumbai
+                      Andheri East, Mumbai
                     </Link>
                   </li>
                   <li>
