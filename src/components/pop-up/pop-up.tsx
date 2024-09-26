@@ -210,7 +210,7 @@ const MainPopup = () => {
                       {({ errors, touched, setFieldValue }) => (
                         <Form>
                           <div className="grid grid-cols-2 gap-2 md:gap-10">
-                            <div className="w-full md:mb-2">
+                            <div className="w-full mb-2">
                               <Field
                                 as={InputField}
                                 id="name"
@@ -255,8 +255,8 @@ const MainPopup = () => {
                                 )}
                             </div>
                           </div>
-                          <div className="w-full  mb-3 md:mb-4">
-                            <div className="w-full md:mb-2">
+                          <div className="w-full mb-2">
+                            <div className="w-full">
                               <label
                                 className="text-sm text-[var(--text-color)]"
                                 htmlFor="investmentCapital"
