@@ -69,11 +69,11 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
     ),
     phoneNumber: Yup.string()
       .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
-      .required("Phone Number is required"),
+      .required("Contact Number is required"),
     email: Yup.string()
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
-      .required("Contact No is required"),
+      .required("Email is required"),
   });
 
   const handleSubmit = async (

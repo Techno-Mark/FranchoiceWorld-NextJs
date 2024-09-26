@@ -267,7 +267,6 @@ const MainPopup = () => {
                               <Select
                                 name="investmentCapital"
                                 placeholder=" "
-                                searchable
                                 className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                                   getIn(errors, "investmentCapital") &&
                                   getIn(touched, "investmentCapital")
