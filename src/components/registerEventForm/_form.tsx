@@ -245,7 +245,7 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                 varient === "dark" ? "w-full" : ""
               }`}
             >
-              Register to Attend
+              Register Now
               <svg
                 className={`${styles.arrowIcn} ml-2 xl:ml-2`}
                 width="19"
