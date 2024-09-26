@@ -305,7 +305,7 @@ const BussinessSummitForm = () => {
                       </>
                     ) : (
                       <>
-                        Get special VIP passes | Register Now
+                        Get special VIP pass | Register Now
                         <ArrowIcon color="white" className="rotate-180 ml-2" />
                       </>
                     )}
