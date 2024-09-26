@@ -56,7 +56,7 @@ const MainPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConsent(true);
-    }, 1500);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);
