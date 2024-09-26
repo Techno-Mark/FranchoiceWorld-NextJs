@@ -210,7 +210,7 @@ const MainPopup = () => {
                       {({ errors, touched, setFieldValue }) => (
                         <Form>
                           <div className="grid grid-cols-2 gap-2 md:gap-10">
-                            <div className="w-full md:mb-2">
+                            <div className="w-full mb-2">
                               <Field
                                 as={InputField}
                                 id="name"
@@ -255,8 +255,8 @@ const MainPopup = () => {
                                 )}
                             </div>
                           </div>
-                          <div className="w-full  mb-3 md:mb-4">
-                            <div className="w-full md:mb-2">
+                          <div className="w-full mb-2">
+                            <div className="w-full">
                               <label
                                 className="text-sm text-[var(--text-color)]"
                                 htmlFor="investmentCapital"
@@ -267,7 +267,6 @@ const MainPopup = () => {
                               <Select
                                 name="investmentCapital"
                                 placeholder=" "
-                                searchable
                                 className={`flex justify-between px-2 py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[45px] items-center ${
                                   getIn(errors, "investmentCapital") &&
                                   getIn(touched, "investmentCapital")

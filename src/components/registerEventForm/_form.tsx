@@ -7,6 +7,7 @@ import Select from "../select/Select";
 import { eventRegister } from "@/api/home";
 import styles from "./eventform.module.css";
 import { useRouter } from "next/navigation";
+import NumberField from "../Fields/CustomNumberBox";
 
 interface FormValues {
   name: string;
@@ -67,12 +68,12 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
       }
     ),
     phoneNumber: Yup.string()
-      .matches(/^\d{10}$/, "Number must be exactly 10 digits")
-      .required("Phone Number is required"),
+      .matches(/^\d{10}$/, "Contact Number must be exactly 10 digits")
+      .required("Contact Number is required"),
     email: Yup.string()
       .max(250, "Email Address cannot be longer than 250 characters.")
       .email("Invalid email address")
-      .required("Email ID is required"),
+      .required("Email is required"),
   });
 
   const handleSubmit = async (
@@ -168,7 +169,6 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
             <div className="w-full md:mr-2 mb-2 lg:max-w-[180px]">
               <Select
                 name="investmentCapital"
-                searchable
                 placeholder="Investment Capital"
                 className={`flex items-center justify-between text-[12px] font-medium border border-[rgba(115,114,115,0.4)] rounded-lg py-[7px] px-4 cursor-pointer bg-white focus:outline-none ${
                   getIn(errors, "investmentCapital") &&
@@ -209,11 +209,11 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
               <div className="flex flex-col">
                 <div className="flex">
                   <Field
-                    as={InputField}
+                    as={NumberField}
                     id="grid-phoneNumber"
                     name="phoneNumber"
                     type="text"
-                    placeholder="Phone Number"
+                    
                     required={true}
                     maxLength={10}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,7 +222,7 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                         setFieldValue("phoneNumber", value);
                       }
                     }}
-                    className={`block w-full text-base md:text-xs border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-1 focus:outline-none mb-0.5 ${
+                    className={`block !pl-14 w-full text-base md:text-xs border border-[#73727366] text-[12px] font-medium rounded-lg py-2 px-4 ml-1 focus:outline-none mb-0.5 ${
                       getIn(errors, "phoneNumber") &&
                       getIn(touched, "phoneNumber")
                         ? "border-red-500"
