@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import Button from "../button/button";
 import InputField from "../Fields/InputField";
 import Select from "../select/Select";
+import CountryDropdown from "../countryDropdown/countryDropdown";
+import NumberField from "../Fields/CustomNumberBox";
 
 interface FormValues {
   name: string;
@@ -211,7 +213,6 @@ const BussinessSummitForm = () => {
                   <Select
                     name="investmentCapital"
                     placeholder=" "
-                    searchable
                     className={`flex justify-between !px-1 md:px-2 !py-1 md:py-2 mb-0.5 leading-none bg-white text-[var(--text-color)] font-medium border border-[#73727366] rounded-lg cursor-pointer focus:outline-none min-h-[37px] md:min-h-[45px] items-center ${
                       getIn(errors, "investmentCapital") &&
                       getIn(touched, "investmentCapital")
@@ -260,8 +261,9 @@ const BussinessSummitForm = () => {
                     >
                       Contact No<sup className="text-red-500">*</sup>
                     </label>
+
                     <Field
-                      as={InputField}
+                      as={NumberField}
                       id="phoneNumber"
                       name="phoneNumber"
                       type="Number"
@@ -274,13 +276,14 @@ const BussinessSummitForm = () => {
                           setFieldValue("phoneNumber", value);
                         }
                       }}
-                      className={`block w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4 focus:bg-white focus:outline-none ${
+                      className={`block !pl-14 w-full border text-base border-[#73727366] rounded-lg py-1 md:py-2 px-1 md:px-4 focus:bg-white focus:outline-none ${
                         getIn(errors, "phoneNumber") &&
                         getIn(touched, "phoneNumber")
                           ? "border-red-500 mb-0.5"
                           : ""
                       }`}
                     />
+
                     {getIn(errors, "phoneNumber") &&
                       getIn(touched, "phoneNumber") && (
                         <div className="text-red-500 font-medium mb-2">
@@ -290,13 +293,10 @@ const BussinessSummitForm = () => {
                   </div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-[var(--highlighted-color)] text-base py-2 font-bold">
-                    Get special VIP passes
-                  </div>
                   <Button
                     variant="highlighted"
                     type="submit"
-                    className="rounded-lg font-semibold flex items-center !py-3 !px-7"
+                    className="rounded-lg font-bold text-sm flex items-center !py-3 !px-7"
                   >
                     {isSubmitting ? (
                       <>
@@ -304,7 +304,7 @@ const BussinessSummitForm = () => {
                       </>
                     ) : (
                       <>
-                        Register to Attend
+                        Get special VIP pass | Register Now
                         <ArrowIcon color="white" className="rotate-180 ml-2" />
                       </>
                     )}

@@ -247,7 +247,7 @@ function EventLandingPage() {
                   href="javascript:void(0)"
                   onClick={handleScrollTop}
                 >
-                  Register to Attend
+                  Register Now
                   <svg
                     className={`${styles.arrowIcn} ml-2 xl:ml-2`}
                     width="19"
