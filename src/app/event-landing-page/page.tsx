@@ -274,14 +274,14 @@ function EventLandingPage() {
               title="Our Brands"
               desc="Here are the brands that you can explore at the event!"
               titleClass="text-center !text-[var(--text-color)] !pb-2"
-              descClass="text-center font-medium text-base"
+              descClass="text-center font-medium text-base mb-4"
             />
             <OurBrand />
           </div>
         </section>
 
         {/* Opportunity Event */}
-        <section className="py-6 md:pt-12">
+        <section className="py-6 md:pt-8">
           <div className="container">
             <Title
               title="Opportunities at the Event"
