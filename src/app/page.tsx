@@ -2,6 +2,7 @@
 import { getFranchiseList } from "@/api/home";
 import AboutFranchoice from "@/components/aboutFranchoice/aboutFranchoice";
 import Banner from "@/components/banner/banner";
+import EventBanner from "@/components/eventBanner/eventBanner";
 import FindFranchise from "@/components/findFranchise/findFranchise";
 import FranchiseIndustry from "@/components/franchiseIndustry/franchiseIndustry";
 import HalfBanner from "@/components/halfBanner/halfBanner";
@@ -277,7 +278,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <Banner props={banner} />
+      <EventBanner props={banner} />
       <HalfBanner />
       <div className="relative">
         <WhyChoose
