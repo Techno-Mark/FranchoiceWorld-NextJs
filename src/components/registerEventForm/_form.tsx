@@ -84,7 +84,6 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
       setFieldTouched(fieldName, true);
     });
 
-    setSuccessMessage(null); // Reset messages before each submit
     setErrorMessage(null);
 
     try {
@@ -98,7 +97,8 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
       const response = await eventRegister(params);
       if (response.success) {
         resetForm();
-        setSuccessMessage(response.message);
+        // setSuccessMessage(response.message);
+        router.push(`/registerThankyou`);
         setTimeout(() => {
           setSuccessMessage(null);
         }, 7000);
@@ -213,7 +213,6 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
                     id="grid-phoneNumber"
                     name="phoneNumber"
                     type="text"
-                    
                     required={true}
                     maxLength={10}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -261,13 +260,9 @@ const EnvForm: React.FC<EnquireProps> = ({ varient = "white", pageForm }) => {
               </svg>
             </Button>
           </div>
-          {errorMessage ? (
+          {errorMessage && (
             <div className="text-red-500 text-center mt-4">{errorMessage}</div>
-          ) : successMessage ? (
-            <div className="text-green-500 text-center mt-4">
-              {successMessage}
-            </div>
-          ) : null}
+          )}
         </Form>
       )}
     </Formik>
