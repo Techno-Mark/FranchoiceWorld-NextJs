@@ -8,7 +8,6 @@ import styles from "./event.module.css";
 import OurBrand from "@/components/ourBrand/ourBrand";
 import EventOpportunity from "@/components/eventOpportunity/eventOpportunity";
 import BussinessSummitForm from "@/components/bussinessSummitForm/bussinessSummitForm";
-import InquireForm from "@/components/inquireForm/inquireForm";
 import EventForm from "@/components/registerEventForm/eventForm";
 
 function EventLandingPage() {
